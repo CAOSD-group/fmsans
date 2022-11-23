@@ -44,3 +44,6 @@ class FMSans():
         self._original_fm = fm
         self._transformation_vector = None  # Order of the transformations of the constraints
         self._transformations_ids = []  # Numbers of the transformations
+
+
+

@@ -5,7 +5,9 @@ This module contains all utils related to the management of a feature model.
 import copy
 from collections.abc import Callable
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Relation
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+
+from fm_solver.utils import constraints_utils
 
 
 def commitment_feature(feature_model: FeatureModel, feature_name: str) -> FeatureModel:
@@ -137,3 +139,129 @@ def get_trees_from_original_root(fm: FeatureModel) -> list[FeatureModel]:
                 trees.extend(subtrees)
             return trees
     return [fm]
+
+
+def get_model_from_subtrees(fm: FeatureModel, subtrees: set[FeatureModel]) -> FeatureModel:
+    """It returns a new feature model by joining all exclusive subtrees with a XOR group.
+    
+    The result is a model with a new root, which is an XOR group where each subfeatures is one
+    of the subtrees.
+    """
+    new_root = Feature(get_new_feature_name(fm, 'XOR_Root'), is_abstract=True)
+    children = []
+    for tree in subtrees:
+        tree.root.parent = new_root
+        children.append(tree.root)
+    if not children:
+        return None
+    xor_rel = Relation(new_root, children, 1, 1)
+    new_root.add_relation(xor_rel)
+    return FeatureModel(new_root)
+
+
+def numbers_of_features_to_be_removed(fm: FeatureModel, ctc: Constraint) -> tuple[int, int]:
+    """Return the number of features that will be deleted from the feature model when
+    the given constraint is refactored into the tree diagram.
+    
+    It returns a tuple where the first value corresponds with the first transformation required
+    to eliminate the CTC (i.e., the commitment or deletion of a feature), while the second value
+    corresponds with the second transformation required to eliminate the CTC (i.e., the 
+    deletion of both features or the deletion of the first feature and the commitment of the other.
+    """
+    left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
+    if constraints_utils.is_requires_constraint(ctc):
+        t_0 = numbers_of_features_to_be_removed_commitment(fm, right_feature)
+        t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_deletion(fm, right_feature)
+    else:  # it is an excludes
+        t_0 = numbers_of_features_to_be_removed_deletion(fm, right_feature)
+        t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_commitment(fm, right_feature)
+    return (t_0, t_1)
+
+
+def numbers_of_features_to_be_removed_commitment(fm: FeatureModel, feature_name: str) -> int:
+    """Return the number of features that will be removed from the feature model when
+    the given feature is commitment into the diagram."""
+    feature = fm.get_feature_by_name(feature_name)
+    if feature not in fm.get_features():
+        return len(fm.get_features())
+    feature_to_commit = feature
+    n_features = 0
+    while feature_to_commit != fm.root:
+        parent = feature_to_commit.get_parent()
+        if parent.is_alternative_group():  
+            n_features += len(parent.get_relations()[0].children) - 1
+            for child in parent.get_relations()[0].children:
+                if child != feature_to_commit:
+                    n_features += children_number(child)
+        feature_to_commit = parent
+    return n_features
+
+
+def numbers_of_features_to_be_removed_deletion(fm: FeatureModel, feature_name: str) -> int:
+    """Return the number of features that will be removed from the feature model when
+    the given feature is deleted from the diagram."""
+    feature = fm.get_feature_by_name(feature_name)
+    if feature not in fm.get_features():
+        return 0
+    n_features = 0
+    feature_to_delete = feature
+    parent = feature_to_delete.get_parent()  
+    while feature_to_delete != fm.root and not parent.is_group() and feature_to_delete.is_mandatory():
+        feature_to_delete = parent
+        parent = feature_to_delete.get_parent()
+    if feature_to_delete == fm.root:
+        n_features = len(fm.get_features())
+    elif not parent.is_group() and feature_to_delete.is_optional():
+        n_features = 1 + children_number(feature_to_delete)
+    elif parent.is_alternative_group() or parent.is_or_group():
+        n_features = 1 + children_number(feature_to_delete)
+    return n_features
+
+
+def children_number(feature: Feature) -> int:
+    """Return the number of children in all the subtrees of the given feature."""
+    if feature is None:
+        return 0
+    n_features = len(feature.get_children())
+    for child in feature.get_children():
+        n_features += children_number(child)
+    return n_features
+
+
+def get_subtrees_constraints_implications(fm: FeatureModel) -> tuple[FeatureModel, FeatureModel]:
+    """Return the subtree of the feature model that is affected by cross-tree constraints,
+    and the subtree of the feature model that is not affected by any cross-tree constraint."""
+    subtree_without_implications = get_subtree_without_constraints_implications(fm)
+    features = subtree_without_implications.get_features()
+    features.remove(subtree_without_implications.root)
+    subtree = FeatureModel(copy.deepcopy(fm.root))
+    for f in features:
+        feature = subtree.get_feature_by_name(f.name)
+        subtree = remove_feature_branch(subtree, feature)
+    return (subtree, subtree_without_implications)
+
+
+def get_subtree_without_constraints_implications(fm: FeatureModel) -> FeatureModel:
+    """Return the subtree of the feature model that is not affected by any constraint."""
+    if len(fm.root.get_relations()) < 2:
+        return None
+    subtree = FeatureModel(copy.deepcopy(fm.root))
+    for ctc in fm.get_constraints():
+        for f in ctc.get_features():
+            if subtree is not None:
+                feature = subtree.get_feature_by_name(f)
+                subtree = remove_feature_branch(subtree, feature)
+    return subtree
+
+
+def remove_feature_branch(fm: FeatureModel, feature: Feature) -> FeatureModel:
+    """Remove the entire branch from the root that containts the given feature."""
+    parent = feature.get_parent() if feature is not None else None
+    while feature is not None and parent != fm.root:
+        feature = parent
+        parent = feature.get_parent()
+    if feature is not None:
+        relations_to_be_deleted = [rel for rel in parent.get_relations() if feature in rel.children]
+        for rel in relations_to_be_deleted:
+            parent.get_relations().remove(rel)
+    return fm

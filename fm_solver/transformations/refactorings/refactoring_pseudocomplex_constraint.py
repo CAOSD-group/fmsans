@@ -1,6 +1,6 @@
 from flamapy.core.models import AST, ASTOperation
+from flamapy.core.models import ast as ast_utils
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
-
 
 from fm_solver.transformations.refactorings import FMRefactoring
 
@@ -41,17 +41,17 @@ class RefactoringPseudoComplexConstraint(FMRefactoring):
 def split_constraint(constraint: Constraint) -> list[Constraint]:
     """Given a constraint, split it in multiple constraints separated by the AND operator."""
     asts = split_formula(constraint.ast)
-    asts_simplified = [AST.simplify_formula(ast) for ast in asts]
+    asts_simplified = [ast_utils.simplify_formula(ast) for ast in asts]
     asts = []
     for ctc in asts_simplified:
         asts.extend(split_formula(ctc))
         
-    asts_negation_propagated = [AST.propagate_negation(ast.root) for ast in asts]
+    asts_negation_propagated = [ast_utils.propagate_negation(ast.root) for ast in asts]
     asts = []
     for ctc in asts_negation_propagated:
         asts.extend(split_formula(ctc))
 
-    asts_cnf = [AST.to_cnf(ast) for ast in asts]
+    asts_cnf = [ast_utils.to_cnf(ast) for ast in asts]
     asts = []
     for ctc in asts_cnf:
         asts.extend(split_formula(ctc))
