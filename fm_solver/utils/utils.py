@@ -1,3 +1,7 @@
+"""
+This module contains generic utils.
+"""
+
 from flamapy.core.models import ASTOperation
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 

@@ -1,5 +1,5 @@
 from flamapy.core.models import AST, ASTOperation
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 
 
 from fm_solver.transformations.refactorings import FMRefactoring
@@ -13,7 +13,8 @@ class RefactoringPseudoComplexConstraint(FMRefactoring):
 
     @staticmethod
     def get_description() -> str:
-        return ("It splits a pseudo-complex constraint in multiple constraints dividing it by the AND operator when possible.")
+        return ("It splits a pseudo-complex constraint in multiple constraints dividing it "
+                "by the AND operator when possible.")
 
     @staticmethod
     def get_language_construct_name() -> str:

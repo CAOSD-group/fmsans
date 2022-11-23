@@ -1,3 +1,10 @@
+"""
+This module contains all utils related to the management of a feature model.
+"""
+
+import copy
+from collections.abc import Callable
+
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Relation
 
 
@@ -87,6 +94,22 @@ def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureM
     return feature_model
 
 
+def transform_tree(functions: list[Callable], fm: FeatureModel, features: list[str], copy_tree: bool) -> FeatureModel:
+    """Apply a list of functions (commitment_feature or deletion_feature) 
+    to the tree of the feature model. 
+    
+    For each function, it uses each feature (in order) in the provided list as argument.
+    """
+    if copy_tree:
+        tree = FeatureModel(copy.deepcopy(fm.root), fm.get_constraints())
+    else:
+        tree = fm
+    for func, feature in zip(functions, features):
+        if tree is not None:
+            tree = func(tree, feature)
+    return tree
+
+
 def get_new_feature_name(fm: FeatureModel, prefix_name: str) -> str:
     """Return a new name for a feature (based on the provided prefix) that is not already in the feature model."""
     count = 1
@@ -95,3 +118,22 @@ def get_new_feature_name(fm: FeatureModel, prefix_name: str) -> str:
         new_name = f'{prefix_name}{count}'
         count += 1
     return new_name
+
+
+def get_trees_from_original_root(fm: FeatureModel) -> list[FeatureModel]:
+    """Given a feature model with non-unique features, 
+    returns the subtrees the root of which are the original root of the feature model.
+    
+    The original root of the feature model is the most top feature 
+    that is not a XOR group with two or more identical children.
+    """
+    root = fm.root
+    if root.is_alternative_group():
+        child_name = root.get_children()[0].name
+        if all(child.name == child_name for child in root.get_children()):
+            trees = []
+            for child in root.get_children():
+                subtrees = get_trees_from_original_root(FeatureModel(child, fm.get_constraints()))
+                trees.extend(subtrees)
+            return trees
+    return [fm]

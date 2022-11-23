@@ -2,7 +2,7 @@ from flamapy.core.models.ast import AST, ASTOperation, Node
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
 from fm_solver.transformations.refactorings import FMRefactoring
-from fm_solver.models import fm_utils, constraint_utils
+from fm_solver.utils import fm_utils, constraints_utils
 
 
 class RefactoringStrictComplexConstraint(FMRefactoring):
@@ -23,7 +23,7 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Constraint]:
         return [ctc for ctc in model.get_constraints() 
-                if constraint_utils.is_complex_constraint(ctc)]
+                if constraints_utils.is_complex_constraint(ctc)]
 
     @staticmethod
     def is_applicable(model: FeatureModel) -> bool:
@@ -48,7 +48,7 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
                                       parent=new_or, is_abstract=True)
                 features.append(new_feature)
                 ast_op = ASTOperation.REQUIRES if features_dict[f] else ASTOperation.EXCLUDES
-                ctc = Constraint(constraint_utils.get_new_ctc_name(ctcs_names, 'CTC'), 
+                ctc = Constraint(constraints_utils.get_new_ctc_name(ctcs_names, 'CTC'), 
                                  AST.create_binary_operation(ast_op, 
                                  Node(new_feature.name), Node(f)))
                 model.ctcs.append(ctc)
