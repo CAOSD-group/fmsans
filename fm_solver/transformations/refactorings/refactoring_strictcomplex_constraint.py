@@ -44,7 +44,7 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
             new_or = Feature(fm_utils.get_new_feature_name(model, 'OR'), is_abstract=True)
             features = []
             for f in features_dict.keys():
-                new_feature = Feature(fm_utils.get_new_feature_complex_name(model, f), 
+                new_feature = Feature(fm_utils.get_new_feature_name(model, f), 
                                       parent=new_or, is_abstract=True)
                 features.append(new_feature)
                 ast_op = ASTOperation.REQUIRES if features_dict[f] else ASTOperation.EXCLUDES

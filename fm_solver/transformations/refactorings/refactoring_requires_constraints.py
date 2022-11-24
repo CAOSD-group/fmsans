@@ -21,7 +21,7 @@ class RefactoringRequiresConstraint(FMRefactoring):
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Constraint]:
         return [ctc for ctc in model.get_constraints() 
-                if constraints_utils.is_requires_constraint()]
+                if constraints_utils.is_requires_constraint(ctc)]
 
     @staticmethod
     def is_applicable(model: FeatureModel) -> bool:

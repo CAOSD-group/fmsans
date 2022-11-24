@@ -1,18 +1,41 @@
 import argparse
 
-from flamapy.metamodels.fm_metamodel.transformations import UVLReader
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
+
+from fm_solver.transformations import FMToFMSans
+from fm_solver.transformations.refactorings import (
+    RefactoringPseudoComplexConstraint,
+    RefactoringStrictComplexConstraint,
+    RefactoringRequiresConstraint,
+    RefactoringExcludesConstraint
+)
+from fm_solver.operations import FMConfigurationsNumber
+from fm_solver.utils import utils, fm_utils
 
 
 def main(fm_filepath: str):
     # Load the feature model
     fm = UVLReader(fm_filepath).transform()
-    print(fm)
-
     # Transform the feature model to FMSans
-    pass
+    #fm_sans = FMToFMSans(source_model=fm).transform()
+
+    fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
+    UVLWriter(fm, fm_filepath + '_refactored1.uvl').transform()
+    fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
+    UVLWriter(fm, fm_filepath + '_refactored2.uvl').transform()
+    fm = utils.apply_refactoring(fm, RefactoringRequiresConstraint)
+    UVLWriter(fm, fm_filepath + '_refactored3.uvl').transform()
+    fm = utils.apply_refactoring(fm, RefactoringExcludesConstraint)
+    fm = fm_utils.remove_leaf_abstract_features(fm)
+
 
     # Execute an analysis operation
-    pass
+    n_configurations = FMConfigurationsNumber().execute(fm).get_result()
+    print(f'#Configurations: {n_configurations}')
+
+    fm = fm_utils.to_unique_features(fm)
+    UVLWriter(fm, fm_filepath + '_refactored.uvl').transform()
+
 
 
 if __name__ == '__main__':

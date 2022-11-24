@@ -265,3 +265,46 @@ def remove_feature_branch(fm: FeatureModel, feature: Feature) -> FeatureModel:
         for rel in relations_to_be_deleted:
             parent.get_relations().remove(rel)
     return fm
+
+
+def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
+    """Remove all leaf abstract features from the feature model."""
+    assert len(model.get_constraints()) == 0
+    
+    is_there_leaf_abstract_features = False
+    for feature in model.get_features():
+        if feature.is_leaf() and feature.is_abstract:
+            is_there_leaf_abstract_features = True
+            parent = feature.get_parent()
+            # If parent is not group we eliminate the relation
+            if not parent.is_group():
+                rel = next((r for r in parent.get_relations() if feature in r.children), None)
+                parent.get_relations().remove(rel)
+            # If parent is group we eliminate the feature from the group relation
+            else:
+                rel = parent.get_relations()[0]
+                rel.children.remove(feature)
+                if rel.card_max > 1:
+                    rel.card_max -= 1
+    if is_there_leaf_abstract_features:  # need recursion
+        model = remove_leaf_abstract_features(model)
+    return model
+
+
+def to_unique_features(model: FeatureModel) -> FeatureModel:
+    """Replace duplicated features names in the feature model.
+    
+    The model is augmented with a dictionary of features' references to the original features.
+    """
+    if not hasattr(model, 'dict_references'):
+            model.features_references = {}
+    unique_features_names = []
+    for feature in model.get_features():
+        if feature.name not in unique_features_names:
+            unique_features_names.append(feature.name)
+        else:
+            new_name = get_new_feature_name(model, feature.name)
+            model.features_references[new_name] = feature.name
+            feature.name = new_name
+            unique_features_names.append(feature.name)
+    return model
