@@ -1,6 +1,5 @@
 
-from .fm_sans import FMSans
-from .simple_ctc_transformation import SimpleCTCTransformation
+from .fm_sans import FMSans, SimpleCTCTransformation
 
 
 __all__ = ['FMSans',

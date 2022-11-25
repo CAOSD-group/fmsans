@@ -48,15 +48,18 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
     trees_plus = set()
     trees_less = set()
     # Construct T(+B)   
+    print(f'CTC: {requires_ctc.ast.pretty_str()}')
     for tree in subtrees:
         t_plus = fm_utils.transform_tree([fm_utils.commitment_feature], tree, [feature_name_b], True)
         if t_plus is not None:
             trees_plus.add(t_plus)
+        print(f'T(+{feature_name_b}) = {t_plus.root.name if t_plus is not None else "NIL"}')
     # Construct T(-A-B)
     for tree in subtrees:
         t_less = fm_utils.transform_tree([fm_utils.deletion_feature, fm_utils.deletion_feature], tree, [feature_name_a, feature_name_b], False)
         if t_less is not None:
             trees_less.add(t_less)
+        print(f'T(-{feature_name_a}-{feature_name_b}) = {t_less.root.name if t_less is not None else "NIL"}')
 
     # The result consists of a new root, which is an Xor feature,
     # with subfeatures T(+B) and T(-A-B).

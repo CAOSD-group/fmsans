@@ -52,11 +52,13 @@ def eliminate_excludes(fm: FeatureModel, excludes_ctc: Constraint) -> FeatureMod
         t_less = fm_utils.transform_tree([fm_utils.deletion_feature], tree, [feature_name_b], True)
         if t_less is not None:
             trees_less.add(t_less)
+        print(f'T(-{feature_name_b}) = {t_less.root.name if t_less is not None else "NIL"}')
     # Construct T(-A+B)
     for tree in subtrees:
         t_lessplus = fm_utils.transform_tree([fm_utils.deletion_feature, fm_utils.commitment_feature], tree, [feature_name_a, feature_name_b], False)
         if t_lessplus is not None:
             trees_lessplus.add(t_lessplus)
+        print(f'T(-{feature_name_a}+{feature_name_b}) = {t_lessplus.root.name if t_lessplus is not None else "NIL"}')
 
     # The result consists of a new root, which is an Xor feature,
     # with subfeatures T(-B) and T(-A+B).

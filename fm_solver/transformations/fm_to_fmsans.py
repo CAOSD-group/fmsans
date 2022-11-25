@@ -3,8 +3,8 @@ import copy
 from flamapy.core.transformations import ModelToModel
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 
-from fm_solver.models import FMSans, SimpleCTCTransformation
-from fm_solver.utils import utils, fm_utils, constraints_utils
+from fm_solver.models import FMSans, fm_sans
+from fm_solver.utils import utils, fm_utils
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
     RefactoringStrictComplexConstraint
@@ -46,46 +46,43 @@ def fm_to_fmsans(fm: FeatureModel) -> FMSans:
     fm, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
     print(f'Subtree without constraints implications: {subtree_without_constraints_implications}')
     #print(f'constraints_order: {constraints_order}')
-    transformations_vector = fm_constraints.get_transformations_vector(constraints_order)
+    transformations_vector = fm_sans.get_transformations_vector(constraints_order)
 
     n_bits = len(transformations_vector)
     #binary_vector = format(0, f'0{n_bits}b')
     num = 0
     i_bit = n_bits
     max = 2**n_bits
-    valid_transformed_numbers_trees = {}  # dict of number -> tree
+    valid_transformed_numbers_trees = []
     percentage = 0.0
     while num < max:
         #binary_vector = list(format(num, f'0{n_bits}b')[::-1])
         binary_vector = list(format(num, f'0{n_bits}b'))
-        tree, null_bit = execute_transformations_vector(fm, transformations_vector, binary_vector)
+        tree, null_bit = fm_sans.execute_transformations_vector(fm, transformations_vector, binary_vector)
         if tree is not None:
             #print(f'{num}: {"".join(binary_vector)} -> OK')
-            valid_transformed_numbers_trees[num] = tree
+            valid_transformed_numbers_trees.append(num)
             num += 1
         else:  # tree is None
             print(f'Transformation resulted in NULL. Bit: {null_bit}')
-            num = get_next_number_prunning_binary_vector(binary_vector, null_bit)
+            num = fm_sans.get_next_number_prunning_binary_vector(binary_vector, null_bit)
             #print(f'  |- next number: {num}')
         percentage = (num / max) * 100
         print(f'#Valid subtrees: {len(valid_transformed_numbers_trees)}. Num: {num} / {max} Ratio: ({percentage}%)')
-    result_fm = fm_utils.get_model_from_subtrees(fm, valid_transformed_numbers_trees.values())
-    # Mix result FM and subtree without implications:
-    # 1. Change name to the original root
-    subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')
-    new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)
-    new_root.add_relation(Relation(new_root, [subtree_without_constraints_implications.root], 1, 1))
-    subtree_without_constraints_implications.root.parent = new_root
-    new_root.add_relation(Relation(new_root, [result_fm.root], 1, 1))
-    result_fm.root.parent = new_root
-    return FeatureModel(new_root)
-
+    
+    result_fm = FMSans(subtree_with_constraints_implications=fm, 
+                     subtree_without_constraints_implications=subtree_without_constraints_implications,
+                     transformations_vector=transformations_vector,
+                     transformations_ids=valid_transformed_numbers_trees)
+    return result_fm
 
 
 def analysis_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
-    """It analyses and returns the best order in which the constrainst will be eliminated,
-    based on the transformations that first reach a NIL (None or Null) feature model.
+    """It analyses and returns the best order in which the constrainst will be eliminated.  
     
+    It applies an Greedy heuristic, based on the transformations that first reach 
+    a NIL (None or Null) feature model.
+
     The result is a tuple with:
      - The list of constraints in order.
      - A dictionary of 'index -> (T0, T1)',
@@ -105,7 +102,7 @@ def analysis_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict
         # Get the first transformation (only for the first one, i.e., the best one)
         first_ctc_transformation_order = ([ctcs_ordered[0][0]], {0: ctcs_ordered[1][0]})
         #print(f'first_ctc_transformation_order: {first_ctc_transformation_order}')
-        transformation_vector = get_transformations_vector(first_ctc_transformation_order)
+        transformation_vector = fm_sans.get_transformations_vector(first_ctc_transformation_order)
         # Execute the transformation
         tree = transformation_vector[0][0].transforms(tree)
         constraints.remove(ctcs_ordered[0][0])
@@ -141,7 +138,8 @@ def analysis_constraints_order_estimation(fm: FeatureModel, constraints: list[Co
     constraints_analysis = {}
     for i, ctc in enumerate(constraints):
         constraints_analysis[i] = fm_utils.numbers_of_features_to_be_removed(fm, ctc)
-    constraints_ordered = dict(sorted(constraints_analysis.items(), key=lambda item: max(item[1][0], item[1][1]), reverse=True))  # order by best transformation
+    # Order by best transformation
+    constraints_ordered = dict(sorted(constraints_analysis.items(), key=lambda item: max(item[1][0], item[1][1]), reverse=True))  
     constraints_ordered_transformations = {}
     for i, (key, value) in enumerate(constraints_ordered.items()):
         constraints_ordered_transformations[i] = (0, 1) if value[0] >= value[1] else (1, 0)
@@ -153,20 +151,4 @@ def analysis_constraints_order_estimation(fm: FeatureModel, constraints: list[Co
     return (new_constraints_ordered, constraints_ordered_transformations)
 
 
-def get_transformations_vector(constraints_order: tuple[list[Constraint], dict[int, tuple[int, int]]]) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
-    """Get the transformations vector from a specific constraints order."""
-    transformations_vector = []
-    for i, ctc in enumerate(constraints_order[0]):
-        #print(f'i: {i}, ctc: {ctc}')
-        left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
-        if constraints_utils.is_requires_constraint(ctc):
-            t0 = SimpleCTCTransformation(SimpleCTCTransformation.REQUIRES, 0, [fm_utils.commitment_feature], [right_feature])
-            t1 = SimpleCTCTransformation(SimpleCTCTransformation.REQUIRES, 1, [fm_utils.deletion_feature, fm_utils.deletion_feature], [left_feature, right_feature])
-        else:  # it is an excludes
-            t0 = SimpleCTCTransformation(SimpleCTCTransformation.EXCLUDES, 0, [fm_utils.deletion_feature], [right_feature])
-            t1 = SimpleCTCTransformation(SimpleCTCTransformation.EXCLUDES, 1, [fm_utils.deletion_feature, fm_utils.commitment_feature], [left_feature, right_feature])
-        if constraints_order[1][i] == (0, 1):
-            transformations_vector.append((t0, t1))
-        else:
-            transformations_vector.append((t1, t0))
-    return transformations_vector
+
