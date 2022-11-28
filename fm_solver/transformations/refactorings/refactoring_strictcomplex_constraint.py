@@ -51,6 +51,7 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
                 ctc = Constraint(constraints_utils.get_new_ctc_name(ctcs_names, 'CTC'), 
                                  AST.create_binary_operation(ast_op, 
                                  Node(new_feature.name), Node(f)))
+                ctcs_names.append(ctc.name)
                 model.ctcs.append(ctc)
 
             # New branch with OR as root
