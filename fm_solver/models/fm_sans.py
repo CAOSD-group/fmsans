@@ -50,7 +50,6 @@ class FMSans():
                  subtree_without_constraints_implications: FeatureModel,
                  transformations_vector: list[tuple['SimpleCTCTransformation', 'SimpleCTCTransformation']],
                  transformations_ids: list[int],
-                 
                 ) -> None:
         self.subtree_with_constraints_implications = subtree_with_constraints_implications
         self.subtree_without_constraints_implications = subtree_without_constraints_implications
@@ -95,9 +94,13 @@ class SimpleCTCTransformation():
     """
     REQUIRES = 'R'
     EXCLUDES = 'E'
+    REQUIRES_T0 = [fm_utils.commitment_feature]
+    REQUIRES_T1 = [fm_utils.deletion_feature, fm_utils.deletion_feature]
+    EXCLUDES_T0 = [fm_utils.deletion_feature]
+    EXCLUDES_T1 = [fm_utils.deletion_feature, fm_utils.commitment_feature]
 
-    def __init__(self, name: str, value: int, transformations: list[Callable], features: list[str]) -> None:
-        self.name = name
+    def __init__(self, type: str, value: int, transformations: list[Callable], features: list[str]) -> None:
+        self.type = type
         self.value = value  # the value is not needed at all?
         self.transformations = transformations
         self.features = features
@@ -106,7 +109,7 @@ class SimpleCTCTransformation():
         return fm_utils.transform_tree(self.transformations, fm, self.features, copy_model)
 
     def __str__(self) -> str:
-        return f'{self.name}{self.value}{[f for f in self.features]}'
+        return f'{self.type}{self.value}{[f for f in self.features]}'
 
 
 def get_transformations_vector(constraints_order: tuple[list[Constraint], dict[int, tuple[int, int]]]) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
@@ -116,11 +119,11 @@ def get_transformations_vector(constraints_order: tuple[list[Constraint], dict[i
         #print(f'i: {i}, ctc: {ctc}')
         left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
         if constraints_utils.is_requires_constraint(ctc):
-            t0 = SimpleCTCTransformation(SimpleCTCTransformation.REQUIRES, 0, [fm_utils.commitment_feature], [right_feature])
-            t1 = SimpleCTCTransformation(SimpleCTCTransformation.REQUIRES, 1, [fm_utils.deletion_feature, fm_utils.deletion_feature], [left_feature, right_feature])
+            t0 = SimpleCTCTransformation(SimpleCTCTransformation.REQUIRES, 0, SimpleCTCTransformation.REQUIRES_T0, [right_feature])
+            t1 = SimpleCTCTransformation(SimpleCTCTransformation.REQUIRES, 1, SimpleCTCTransformation.REQUIRES_T1, [left_feature, right_feature])
         else:  # it is an excludes
-            t0 = SimpleCTCTransformation(SimpleCTCTransformation.EXCLUDES, 0, [fm_utils.deletion_feature], [right_feature])
-            t1 = SimpleCTCTransformation(SimpleCTCTransformation.EXCLUDES, 1, [fm_utils.deletion_feature, fm_utils.commitment_feature], [left_feature, right_feature])
+            t0 = SimpleCTCTransformation(SimpleCTCTransformation.EXCLUDES, 0, SimpleCTCTransformation.EXCLUDES_T0, [right_feature])
+            t1 = SimpleCTCTransformation(SimpleCTCTransformation.EXCLUDES, 1, SimpleCTCTransformation.EXCLUDES_T1, [left_feature, right_feature])
         if constraints_order[1][i] == (0, 1):
             transformations_vector.append((t0, t1))
         else:

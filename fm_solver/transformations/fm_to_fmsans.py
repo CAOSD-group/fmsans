@@ -43,7 +43,7 @@ def fm_to_fmsans(fm: FeatureModel) -> FMSans:
     constraints_order = analysis_constraints_order(fm)
     assert len(constraints_order[0]) == len(fm.get_constraints())
 
-    fm, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
+    subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
     print(f'Subtree without constraints implications: {subtree_without_constraints_implications}')
     #print(f'constraints_order: {constraints_order}')
     transformations_vector = fm_sans.get_transformations_vector(constraints_order)
@@ -58,7 +58,7 @@ def fm_to_fmsans(fm: FeatureModel) -> FMSans:
     while num < max:
         #binary_vector = list(format(num, f'0{n_bits}b')[::-1])
         binary_vector = list(format(num, f'0{n_bits}b'))
-        tree, null_bit = fm_sans.execute_transformations_vector(fm, transformations_vector, binary_vector)
+        tree, null_bit = fm_sans.execute_transformations_vector(subtree_with_constraints_implications, transformations_vector, binary_vector)
         if tree is not None:
             #print(f'{num}: {"".join(binary_vector)} -> OK')
             valid_transformed_numbers_trees.append(num)
@@ -70,10 +70,10 @@ def fm_to_fmsans(fm: FeatureModel) -> FMSans:
         percentage = (num / max) * 100
         print(f'#Valid subtrees: {len(valid_transformed_numbers_trees)}. Num: {num} / {max} Ratio: ({percentage}%)')
     
-    result_fm = FMSans(subtree_with_constraints_implications=fm, 
-                     subtree_without_constraints_implications=subtree_without_constraints_implications,
-                     transformations_vector=transformations_vector,
-                     transformations_ids=valid_transformed_numbers_trees)
+    result_fm = FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications, 
+                       subtree_without_constraints_implications=subtree_without_constraints_implications,
+                       transformations_vector=transformations_vector,
+                       transformations_ids=valid_transformed_numbers_trees)
     return result_fm
 
 

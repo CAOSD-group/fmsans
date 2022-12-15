@@ -1,9 +1,10 @@
+import os
 import argparse
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 
-from fm_solver.transformations import FMToFMSans
+from fm_solver.transformations import FMToFMSans, FMSansWriter, FMSansReader
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
     RefactoringStrictComplexConstraint,
@@ -25,19 +26,24 @@ def classic_approach(fm: FeatureModel) -> FeatureModel:
 
 
 def main(fm_filepath: str):
+    fm_name = os.path.basename(fm_filepath).split('.')[0]
+
     # Load the feature model
     fm = UVLReader(fm_filepath).transform()
     
     # Transform the feature model to FMSans
     fm_sans = FMToFMSans(fm).transform()
-    fm = fm_sans.get_feature_model()
     
+    FMSansWriter(f'{fm_name}.json', fm_sans).transform()
+    fm_sans = FMSansReader(f'{fm_name}.json').transform()
+    fm = fm_sans.get_feature_model()
+
     # Execute an analysis operation
     n_configurations = FMConfigurationsNumber().execute(fm).get_result()
     print(f'#Configurations: {n_configurations}')
 
     fm = fm_utils.to_unique_features(fm)
-    UVLWriter(fm, fm_filepath + '_refactored.uvl').transform()
+    UVLWriter(fm, fm_name + '_refactored.uvl').transform()
 
 
 if __name__ == '__main__':
