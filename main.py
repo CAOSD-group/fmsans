@@ -46,9 +46,26 @@ def main(fm_filepath: str):
     UVLWriter(fm, fm_name + '_refactored.uvl').transform()
 
 
+def main_fmsans(fmsans_filepath: str):
+    fm_name = os.path.basename(fmsans_filepath).split('.')[0]
+    
+    # Load the feature model
+    fm_sans = FMSansReader(fmsans_filepath).transform()
+    fm = fm_sans.get_feature_model()
+
+    # Execute an analysis operation
+    n_configurations = FMConfigurationsNumber().execute(fm).get_result()
+    print(f'#Configurations: {n_configurations}')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='FM Solver.')
-    parser.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, required=True, help='Input feature model in UVL format.')
+    input_model = parser.add_mutually_exclusive_group(required=True)
+    input_model.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, help='Input feature model in UVL format.')
+    input_model.add_argument('-fmsans', dest='fm_sans', type=str, help='Input feature model in FMSans (.json) format.')
     args = parser.parse_args()
 
-    main(args.feature_model)
+    if args.feature_model:
+        main(args.feature_model)
+    else:
+        main_fmsans(args.fm_sans)
