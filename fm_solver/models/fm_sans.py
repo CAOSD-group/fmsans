@@ -60,6 +60,8 @@ class FMSans():
     
     def get_feature_model(self) -> FeatureModel:
         """Returns the complete feature model without cross-tree constraints."""
+        if self.subtree_with_constraints_implications is None:
+            return self.subtree_without_constraints_implications
         subtrees = set()
         n_bits = len(self.transformations_vector)
         for num in self.transformations_ids:
@@ -70,14 +72,17 @@ class FMSans():
         result_fm = fm_utils.get_model_from_subtrees(self.subtree_with_constraints_implications, subtrees)
         # Mix result FM and subtree without implications:
         # 1. Change name to the original root
-        self.subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')
-        new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)
-        new_root.add_relation(Relation(new_root, [self.subtree_without_constraints_implications.root], 1, 1))
-        self.subtree_without_constraints_implications.root.parent = new_root
-        new_root.add_relation(Relation(new_root, [result_fm.root], 1, 1))
-        result_fm.root.parent = new_root
+        if self.subtree_without_constraints_implications is None:
+            fm = result_fm
+        else:
+            self.subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')
+            new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)
+            new_root.add_relation(Relation(new_root, [self.subtree_without_constraints_implications.root], 1, 1))
+            self.subtree_without_constraints_implications.root.parent = new_root
+            new_root.add_relation(Relation(new_root, [result_fm.root], 1, 1))
+            result_fm.root.parent = new_root
 
-        fm = FeatureModel(new_root)
+            fm = FeatureModel(new_root)
         fm = fm_utils.remove_leaf_abstract_features(fm)
         return fm
 

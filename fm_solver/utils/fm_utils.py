@@ -232,6 +232,9 @@ def get_subtrees_constraints_implications(fm: FeatureModel) -> tuple[FeatureMode
     """Return the subtree of the feature model that is affected by cross-tree constraints,
     and the subtree of the feature model that is not affected by any cross-tree constraint."""
     subtree_without_implications = get_subtree_without_constraints_implications(fm)
+    if subtree_without_implications is None:
+        subtree = FeatureModel(copy.deepcopy(fm.root))
+        return (subtree, None)
     features = subtree_without_implications.get_features()
     features.remove(subtree_without_implications.root)
     subtree = FeatureModel(copy.deepcopy(fm.root))

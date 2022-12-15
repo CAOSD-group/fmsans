@@ -35,14 +35,20 @@ class FMToFMSans(ModelToModel):
 
 
 def fm_to_fmsans(fm: FeatureModel) -> FMSans:
+    if not fm.get_constraints():
+        # The feature model has not any constraint.
+        return FMSans(None, fm, None, None)
+
     # Refactor pseudo-complex constraints
     fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
     # Refactor strict-complex constraints
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
     
+    # Get optimum constraints order
     constraints_order = analysis_constraints_order(fm)
     assert len(constraints_order[0]) == len(fm.get_constraints())
 
+    # Split the feature model into two
     subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
     print(f'Subtree without constraints implications: {subtree_without_constraints_implications}')
     #print(f'constraints_order: {constraints_order}')

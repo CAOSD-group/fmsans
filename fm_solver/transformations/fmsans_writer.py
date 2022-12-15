@@ -50,10 +50,10 @@ class FMSansWriter(ModelToText):
 
 def _to_json(fm_sans: FMSans) -> dict[str, Any]:
     result: dict[str, Any] = {}
-    result['features_without_constraints'] = _get_tree_info(fm_sans.subtree_without_constraints_implications.root)
-    result['features_with_constraints'] = _get_tree_info(fm_sans.subtree_with_constraints_implications.root)
-    result['ctcs_transformations'] = _get_ctcs_transformations_info(fm_sans.transformations_vector)
-    result['transformations_ids'] = fm_sans.transformations_ids
+    result['features_without_constraints'] = {} if fm_sans.subtree_without_constraints_implications is None else _get_tree_info(fm_sans.subtree_without_constraints_implications.root)
+    result['features_with_constraints'] = {} if fm_sans.subtree_with_constraints_implications is None else _get_tree_info(fm_sans.subtree_with_constraints_implications.root)
+    result['ctcs_transformations'] = [] if fm_sans.transformations_vector is None else _get_ctcs_transformations_info(fm_sans.transformations_vector)
+    result['transformations_ids'] = [] if fm_sans.transformations_ids is None else fm_sans.transformations_ids
     return result
 
 
