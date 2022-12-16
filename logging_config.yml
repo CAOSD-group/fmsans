@@ -26,7 +26,7 @@ loggers:
     propagate: no
     disabled: no
   main_logger:
-    level: INFO
+    level: DEBUG
     handlers: [monitoring_file]
     propagate: no
     disabled: no
