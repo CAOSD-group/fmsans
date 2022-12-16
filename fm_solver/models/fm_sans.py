@@ -3,7 +3,7 @@ from collections.abc import Callable
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
-from fm_solver.utils import fm_utils, constraints_utils
+from fm_solver.utils import fm_utils, constraints_utils, logging_utils
 
 
 class FMSans():
@@ -176,24 +176,59 @@ def get_next_number_prunning_binary_vector(binary_vector: list[str], bit: int) -
 def get_valid_transformations_ids(fm: FeatureModel,
                                   transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]) -> list[int]:
     n_bits = len(transformations_vector)
-    #binary_vector = format(0, f'0{n_bits}b')
     num = 0
-    i_bit = n_bits
     max = 2**n_bits
     valid_transformed_numbers_trees = []
     percentage = 0.0
+    total_invalids = 0
+    total_skipped = 0
     while num < max:
         #binary_vector = list(format(num, f'0{n_bits}b')[::-1])
         binary_vector = list(format(num, f'0{n_bits}b'))
         tree, null_bit = execute_transformations_vector(fm, transformations_vector, binary_vector)
         if tree is not None:
-            #print(f'{num}: {"".join(binary_vector)} -> OK')
             valid_transformed_numbers_trees.append(num)
+            logging_utils.LOGGER.debug(f'ID (valid): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
             num += 1
         else:  # tree is None
-            print(f'Transformation resulted in NULL. Bit: {null_bit}')
+            previous_num = num
+            total_invalids += 1
             num = get_next_number_prunning_binary_vector(binary_vector, null_bit)
-            #print(f'  |- next number: {num}')
+            skipped = num - previous_num - 1
+            total_skipped += skipped
+            logging_utils.LOGGER.debug(f'ID (not valid): {previous_num} / {max} ({percentage}%), {skipped} skipped. #Valids: {len(valid_transformed_numbers_trees)}')
         percentage = (num / max) * 100
-        print(f'#Valid subtrees: {len(valid_transformed_numbers_trees)}. Num: {num} / {max} Ratio: ({percentage}%)')
+    logging_utils.LOGGER.debug(f'Total IDs: {max}, #Valids: {len(valid_transformed_numbers_trees)}, #Invalids: {total_invalids}, #Skipped: {total_skipped}.')
     return valid_transformed_numbers_trees
+
+
+def fm_stats(fm: FeatureModel) -> str:
+    lines = []
+    lines.append(f'FM stats:')
+    lines.append(f'  #Features:       {len(fm.get_features())}')
+    lines.append(f'  #Relations:      {len(fm.get_relations())}')
+    lines.append(f'  #Constraints:    {len(fm.get_constraints())}')
+    lines.append(f'    #Simple CTCs:  {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_simple_constraint(ctc)])}')
+    lines.append(f'      #Requires:   {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_requires_constraint(ctc)])}')
+    lines.append(f'      #Excludes:   {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_excludes_constraint(ctc)])}')
+    lines.append(f'    #Complex CTCs: {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_complex_constraint(ctc)])}')
+    return '\n'.join(lines)
+
+
+def fmsans_stats(fm: FMSans) -> str:
+    features_without_implications = 0 if fm.subtree_without_constraints_implications is None else len(fm.subtree_without_constraints_implications.get_features())
+    features_with_implications = 0 if fm.subtree_with_constraints_implications is None else len(fm.subtree_with_constraints_implications.get_features())
+    constraints = 0 if fm.transformations_vector is None else len(fm.transformations_vector)
+    requires_ctcs = 0 if fm.transformations_vector is None else len([ctc for ctc in fm.transformations_vector if ctc[0].type == SimpleCTCTransformation.REQUIRES])
+    excludes_ctcs = 0 if fm.transformations_vector is None else len([ctc for ctc in fm.transformations_vector if ctc[0].type == SimpleCTCTransformation.EXCLUDES])
+    subtrees = 0 if fm.transformations_ids is None else len(fm.transformations_ids)
+    lines = []
+    lines.append(f'FMSans stats:')
+    lines.append(f'  #Features:            {features_without_implications + features_with_implications}')
+    lines.append(f'    #Features out CTCs: {features_without_implications}')
+    lines.append(f'    #Features in CTCs:  {features_with_implications}')
+    lines.append(f'  #Constraints:         {constraints}')
+    lines.append(f'    #Requires:          {requires_ctcs}')
+    lines.append(f'    #Excludes:          {excludes_ctcs}')
+    lines.append(f'  #Subtrees:            {subtrees}')
+    return '\n'.join(lines)

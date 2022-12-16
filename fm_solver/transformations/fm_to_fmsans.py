@@ -4,7 +4,7 @@ from flamapy.core.transformations import ModelToModel
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 
 from fm_solver.models import FMSans, fm_sans
-from fm_solver.utils import utils, fm_utils, logging_utils, timer
+from fm_solver.utils import utils, fm_utils, logging_utils, timer, constraints_utils
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
     RefactoringStrictComplexConstraint
@@ -35,8 +35,9 @@ class FMToFMSans(ModelToModel):
 
 
 def fm_to_fmsans(fm: FeatureModel) -> FMSans:
+    logging_utils.LOGGER.debug(f'The input FM has {len(fm.get_features())} features, {len(fm.get_relations())} relations, and {len(fm.get_constraints())} constraints.')
     if not fm.get_constraints():
-        logging_utils.LOGGER.debug(f'The model has not constraints.')
+        logging_utils.LOGGER.debug(f'The FM has not constraints.')
         # The feature model has not any constraint.
         return FMSans(None, fm, None, None)
 
@@ -45,6 +46,8 @@ def fm_to_fmsans(fm: FeatureModel) -> FMSans:
     # Refactor strict-complex constraints
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
     
+    logging_utils.LOGGER.debug(f'The FM contains {len(fm.get_constraints())} basic constraints ({sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())} requires, {sum(constraints_utils.is_excludes_constraint(ctc) for ctc in fm.get_constraints())} excludes) after complex constraints refactorings.')
+
     # Get optimum constraints order
     logging_utils.LOGGER.debug(f'Analyzing optimum constraints order...')
     with timer.Timer(logger=logging_utils.LOGGER.debug, message="Optimum constraints order."):
@@ -55,18 +58,20 @@ def fm_to_fmsans(fm: FeatureModel) -> FMSans:
     logging_utils.LOGGER.debug(f'Spliting FM tree...')
     with timer.Timer(logger=logging_utils.LOGGER.debug, message="Split FM tree."):
         subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
-    logging_utils.LOGGER.debug(f'Subtree with no CTCs implications: {0 if subtree_without_constraints_implications else len(subtree_without_constraints_implications)} features.')
-    logging_utils.LOGGER.debug(f'Subtree with CTCs implications: {0 if subtree_with_constraints_implications else len(subtree_with_constraints_implications)} features.')
+    logging_utils.LOGGER.debug(f'Subtree with no CTCs implications: {0 if subtree_without_constraints_implications is None else len(subtree_without_constraints_implications.get_features())} features.')
+    logging_utils.LOGGER.debug(f'Subtree with CTCs implications: {0 if subtree_with_constraints_implications is None else len(subtree_with_constraints_implications.get_features())} features.')
 
     # Get transformations vector
     logging_utils.LOGGER.debug(f'Getting transformations vector...')
-    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Transformation vector."):
+    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Transformations vector."):
         transformations_vector = fm_sans.get_transformations_vector(constraints_order)
+    logging_utils.LOGGER.debug(f'Transformations vector length: {len(transformations_vector)} constraints.')
 
     # Get valid transformations ids.
     logging_utils.LOGGER.debug(f'Getting valid transformations IDs...')
     with timer.Timer(logger=logging_utils.LOGGER.debug, message="Valid transformations IDs."):
         valid_transformed_numbers_trees = fm_sans.get_valid_transformations_ids(subtree_with_constraints_implications, transformations_vector)
+    logging_utils.LOGGER.debug(f'#Valid subtrees: {len(valid_transformed_numbers_trees)} subtrees from {2**len(transformations_vector)}.')
     
     # Get FMSans instance
     result_fm = FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications, 

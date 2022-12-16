@@ -14,7 +14,7 @@ from fm_solver.transformations.refactorings import (
 
 from fm_solver.operations import FMConfigurationsNumber
 from fm_solver.utils import utils, fm_utils, logging_utils, timer
-
+from fm_solver.models import fm_sans as fm_sans_utils
 
 def classic_approach(fm: FeatureModel) -> FeatureModel:
     fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
@@ -32,18 +32,24 @@ def main(fm_filepath: str):
     logging_utils.FM_LOGGER.info(f'FM name: {fm_name}')
 
     # Load the feature model
-    logging_utils.LOGGER.info(f"Reading '{fm_filepath}' model...")
+    logging_utils.LOGGER.info(f"Reading FM '{fm_filepath}' model...")
     with timer.Timer(logger=logging_utils.LOGGER.info, message="FM loading."):
         fm = UVLReader(fm_filepath).transform()
-    logging_utils.FM_LOGGER.info(logging_utils.fm_stats(fm))
+    logging_utils.FM_LOGGER.info(fm_sans_utils.fm_stats(fm))
     
     # Transform the feature model to FMSans
     logging_utils.LOGGER.info(f"Transforming FM to FMSans...")
     with timer.Timer(logger=logging_utils.LOGGER.info, message="FM to FMSans transformation."):
         fm_sans = FMToFMSans(fm).transform()
-    logging_utils.FM_LOGGER.info(logging_utils.fmsans_stats(fm_sans))
+    logging_utils.FM_LOGGER.info(fm_sans_utils.fmsans_stats(fm_sans))
     
-    FMSansWriter(f'{fm_name}.json', fm_sans).transform()
+    logging_utils.LOGGER.info(f"Serializing FMSans...")
+    output_fmsans_filepath = f'{fm_name}.json'
+    with timer.Timer(logger=logging_utils.LOGGER.info, message="FMSans serialization."):
+        FMSansWriter(output_fmsans_filepath, fm_sans).transform()
+    logging_utils.LOGGER.info(f"FMSans saved at {output_fmsans_filepath}.")
+
+    ############################################################################
     fm_sans = FMSansReader(f'{fm_name}.json').transform()
     fm = fm_sans.get_feature_model()
 

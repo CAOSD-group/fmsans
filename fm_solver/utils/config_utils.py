@@ -13,7 +13,6 @@ CONFIG_FILE = 'config.yml'
 def initialize_global_config() -> dict[str, Any]:
     with open(CONFIG_FILE, 'r') as stream:
         config = yaml.load(stream, Loader=yaml.FullLoader)
-        print("Initialize global config")
     return config
 CONFIG = initialize_global_config()
 
