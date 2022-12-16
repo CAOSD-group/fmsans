@@ -1,18 +1,14 @@
 import copy
-import logging
 
 from flamapy.core.transformations import ModelToModel
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 
 from fm_solver.models import FMSans, fm_sans
-from fm_solver.utils import utils, fm_utils
+from fm_solver.utils import utils, fm_utils, logging_utils, timer
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
     RefactoringStrictComplexConstraint
 )
-
-
-LOGGER = logging.getLogger('main_logger')
 
 
 class FMToFMSans(ModelToModel):
@@ -40,7 +36,7 @@ class FMToFMSans(ModelToModel):
 
 def fm_to_fmsans(fm: FeatureModel) -> FMSans:
     if not fm.get_constraints():
-        LOGGER.info(f'The model has not constraints.')
+        logging_utils.LOGGER.debug(f'The model has not constraints.')
         # The feature model has not any constraint.
         return FMSans(None, fm, None, None)
 
@@ -50,37 +46,29 @@ def fm_to_fmsans(fm: FeatureModel) -> FMSans:
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
     
     # Get optimum constraints order
-    constraints_order = analysis_constraints_order(fm)
+    logging_utils.LOGGER.debug(f'Analyzing optimum constraints order...')
+    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Optimum constraints order."):
+        constraints_order = analysis_constraints_order(fm)
     assert len(constraints_order[0]) == len(fm.get_constraints())
 
     # Split the feature model into two
-    subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
-    print(f'Subtree without constraints implications: {subtree_without_constraints_implications}')
-    #print(f'constraints_order: {constraints_order}')
-    transformations_vector = fm_sans.get_transformations_vector(constraints_order)
+    logging_utils.LOGGER.debug(f'Spliting FM tree...')
+    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Split FM tree."):
+        subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
+    logging_utils.LOGGER.debug(f'Subtree with no CTCs implications: {0 if subtree_without_constraints_implications else len(subtree_without_constraints_implications)} features.')
+    logging_utils.LOGGER.debug(f'Subtree with CTCs implications: {0 if subtree_with_constraints_implications else len(subtree_with_constraints_implications)} features.')
 
-    n_bits = len(transformations_vector)
-    #binary_vector = format(0, f'0{n_bits}b')
-    num = 0
-    i_bit = n_bits
-    max = 2**n_bits
-    valid_transformed_numbers_trees = []
-    percentage = 0.0
-    while num < max:
-        #binary_vector = list(format(num, f'0{n_bits}b')[::-1])
-        binary_vector = list(format(num, f'0{n_bits}b'))
-        tree, null_bit = fm_sans.execute_transformations_vector(subtree_with_constraints_implications, transformations_vector, binary_vector)
-        if tree is not None:
-            #print(f'{num}: {"".join(binary_vector)} -> OK')
-            valid_transformed_numbers_trees.append(num)
-            num += 1
-        else:  # tree is None
-            print(f'Transformation resulted in NULL. Bit: {null_bit}')
-            num = fm_sans.get_next_number_prunning_binary_vector(binary_vector, null_bit)
-            #print(f'  |- next number: {num}')
-        percentage = (num / max) * 100
-        print(f'#Valid subtrees: {len(valid_transformed_numbers_trees)}. Num: {num} / {max} Ratio: ({percentage}%)')
+    # Get transformations vector
+    logging_utils.LOGGER.debug(f'Getting transformations vector...')
+    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Transformation vector."):
+        transformations_vector = fm_sans.get_transformations_vector(constraints_order)
+
+    # Get valid transformations ids.
+    logging_utils.LOGGER.debug(f'Getting valid transformations IDs...')
+    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Valid transformations IDs."):
+        valid_transformed_numbers_trees = fm_sans.get_valid_transformations_ids(subtree_with_constraints_implications, transformations_vector)
     
+    # Get FMSans instance
     result_fm = FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications, 
                        subtree_without_constraints_implications=subtree_without_constraints_implications,
                        transformations_vector=transformations_vector,

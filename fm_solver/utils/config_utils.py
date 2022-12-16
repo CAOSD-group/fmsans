@@ -19,6 +19,4 @@ CONFIG = initialize_global_config()
 
 
 # Global parameters to be used across the application
-MAIN_LOGGER = CONFIG['loggers']['main_logger']['name']
-FM_LOGGER = CONFIG['loggers']['fm_logger']['name']
-LOGGING_CONFIG_FILE = CONFIG['config_logging_file']
+TIMER_ENABLED = CONFIG.get('timer_enabled', False)

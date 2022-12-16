@@ -1,8 +1,9 @@
 version: 1
+disable_existing_loggers: yes
 formatters:
   full:
     # configuration for formatter with id 'full' goes here
-    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format: '%(asctime)s - %(levelname)s: %(message)s'
     datefmt: '%Y-%b-%d-%a %H:%M:%S'
   simple:
     # configuration for formatter with id 'simple' goes here
@@ -23,7 +24,9 @@ loggers:
     level: INFO
     handlers: [fm_stats_file]
     propagate: no
+    disabled: no
   main_logger:
     level: DEBUG
     handlers: [monitoring_file]
     propagate: no
+    disabled: no

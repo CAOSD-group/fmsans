@@ -171,3 +171,29 @@ def get_next_number_prunning_binary_vector(binary_vector: list[str], bit: int) -
     if bit < 0:
         num = 2**len(binary_vector)
     return num
+
+
+def get_valid_transformations_ids(fm: FeatureModel,
+                                  transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]) -> list[int]:
+    n_bits = len(transformations_vector)
+    #binary_vector = format(0, f'0{n_bits}b')
+    num = 0
+    i_bit = n_bits
+    max = 2**n_bits
+    valid_transformed_numbers_trees = []
+    percentage = 0.0
+    while num < max:
+        #binary_vector = list(format(num, f'0{n_bits}b')[::-1])
+        binary_vector = list(format(num, f'0{n_bits}b'))
+        tree, null_bit = execute_transformations_vector(fm, transformations_vector, binary_vector)
+        if tree is not None:
+            #print(f'{num}: {"".join(binary_vector)} -> OK')
+            valid_transformed_numbers_trees.append(num)
+            num += 1
+        else:  # tree is None
+            print(f'Transformation resulted in NULL. Bit: {null_bit}')
+            num = get_next_number_prunning_binary_vector(binary_vector, null_bit)
+            #print(f'  |- next number: {num}')
+        percentage = (num / max) * 100
+        print(f'#Valid subtrees: {len(valid_transformed_numbers_trees)}. Num: {num} / {max} Ratio: ({percentage}%)')
+    return valid_transformed_numbers_trees

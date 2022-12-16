@@ -1,5 +1,6 @@
 import logging
 import logging.config 
+from typing import Any
 
 import yaml
 
@@ -9,18 +10,26 @@ from fm_solver.models import FMSans, SimpleCTCTransformation
 from fm_solver.utils import constraints_utils, config_utils
 
 
+LOGGING_CONFIG_FILE = 'logging_config.yml'
+MAIN_LOGGER_NAME = 'main_logger'
+FM_LOGGER_NAME = 'fm_logger'
+
+
 # Configure the logging module
-def initialize_logging_config() -> None:
-    with open(config_utils.LOGGING_CONFIG_FILE, 'r') as stream:
+def initialize_logging_config() -> dict[str, Any]:
+    with open(LOGGING_CONFIG_FILE, 'r') as stream:
         config = yaml.load(stream, Loader=yaml.FullLoader)
         print("Initialize logging config")
     logging.config.dictConfig(config)
-initialize_logging_config()
+    return config
+CONFIG = initialize_logging_config()
 
 
 # Logger to be used across the application
-LOGGER = logging.getLogger(config_utils.MAIN_LOGGER)
-FM_LOGGER = logging.getLogger(config_utils.FM_LOGGER)
+LOGGER = logging.getLogger(MAIN_LOGGER_NAME)
+LOGGER.disabled = CONFIG['loggers'][MAIN_LOGGER_NAME].get('disabled', False)
+FM_LOGGER = logging.getLogger(FM_LOGGER_NAME)
+LOGGER.disabled = CONFIG['loggers'][FM_LOGGER_NAME].get('disabled', False)
 
 
 # Utils functions:

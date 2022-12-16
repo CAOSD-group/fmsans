@@ -2,22 +2,18 @@
 This module contains generic utils.
 """
 
-import logging
-
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 from fm_solver.transformations.refactorings import FMRefactoring
-
-
-LOGGER = logging.getLogger('main_logger')
+from fm_solver.utils import logging_utils
 
 
 def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     """It applies a given refactoring to all instances in the feature model."""
     instances = refactoring.get_instances(fm)
-
-    for i, instance in enumerate(instances, 1):
-        #print(f'   |->Instance {i}: {str(instance)}')
+    logging_utils.LOGGER.debug(f'Applying {refactoring.get_name()} to {len(instances)} instances.')
+    for _, instance in enumerate(instances, 1):
+        logging_utils.LOGGER.debug(f'Applying {refactoring.get_name()} to {instance}.')
         fm = refactoring.transform(fm, instance)
     return fm
 
