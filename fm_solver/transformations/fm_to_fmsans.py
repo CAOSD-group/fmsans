@@ -1,4 +1,5 @@
 import copy
+import logging
 
 from flamapy.core.transformations import ModelToModel
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
@@ -9,6 +10,9 @@ from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
     RefactoringStrictComplexConstraint
 )
+
+
+LOGGER = logging.getLogger('main_logger')
 
 
 class FMToFMSans(ModelToModel):
@@ -36,6 +40,7 @@ class FMToFMSans(ModelToModel):
 
 def fm_to_fmsans(fm: FeatureModel) -> FMSans:
     if not fm.get_constraints():
+        LOGGER.info(f'The model has not constraints.')
         # The feature model has not any constraint.
         return FMSans(None, fm, None, None)
 

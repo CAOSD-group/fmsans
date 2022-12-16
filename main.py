@@ -13,7 +13,7 @@ from fm_solver.transformations.refactorings import (
 )
 
 from fm_solver.operations import FMConfigurationsNumber
-from fm_solver.utils import utils, fm_utils
+from fm_solver.utils import utils, fm_utils, logging_utils, config_utils
 
 
 def classic_approach(fm: FeatureModel) -> FeatureModel:
@@ -26,13 +26,20 @@ def classic_approach(fm: FeatureModel) -> FeatureModel:
 
 
 def main(fm_filepath: str):
-    fm_name = os.path.basename(fm_filepath).split('.')[0]
+    logging_utils.FM_LOGGER.info(f'Input model: {fm_filepath}')
+    fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
+    logging_utils.FM_LOGGER.info(f'FM name: {fm_name}')
 
     # Load the feature model
+    logging_utils.LOGGER.info(f"Reading '{fm_filepath}' model...")
     fm = UVLReader(fm_filepath).transform()
+    logging_utils.LOGGER.info(f"FM loaded.")
+    logging_utils.FM_LOGGER.info(logging_utils.fm_stats(fm))
     
     # Transform the feature model to FMSans
+    logging_utils.LOGGER.info(f"Transforming FM to FMSans...")
     fm_sans = FMToFMSans(fm).transform()
+    logging_utils.FM_LOGGER.info(logging_utils.fmsans_stats(fm_sans))
     
     FMSansWriter(f'{fm_name}.json', fm_sans).transform()
     fm_sans = FMSansReader(f'{fm_name}.json').transform()

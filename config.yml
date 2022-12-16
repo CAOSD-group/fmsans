@@ -1,0 +1,7 @@
+version: 1
+config_logging_file: logging_config.yml
+loggers:
+  main_logger:
+    name: main_logger
+  fm_logger:
+    name: fm_logger

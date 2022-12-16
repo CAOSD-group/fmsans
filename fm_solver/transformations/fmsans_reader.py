@@ -1,15 +1,12 @@
-import functools
 import json
 from typing import Any 
 
-from flamapy.core.models.ast import Node, AST, ASTOperation
 from flamapy.core.transformations import TextToModel
 
 from flamapy.metamodels.fm_metamodel.models import (
     FeatureModel, 
     Relation, 
     Feature, 
-    Constraint, 
     Attribute
 )
 

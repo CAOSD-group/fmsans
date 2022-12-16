@@ -1,0 +1,29 @@
+version: 1
+formatters:
+  full:
+    # configuration for formatter with id 'full' goes here
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    datefmt: '%Y-%b-%d-%a %H:%M:%S'
+  simple:
+    # configuration for formatter with id 'simple' goes here
+    format: '%(message)s'
+handlers:
+  fm_stats_file:
+    class: logging.FileHandler
+    formatter: simple
+    filename: fm_stats.log
+    mode: w
+  monitoring_file:
+    class: logging.FileHandler
+    formatter: full
+    filename: fm_solver.log
+    mode: w
+loggers:
+  fm_logger:
+    level: INFO
+    handlers: [fm_stats_file]
+    propagate: no
+  main_logger:
+    level: DEBUG
+    handlers: [monitoring_file]
+    propagate: no
