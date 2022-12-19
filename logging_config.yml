@@ -24,9 +24,9 @@ loggers:
     level: INFO
     handlers: [fm_stats_file]
     propagate: no
-    disabled: no
+    disabled: yes
   main_logger:
-    level: DEBUG
+    level: INFO
     handlers: [monitoring_file]
     propagate: no
     disabled: no

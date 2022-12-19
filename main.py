@@ -33,21 +33,21 @@ def main(fm_filepath: str):
 
     # Load the feature model
     logging_utils.LOGGER.info(f"Reading FM '{fm_filepath}' model...")
-    with sizer.Sizer(logger=logging_utils.LOGGER.info, message="FM loading."), timer.Timer(logger=logging_utils.LOGGER.info, message="FM loading."):
+    with timer.Timer(logger=logging_utils.LOGGER.info, message="FM loading."):
         fm = UVLReader(fm_filepath).transform()
-    sizer.Sizer.size_of(fm, logging_utils.LOGGER.info, message="FM.")
+    sizer.getsizeof(fm, logging_utils.LOGGER.info, message="FM.")
     logging_utils.FM_LOGGER.info(fm_sans_utils.fm_stats(fm))
     
     # Transform the feature model to FMSans
     logging_utils.LOGGER.info(f"Transforming FM to FMSans...")
-    with sizer.Sizer(logger=logging_utils.LOGGER.info, message="FM to FMSans transformation."), timer.Timer(logger=logging_utils.LOGGER.info, message="FM to FMSans transformation."):
+    with timer.Timer(logger=logging_utils.LOGGER.info, message="FM to FMSans transformation."):
         fm_sans = FMToFMSans(fm).transform()
-    sizer.Sizer.size_of(fm_sans, logging_utils.LOGGER.info, message="FMSans.")
+    sizer.getsizeof(fm_sans, logging_utils.LOGGER.info, message="FMSans.")
     logging_utils.FM_LOGGER.info(fm_sans_utils.fmsans_stats(fm_sans))
     
     logging_utils.LOGGER.info(f"Serializing FMSans...")
     output_fmsans_filepath = f'{fm_name}.json'
-    with sizer.Sizer(logger=logging_utils.LOGGER.info, message="FMSans serialization."), timer.Timer(logger=logging_utils.LOGGER.info, message="FMSans serialization."):
+    with timer.Timer(logger=logging_utils.LOGGER.info, message="FMSans serialization."):
         FMSansWriter(output_fmsans_filepath, fm_sans).transform()
     logging_utils.LOGGER.info(f"FMSans saved at {output_fmsans_filepath}.")
 

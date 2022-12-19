@@ -20,3 +20,4 @@ CONFIG = initialize_global_config()
 # Global parameters to be used across the application
 TIMER_ENABLED = CONFIG.get('timer_enabled', False)
 SIZER_ENABLED = CONFIG.get('sizer_enabled', False)
+MEMORYPROFILER_ENABLED = CONFIG.get('memoryprofiler_enabled', False)
