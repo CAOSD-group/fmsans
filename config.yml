@@ -1,2 +1,3 @@
 version: 1
 timer_enabled: yes
+sizer_enabled: yes
