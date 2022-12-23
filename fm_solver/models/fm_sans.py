@@ -3,7 +3,7 @@ from collections.abc import Callable
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
-from fm_solver.utils import fm_utils, constraints_utils, logging_utils
+from fm_solver.utils import fm_utils, constraints_utils, logging_utils, timer
 
 
 class FMSans():
@@ -64,17 +64,22 @@ class FMSans():
             return self.subtree_without_constraints_implications
         subtrees = set()
         n_bits = len(self.transformations_vector)
-        for num in self.transformations_ids:
+        max = len(self.transformations_ids)
+        for i, num in enumerate(self.transformations_ids):
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
             subtrees.add(tree)
+            percentage = (i / max) * 100
+            logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
         # Join all subtrees
+        logging_utils.LOGGER.debug(f'Getting full model from {len(subtrees)} unique subtrees...')
         result_fm = fm_utils.get_model_from_subtrees(self.subtree_with_constraints_implications, subtrees)
         # Mix result FM and subtree without implications:
         # 1. Change name to the original root
         if self.subtree_without_constraints_implications is None:
             fm = result_fm
         else:
+            logging_utils.LOGGER.debug(f'Joining subtrees to subtree without CTCs implications...')
             self.subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')
             new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)
             new_root.add_relation(Relation(new_root, [self.subtree_without_constraints_implications.root], 1, 1))
@@ -83,7 +88,9 @@ class FMSans():
             result_fm.root.parent = new_root
 
             fm = FeatureModel(new_root)
-        fm = fm_utils.remove_leaf_abstract_features(fm)
+        logging_utils.LOGGER.debug(f'Removing {sum(f.is_abstract for f in fm.get_features())} abstract features...')
+        with timer.Timer(logger=logging_utils.LOGGER.info, message="Removing abstract features."): 
+            fm = fm_utils.remove_leaf_abstract_features(fm)
         return fm
 
 
@@ -120,7 +127,7 @@ class SimpleCTCTransformation():
 def get_transformations_vector(constraints_order: tuple[list[Constraint], dict[int, tuple[int, int]]]) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
     """Get the transformations vector from a specific constraints order."""
     transformations_vector = []
-    for i, ctc in enumerate(constraints_order[0]):
+    for i, ctc in enumerate(constraints_order[0], 1):
         #print(f'i: {i}, ctc: {ctc}')
         left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
         if constraints_utils.is_requires_constraint(ctc):
@@ -196,7 +203,7 @@ def get_valid_transformations_ids(fm: FeatureModel,
             num = get_next_number_prunning_binary_vector(binary_vector, null_bit)
             skipped = num - previous_num - 1
             total_skipped += skipped
-            logging_utils.LOGGER.debug(f'ID (not valid): {previous_num} / {max} ({percentage}%), {skipped} skipped. #Valids: {len(valid_transformed_numbers_trees)}')
+            logging_utils.LOGGER.debug(f'ID (not valid): {previous_num} / {max} ({percentage}%), null_bit: {null_bit}, {skipped} skipped. #Valids: {len(valid_transformed_numbers_trees)}')
         percentage = (num / max) * 100
     logging_utils.LOGGER.debug(f'Total IDs: {max}, #Valids: {len(valid_transformed_numbers_trees)}, #Invalids: {total_invalids}, #Skipped: {total_skipped}.')
     return valid_transformed_numbers_trees
@@ -218,6 +225,8 @@ def fm_stats(fm: FeatureModel) -> str:
 def fmsans_stats(fm: FMSans) -> str:
     features_without_implications = 0 if fm.subtree_without_constraints_implications is None else len(fm.subtree_without_constraints_implications.get_features())
     features_with_implications = 0 if fm.subtree_with_constraints_implications is None else len(fm.subtree_with_constraints_implications.get_features())
+    unique_features = set() if fm.subtree_without_constraints_implications is None else {f for f in fm.subtree_without_constraints_implications.get_features()}
+    unique_features = unique_features if fm.subtree_with_constraints_implications is None else unique_features.union({f for f in fm.subtree_with_constraints_implications.get_features()})
     constraints = 0 if fm.transformations_vector is None else len(fm.transformations_vector)
     requires_ctcs = 0 if fm.transformations_vector is None else len([ctc for ctc in fm.transformations_vector if ctc[0].type == SimpleCTCTransformation.REQUIRES])
     excludes_ctcs = 0 if fm.transformations_vector is None else len([ctc for ctc in fm.transformations_vector if ctc[0].type == SimpleCTCTransformation.EXCLUDES])
@@ -225,6 +234,7 @@ def fmsans_stats(fm: FMSans) -> str:
     lines = []
     lines.append(f'FMSans stats:')
     lines.append(f'  #Features:            {features_without_implications + features_with_implications}')
+    lines.append(f'    #Unique Features:   {len(unique_features)}')
     lines.append(f'    #Features out CTCs: {features_without_implications}')
     lines.append(f'    #Features in CTCs:  {features_with_implications}')
     lines.append(f'  #Constraints:         {constraints}')

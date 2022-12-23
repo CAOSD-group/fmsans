@@ -1,0 +1,1786 @@
+{
+    "features_without_constraints": {
+        "name": "JHipster",
+        "abstract": true,
+        "relations": [
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "BackEnd",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Gradle",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Maven",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "OPTIONAL",
+                "card_min": 0,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "InternationalizationSupport",
+                        "abstract": false,
+                        "relations": [],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "OPTIONAL",
+                "card_min": 0,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Docker",
+                        "abstract": false,
+                        "relations": [],
+                        "attributes": []
+                    }
+                ]
+            }
+        ],
+        "attributes": [
+            {
+                "name": "extended__"
+            }
+        ]
+    },
+    "features_with_constraints": {
+        "name": "JHipster",
+        "abstract": true,
+        "relations": [
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Generator",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Server",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "MicroserviceApplication",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "UaaServer",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Application",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "MicroserviceGateway",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Monolithic",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Authentication",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "HTTPSession",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "OAuth2",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Uaa",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "JWT",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "OPTIONAL",
+                "card_min": 0,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "SocialLogin",
+                        "abstract": false,
+                        "relations": [],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "OPTIONAL",
+                "card_min": 0,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Database",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "SQL",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "OPTIONAL",
+                                                "card_min": 0,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Hibernate2ndLvlCache",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "XOR",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "HazelCast",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "EhCache",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "MANDATORY",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Development",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "XOR",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "H2",
+                                                                        "abstract": true,
+                                                                        "relations": [
+                                                                            {
+                                                                                "type": "XOR",
+                                                                                "card_min": 1,
+                                                                                "card_max": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "name": "DiskBased",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "InMemory",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "PostgreSQLDev",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "MariaDBDev",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "MySql",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "MANDATORY",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Production",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "XOR",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "MySQL",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "MariaDB",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "PostgreSQL",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "OPTIONAL",
+                                                "card_min": 0,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "ElasticSearch",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Cassandra",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "MongoDB",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "OPTIONAL",
+                "card_min": 0,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "SpringWebSockets",
+                        "abstract": false,
+                        "relations": [],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "OPTIONAL",
+                "card_min": 0,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Libsass",
+                        "abstract": false,
+                        "relations": [],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "OPTIONAL",
+                "card_min": 0,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "ClusteredSession",
+                        "abstract": false,
+                        "relations": [],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "TestingFrameworks",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Protractor",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MANDATORY",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Gatling",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MANDATORY",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Cucumber",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 5,
+                                "children": [
+                                    {
+                                        "name": "OAuth21",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "SocialLogin1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "MicroserviceApplication1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "SQL1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "MongoDB1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR1",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 6,
+                                "children": [
+                                    {
+                                        "name": "OAuth22",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "SocialLogin2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "MicroserviceApplication2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "SQL2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "MongoDB2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Cassandra1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR2",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 2,
+                                "children": [
+                                    {
+                                        "name": "Server1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Protractor1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR3",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "MySQL1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "H21",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "MySql1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR4",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 4,
+                                "children": [
+                                    {
+                                        "name": "Monolithic1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "JWT1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "HTTPSession1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "OAuth23",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR5",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "MariaDB1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "H22",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "MariaDBDev1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR6",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "PostgreSQL1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "H23",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "PostgreSQLDev1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR7",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "SocialLogin3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "HTTPSession2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "JWT2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR8",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "SocialLogin4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "SQL3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "MongoDB3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR9",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "MicroserviceApplication3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "JWT3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Uaa1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR10",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "MicroserviceGateway1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "JWT4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Uaa2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            }
+        ],
+        "attributes": [
+            {
+                "name": "extended__"
+            }
+        ]
+    },
+    "ctcs_transformations": [
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "SQL1",
+                    "SQL"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "SQL"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MySQL1",
+                    "MySQL"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MySQL"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MongoDB"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MongoDB1",
+                    "MongoDB"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "SQL2",
+                    "SQL"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "SQL"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MongoDB"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MongoDB2",
+                    "MongoDB"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Cassandra"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Cassandra1",
+                    "Cassandra"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "SQL3",
+                    "SQL"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "SQL"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MongoDB"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MongoDB3",
+                    "MongoDB"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MySql"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MySql1",
+                    "MySql"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MariaDBDev"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MariaDBDev1",
+                    "MariaDBDev"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "PostgreSQLDev"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "PostgreSQLDev1",
+                    "PostgreSQLDev"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "H2"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "H21",
+                    "H2"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Monolithic1",
+                    "Monolithic"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Monolithic"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MariaDB1",
+                    "MariaDB"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MariaDB"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "H2"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "H22",
+                    "H2"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "PostgreSQL1",
+                    "PostgreSQL"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "PostgreSQL"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "H2"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "H23",
+                    "H2"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MicroserviceApplication3",
+                    "MicroserviceApplication"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MicroserviceApplication"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MicroserviceGateway1",
+                    "MicroserviceGateway"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MicroserviceGateway"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Libsass",
+                    "Application"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Application"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Monolithic"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "SocialLogin",
+                    "Monolithic"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "SpringWebSockets",
+                    "Application"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Application"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "ClusteredSession",
+                    "Application"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Application"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "OAuth21",
+                    "OAuth2"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "OAuth2"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MicroserviceApplication"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MicroserviceApplication1",
+                    "MicroserviceApplication"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MicroserviceApplication"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MicroserviceApplication2",
+                    "MicroserviceApplication"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Server1",
+                    "Server"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Server"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Uaa"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "UaaServer",
+                    "Uaa"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Server",
+                    "Protractor"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Protractor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "OAuth2"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "OAuth22",
+                    "OAuth2"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "JWT"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "JWT1",
+                    "JWT"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "HTTPSession"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "HTTPSession1",
+                    "HTTPSession"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "OAuth2"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "OAuth23",
+                    "OAuth2"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "HTTPSession"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "HTTPSession2",
+                    "HTTPSession"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "JWT"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "JWT2",
+                    "JWT"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "JWT"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "JWT3",
+                    "JWT"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Uaa"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Uaa1",
+                    "Uaa"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "JWT"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "JWT4",
+                    "JWT"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Uaa"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Uaa2",
+                    "Uaa"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "SocialLogin1",
+                    "SocialLogin"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "SocialLogin"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "SocialLogin2",
+                    "SocialLogin"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "SocialLogin"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Protractor1",
+                    "Protractor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Protractor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "SocialLogin"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "SocialLogin3",
+                    "SocialLogin"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "SocialLogin"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "SocialLogin4",
+                    "SocialLogin"
+                ]
+            }
+        ]
+    ],
+    "transformations_ids": [
+        4739486791652,
+        4739487849636,
+        4739487849663,
+        4739487853540,
+        4739487853567,
+        4741552865088,
+        4741552921760,
+        4741610110788,
+        4741610167460,
+        4741620760384,
+        7282108488868,
+        7282108492772,
+        7284173504320,
+        7284173560992,
+        7284230750020,
+        7284230806692,
+        7284241399616,
+        7559051411264,
+        7559051467936,
+        13157622691812,
+        13157623749796,
+        13157623749823,
+        13157623753700,
+        13157623753727,
+        13159688765248,
+        13159688821920,
+        13159746010948,
+        13159746067620,
+        13159756660544,
+        13187016374244,
+        13187017432228,
+        13187017432255,
+        13187017436132,
+        13187017436159,
+        13189082447680,
+        13189082504352,
+        13189139693380,
+        13189139750052,
+        13189150342976,
+        17571775330276,
+        17571776388260,
+        17571776388287,
+        17571776392164,
+        17571776392191,
+        17573841403712,
+        17573841460384,
+        17573898649412,
+        17573898706084,
+        17573909299008,
+        17581170571236,
+        17581171629220,
+        17581171629247,
+        17581171633124,
+        17581171633151,
+        17583236644672,
+        17583236701344,
+        17583293890372,
+        17583293947044,
+        17583304539968,
+        17583989143524,
+        17583990201508,
+        17583990201535,
+        17583990205412,
+        17583990205439,
+        17584794449892,
+        17584795507876,
+        17584795507903,
+        17584795511780,
+        17584795511807,
+        17586055216960,
+        17586055273632,
+        17586112462660,
+        17586112519332,
+        17586123112256,
+        17586860523328,
+        17586860580000,
+        17586917769028,
+        17586917825700,
+        17586928418624
+    ]
+}

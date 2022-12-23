@@ -48,7 +48,7 @@ def fm_to_fmsans(fm: FeatureModel) -> FMSans:
     with timer.Timer(logger=logging_utils.LOGGER.debug, message="Refactoring strict-complex constraints."):
         fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
     
-    logging_utils.LOGGER.debug(f'The FM contains {len(fm.get_constraints())} basic constraints ({sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())} requires, {sum(constraints_utils.is_excludes_constraint(ctc) for ctc in fm.get_constraints())} excludes) after complex constraints refactorings.')
+    logging_utils.LOGGER.debug(f'The simple FM has {len(fm.get_features())} features, {len(fm.get_relations())} relations, and {len(fm.get_constraints())} basic constraints ({sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())} requires, {sum(constraints_utils.is_excludes_constraint(ctc) for ctc in fm.get_constraints())} excludes) after complex constraints refactorings.')
 
     # Get optimum constraints order
     logging_utils.LOGGER.debug(f'Analyzing optimum constraints order...')
