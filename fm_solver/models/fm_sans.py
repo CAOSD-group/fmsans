@@ -127,7 +127,7 @@ class SimpleCTCTransformation():
 def get_transformations_vector(constraints_order: tuple[list[Constraint], dict[int, tuple[int, int]]]) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
     """Get the transformations vector from a specific constraints order."""
     transformations_vector = []
-    for i, ctc in enumerate(constraints_order[0], 1):
+    for i, ctc in enumerate(constraints_order[0], 0):
         #print(f'i: {i}, ctc: {ctc}')
         left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
         if constraints_utils.is_requires_constraint(ctc):
