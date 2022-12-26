@@ -211,14 +211,16 @@ def get_valid_transformations_ids(fm: FeatureModel,
 
 def fm_stats(fm: FeatureModel) -> str:
     lines = []
+    unique_features = [f for f in fm.get_features() if not any(a.name == 'ref' for a in f.get_attributes())]
     lines.append(f'FM stats:')
-    lines.append(f'  #Features:       {len(fm.get_features())}')
-    lines.append(f'  #Relations:      {len(fm.get_relations())}')
-    lines.append(f'  #Constraints:    {len(fm.get_constraints())}')
-    lines.append(f'    #Simple CTCs:  {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_simple_constraint(ctc)])}')
-    lines.append(f'      #Requires:   {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_requires_constraint(ctc)])}')
-    lines.append(f'      #Excludes:   {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_excludes_constraint(ctc)])}')
-    lines.append(f'    #Complex CTCs: {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_complex_constraint(ctc)])}')
+    lines.append(f'  #Features:            {len(fm.get_features())}')
+    lines.append(f'    #Unique Features:   {len(unique_features)}')
+    lines.append(f'  #Relations:           {len(fm.get_relations())}')
+    lines.append(f'  #Constraints:         {len(fm.get_constraints())}')
+    lines.append(f'    #Simple CTCs:       {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_simple_constraint(ctc)])}')
+    lines.append(f'      #Requires:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_requires_constraint(ctc)])}')
+    lines.append(f'      #Excludes:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_excludes_constraint(ctc)])}')
+    lines.append(f'    #Complex CTCs:      {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_complex_constraint(ctc)])}')
     return '\n'.join(lines)
 
 
