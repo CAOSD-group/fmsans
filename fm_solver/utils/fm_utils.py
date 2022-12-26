@@ -5,7 +5,13 @@ This module contains all utils related to the management of a feature model.
 import copy
 from collections.abc import Callable
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.metamodels.fm_metamodel.models import (
+    FeatureModel, 
+    Feature, 
+    Relation, 
+    Constraint, 
+    Attribute
+)
 
 from fm_solver.utils import constraints_utils
 
@@ -297,17 +303,17 @@ def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
 def to_unique_features(model: FeatureModel) -> FeatureModel:
     """Replace duplicated features names in the feature model.
     
-    The model is augmented with a dictionary of features' references to the original features.
+    The model is augmented with attributes with features' references to the original features.
     """
-    if not hasattr(model, 'dict_references'):
-            model.features_references = {}
-    unique_features_names = []
+    unique_features_names = set()
     for feature in model.get_features():
         if feature.name not in unique_features_names:
-            unique_features_names.append(feature.name)
+            unique_features_names.add(feature.name)
         else:
             new_name = get_new_feature_name(model, feature.name)
-            model.features_references[new_name] = feature.name
+            attribute = Attribute('ref', None, feature.name, None)
+            attribute.set_parent(feature)
+            feature.add_attribute(attribute)
             feature.name = new_name
-            unique_features_names.append(feature.name)
+            unique_features_names.add(feature.name)
     return model
