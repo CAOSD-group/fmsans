@@ -1,0 +1,1384 @@
+features
+	Root
+		mandatory
+			Root1{ref "Root"}
+		mandatory
+			XOR_Root
+				alternative
+					Truck
+						mandatory
+							Weight
+								mandatory
+									Heavyweight
+										alternative
+											Tons23
+											Tons40
+						mandatory
+							Type
+								mandatory
+									Flatbed
+										mandatory
+											Dumper
+						mandatory
+							Engine
+								mandatory
+									KW400
+						mandatory
+							Cabin
+						mandatory
+							Axles
+								mandatory
+									Count
+										mandatory
+											Axles2
+								mandatory
+									Drivetrain
+										mandatory
+											DrivenAxle1
+					Truck1{ref "Truck"}
+						mandatory
+							Weight1{ref "Weight"}
+								mandatory
+									Lightweight
+										mandatory
+											Tons12
+						mandatory
+							Type1{ref "Type"}
+								mandatory
+									Tank
+						mandatory
+							Engine1{ref "Engine"}
+								mandatory
+									KW4001{ref "KW400"}
+						mandatory
+							Cabin1{ref "Cabin"}
+						mandatory
+							Axles1{ref "Axles"}
+								mandatory
+									Count1{ref "Count"}
+										mandatory
+											MultipleRearAxles
+												mandatory
+													Axles4
+								optional
+									AdditionalSteeringAxle
+								mandatory
+									Drivetrain1{ref "Drivetrain"}
+										alternative
+											DrivenAxle11{ref "DrivenAxle1"}
+											DrivenAxles2
+											DrivenAxles3
+					Truck2{ref "Truck"}
+						mandatory
+							Weight2{ref "Weight"}
+								mandatory
+									Lightweight1{ref "Lightweight"}
+										mandatory
+											Tons18
+						mandatory
+							Type2{ref "Type"}
+								mandatory
+									Flatbed1{ref "Flatbed"}
+										mandatory
+											Dumper1{ref "Dumper"}
+						mandatory
+							Engine2{ref "Engine"}
+								mandatory
+									KW4002{ref "KW400"}
+						mandatory
+							Cabin2{ref "Cabin"}
+						mandatory
+							Axles5{ref "Axles"}
+								mandatory
+									Count2{ref "Count"}
+										mandatory
+											MultipleRearAxles1{ref "MultipleRearAxles"}
+												mandatory
+													Axles3
+								mandatory
+									Drivetrain2{ref "Drivetrain"}
+										alternative
+											DrivenAxle12{ref "DrivenAxle1"}
+											DrivenAxles21{ref "DrivenAxles2"}
+					Truck3{ref "Truck"}
+						mandatory
+							Weight3{ref "Weight"}
+								mandatory
+									Lightweight2{ref "Lightweight"}
+										mandatory
+											Tons181{ref "Tons18"}
+						mandatory
+							Type3{ref "Type"}
+								mandatory
+									Semitrailer
+						mandatory
+							Engine3{ref "Engine"}
+								alternative
+									KW160
+									KW280
+						mandatory
+							Cabin3{ref "Cabin"}
+								optional
+									SleeperCabin
+										mandatory
+											Bed1
+						mandatory
+							Axles6{ref "Axles"}
+								mandatory
+									Count3{ref "Count"}
+										mandatory
+											MultipleRearAxles2{ref "MultipleRearAxles"}
+												mandatory
+													Axles31{ref "Axles3"}
+								mandatory
+									Drivetrain3{ref "Drivetrain"}
+										alternative
+											DrivenAxle13{ref "DrivenAxle1"}
+											DrivenAxles22{ref "DrivenAxles2"}
+					Truck4{ref "Truck"}
+						mandatory
+							Weight4{ref "Weight"}
+								mandatory
+									Lightweight3{ref "Lightweight"}
+										mandatory
+											Tons182{ref "Tons18"}
+						mandatory
+							Type4{ref "Type"}
+								mandatory
+									Tank1{ref "Tank"}
+						mandatory
+							Engine4{ref "Engine"}
+								mandatory
+									KW4003{ref "KW400"}
+						mandatory
+							Cabin4{ref "Cabin"}
+						mandatory
+							Axles7{ref "Axles"}
+								mandatory
+									Count4{ref "Count"}
+										mandatory
+											Axles21{ref "Axles2"}
+								mandatory
+									Drivetrain4{ref "Drivetrain"}
+										mandatory
+											DrivenAxle14{ref "DrivenAxle1"}
+					Truck5{ref "Truck"}
+						mandatory
+							Weight5{ref "Weight"}
+								mandatory
+									Lightweight4{ref "Lightweight"}
+										mandatory
+											Tons121{ref "Tons12"}
+						mandatory
+							Type5{ref "Type"}
+								mandatory
+									Flatbed2{ref "Flatbed"}
+										mandatory
+											Dumper2{ref "Dumper"}
+						mandatory
+							Engine5{ref "Engine"}
+								alternative
+									KW1601{ref "KW160"}
+									KW2801{ref "KW280"}
+						mandatory
+							Cabin5{ref "Cabin"}
+						mandatory
+							Axles8{ref "Axles"}
+								mandatory
+									Count5{ref "Count"}
+										mandatory
+											Axles22{ref "Axles2"}
+								mandatory
+									Drivetrain5{ref "Drivetrain"}
+										mandatory
+											DrivenAxle15{ref "DrivenAxle1"}
+					Truck6{ref "Truck"}
+						mandatory
+							Weight6{ref "Weight"}
+								mandatory
+									Lightweight5{ref "Lightweight"}
+										mandatory
+											Tons122{ref "Tons12"}
+						mandatory
+							Type6{ref "Type"}
+								mandatory
+									Flatbed3{ref "Flatbed"}
+										mandatory
+											Dumper3{ref "Dumper"}
+						mandatory
+							Engine6{ref "Engine"}
+								alternative
+									KW1602{ref "KW160"}
+									KW2802{ref "KW280"}
+						mandatory
+							Cabin6{ref "Cabin"}
+						mandatory
+							Axles9{ref "Axles"}
+								mandatory
+									Count6{ref "Count"}
+										mandatory
+											MultipleRearAxles3{ref "MultipleRearAxles"}
+												mandatory
+													Axles32{ref "Axles3"}
+								mandatory
+									Drivetrain6{ref "Drivetrain"}
+										alternative
+											DrivenAxle16{ref "DrivenAxle1"}
+											DrivenAxles23{ref "DrivenAxles2"}
+					Truck7{ref "Truck"}
+						mandatory
+							Weight7{ref "Weight"}
+								mandatory
+									Lightweight6{ref "Lightweight"}
+										mandatory
+											Tons183{ref "Tons18"}
+						mandatory
+							Type7{ref "Type"}
+								mandatory
+									Semitrailer1{ref "Semitrailer"}
+						mandatory
+							Engine7{ref "Engine"}
+								mandatory
+									KW4004{ref "KW400"}
+						mandatory
+							Cabin7{ref "Cabin"}
+								optional
+									SleeperCabin1{ref "SleeperCabin"}
+										mandatory
+											Bed11{ref "Bed1"}
+						mandatory
+							Axles10{ref "Axles"}
+								mandatory
+									Count7{ref "Count"}
+										mandatory
+											MultipleRearAxles4{ref "MultipleRearAxles"}
+												mandatory
+													Axles33{ref "Axles3"}
+								mandatory
+									Drivetrain7{ref "Drivetrain"}
+										alternative
+											DrivenAxle17{ref "DrivenAxle1"}
+											DrivenAxles24{ref "DrivenAxles2"}
+					Truck8{ref "Truck"}
+						mandatory
+							Weight8{ref "Weight"}
+								mandatory
+									Heavyweight1{ref "Heavyweight"}
+										mandatory
+											Tons231{ref "Tons23"}
+						mandatory
+							Type8{ref "Type"}
+								mandatory
+									Flatbed4{ref "Flatbed"}
+										mandatory
+											Dumper4{ref "Dumper"}
+						mandatory
+							Engine8{ref "Engine"}
+								alternative
+									KW1603{ref "KW160"}
+									KW2803{ref "KW280"}
+						mandatory
+							Cabin8{ref "Cabin"}
+						mandatory
+							Axles11{ref "Axles"}
+								mandatory
+									Count8{ref "Count"}
+										mandatory
+											MultipleRearAxles5{ref "MultipleRearAxles"}
+												mandatory
+													Axles41{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle1{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain8{ref "Drivetrain"}
+										alternative
+											DrivenAxle18{ref "DrivenAxle1"}
+											DrivenAxles25{ref "DrivenAxles2"}
+											DrivenAxles31{ref "DrivenAxles3"}
+					Truck9{ref "Truck"}
+						mandatory
+							Weight9{ref "Weight"}
+								mandatory
+									Heavyweight2{ref "Heavyweight"}
+										alternative
+											Tons232{ref "Tons23"}
+											Tons401{ref "Tons40"}
+						mandatory
+							Type9{ref "Type"}
+								mandatory
+									Tank2{ref "Tank"}
+						mandatory
+							Engine9{ref "Engine"}
+								mandatory
+									KW4005{ref "KW400"}
+						mandatory
+							Cabin9{ref "Cabin"}
+						mandatory
+							Axles12{ref "Axles"}
+								mandatory
+									Count9{ref "Count"}
+										mandatory
+											MultipleRearAxles6{ref "MultipleRearAxles"}
+												mandatory
+													Axles42{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle2{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain9{ref "Drivetrain"}
+										alternative
+											DrivenAxle19{ref "DrivenAxle1"}
+											DrivenAxles26{ref "DrivenAxles2"}
+											DrivenAxles32{ref "DrivenAxles3"}
+					Truck10{ref "Truck"}
+						mandatory
+							Weight10{ref "Weight"}
+								mandatory
+									Heavyweight3{ref "Heavyweight"}
+										alternative
+											Tons233{ref "Tons23"}
+											Tons402{ref "Tons40"}
+						mandatory
+							Type10{ref "Type"}
+								mandatory
+									Flatbed5{ref "Flatbed"}
+										mandatory
+											Dumper5{ref "Dumper"}
+						mandatory
+							Engine10{ref "Engine"}
+								mandatory
+									KW4006{ref "KW400"}
+						mandatory
+							Cabin10{ref "Cabin"}
+								mandatory
+									HighRoof
+						mandatory
+							Axles13{ref "Axles"}
+								mandatory
+									Count10{ref "Count"}
+										mandatory
+											Axles23{ref "Axles2"}
+								mandatory
+									Drivetrain10{ref "Drivetrain"}
+										mandatory
+											DrivenAxle110{ref "DrivenAxle1"}
+					Truck11{ref "Truck"}
+						mandatory
+							Weight11{ref "Weight"}
+								mandatory
+									Heavyweight4{ref "Heavyweight"}
+										alternative
+											Tons234{ref "Tons23"}
+											Tons403{ref "Tons40"}
+						mandatory
+							Type11{ref "Type"}
+								mandatory
+									Tank3{ref "Tank"}
+						mandatory
+							Engine11{ref "Engine"}
+								mandatory
+									KW4007{ref "KW400"}
+						mandatory
+							Cabin11{ref "Cabin"}
+						mandatory
+							Axles14{ref "Axles"}
+								mandatory
+									Count11{ref "Count"}
+										mandatory
+											MultipleRearAxles7{ref "MultipleRearAxles"}
+												mandatory
+													Axles34{ref "Axles3"}
+								mandatory
+									Drivetrain11{ref "Drivetrain"}
+										alternative
+											DrivenAxle111{ref "DrivenAxle1"}
+											DrivenAxles27{ref "DrivenAxles2"}
+					Truck12{ref "Truck"}
+						mandatory
+							Weight12{ref "Weight"}
+								mandatory
+									Heavyweight5{ref "Heavyweight"}
+										alternative
+											Tons235{ref "Tons23"}
+											Tons404{ref "Tons40"}
+						mandatory
+							Type12{ref "Type"}
+								mandatory
+									Tank4{ref "Tank"}
+						mandatory
+							Engine12{ref "Engine"}
+								mandatory
+									KW4008{ref "KW400"}
+						mandatory
+							Cabin12{ref "Cabin"}
+								mandatory
+									HighRoof1{ref "HighRoof"}
+						mandatory
+							Axles15{ref "Axles"}
+								mandatory
+									Count12{ref "Count"}
+										mandatory
+											MultipleRearAxles8{ref "MultipleRearAxles"}
+												mandatory
+													Axles35{ref "Axles3"}
+								mandatory
+									Drivetrain12{ref "Drivetrain"}
+										alternative
+											DrivenAxle112{ref "DrivenAxle1"}
+											DrivenAxles28{ref "DrivenAxles2"}
+					Truck13{ref "Truck"}
+						mandatory
+							Weight13{ref "Weight"}
+								mandatory
+									Heavyweight6{ref "Heavyweight"}
+										mandatory
+											Tons236{ref "Tons23"}
+						mandatory
+							Type13{ref "Type"}
+								mandatory
+									Flatbed6{ref "Flatbed"}
+										mandatory
+											Dumper6{ref "Dumper"}
+						mandatory
+							Engine13{ref "Engine"}
+								alternative
+									KW1604{ref "KW160"}
+									KW2804{ref "KW280"}
+						mandatory
+							Cabin13{ref "Cabin"}
+						mandatory
+							Axles16{ref "Axles"}
+								mandatory
+									Count13{ref "Count"}
+										mandatory
+											Axles24{ref "Axles2"}
+								mandatory
+									Drivetrain13{ref "Drivetrain"}
+										mandatory
+											DrivenAxle113{ref "DrivenAxle1"}
+					Truck14{ref "Truck"}
+						mandatory
+							Weight14{ref "Weight"}
+								mandatory
+									Lightweight7{ref "Lightweight"}
+										mandatory
+											Tons123{ref "Tons12"}
+						mandatory
+							Type14{ref "Type"}
+								mandatory
+									Flatbed7{ref "Flatbed"}
+										mandatory
+											Dumper7{ref "Dumper"}
+						mandatory
+							Engine14{ref "Engine"}
+								mandatory
+									KW4009{ref "KW400"}
+						mandatory
+							Cabin14{ref "Cabin"}
+						mandatory
+							Axles17{ref "Axles"}
+								mandatory
+									Count14{ref "Count"}
+										mandatory
+											MultipleRearAxles9{ref "MultipleRearAxles"}
+												mandatory
+													Axles43{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle3{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain14{ref "Drivetrain"}
+										alternative
+											DrivenAxle114{ref "DrivenAxle1"}
+											DrivenAxles29{ref "DrivenAxles2"}
+											DrivenAxles33{ref "DrivenAxles3"}
+					Truck15{ref "Truck"}
+						mandatory
+							Weight15{ref "Weight"}
+								mandatory
+									Lightweight8{ref "Lightweight"}
+										mandatory
+											Tons184{ref "Tons18"}
+						mandatory
+							Type15{ref "Type"}
+								mandatory
+									Flatbed8{ref "Flatbed"}
+										mandatory
+											Dumper8{ref "Dumper"}
+						mandatory
+							Engine15{ref "Engine"}
+								alternative
+									KW1605{ref "KW160"}
+									KW2805{ref "KW280"}
+						mandatory
+							Cabin15{ref "Cabin"}
+						mandatory
+							Axles18{ref "Axles"}
+								mandatory
+									Count15{ref "Count"}
+										mandatory
+											MultipleRearAxles10{ref "MultipleRearAxles"}
+												mandatory
+													Axles44{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle4{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain15{ref "Drivetrain"}
+										alternative
+											DrivenAxle115{ref "DrivenAxle1"}
+											DrivenAxles210{ref "DrivenAxles2"}
+											DrivenAxles34{ref "DrivenAxles3"}
+					Truck16{ref "Truck"}
+						mandatory
+							Weight16{ref "Weight"}
+								mandatory
+									Heavyweight7{ref "Heavyweight"}
+										alternative
+											Tons237{ref "Tons23"}
+											Tons405{ref "Tons40"}
+						mandatory
+							Type16{ref "Type"}
+								mandatory
+									Tank5{ref "Tank"}
+						mandatory
+							Engine16{ref "Engine"}
+								mandatory
+									KW40010{ref "KW400"}
+						mandatory
+							Cabin16{ref "Cabin"}
+						mandatory
+							Axles19{ref "Axles"}
+								mandatory
+									Count16{ref "Count"}
+										mandatory
+											Axles25{ref "Axles2"}
+								mandatory
+									Drivetrain16{ref "Drivetrain"}
+										mandatory
+											DrivenAxle116{ref "DrivenAxle1"}
+					Truck17{ref "Truck"}
+						mandatory
+							Weight17{ref "Weight"}
+								mandatory
+									Heavyweight8{ref "Heavyweight"}
+										mandatory
+											Tons238{ref "Tons23"}
+						mandatory
+							Type17{ref "Type"}
+								mandatory
+									Flatbed9{ref "Flatbed"}
+										mandatory
+											Dumper9{ref "Dumper"}
+						mandatory
+							Engine17{ref "Engine"}
+								alternative
+									KW1606{ref "KW160"}
+									KW2806{ref "KW280"}
+						mandatory
+							Cabin17{ref "Cabin"}
+								mandatory
+									HighRoof2{ref "HighRoof"}
+						mandatory
+							Axles20{ref "Axles"}
+								mandatory
+									Count17{ref "Count"}
+										mandatory
+											Axles26{ref "Axles2"}
+								mandatory
+									Drivetrain17{ref "Drivetrain"}
+										mandatory
+											DrivenAxle117{ref "DrivenAxle1"}
+					Truck18{ref "Truck"}
+						mandatory
+							Weight18{ref "Weight"}
+								mandatory
+									Heavyweight9{ref "Heavyweight"}
+										alternative
+											Tons239{ref "Tons23"}
+											Tons406{ref "Tons40"}
+						mandatory
+							Type18{ref "Type"}
+								mandatory
+									Flatbed10{ref "Flatbed"}
+										mandatory
+											Dumper10{ref "Dumper"}
+						mandatory
+							Engine18{ref "Engine"}
+								mandatory
+									KW40011{ref "KW400"}
+						mandatory
+							Cabin18{ref "Cabin"}
+						mandatory
+							Axles27{ref "Axles"}
+								mandatory
+									Count18{ref "Count"}
+										mandatory
+											MultipleRearAxles11{ref "MultipleRearAxles"}
+												mandatory
+													Axles36{ref "Axles3"}
+								mandatory
+									Drivetrain18{ref "Drivetrain"}
+										alternative
+											DrivenAxle118{ref "DrivenAxle1"}
+											DrivenAxles211{ref "DrivenAxles2"}
+					Truck19{ref "Truck"}
+						mandatory
+							Weight19{ref "Weight"}
+								mandatory
+									Heavyweight10{ref "Heavyweight"}
+										alternative
+											Tons2310{ref "Tons23"}
+											Tons407{ref "Tons40"}
+						mandatory
+							Type19{ref "Type"}
+								mandatory
+									Flatbed11{ref "Flatbed"}
+										mandatory
+											Dumper11{ref "Dumper"}
+						mandatory
+							Engine19{ref "Engine"}
+								mandatory
+									KW40012{ref "KW400"}
+						mandatory
+							Cabin19{ref "Cabin"}
+								mandatory
+									HighRoof3{ref "HighRoof"}
+						mandatory
+							Axles28{ref "Axles"}
+								mandatory
+									Count19{ref "Count"}
+										mandatory
+											MultipleRearAxles12{ref "MultipleRearAxles"}
+												mandatory
+													Axles45{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle5{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain19{ref "Drivetrain"}
+										alternative
+											DrivenAxle119{ref "DrivenAxle1"}
+											DrivenAxles212{ref "DrivenAxles2"}
+											DrivenAxles35{ref "DrivenAxles3"}
+					Truck20{ref "Truck"}
+						mandatory
+							Weight20{ref "Weight"}
+								mandatory
+									Lightweight9{ref "Lightweight"}
+										mandatory
+											Tons185{ref "Tons18"}
+						mandatory
+							Type20{ref "Type"}
+								mandatory
+									Flatbed12{ref "Flatbed"}
+										mandatory
+											Dumper12{ref "Dumper"}
+						mandatory
+							Engine20{ref "Engine"}
+								alternative
+									KW1607{ref "KW160"}
+									KW2807{ref "KW280"}
+						mandatory
+							Cabin20{ref "Cabin"}
+						mandatory
+							Axles29{ref "Axles"}
+								mandatory
+									Count20{ref "Count"}
+										mandatory
+											MultipleRearAxles13{ref "MultipleRearAxles"}
+												mandatory
+													Axles37{ref "Axles3"}
+								mandatory
+									Drivetrain20{ref "Drivetrain"}
+										alternative
+											DrivenAxle120{ref "DrivenAxle1"}
+											DrivenAxles213{ref "DrivenAxles2"}
+					Truck21{ref "Truck"}
+						mandatory
+							Weight21{ref "Weight"}
+								mandatory
+									Heavyweight11{ref "Heavyweight"}
+										alternative
+											Tons2311{ref "Tons23"}
+											Tons408{ref "Tons40"}
+						mandatory
+							Type21{ref "Type"}
+								mandatory
+									Flatbed13{ref "Flatbed"}
+										mandatory
+											Dumper13{ref "Dumper"}
+						mandatory
+							Engine21{ref "Engine"}
+								mandatory
+									KW40013{ref "KW400"}
+						mandatory
+							Cabin21{ref "Cabin"}
+								mandatory
+									HighRoof4{ref "HighRoof"}
+						mandatory
+							Axles30{ref "Axles"}
+								mandatory
+									Count21{ref "Count"}
+										mandatory
+											MultipleRearAxles14{ref "MultipleRearAxles"}
+												mandatory
+													Axles38{ref "Axles3"}
+								mandatory
+									Drivetrain21{ref "Drivetrain"}
+										alternative
+											DrivenAxle121{ref "DrivenAxle1"}
+											DrivenAxles214{ref "DrivenAxles2"}
+					Truck22{ref "Truck"}
+						mandatory
+							Weight22{ref "Weight"}
+								mandatory
+									Lightweight10{ref "Lightweight"}
+										mandatory
+											Tons186{ref "Tons18"}
+						mandatory
+							Type22{ref "Type"}
+								mandatory
+									Semitrailer2{ref "Semitrailer"}
+						mandatory
+							Engine22{ref "Engine"}
+								mandatory
+									KW40014{ref "KW400"}
+						mandatory
+							Cabin22{ref "Cabin"}
+								optional
+									SleeperCabin2{ref "SleeperCabin"}
+										mandatory
+											Bed12{ref "Bed1"}
+						mandatory
+							Axles39{ref "Axles"}
+								mandatory
+									Count22{ref "Count"}
+										mandatory
+											Axles210{ref "Axles2"}
+								mandatory
+									Drivetrain22{ref "Drivetrain"}
+										mandatory
+											DrivenAxle122{ref "DrivenAxle1"}
+					Truck23{ref "Truck"}
+						mandatory
+							Weight23{ref "Weight"}
+								mandatory
+									Lightweight11{ref "Lightweight"}
+										mandatory
+											Tons124{ref "Tons12"}
+						mandatory
+							Type23{ref "Type"}
+								mandatory
+									Flatbed14{ref "Flatbed"}
+										mandatory
+											Dumper14{ref "Dumper"}
+						mandatory
+							Engine23{ref "Engine"}
+								mandatory
+									KW40015{ref "KW400"}
+						mandatory
+							Cabin23{ref "Cabin"}
+						mandatory
+							Axles40{ref "Axles"}
+								mandatory
+									Count23{ref "Count"}
+										mandatory
+											Axles211{ref "Axles2"}
+								mandatory
+									Drivetrain23{ref "Drivetrain"}
+										mandatory
+											DrivenAxle123{ref "DrivenAxle1"}
+					Truck24{ref "Truck"}
+						mandatory
+							Weight24{ref "Weight"}
+								mandatory
+									Heavyweight12{ref "Heavyweight"}
+										mandatory
+											Tons2312{ref "Tons23"}
+						mandatory
+							Type24{ref "Type"}
+								mandatory
+									Flatbed15{ref "Flatbed"}
+										mandatory
+											Dumper15{ref "Dumper"}
+						mandatory
+							Engine24{ref "Engine"}
+								alternative
+									KW1608{ref "KW160"}
+									KW2808{ref "KW280"}
+						mandatory
+							Cabin24{ref "Cabin"}
+								mandatory
+									HighRoof5{ref "HighRoof"}
+						mandatory
+							Axles46{ref "Axles"}
+								mandatory
+									Count24{ref "Count"}
+										mandatory
+											MultipleRearAxles15{ref "MultipleRearAxles"}
+												mandatory
+													Axles47{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle6{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain24{ref "Drivetrain"}
+										alternative
+											DrivenAxle124{ref "DrivenAxle1"}
+											DrivenAxles215{ref "DrivenAxles2"}
+											DrivenAxles36{ref "DrivenAxles3"}
+					Truck25{ref "Truck"}
+						mandatory
+							Weight25{ref "Weight"}
+								mandatory
+									Lightweight12{ref "Lightweight"}
+										mandatory
+											Tons125{ref "Tons12"}
+						mandatory
+							Type25{ref "Type"}
+								mandatory
+									Tank6{ref "Tank"}
+						mandatory
+							Engine25{ref "Engine"}
+								mandatory
+									KW40016{ref "KW400"}
+						mandatory
+							Cabin25{ref "Cabin"}
+						mandatory
+							Axles48{ref "Axles"}
+								mandatory
+									Count25{ref "Count"}
+										mandatory
+											Axles212{ref "Axles2"}
+								mandatory
+									Drivetrain25{ref "Drivetrain"}
+										mandatory
+											DrivenAxle125{ref "DrivenAxle1"}
+					Truck26{ref "Truck"}
+						mandatory
+							Weight26{ref "Weight"}
+								mandatory
+									Lightweight13{ref "Lightweight"}
+										mandatory
+											Tons187{ref "Tons18"}
+						mandatory
+							Type26{ref "Type"}
+								mandatory
+									Tank7{ref "Tank"}
+						mandatory
+							Engine26{ref "Engine"}
+								mandatory
+									KW40017{ref "KW400"}
+						mandatory
+							Cabin26{ref "Cabin"}
+						mandatory
+							Axles49{ref "Axles"}
+								mandatory
+									Count26{ref "Count"}
+										mandatory
+											MultipleRearAxles16{ref "MultipleRearAxles"}
+												mandatory
+													Axles310{ref "Axles3"}
+								mandatory
+									Drivetrain26{ref "Drivetrain"}
+										alternative
+											DrivenAxle126{ref "DrivenAxle1"}
+											DrivenAxles216{ref "DrivenAxles2"}
+					Truck27{ref "Truck"}
+						mandatory
+							Weight27{ref "Weight"}
+								mandatory
+									Lightweight14{ref "Lightweight"}
+										mandatory
+											Tons126{ref "Tons12"}
+						mandatory
+							Type27{ref "Type"}
+								mandatory
+									Flatbed16{ref "Flatbed"}
+										mandatory
+											Dumper16{ref "Dumper"}
+						mandatory
+							Engine27{ref "Engine"}
+								alternative
+									KW1609{ref "KW160"}
+									KW2809{ref "KW280"}
+						mandatory
+							Cabin27{ref "Cabin"}
+						mandatory
+							Axles50{ref "Axles"}
+								mandatory
+									Count27{ref "Count"}
+										mandatory
+											MultipleRearAxles17{ref "MultipleRearAxles"}
+												mandatory
+													Axles410{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle7{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain27{ref "Drivetrain"}
+										alternative
+											DrivenAxle127{ref "DrivenAxle1"}
+											DrivenAxles217{ref "DrivenAxles2"}
+											DrivenAxles37{ref "DrivenAxles3"}
+					Truck28{ref "Truck"}
+						mandatory
+							Weight28{ref "Weight"}
+								mandatory
+									Lightweight15{ref "Lightweight"}
+										mandatory
+											Tons188{ref "Tons18"}
+						mandatory
+							Type28{ref "Type"}
+								mandatory
+									Flatbed17{ref "Flatbed"}
+										mandatory
+											Dumper17{ref "Dumper"}
+						mandatory
+							Engine28{ref "Engine"}
+								mandatory
+									KW40018{ref "KW400"}
+						mandatory
+							Cabin28{ref "Cabin"}
+						mandatory
+							Axles51{ref "Axles"}
+								mandatory
+									Count28{ref "Count"}
+										mandatory
+											MultipleRearAxles18{ref "MultipleRearAxles"}
+												mandatory
+													Axles411{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle8{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain28{ref "Drivetrain"}
+										alternative
+											DrivenAxle128{ref "DrivenAxle1"}
+											DrivenAxles218{ref "DrivenAxles2"}
+											DrivenAxles38{ref "DrivenAxles3"}
+					Truck29{ref "Truck"}
+						mandatory
+							Weight29{ref "Weight"}
+								mandatory
+									Lightweight16{ref "Lightweight"}
+										mandatory
+											Tons189{ref "Tons18"}
+						mandatory
+							Type29{ref "Type"}
+								mandatory
+									Flatbed18{ref "Flatbed"}
+										mandatory
+											Dumper18{ref "Dumper"}
+						mandatory
+							Engine29{ref "Engine"}
+								alternative
+									KW16010{ref "KW160"}
+									KW28010{ref "KW280"}
+						mandatory
+							Cabin29{ref "Cabin"}
+						mandatory
+							Axles52{ref "Axles"}
+								mandatory
+									Count29{ref "Count"}
+										mandatory
+											Axles213{ref "Axles2"}
+								mandatory
+									Drivetrain29{ref "Drivetrain"}
+										mandatory
+											DrivenAxle129{ref "DrivenAxle1"}
+					Truck30{ref "Truck"}
+						mandatory
+							Weight30{ref "Weight"}
+								mandatory
+									Lightweight17{ref "Lightweight"}
+										mandatory
+											Tons1810{ref "Tons18"}
+						mandatory
+							Type30{ref "Type"}
+								mandatory
+									Flatbed19{ref "Flatbed"}
+										mandatory
+											Dumper19{ref "Dumper"}
+						mandatory
+							Engine30{ref "Engine"}
+								mandatory
+									KW40019{ref "KW400"}
+						mandatory
+							Cabin30{ref "Cabin"}
+						mandatory
+							Axles53{ref "Axles"}
+								mandatory
+									Count30{ref "Count"}
+										mandatory
+											Axles214{ref "Axles2"}
+								mandatory
+									Drivetrain30{ref "Drivetrain"}
+										mandatory
+											DrivenAxle130{ref "DrivenAxle1"}
+					Truck31{ref "Truck"}
+						mandatory
+							Weight31{ref "Weight"}
+								mandatory
+									Lightweight18{ref "Lightweight"}
+										mandatory
+											Tons127{ref "Tons12"}
+						mandatory
+							Type31{ref "Type"}
+								mandatory
+									Tank8{ref "Tank"}
+						mandatory
+							Engine31{ref "Engine"}
+								mandatory
+									KW40020{ref "KW400"}
+						mandatory
+							Cabin31{ref "Cabin"}
+						mandatory
+							Axles54{ref "Axles"}
+								mandatory
+									Count31{ref "Count"}
+										mandatory
+											MultipleRearAxles19{ref "MultipleRearAxles"}
+												mandatory
+													Axles311{ref "Axles3"}
+								mandatory
+									Drivetrain31{ref "Drivetrain"}
+										alternative
+											DrivenAxle131{ref "DrivenAxle1"}
+											DrivenAxles219{ref "DrivenAxles2"}
+					Truck32{ref "Truck"}
+						mandatory
+							Weight32{ref "Weight"}
+								mandatory
+									Heavyweight13{ref "Heavyweight"}
+										mandatory
+											Tons2313{ref "Tons23"}
+						mandatory
+							Type32{ref "Type"}
+								mandatory
+									Flatbed20{ref "Flatbed"}
+										mandatory
+											Dumper20{ref "Dumper"}
+						mandatory
+							Engine32{ref "Engine"}
+								alternative
+									KW16011{ref "KW160"}
+									KW28011{ref "KW280"}
+						mandatory
+							Cabin32{ref "Cabin"}
+						mandatory
+							Axles55{ref "Axles"}
+								mandatory
+									Count32{ref "Count"}
+										mandatory
+											MultipleRearAxles20{ref "MultipleRearAxles"}
+												mandatory
+													Axles312{ref "Axles3"}
+								mandatory
+									Drivetrain32{ref "Drivetrain"}
+										alternative
+											DrivenAxle132{ref "DrivenAxle1"}
+											DrivenAxles220{ref "DrivenAxles2"}
+					Truck33{ref "Truck"}
+						mandatory
+							Weight33{ref "Weight"}
+								mandatory
+									Heavyweight14{ref "Heavyweight"}
+										alternative
+											Tons2314{ref "Tons23"}
+											Tons409{ref "Tons40"}
+						mandatory
+							Type33{ref "Type"}
+								mandatory
+									Tank9{ref "Tank"}
+						mandatory
+							Engine33{ref "Engine"}
+								mandatory
+									KW40021{ref "KW400"}
+						mandatory
+							Cabin33{ref "Cabin"}
+								mandatory
+									HighRoof6{ref "HighRoof"}
+						mandatory
+							Axles56{ref "Axles"}
+								mandatory
+									Count33{ref "Count"}
+										mandatory
+											Axles215{ref "Axles2"}
+								mandatory
+									Drivetrain33{ref "Drivetrain"}
+										mandatory
+											DrivenAxle133{ref "DrivenAxle1"}
+					Truck34{ref "Truck"}
+						mandatory
+							Weight34{ref "Weight"}
+								mandatory
+									Heavyweight15{ref "Heavyweight"}
+										mandatory
+											Tons2315{ref "Tons23"}
+						mandatory
+							Type34{ref "Type"}
+								mandatory
+									Flatbed21{ref "Flatbed"}
+										mandatory
+											Dumper21{ref "Dumper"}
+						mandatory
+							Engine34{ref "Engine"}
+								alternative
+									KW16012{ref "KW160"}
+									KW28012{ref "KW280"}
+						mandatory
+							Cabin34{ref "Cabin"}
+								mandatory
+									HighRoof7{ref "HighRoof"}
+						mandatory
+							Axles57{ref "Axles"}
+								mandatory
+									Count34{ref "Count"}
+										mandatory
+											MultipleRearAxles21{ref "MultipleRearAxles"}
+												mandatory
+													Axles313{ref "Axles3"}
+								mandatory
+									Drivetrain34{ref "Drivetrain"}
+										alternative
+											DrivenAxle134{ref "DrivenAxle1"}
+											DrivenAxles221{ref "DrivenAxles2"}
+					Truck35{ref "Truck"}
+						mandatory
+							Weight35{ref "Weight"}
+								mandatory
+									Lightweight19{ref "Lightweight"}
+										mandatory
+											Tons1811{ref "Tons18"}
+						mandatory
+							Type35{ref "Type"}
+								mandatory
+									Tank10{ref "Tank"}
+						mandatory
+							Engine35{ref "Engine"}
+								mandatory
+									KW40022{ref "KW400"}
+						mandatory
+							Cabin35{ref "Cabin"}
+						mandatory
+							Axles58{ref "Axles"}
+								mandatory
+									Count35{ref "Count"}
+										mandatory
+											MultipleRearAxles22{ref "MultipleRearAxles"}
+												mandatory
+													Axles412{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle9{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain35{ref "Drivetrain"}
+										alternative
+											DrivenAxle135{ref "DrivenAxle1"}
+											DrivenAxles222{ref "DrivenAxles2"}
+											DrivenAxles39{ref "DrivenAxles3"}
+					Truck36{ref "Truck"}
+						mandatory
+							Weight36{ref "Weight"}
+								mandatory
+									Lightweight20{ref "Lightweight"}
+										mandatory
+											Tons1812{ref "Tons18"}
+						mandatory
+							Type36{ref "Type"}
+								mandatory
+									Semitrailer3{ref "Semitrailer"}
+						mandatory
+							Engine36{ref "Engine"}
+								mandatory
+									KW40023{ref "KW400"}
+						mandatory
+							Cabin36{ref "Cabin"}
+								optional
+									SleeperCabin3{ref "SleeperCabin"}
+										mandatory
+											Bed13{ref "Bed1"}
+						mandatory
+							Axles59{ref "Axles"}
+								mandatory
+									Count36{ref "Count"}
+										mandatory
+											MultipleRearAxles23{ref "MultipleRearAxles"}
+												mandatory
+													Axles413{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle10{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain36{ref "Drivetrain"}
+										alternative
+											DrivenAxle136{ref "DrivenAxle1"}
+											DrivenAxles223{ref "DrivenAxles2"}
+											DrivenAxles310{ref "DrivenAxles3"}
+					Truck37{ref "Truck"}
+						mandatory
+							Weight37{ref "Weight"}
+								mandatory
+									Heavyweight16{ref "Heavyweight"}
+										alternative
+											Tons2316{ref "Tons23"}
+											Tons4010{ref "Tons40"}
+						mandatory
+							Type37{ref "Type"}
+								mandatory
+									Tank11{ref "Tank"}
+						mandatory
+							Engine37{ref "Engine"}
+								mandatory
+									KW40024{ref "KW400"}
+						mandatory
+							Cabin37{ref "Cabin"}
+								mandatory
+									HighRoof8{ref "HighRoof"}
+						mandatory
+							Axles60{ref "Axles"}
+								mandatory
+									Count37{ref "Count"}
+										mandatory
+											MultipleRearAxles24{ref "MultipleRearAxles"}
+												mandatory
+													Axles414{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle11{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain37{ref "Drivetrain"}
+										alternative
+											DrivenAxle137{ref "DrivenAxle1"}
+											DrivenAxles224{ref "DrivenAxles2"}
+											DrivenAxles311{ref "DrivenAxles3"}
+					Truck38{ref "Truck"}
+						mandatory
+							Weight38{ref "Weight"}
+								mandatory
+									Lightweight21{ref "Lightweight"}
+										mandatory
+											Tons1813{ref "Tons18"}
+						mandatory
+							Type38{ref "Type"}
+								mandatory
+									Semitrailer4{ref "Semitrailer"}
+						mandatory
+							Engine38{ref "Engine"}
+								alternative
+									KW16013{ref "KW160"}
+									KW28013{ref "KW280"}
+						mandatory
+							Cabin38{ref "Cabin"}
+								optional
+									SleeperCabin4{ref "SleeperCabin"}
+										mandatory
+											Bed14{ref "Bed1"}
+						mandatory
+							Axles61{ref "Axles"}
+								mandatory
+									Count38{ref "Count"}
+										mandatory
+											Axles216{ref "Axles2"}
+								mandatory
+									Drivetrain38{ref "Drivetrain"}
+										mandatory
+											DrivenAxle138{ref "DrivenAxle1"}
+					Truck39{ref "Truck"}
+						mandatory
+							Weight39{ref "Weight"}
+								mandatory
+									Heavyweight17{ref "Heavyweight"}
+										alternative
+											Tons2317{ref "Tons23"}
+											Tons4011{ref "Tons40"}
+						mandatory
+							Type39{ref "Type"}
+								mandatory
+									Flatbed22{ref "Flatbed"}
+										mandatory
+											Dumper22{ref "Dumper"}
+						mandatory
+							Engine39{ref "Engine"}
+								mandatory
+									KW40025{ref "KW400"}
+						mandatory
+							Cabin39{ref "Cabin"}
+						mandatory
+							Axles62{ref "Axles"}
+								mandatory
+									Count39{ref "Count"}
+										mandatory
+											MultipleRearAxles25{ref "MultipleRearAxles"}
+												mandatory
+													Axles415{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle12{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain39{ref "Drivetrain"}
+										alternative
+											DrivenAxle139{ref "DrivenAxle1"}
+											DrivenAxles225{ref "DrivenAxles2"}
+											DrivenAxles312{ref "DrivenAxles3"}
+					Truck40{ref "Truck"}
+						mandatory
+							Weight40{ref "Weight"}
+								mandatory
+									Lightweight22{ref "Lightweight"}
+										mandatory
+											Tons1814{ref "Tons18"}
+						mandatory
+							Type40{ref "Type"}
+								mandatory
+									Semitrailer5{ref "Semitrailer"}
+						mandatory
+							Engine40{ref "Engine"}
+								alternative
+									KW16014{ref "KW160"}
+									KW28014{ref "KW280"}
+						mandatory
+							Cabin40{ref "Cabin"}
+								optional
+									SleeperCabin5{ref "SleeperCabin"}
+										mandatory
+											Bed15{ref "Bed1"}
+						mandatory
+							Axles63{ref "Axles"}
+								mandatory
+									Count40{ref "Count"}
+										mandatory
+											MultipleRearAxles26{ref "MultipleRearAxles"}
+												mandatory
+													Axles416{ref "Axles4"}
+								optional
+									AdditionalSteeringAxle13{ref "AdditionalSteeringAxle"}
+								mandatory
+									Drivetrain40{ref "Drivetrain"}
+										alternative
+											DrivenAxle140{ref "DrivenAxle1"}
+											DrivenAxles226{ref "DrivenAxles2"}
+											DrivenAxles313{ref "DrivenAxles3"}
+					Truck41{ref "Truck"}
+						mandatory
+							Weight41{ref "Weight"}
+								mandatory
+									Lightweight23{ref "Lightweight"}
+										mandatory
+											Tons128{ref "Tons12"}
+						mandatory
+							Type41{ref "Type"}
+								mandatory
+									Flatbed23{ref "Flatbed"}
+										mandatory
+											Dumper23{ref "Dumper"}
+						mandatory
+							Engine41{ref "Engine"}
+								mandatory
+									KW40026{ref "KW400"}
+						mandatory
+							Cabin41{ref "Cabin"}
+						mandatory
+							Axles64{ref "Axles"}
+								mandatory
+									Count41{ref "Count"}
+										mandatory
+											MultipleRearAxles27{ref "MultipleRearAxles"}
+												mandatory
+													Axles314{ref "Axles3"}
+								mandatory
+									Drivetrain41{ref "Drivetrain"}
+										alternative
+											DrivenAxle141{ref "DrivenAxle1"}
+											DrivenAxles227{ref "DrivenAxles2"}
