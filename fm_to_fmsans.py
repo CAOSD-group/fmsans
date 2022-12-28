@@ -8,7 +8,7 @@ from fm_solver.utils import fm_utils, logging_utils, timer, sizer
 from fm_solver.models import fm_sans as fm_sans_utils
 
 
-def main(fm_filepath: str, store_full_fm: bool = False):
+def main(fm_filepath: str, store_full_fm: bool = False, unique_features: bool = False):
     # Get feature model name
     logging_utils.FM_LOGGER.info(f'Input model: {fm_filepath}')
     fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
@@ -43,11 +43,12 @@ def main(fm_filepath: str, store_full_fm: bool = False):
         logging_utils.FM_LOGGER.info(fm_sans_utils.fm_stats(fm))
 
         # Convert non-unique features to unique features
-        logging_utils.LOGGER.info(f"Converting non-unique features to unique features...")
-        with timer.Timer(logger=logging_utils.LOGGER.info, message="To unique features."):
-            fm = fm_utils.to_unique_features(fm)
-            sizer.getsizeof(fm, logging_utils.LOGGER.info, message="FM with unique features.")
-        logging_utils.FM_LOGGER.info(fm_sans_utils.fm_stats(fm))
+        if unique_features:
+            logging_utils.LOGGER.info(f"Converting non-unique features to unique features...")
+            with timer.Timer(logger=logging_utils.LOGGER.info, message="To unique features."):
+                fm = fm_utils.to_unique_features(fm)
+                sizer.getsizeof(fm, logging_utils.LOGGER.info, message="FM with unique features.")
+            logging_utils.FM_LOGGER.info(fm_sans_utils.fm_stats(fm))
 
         # Serializing full FM
         logging_utils.LOGGER.info(f"Serializing full FM...")
@@ -61,7 +62,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an FM to an FMSans (.json).')
     parser.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, required=True, help='Input feature model in UVL format.')
     parser.add_argument('-o', '--output', dest='output', action='store_true', default=False, required=False, help='Save also the output full feature model without constraints in UVL format.')
+    parser.add_argument('-u', '--unique', dest='unique_features', action='store_true', default=False, required=False, help="The full feature model is stored with unique features' names (only if -o option is provided).")
     args = parser.parse_args()
 
-    main(args.feature_model, args.output)
+    main(args.feature_model, args.output, args.unique_features)
     
