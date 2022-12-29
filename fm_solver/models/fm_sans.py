@@ -1,7 +1,13 @@
 import copy
 from collections.abc import Callable
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.metamodels.fm_metamodel.models import (
+    FeatureModel, 
+    Feature, 
+    Relation, 
+    Constraint, 
+    Attribute
+)
 
 from fm_solver.utils import fm_utils, constraints_utils, logging_utils, timer
 
@@ -80,8 +86,10 @@ class FMSans():
             fm = result_fm
         else:
             logging_utils.LOGGER.debug(f'Joining subtrees to subtree without CTCs implications...')
-            self.subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')
-            new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)
+            #self.subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')  # This is not needed.
+            new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)  # We can use the same feature's name for Root.
+            #new_root = Feature(result_fm.root.name, is_abstract=True)   # We may use the same feature's name for Root.
+            new_root.add_attribute(Attribute(name='new', domain=None, default_value=None, null_value=None))
             new_root.add_relation(Relation(new_root, [self.subtree_without_constraints_implications.root], 1, 1))
             self.subtree_without_constraints_implications.root.parent = new_root
             new_root.add_relation(Relation(new_root, [result_fm.root], 1, 1))

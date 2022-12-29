@@ -12,7 +12,7 @@ class FMConfigurations(FMOperation):
 
     @staticmethod
     def get_name() -> str:
-        return 'Configurations number'
+        return 'Configurations'
 
     def __init__(self) -> None:
         self._result = 0

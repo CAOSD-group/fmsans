@@ -6,7 +6,7 @@ from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 from fm_solver.transformations import FMToFMSans, FMSansWriter
 from fm_solver.utils import fm_utils, logging_utils, timer, sizer
 from fm_solver.models import fm_sans as fm_sans_utils
-from fm_solver.operations import FMConfigurationsNumber, FMConfigurations
+from fm_solver.operations import FMConfigurationsNumber, FMConfigurations, FMCoreFeatures
 
 
 def main(fm_filepath: str) -> None:
@@ -31,7 +31,10 @@ def main(fm_filepath: str) -> None:
 
     configurations = FMConfigurations().execute(fm).get_result()
     for i, c in enumerate(configurations, 1):
-        print(f'C{i}: {[f.name for f in c.get_selected_elements()]}')    
+        print(f'C{i}: {[f.name for f in c.get_selected_elements()]}')
+
+    core_features = FMCoreFeatures().execute(fm).get_result()
+    print(f'Core features: {len(core_features)}, {[f.name for f in core_features]}')
 
 
 
