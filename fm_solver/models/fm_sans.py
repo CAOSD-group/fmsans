@@ -11,6 +11,8 @@ from flamapy.metamodels.fm_metamodel.models import (
 
 from fm_solver.utils import fm_utils, constraints_utils, logging_utils, timer
 
+from fm_solver.transformations.refactorings import RefactoringPseudoComplexConstraint
+
 
 class FMSans():
     """A representation of a feature model by means of the list of transformations 
@@ -220,15 +222,25 @@ def get_valid_transformations_ids(fm: FeatureModel,
 def fm_stats(fm: FeatureModel) -> str:
     lines = []
     unique_features = [f for f in fm.get_features() if not any(a.name == 'ref' for a in f.get_attributes())]
+    subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
+    features_without_implications = 0 if subtree_without_constraints_implications is None else len(subtree_without_constraints_implications.get_features())
+    features_with_implications = 0 if subtree_with_constraints_implications is None else len(subtree_with_constraints_implications.get_features())
+    complex_ctcs = len([ctc for ctc in fm.get_constraints() if constraints_utils.is_complex_constraint(ctc)])
+    pseudo_complex_ctcs = len(RefactoringPseudoComplexConstraint.get_instances(fm))
+    strict_complex_ctcs = complex_ctcs - pseudo_complex_ctcs
     lines.append(f'FM stats:')
     lines.append(f'  #Features:            {len(fm.get_features())}')
     lines.append(f'    #Unique Features:   {len(unique_features)}')
+    lines.append(f'    #Features out CTCs: {features_without_implications}')
+    lines.append(f'    #Features in CTCs:  {features_with_implications}')
     lines.append(f'  #Relations:           {len(fm.get_relations())}')
     lines.append(f'  #Constraints:         {len(fm.get_constraints())}')
     lines.append(f'    #Simple CTCs:       {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_simple_constraint(ctc)])}')
     lines.append(f'      #Requires:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_requires_constraint(ctc)])}')
     lines.append(f'      #Excludes:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_excludes_constraint(ctc)])}')
-    lines.append(f'    #Complex CTCs:      {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_complex_constraint(ctc)])}')
+    lines.append(f'    #Complex CTCs:      {complex_ctcs}')
+    lines.append(f'      #Pseudo CTCs:      {pseudo_complex_ctcs}')
+    lines.append(f'      #Strict CTCs:      {strict_complex_ctcs}')
     return '\n'.join(lines)
 
 
