@@ -254,6 +254,8 @@ def get_subtrees_constraints_implications(fm: FeatureModel) -> tuple[FeatureMode
 
 def get_subtree_without_constraints_implications(fm: FeatureModel) -> FeatureModel:
     """Return the subtree of the feature model that is not affected by any constraint."""
+    if len(fm.get_constraints()) == 0:
+        return None
     if len(fm.root.get_relations()) < 2:
         return None
     subtree = FeatureModel(copy.deepcopy(fm.root))
