@@ -13,7 +13,7 @@ from flamapy.metamodels.fm_metamodel.models import (
 from fm_solver.utils import fm_utils, constraints_utils, logging_utils, timer
 
 from fm_solver.transformations.refactorings import RefactoringPseudoComplexConstraint
-from fm_solver.operations import FMFullAnalysis
+from fm_solver.operations import FMFullAnalysis, FMConfigurationsNumber
 
 
 class FMSans():
@@ -111,22 +111,26 @@ class FMSans():
         n_bits = len(self.transformations_vector)
         max = len(self.transformations_ids)
         results: list[dict[str, Any]] = []
+        subtrees = set()  # usar mejor un dictionary de hash -> resultado de analysis (así evitamos el "if")
         for i, num in enumerate(self.transformations_ids):
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
-            analysis_result = FMFullAnalysis().execute(tree).get_result()
-            results.append(analysis_result)
+            tree = fm_utils.remove_leaf_abstract_features(tree)
+            h = hash(tree)
+            if h not in subtrees:
+                subtrees.add(h)
+                analysis_result = FMFullAnalysis().execute(tree).get_result()
+                results.append(analysis_result)
             percentage = (i / max) * 100
             logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
         # Join all subtrees
-        for op, res in analysis_result.items():
-            print(f'{op}: {res}')
+        result = FMFullAnalysis.join_results(results)
         logging_utils.LOGGER.debug(f'Joining results from {max} unique subtrees...')
         result_subtree_without_constraints = FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
-        for op, res in result_subtree_without_constraints.items():
-            print(f'{op}: {res}')
-        results.append(result_subtree_without_constraints)
-        return FMFullAnalysis.join_results(results)
+        # for op, res in result_subtree_without_constraints.items():
+        #     print(f'{op}: {res}')
+        
+        return result
         
 
 class SimpleCTCTransformation():

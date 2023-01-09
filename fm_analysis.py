@@ -43,6 +43,12 @@ def main_fmsans(fm_filepath: str) -> None:
     for op, res in result.items():
         print(f'{op}: {res}')
 
+    fm = fm_sans.get_feature_model()
+    n_configurations = FMConfigurationsNumber().execute(fm).get_result()
+    print(f'#Configurations: {n_configurations}')
+
+    core_features = FMCoreFeatures().execute(fm).get_result()
+    print(f'Core features: {len(core_features)}, {[f.name for f in core_features]}')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Analyze an FM using the FM Solver.')
