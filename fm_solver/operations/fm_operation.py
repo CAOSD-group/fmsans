@@ -2,8 +2,7 @@ from abc import abstractmethod
 from typing import Any
 
 from flamapy.core.operations import Operation
-
-from fm_solver.models import FMSans
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 
 class FMOperation(Operation):
@@ -15,12 +14,18 @@ class FMOperation(Operation):
         pass
 
     @abstractmethod
-    def execute(self, model: FMSans) -> 'FMOperation':
+    def execute(self, model: FeatureModel) -> 'FMOperation':
         pass
 
     @abstractmethod
     def get_result(self) -> Any:
         pass
 
-    def is_applicable(self, model: FMSans) -> bool:
+    def is_applicable(self, model: FeatureModel) -> bool:
         return len(model.get_constraints()) == 0
+
+    @staticmethod
+    @abstractmethod
+    def join_results(subtrees_results: list[Any]) -> Any:
+        """Join the result of the operation applied several exclusive subtrees."""
+        pass

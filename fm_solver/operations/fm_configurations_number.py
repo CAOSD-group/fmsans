@@ -26,6 +26,10 @@ class FMConfigurationsNumber(FMOperation):
 
     def get_configurations_number(self) -> int:
         return configurations_number(self.feature_model)
+    
+    @staticmethod
+    def join_results(subtrees_results: list[int]) -> int:
+        return sum(subtrees_results)
 
 
 def configurations_number(fm: FeatureModel) -> int:

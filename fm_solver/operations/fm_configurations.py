@@ -29,6 +29,10 @@ class FMConfigurations(FMOperation):
     def get_configurations(self) -> list[Configuration]:
         return configurations_rec(self.feature_model, self.feature_model.root)
 
+    @staticmethod
+    def join_results(subtrees_results: list[list[Configuration]]) -> list[Configuration]:
+        return set().union(*subtrees_results)
+
 
 def configurations_rec(fm: FeatureModel, feature: Feature) -> list[Configuration]:
     original_feature = get_original_feature(fm, feature)

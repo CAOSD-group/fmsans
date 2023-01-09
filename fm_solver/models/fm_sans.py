@@ -1,4 +1,5 @@
 import copy
+from typing import Any
 from collections.abc import Callable
 
 from flamapy.metamodels.fm_metamodel.models import (
@@ -12,6 +13,7 @@ from flamapy.metamodels.fm_metamodel.models import (
 from fm_solver.utils import fm_utils, constraints_utils, logging_utils, timer
 
 from fm_solver.transformations.refactorings import RefactoringPseudoComplexConstraint
+from fm_solver.operations import FMFullAnalysis
 
 
 class FMSans():
@@ -103,6 +105,29 @@ class FMSans():
             fm = fm_utils.remove_leaf_abstract_features(fm)
         return fm
 
+    def get_analysis(self) -> dict[str, Any]:
+        if self.subtree_with_constraints_implications is None:
+            return FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
+        n_bits = len(self.transformations_vector)
+        max = len(self.transformations_ids)
+        results: list[dict[str, Any]] = []
+        for i, num in enumerate(self.transformations_ids):
+            binary_vector = list(format(num, f'0{n_bits}b'))
+            tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
+            analysis_result = FMFullAnalysis().execute(tree).get_result()
+            results.append(analysis_result)
+            percentage = (i / max) * 100
+            logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
+        # Join all subtrees
+        for op, res in analysis_result.items():
+            print(f'{op}: {res}')
+        logging_utils.LOGGER.debug(f'Joining results from {max} unique subtrees...')
+        result_subtree_without_constraints = FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
+        for op, res in result_subtree_without_constraints.items():
+            print(f'{op}: {res}')
+        results.append(result_subtree_without_constraints)
+        return FMFullAnalysis.join_results(results)
+        
 
 class SimpleCTCTransformation():
     """It represents a transformation of a simple cross-tree constraint (requires or excludes),

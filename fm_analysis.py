@@ -3,7 +3,7 @@ import argparse
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 
-from fm_solver.transformations import FMToFMSans, FMSansWriter
+from fm_solver.transformations import FMToFMSans, FMSansWriter, FMSansReader
 from fm_solver.utils import fm_utils, logging_utils, timer, sizer
 from fm_solver.models import fm_sans as fm_sans_utils
 from fm_solver.operations import FMConfigurationsNumber, FMConfigurations, FMCoreFeatures
@@ -37,6 +37,12 @@ def main(fm_filepath: str) -> None:
     print(f'Core features: {len(core_features)}, {[f.name for f in core_features]}')
 
 
+def main_fmsans(fm_filepath: str) -> None:
+    fm_sans = FMSansReader(fm_filepath).transform()
+    result = fm_sans.get_analysis()
+    for op, res in result.items():
+        print(f'{op}: {res}')
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Analyze an FM using the FM Solver.')
@@ -48,6 +54,6 @@ if __name__ == '__main__':
     if args.feature_model:
         main(args.feature_model)
     elif args.fm_sans:
-        #main_fmsans(args.fm_sans) 
+        main_fmsans(args.fm_sans) 
         pass
     

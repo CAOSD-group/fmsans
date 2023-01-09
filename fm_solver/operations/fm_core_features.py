@@ -25,6 +25,10 @@ class FMCoreFeatures(FMOperation):
     def get_core_features(self) -> set[Feature]:
         return get_core_features(self.feature_model)
 
+    @staticmethod
+    def join_results(subtrees_results: list[set[Feature]]) -> set[Feature]:
+        return set().intersection(*subtrees_results)
+
 
 def get_core_features(feature_model: FeatureModel) -> set[Feature]:
     if feature_model.root is None:
