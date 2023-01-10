@@ -1,3 +1,4 @@
+import math
 import copy
 from typing import Any
 from collections.abc import Callable
@@ -251,6 +252,20 @@ def get_valid_transformations_ids(fm: FeatureModel,
         percentage = (num / max) * 100
     logging_utils.LOGGER.debug(f'Total IDs: {max}, #Valids: {len(valid_transformed_numbers_trees)}, #Invalids: {total_invalids}, #Skipped: {total_skipped}.')
     return valid_transformed_numbers_trees
+
+
+def get_min_max_ids_transformations_for_parallelization(n_bits: int, n_cores: int, current_core: int) -> tuple[int, int]:
+    if current_core >= n_cores:
+        raise Exception(f'The current core must be in range [0, n_cores).')
+    left_bits = math.log(n_cores, 2)  # number of bits on the left
+    if not left_bits.is_integer():
+        raise Exception(f'The number of cores (or processors) must be power of 2.')
+    left_bits = int(left_bits)
+    right_bits = n_bits - left_bits  # number of bits on the left
+    binary_min_number = format(current_core, f'0{left_bits}b') + format(0, f'0{right_bits}b')
+    min_number = int(binary_min_number, 2)
+    max_number = min_number + 2**right_bits - 1
+    return (min_number, max_number)
 
 
 def get_basic_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
