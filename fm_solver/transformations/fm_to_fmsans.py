@@ -155,6 +155,3 @@ def analysis_constraints_order_estimation(fm: FeatureModel, constraints: list[Co
     # for i in range(new_constraints_ordered):
     #     print(f'CTC {i}: {new_constraints_ordered[i].ast.to_pretty_str()}, {(constraints_ordered[i][0], constraints_ordered[i][1]), ({(constraints_ordered_transformations[i][0], constraints_ordered_transformations[i][1])})}')
     return (new_constraints_ordered, constraints_ordered_transformations)
-
-
-

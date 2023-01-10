@@ -7,6 +7,8 @@ from fm_solver.utils import fm_utils, constraints_utils
 
 class RefactoringStrictComplexConstraint(FMRefactoring):
 
+    ABSTRACT_AUX_OR_FEATURE_NAME = 'OR_FEATURE'
+
     @staticmethod
     def get_name() -> str:
         return 'Strict-complex constraint refactoring'
@@ -41,7 +43,9 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
             else:
                 model = fm_utils.deletion_feature(model, feature_name)
         else:
-            new_or = Feature(fm_utils.get_new_feature_name(model, 'OR'), is_abstract=True)
+            new_or = Feature(fm_utils.get_new_feature_name(model, 
+                             RefactoringStrictComplexConstraint.ABSTRACT_AUX_OR_FEATURE_NAME), 
+                             is_abstract=True)
             features = []
             for f in features_dict.keys():
                 new_feature = Feature(fm_utils.get_new_feature_name(model, f), 

@@ -1,8 +1,9 @@
 """
-This module contains all utils related to the management of a cross-tree constraints.
+This module contains all utils related to the management of cross-tree constraints.
 """
 
-from flamapy.core.models import ASTOperation
+from flamapy.core.models import AST, ASTOperation
+from flamapy.core.models import ast as ast_utils
 from flamapy.metamodels.fm_metamodel.models import Constraint
 
 
@@ -91,3 +92,35 @@ def left_right_features_from_simple_constraint(simple_ctc: Constraint) -> tuple[
             left = root_op.right.left.data
             right = root_op.left.data
     return (left, right)
+
+
+def split_constraint(constraint: Constraint) -> list[Constraint]:
+    """Given a constraint, split it in multiple constraints separated by the AND operator."""
+    asts = split_formula(constraint.ast)
+    asts_simplified = [ast_utils.simplify_formula(ast) for ast in asts]
+    asts = []
+    for ctc in asts_simplified:
+        asts.extend(split_formula(ctc))
+        
+    asts_negation_propagated = [ast_utils.propagate_negation(ast.root) for ast in asts]
+    asts = []
+    for ctc in asts_negation_propagated:
+        asts.extend(split_formula(ctc))
+
+    asts_cnf = [ast_utils.to_cnf(ast) for ast in asts]
+    asts = []
+    for ctc in asts_cnf:
+        asts.extend(split_formula(ctc))
+    return [Constraint(f'{constraint.name}{i}', ast) for i, ast in enumerate(asts)]
+
+
+def split_formula(formula: AST) -> list[AST]:
+    """Given a formula, returns a list of formulas separated by the AND operator."""
+    res = []
+    node = formula.root
+    if node.data == ASTOperation.AND:
+        res.extend(split_formula(AST(node.left)))
+        res.extend(split_formula(AST(node.right)))
+    else:
+        res.append(formula)
+    return res

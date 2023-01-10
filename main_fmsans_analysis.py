@@ -6,7 +6,7 @@ from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 from fm_solver.transformations import FMToFMSans, FMSansWriter, FMSansReader
 from fm_solver.utils import fm_utils, logging_utils, timer, sizer
 from fm_solver.models import fm_sans as fm_sans_utils
-from fm_solver.operations import FMConfigurationsNumber, FMConfigurations, FMCoreFeatures
+from fm_solver.operations import FMConfigurationsNumber, FMConfigurations, FMCoreFeatures, FMFullAnalysis
 
 
 def main(fm_filepath: str) -> None:
@@ -23,7 +23,7 @@ def main(fm_filepath: str) -> None:
     logging_utils.FM_LOGGER.info(fm_sans_utils.fm_stats(fm))
     
     if fm.get_constraints():
-        print(f"Error: The FM has cross-tree constraints. Please transform it first using the 'fm_to_fmsans.py' script.")
+        print(f"Error: The FM has cross-tree constraints. Please transform it first using the 'fmsimplectcs2fmsans.py' script.")
         return None
 
     n_configurations = FMConfigurationsNumber().execute(fm).get_result()
@@ -41,8 +41,8 @@ def main_fmsans(fm_filepath: str) -> None:
     fm_sans = FMSansReader(fm_filepath).transform()
     result = fm_sans.get_analysis()
     print(f'Result from paralelization analysis: ')
-    for op, res in result.items():
-        print(f'{op}: {res}')
+    print(f'#Configurations: {result[FMFullAnalysis.CONFIGURATIONS_NUMBER]}')
+    print(f'Core features: {[f.name for f in result[FMFullAnalysis.CORE_FEATURES]]}')
 
     fm = fm_sans.get_feature_model()
     print(f'Result from full composed feature model: ')
@@ -52,10 +52,11 @@ def main_fmsans(fm_filepath: str) -> None:
     core_features = FMCoreFeatures().execute(fm).get_result()
     print(f'Core features: {len(core_features)}, {[f.name for f in core_features]}')
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Analyze an FM using the FM Solver.')
     input_model = parser.add_mutually_exclusive_group(required=True)
-    input_model.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, help='Input feature model in UVL format.')
+    input_model.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, help='Input feature model in UVL format (.uvl).')
     input_model.add_argument('-fmsans', dest='fm_sans', type=str, help='Input feature model in FMSans (.json) format.')
     args = parser.parse_args()
 
