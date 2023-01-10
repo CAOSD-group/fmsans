@@ -40,10 +40,12 @@ def main(fm_filepath: str) -> None:
 def main_fmsans(fm_filepath: str) -> None:
     fm_sans = FMSansReader(fm_filepath).transform()
     result = fm_sans.get_analysis()
+    print(f'Result from paralelization analysis: ')
     for op, res in result.items():
         print(f'{op}: {res}')
 
     fm = fm_sans.get_feature_model()
+    print(f'Result from full composed feature model: ')
     n_configurations = FMConfigurationsNumber().execute(fm).get_result()
     print(f'#Configurations: {n_configurations}')
 

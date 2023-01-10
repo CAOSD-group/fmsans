@@ -126,11 +126,12 @@ class FMSans():
         # Join all subtrees
         result = FMFullAnalysis.join_results(results)
         logging_utils.LOGGER.debug(f'Joining results from {max} unique subtrees...')
+        # Join result with subtree without CTCs implications
         result_subtree_without_constraints = FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
-        # for op, res in result_subtree_without_constraints.items():
-        #     print(f'{op}: {res}')
-        
-        return result
+        analysis_result = {}
+        analysis_result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = result[FMFullAnalysis.CONFIGURATIONS_NUMBER] * result_subtree_without_constraints[FMFullAnalysis.CONFIGURATIONS_NUMBER]
+        analysis_result[FMFullAnalysis.CORE_FEATURES] = result[FMFullAnalysis.CORE_FEATURES].intersection(result_subtree_without_constraints[FMFullAnalysis.CORE_FEATURES])
+        return analysis_result
         
 
 class SimpleCTCTransformation():
