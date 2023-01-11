@@ -115,7 +115,42 @@ def main_fmsans_analysis(fmsans_filepath: str):
     logging_utils.LOGGER.info(f"Operation: ConfigurationsNumber. Result: {n_configurations}.")
 
 
+import multiprocessing
+from multiprocessing import Process
+
+def f(i):
+    print(f'Current process: {multiprocessing.current_process().name} -> {i}')
+    return multiprocessing.current_process().name
+
 if __name__ == '__main__':
+
+    print(f'CPU count: {multiprocessing.cpu_count()}')
+    processes = []
+    p = Process(target=f, args=(100,))
+    p.start()
+    p.join()
+    p.run()
+    with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
+        for i in range(10):
+            processes.append(pool.apply_async(f, (i,)))
+        
+        for p in processes:
+            p.wait()
+
+        for p in processes:
+            print(f'worker: {p.get()}')
+    
+    raise Exception
+
+    processes = []
+    for i in range(16):
+        p = multiprocessing.Process(target=f)
+        p.start()
+        processes.append(p)
+    for p in processes:
+        p.join()
+    
+    raise Exception
     parser = argparse.ArgumentParser(description='FM Solver.')
     input_model = parser.add_mutually_exclusive_group(required=True)
     input_model.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, help='Input feature model in UVL format.')

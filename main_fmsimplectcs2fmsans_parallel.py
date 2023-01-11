@@ -42,17 +42,16 @@ def main(fm_filepath: str, n_cores: int):
     # Get transformations vector
     transformations_vector = get_transformations_vector(constraints_order)
 
-    # PARELLEL CODE: Get valid transformations ids.
+    # Get valid transformations ids.
+    ### PARALLEL CODE
     valid_transformed_numbers_trees = {}
     queue = Queue()
     processes = []
     n_bits = len(constraints_order[0])
     cpu_count = n_cores
-    print(f'Cores: {cpu_count}, bits: {n_bits}')
     n_processes = cpu_count if n_bits > cpu_count else 1
     for process_i in range(n_processes):
         min_id, max_id = get_min_max_ids_transformations_for_parallelization(len(constraints_order[0]), n_processes, process_i)
-        print(f'Process: {process_i}, Min: {min_id}, Max: {max_id}')
         p = Process(target=get_valid_transformations_ids, args=(subtree_with_constraints_implications, transformations_vector, min_id, max_id, queue))
         p.start()
         processes.append(p)
@@ -60,7 +59,7 @@ def main(fm_filepath: str, n_cores: int):
     for p in processes:
         valid_ids = queue.get()
         valid_transformed_numbers_trees.update(valid_ids)
-    # End of parallel code.
+    ### End of parallel code.
 
     # Get FMSans instance
     fm_sans_model = FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications, 

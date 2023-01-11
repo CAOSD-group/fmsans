@@ -47,7 +47,7 @@ class FMSans():
     
     A vector is valid is the application of all its transformation result in a feature model that
     is not NIL (None or Null). All valid vectors are stored as decimal numbers in a 
-    transformations id list (in fact, it is a dictionary of ids -> hash of the subtree):
+    transformations id list (in fact, it is a dictionary of hash of the subtree -> transformation ids):
       - Transformations IDS: [0, 1, 2, 245,..., 5432,..., 2^n-1]
           0 0 0 0 ... 0 = 0
           0 0 0 0 ... 1 = 1
@@ -59,7 +59,7 @@ class FMSans():
                  subtree_with_constraints_implications: FeatureModel,
                  subtree_without_constraints_implications: FeatureModel,
                  transformations_vector: list[tuple['SimpleCTCTransformation', 'SimpleCTCTransformation']],
-                 transformations_ids: dict[int, str],
+                 transformations_ids: dict[str, int],
                 ) -> None:
         self.subtree_with_constraints_implications = subtree_with_constraints_implications
         self.subtree_without_constraints_implications = subtree_without_constraints_implications
@@ -75,7 +75,7 @@ class FMSans():
         subtrees = set()
         n_bits = len(self.transformations_vector)
         max = len(self.transformations_ids)
-        for i, num in enumerate(self.transformations_ids.keys()):
+        for i, num in enumerate(self.transformations_ids.values()):
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
             subtrees.add(tree)
@@ -112,7 +112,7 @@ class FMSans():
         max = len(self.transformations_ids)
         results: list[dict[str, Any]] = []
         subtrees = set()  # usar mejor un dictionary de hash -> resultado de analysis (así evitamos el "if")
-        for i, num in enumerate(self.transformations_ids.keys()):
+        for i, num in enumerate(self.transformations_ids.values()):
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
             tree = fm_utils.remove_leaf_abstract_features(tree)
@@ -224,7 +224,7 @@ def get_valid_transformations_ids(fm: FeatureModel,
                                   transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]],
                                   min_id: int,
                                   max_id: int,
-                                  queue: multiprocessing.Queue) -> dict[int, str]:
+                                  queue: multiprocessing.Queue) -> dict[str, int]:
     
     n_bits = len(transformations_vector)
     num = min_id
@@ -233,20 +233,13 @@ def get_valid_transformations_ids(fm: FeatureModel,
     percentage = 0.0
     total_invalids = 0
     total_skipped = 0
-    trees = set()
     while num < max:
         #binary_vector = list(format(num, f'0{n_bits}b')[::-1])
         binary_vector = list(format(num, f'0{n_bits}b'))
         tree, null_bit = execute_transformations_vector(fm, transformations_vector, binary_vector)
         if tree is not None:
-            tree_hash = hash(tree)
-            if tree_hash not in trees:
-                trees.add(tree_hash)
-                valid_transformed_numbers_trees[num] = hash(tree)
-                #logging_utils.LOGGER.debug(f'ID (valid): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
-            else:
-                pass
-                #logging_utils.LOGGER.debug(f'ID (valid, duplicated): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
+            valid_transformed_numbers_trees[hash(tree)] = num
+            #logging_utils.LOGGER.debug(f'ID (valid): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
             num += 1
         else:  # tree is None
             previous_num = num
