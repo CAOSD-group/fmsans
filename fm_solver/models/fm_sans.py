@@ -1,5 +1,6 @@
 import math
 import copy
+import multiprocessing
 from typing import Any
 from collections.abc import Callable
 
@@ -11,7 +12,7 @@ from flamapy.metamodels.fm_metamodel.models import (
     Attribute
 )
 
-from fm_solver.utils import fm_utils, constraints_utils, logging_utils, timer
+from fm_solver.utils import fm_utils, constraints_utils
 from fm_solver.operations import FMFullAnalysis
 
 
@@ -79,16 +80,16 @@ class FMSans():
             tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
             subtrees.add(tree)
             percentage = (i / max) * 100
-            logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
+            #logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
         # Join all subtrees
-        logging_utils.LOGGER.debug(f'Getting full model from {len(subtrees)} unique subtrees...')
+        #logging_utils.LOGGER.debug(f'Getting full model from {len(subtrees)} unique subtrees...')
         result_fm = fm_utils.get_model_from_subtrees(self.subtree_with_constraints_implications, subtrees)
         # Mix result FM and subtree without implications:
         # 1. Change name to the original root
         if self.subtree_without_constraints_implications is None:
             fm = result_fm
         else:
-            logging_utils.LOGGER.debug(f'Joining subtrees to subtree without CTCs implications...')
+            #logging_utils.LOGGER.debug(f'Joining subtrees to subtree without CTCs implications...')
             #self.subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')  # This is not needed.
             new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)  # We can use the same feature's name for Root.
             #new_root = Feature(result_fm.root.name, is_abstract=True)   # We may use the same feature's name for Root.
@@ -99,9 +100,9 @@ class FMSans():
             result_fm.root.parent = new_root
 
             fm = FeatureModel(new_root)
-        logging_utils.LOGGER.debug(f'Removing {sum(f.is_abstract for f in fm.get_features())} abstract features...')
-        with timer.Timer(logger=logging_utils.LOGGER.info, message="Removing abstract features."): 
-            fm = fm_utils.remove_leaf_abstract_features(fm)
+        #logging_utils.LOGGER.debug(f'Removing {sum(f.is_abstract for f in fm.get_features())} abstract features...')
+        #with timer.Timer(logger=logging_utils.LOGGER.info, message="Removing abstract features."): 
+        fm = fm_utils.remove_leaf_abstract_features(fm)
         return fm
 
     def get_analysis(self) -> dict[str, Any]:
@@ -121,10 +122,10 @@ class FMSans():
                 analysis_result = FMFullAnalysis().execute(tree).get_result()
                 results.append(analysis_result)
             percentage = (i / max) * 100
-            logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
+            #logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
         # Join all subtrees
         result = FMFullAnalysis.join_results(results)
-        logging_utils.LOGGER.debug(f'Joining results from {max} unique subtrees...')
+        #logging_utils.LOGGER.debug(f'Joining results from {max} unique subtrees...')
         # Join result with subtree without CTCs implications
         result_subtree_without_constraints = FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
         analysis_result = {}
@@ -220,10 +221,14 @@ def get_next_number_prunning_binary_vector(binary_vector: list[str], bit: int) -
 
 
 def get_valid_transformations_ids(fm: FeatureModel,
-                                  transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]) -> dict[int, str]:
+                                  transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]],
+                                  min_id: int,
+                                  max_id: int,
+                                  queue: multiprocessing.Queue) -> dict[int, str]:
+    
     n_bits = len(transformations_vector)
-    num = 0
-    max = 2**n_bits
+    num = min_id
+    max = max_id
     valid_transformed_numbers_trees = {}
     percentage = 0.0
     total_invalids = 0
@@ -238,9 +243,10 @@ def get_valid_transformations_ids(fm: FeatureModel,
             if tree_hash not in trees:
                 trees.add(tree_hash)
                 valid_transformed_numbers_trees[num] = hash(tree)
-                logging_utils.LOGGER.debug(f'ID (valid): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
+                #logging_utils.LOGGER.debug(f'ID (valid): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
             else:
-                logging_utils.LOGGER.debug(f'ID (valid, duplicated): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
+                pass
+                #logging_utils.LOGGER.debug(f'ID (valid, duplicated): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
             num += 1
         else:  # tree is None
             previous_num = num
@@ -248,9 +254,10 @@ def get_valid_transformations_ids(fm: FeatureModel,
             num = get_next_number_prunning_binary_vector(binary_vector, null_bit)
             skipped = num - previous_num - 1
             total_skipped += skipped
-            logging_utils.LOGGER.debug(f'ID (not valid): {previous_num} / {max} ({percentage}%), null_bit: {null_bit}, {skipped} skipped. #Valids: {len(valid_transformed_numbers_trees)}')
+            #logging_utils.LOGGER.debug(f'ID (not valid): {previous_num} / {max} ({percentage}%), null_bit: {null_bit}, {skipped} skipped. #Valids: {len(valid_transformed_numbers_trees)}')
         percentage = (num / max) * 100
-    logging_utils.LOGGER.debug(f'Total IDs: {max}, #Valids: {len(valid_transformed_numbers_trees)}, #Invalids: {total_invalids}, #Skipped: {total_skipped}.')
+    #logging_utils.LOGGER.debug(f'Total IDs: {max}, #Valids: {len(valid_transformed_numbers_trees)}, #Invalids: {total_invalids}, #Skipped: {total_skipped}.')
+    queue.put(valid_transformed_numbers_trees)
     return valid_transformed_numbers_trees
 
 
