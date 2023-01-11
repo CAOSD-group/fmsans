@@ -40,7 +40,7 @@ class FMSansReader(TextToModel):
         subtree_without_constraints_implications = None if not features_without_constraints_info else FeatureModel(parse_tree(None, features_without_constraints_info))
         subtree_with_constraints_implications = None if not features_with_constraints_info else FeatureModel(parse_tree(None, features_with_constraints_info))
         transformations_vector = None if not ctcs_transformations_info else parse_ctcs_transformations(ctcs_transformations_info)
-        transformations_ids = None if not transformations_ids else {h: int(i) for h, i in transformations_ids.items()}
+        transformations_ids = None if not transformations_ids else {int(i): h for i, h in transformations_ids.items()}
         return FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications,
                       subtree_without_constraints_implications=subtree_without_constraints_implications,
                       transformations_vector=transformations_vector,
