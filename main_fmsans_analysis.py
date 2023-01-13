@@ -5,6 +5,7 @@ from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 
 from fm_solver.transformations import FMToFMSans, FMSansWriter, FMSansReader
 from fm_solver.utils import fm_utils, logging_utils, timer, sizer
+from fm_solver.models.feature_model import FM
 from fm_solver.models import fm_sans as fm_sans_utils
 from fm_solver.operations import FMConfigurationsNumber, FMConfigurations, FMCoreFeatures, FMFullAnalysis
 
@@ -18,7 +19,8 @@ def main(fm_filepath: str) -> None:
     # Load the feature model
     logging_utils.LOGGER.info(f"Reading FM '{fm_filepath}' model...")
     with timer.Timer(logger=logging_utils.LOGGER.info, message="FM loading."):
-        fm = UVLReader(fm_filepath).transform()
+        feature_model = UVLReader(fm_filepath).transform()
+        fm = FM.from_feature_model(feature_model)
     sizer.getsizeof(fm, logging_utils.LOGGER.info, message="FM.")
     logging_utils.FM_LOGGER.info(fm_sans_utils.fm_stats(fm))
     
@@ -42,7 +44,7 @@ def main_fmsans(fm_filepath: str) -> None:
     result = fm_sans.get_analysis()
     print(f'Result from paralelization analysis: ')
     print(f'#Configurations: {result[FMFullAnalysis.CONFIGURATIONS_NUMBER]}')
-    print(f'Core features: {[f.name for f in result[FMFullAnalysis.CORE_FEATURES]]}')
+    print(f'Core features: {len(result[FMFullAnalysis.CORE_FEATURES])}, {[f.name for f in result[FMFullAnalysis.CORE_FEATURES]]}')
 
     fm = fm_sans.get_feature_model()
     print(f'Result from full composed feature model: ')

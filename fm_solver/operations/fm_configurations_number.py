@@ -1,7 +1,8 @@
 import math
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
+from flamapy.metamodels.fm_metamodel.models import Feature
 
+from fm_solver.models.feature_model import FM
 from fm_solver.operations import FMOperation
 
 
@@ -16,7 +17,7 @@ class FMConfigurationsNumber(FMOperation):
         self._result = 0
         self.feature_model = None
 
-    def execute(self, model: FeatureModel) -> 'FMConfigurationsNumber':
+    def execute(self, model: FM) -> 'FMConfigurationsNumber':
         self.feature_model = model
         self._result = self.get_configurations_number()
         return self
@@ -32,7 +33,7 @@ class FMConfigurationsNumber(FMOperation):
         return sum(subtrees_results)
 
 
-def configurations_number(fm: FeatureModel) -> int:
+def configurations_number(fm: FM) -> int:
     return configurations_number_rec(fm.root)
 
 

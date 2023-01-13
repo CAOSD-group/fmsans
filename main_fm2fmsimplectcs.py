@@ -3,6 +3,7 @@ import argparse
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 
+from fm_solver.models.feature_model import FM
 from fm_solver.utils import utils
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
@@ -18,7 +19,8 @@ def main(fm_filepath: str):
     fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
 
     # Load the feature model
-    fm = UVLReader(fm_filepath).transform()
+    feature_model = UVLReader(fm_filepath).transform()
+    fm = FM.from_feature_model(feature_model)
     
     # Check if the feature model has any cross-tree constraints
     if not fm.get_constraints():

@@ -1,6 +1,8 @@
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
+from flamapy.metamodels.fm_metamodel.models import Feature
 
+from fm_solver.models.feature_model import FM
 from fm_solver.operations import FMOperation
+from fm_solver.utils import fm_utils
 
 
 class FMCoreFeatures(FMOperation):
@@ -17,7 +19,7 @@ class FMCoreFeatures(FMOperation):
     def get_result(self) -> list[Feature]:
         return self.result
 
-    def execute(self, model: FeatureModel) -> 'FMCoreFeatures':
+    def execute(self, model: FM) -> 'FMCoreFeatures':
         self.feature_model = model
         self.result = get_core_features(model)
         return self
@@ -30,23 +32,25 @@ class FMCoreFeatures(FMOperation):
         return set.intersection(*subtrees_results)
 
 
-def get_core_features(feature_model: FeatureModel) -> set[Feature]:
+def get_core_features(feature_model: FM) -> set[Feature]:
     if feature_model.root is None:
         return set()
 
     # Get core features from the tree structure
     core_features = set()
-    core_features.add(feature_model.root)
-    features = [feature_model.root]
+    features: list[Feature] = []
+    root = feature_model.root
+    if not fm_utils.is_auxiliary_feature(root):
+        core_features.add(root)
+    features.append(root)
     while features:
-        feature = features.pop()
+        feature = features.pop()        
         for relation in feature.get_relations():
-            if relation.is_mandatory():
-                core = relation.children[0]
-                aux = next((a for a in core.get_attributes() if a.name == 'aux'), None)
-                print(f'Core: {core} -> {aux}')
-                if aux is None:
+            aux_feature = fm_utils.is_auxiliary_feature(feature)
+            if relation.is_mandatory():  # it is a core feature 
+                if not aux_feature:
                     core_features.update(relation.children)
                 features.extend(relation.children)
-
+            elif aux_feature and relation.is_alternative():
+                core_features.update(set.intersection(*[get_core_features(FM(child)) for child in relation.children]))
     return core_features

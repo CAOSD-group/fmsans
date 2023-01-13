@@ -7,6 +7,7 @@ from multiprocessing import Process, Queue
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 
+from fm_solver.models.feature_model import FM
 from fm_solver.models import FMSans
 from fm_solver.models.fm_sans import (
     get_transformations_vector, 
@@ -27,7 +28,8 @@ def main(fm_filepath: str, n_cores: int):
     fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
 
     # Load the feature model
-    fm = UVLReader(fm_filepath).transform()
+    feature_model = UVLReader(fm_filepath).transform()
+    fm = FM.from_feature_model(feature_model)
     
     # Check if the feature model has only basic cross-tree constraints (requires and excludes)
     if any(constraints_utils.is_complex_constraint(ctc) for ctc in fm.get_constraints()):

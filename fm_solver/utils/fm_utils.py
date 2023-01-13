@@ -6,17 +6,17 @@ import copy
 from collections.abc import Callable
 
 from flamapy.metamodels.fm_metamodel.models import (
-    FeatureModel, 
     Feature, 
     Relation, 
     Constraint, 
     Attribute
 )
 
+from fm_solver.models.feature_model import FM
 from fm_solver.utils import constraints_utils
 
 
-def commitment_feature(feature_model: FeatureModel, feature_name: str) -> FeatureModel:
+def commitment_feature(feature_model: FM, feature_name: str) -> FM:
     """Given a feature diagram T and a feature F, 
     this algorithm computes the feature model T(+F) 
     whose products are precisely those products of T with contain F.
@@ -26,9 +26,9 @@ def commitment_feature(feature_model: FeatureModel, feature_name: str) -> Featur
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
-    feature = feature_model.get_feature_by_name(feature_name)
+    feature = feature_model.get_feature_by_name(feature_name)  # TODO: cuello de botella
     # Step 1. If T does not contain F, the result is NIL.
-    if feature not in feature_model.get_features():
+    if feature not in feature_model.get_features():  # TODO: cuello de botella
         return None
     feature_to_commit = feature
     # Step 2. If F is the root of T, the result is T.
@@ -43,7 +43,10 @@ def commitment_feature(feature_model: FeatureModel, feature_name: str) -> Featur
         # If P is an Xor feature, 
         # make P a MandOpt feature which has F as single mandatory subfeature 
         # and has no optional subfeatures. All other subfeatures of P are removed from the tree.
-        elif parent.is_alternative_group():  
+        elif parent.is_alternative_group(): 
+            for child in parent.get_children():
+                if child != feature_to_commit:
+                    feature_model.delete_branch(child)
             parent.get_relations()[0].children = [feature_to_commit]
         # If P is an Or feature, 
         # make P a MandOpt feature which has F as single mandatory subfeature, 
@@ -63,7 +66,7 @@ def commitment_feature(feature_model: FeatureModel, feature_name: str) -> Featur
     return feature_model
 
 
-def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureModel:
+def deletion_feature(feature_model: FM, feature_name: str) -> FM:
     """Given a feature diagram T and a feature F,
     this algorithm computes the feature model T(-F) 
     whose products are precisely those products of T with do not contain F.
@@ -92,24 +95,26 @@ def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureM
     elif not parent.is_group() and feature_to_delete.is_optional():
         rel = next((r for r in parent.get_relations() if feature_to_delete in r.children), None)
         parent.get_relations().remove(rel)
+        feature_model.delete_branch(feature_to_delete)
     # If P is an Xor feature or an Or feature, delete F; if P has only one remaining subfeature, 
     # make P a MandOpt feature and its subfeature a mandatory subfeature.
     elif parent.is_alternative_group() or parent.is_or_group():
         rel = parent.get_relations()[0]
         rel.children.remove(feature_to_delete)
+        feature_model.delete_branch(feature_to_delete)
         if rel.card_max > 1:
             rel.card_max -= 1
     return feature_model
 
 
-def transform_tree(functions: list[Callable], fm: FeatureModel, features: list[str], copy_tree: bool) -> FeatureModel:
+def transform_tree(functions: list[Callable], fm: FM, features: list[str], copy_tree: bool) -> FM:
     """Apply a list of functions (commitment_feature or deletion_feature) 
     to the tree of the feature model. 
     
     For each function, it uses each feature (in order) in the provided list as argument.
     """
     if copy_tree:
-        tree = FeatureModel(copy.deepcopy(fm.root), fm.get_constraints())
+        tree = FM(copy.deepcopy(fm.root), fm.get_constraints())
     else:
         tree = fm
     for func, feature in zip(functions, features):
@@ -118,7 +123,7 @@ def transform_tree(functions: list[Callable], fm: FeatureModel, features: list[s
     return tree
 
 
-def get_new_feature_name(fm: FeatureModel, prefix_name: str) -> str:
+def get_new_feature_name(fm: FM, prefix_name: str) -> str:
     """Return a new name for a feature (based on the provided prefix) that is not already in the feature model."""
     count = 1
     new_name = f'{prefix_name}'
@@ -128,7 +133,7 @@ def get_new_feature_name(fm: FeatureModel, prefix_name: str) -> str:
     return new_name
 
 
-def get_trees_from_original_root(fm: FeatureModel) -> list[FeatureModel]:
+def get_trees_from_original_root(fm: FM) -> list[FM]:
     """Given a feature model with non-unique features, 
     returns the subtrees the root of which are the original root of the feature model.
     
@@ -141,19 +146,23 @@ def get_trees_from_original_root(fm: FeatureModel) -> list[FeatureModel]:
         if all(child.name == child_name for child in root.get_children()):
             trees = []
             for child in root.get_children():
-                subtrees = get_trees_from_original_root(FeatureModel(child, fm.get_constraints()))
+                subtrees = get_trees_from_original_root(FM(child, fm.get_constraints()))
                 trees.extend(subtrees)
             return trees
     return [fm]
 
 
-def get_model_from_subtrees(fm: FeatureModel, subtrees: set[FeatureModel]) -> FeatureModel:
+def get_model_from_subtrees(fm: FM, subtrees: set[FM]) -> FM:
     """It returns a new feature model by joining all exclusive subtrees with a XOR group.
     
     The result is a model with a new root, which is an XOR group where each subfeatures is one
     of the subtrees.
     """
     new_root = Feature(get_new_feature_name(fm, 'XOR_Root'), is_abstract=True)
+    aux_attribute = Attribute('aux', None, None, None)
+    aux_attribute.set_parent(new_root)
+    new_root.add_attribute(aux_attribute)
+    fm.add_feature(new_root)
     #new_root.add_attribute(Attribute(name='new', domain=None, default_value=None, null_value=None))
     #new_root = Feature(fm.root.name, is_abstract=True)  # We may use the same feature's name root.
     children = []
@@ -164,10 +173,10 @@ def get_model_from_subtrees(fm: FeatureModel, subtrees: set[FeatureModel]) -> Fe
         return None
     xor_rel = Relation(new_root, children, 1, 1)
     new_root.add_relation(xor_rel)
-    return FeatureModel(new_root)
+    return FM(new_root)
 
 
-def numbers_of_features_to_be_removed(fm: FeatureModel, ctc: Constraint) -> tuple[int, int]:
+def numbers_of_features_to_be_removed(fm: FM, ctc: Constraint) -> tuple[int, int]:
     """Return the number of features that will be deleted from the feature model when
     the given constraint is refactored into the tree diagram.
     
@@ -186,7 +195,7 @@ def numbers_of_features_to_be_removed(fm: FeatureModel, ctc: Constraint) -> tupl
     return (t_0, t_1)
 
 
-def numbers_of_features_to_be_removed_commitment(fm: FeatureModel, feature_name: str) -> int:
+def numbers_of_features_to_be_removed_commitment(fm: FM, feature_name: str) -> int:
     """Return the number of features that will be removed from the feature model when
     the given feature is commitment into the diagram."""
     feature = fm.get_feature_by_name(feature_name)
@@ -205,7 +214,7 @@ def numbers_of_features_to_be_removed_commitment(fm: FeatureModel, feature_name:
     return n_features
 
 
-def numbers_of_features_to_be_removed_deletion(fm: FeatureModel, feature_name: str) -> int:
+def numbers_of_features_to_be_removed_deletion(fm: FM, feature_name: str) -> int:
     """Return the number of features that will be removed from the feature model when
     the given feature is deleted from the diagram."""
     feature = fm.get_feature_by_name(feature_name)
@@ -236,29 +245,29 @@ def children_number(feature: Feature) -> int:
     return n_features
 
 
-def get_subtrees_constraints_implications(fm: FeatureModel) -> tuple[FeatureModel, FeatureModel]:
+def get_subtrees_constraints_implications(fm: FM) -> tuple[FM, FM]:
     """Return the subtree of the feature model that is affected by cross-tree constraints,
     and the subtree of the feature model that is not affected by any cross-tree constraint."""
     subtree_without_implications = get_subtree_without_constraints_implications(fm)
     if subtree_without_implications is None:
-        subtree = FeatureModel(copy.deepcopy(fm.root))
+        subtree = FM(copy.deepcopy(fm.root))
         return (subtree, None)
     features = subtree_without_implications.get_features()
     features.remove(subtree_without_implications.root)
-    subtree = FeatureModel(copy.deepcopy(fm.root))
+    subtree = FM(copy.deepcopy(fm.root))
     for f in features:
         feature = subtree.get_feature_by_name(f.name)
         subtree = remove_feature_branch(subtree, feature)
     return (subtree, subtree_without_implications)
 
 
-def get_subtree_without_constraints_implications(fm: FeatureModel) -> FeatureModel:
+def get_subtree_without_constraints_implications(fm: FM) -> FM:
     """Return the subtree of the feature model that is not affected by any constraint."""
     if len(fm.get_constraints()) == 0:
         return None
     if len(fm.root.get_relations()) < 2:
         return None
-    subtree = FeatureModel(copy.deepcopy(fm.root))
+    subtree = FM(copy.deepcopy(fm.root))
     for ctc in fm.get_constraints():
         for f in ctc.get_features():
             if subtree is not None:
@@ -267,7 +276,7 @@ def get_subtree_without_constraints_implications(fm: FeatureModel) -> FeatureMod
     return subtree
 
 
-def remove_feature_branch(fm: FeatureModel, feature: Feature) -> FeatureModel:
+def remove_feature_branch(fm: FM, feature: Feature) -> FM:
     """Remove the entire branch from the root that containts the given feature."""
     parent = feature.get_parent() if feature is not None else None
     while feature is not None and parent != fm.root:
@@ -277,15 +286,18 @@ def remove_feature_branch(fm: FeatureModel, feature: Feature) -> FeatureModel:
         relations_to_be_deleted = [rel for rel in parent.get_relations() if feature in rel.children]
         for rel in relations_to_be_deleted:
             parent.get_relations().remove(rel)
+            for f in rel.children:
+                fm.delete_branch(f)
     return fm
 
 
-def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
+def remove_leaf_abstract_features(model: FM) -> FM:
     """Remove all leaf abstract features from the feature model."""
     assert len(model.get_constraints()) == 0
     
     is_there_leaf_abstract_features = False
-    for feature in model.get_features():
+    features = list(model.get_features())
+    for feature in features:
         if feature.is_leaf() and feature.is_abstract:
             is_there_leaf_abstract_features = True
             parent = feature.get_parent()
@@ -293,10 +305,13 @@ def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
             if not parent.is_group():
                 rel = next((r for r in parent.get_relations() if feature in r.children), None)
                 parent.get_relations().remove(rel)
+                for f in rel.children:
+                    model.delete_branch(f)
             # If parent is group we eliminate the feature from the group relation
             else:
                 rel = parent.get_relations()[0]
                 rel.children.remove(feature)
+                model.delete_branch(feature)
                 if rel.card_max > 1:
                     rel.card_max -= 1
     if is_there_leaf_abstract_features:  # need recursion
@@ -304,7 +319,7 @@ def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
     return model
 
 
-def to_unique_features(model: FeatureModel) -> FeatureModel:
+def to_unique_features(model: FM) -> FM:
     """Replace duplicated features names in the feature model.
     
     The model is augmented with attributes with features' references to the original features.
@@ -323,7 +338,7 @@ def to_unique_features(model: FeatureModel) -> FeatureModel:
     return model
 
 
-def fm_stats(fm: FeatureModel) -> str:
+def fm_stats(fm: FM) -> str:
     lines = []
     unique_features = [f for f in fm.get_features() if not any(a.name == 'ref' for a in f.get_attributes())]
     subtree_with_constraints_implications, subtree_without_constraints_implications = get_subtrees_constraints_implications(fm)
@@ -347,3 +362,7 @@ def fm_stats(fm: FeatureModel) -> str:
     lines.append(f'      #Strict CTCs:      {strict_complex_ctcs}')
     return '\n'.join(lines)
 
+
+def is_auxiliary_feature(feature: Feature) -> bool:
+    return any(a for a in feature.get_attributes() if a.name == 'aux')
+    

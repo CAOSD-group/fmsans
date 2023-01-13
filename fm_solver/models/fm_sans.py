@@ -6,13 +6,13 @@ from typing import Any
 from collections.abc import Callable
 
 from flamapy.metamodels.fm_metamodel.models import (
-    FeatureModel, 
     Feature, 
     Relation, 
     Constraint, 
     Attribute
 )
 
+from fm_solver.models.feature_model import FM
 from fm_solver.utils import fm_utils, constraints_utils
 from fm_solver.operations import FMFullAnalysis
 
@@ -59,8 +59,8 @@ class FMSans():
     AUXILIARY_FEATURES_ATTRIBUTE = 'aux'
 
     def __init__(self, 
-                 subtree_with_constraints_implications: FeatureModel,
-                 subtree_without_constraints_implications: FeatureModel,
+                 subtree_with_constraints_implications: FM,
+                 subtree_without_constraints_implications: FM,
                  transformations_vector: list[tuple['SimpleCTCTransformation', 'SimpleCTCTransformation']],
                  transformations_ids: dict[str, int],
                 ) -> None:
@@ -71,7 +71,7 @@ class FMSans():
         # Numbers of the transformations
         self.transformations_ids = transformations_ids  
     
-    def get_feature_model(self) -> FeatureModel:
+    def get_feature_model(self) -> FM:
         """Returns the complete feature model without cross-tree constraints."""
         if self.subtree_with_constraints_implications is None:
             return self.subtree_without_constraints_implications
@@ -106,7 +106,7 @@ class FMSans():
             new_root.add_relation(Relation(new_root, [result_fm.root], 1, 1))
             result_fm.root.parent = new_root
 
-            fm = FeatureModel(new_root)
+            fm = FM(new_root)
         #logging_utils.LOGGER.debug(f'Removing {sum(f.is_abstract for f in fm.get_features())} abstract features...')
         #with timer.Timer(logger=logging_utils.LOGGER.info, message="Removing abstract features."): 
         #fm = fm_utils.remove_leaf_abstract_features(fm)
@@ -165,7 +165,7 @@ class SimpleCTCTransformation():
         self.transformations = transformations
         self.features = features
 
-    def transforms(self, fm: FeatureModel, copy_model: bool = False) -> FeatureModel:
+    def transforms(self, fm: FM, copy_model: bool = False) -> FM:
         return fm_utils.transform_tree(self.transformations, fm, self.features, copy_model)
 
     def __str__(self) -> str:
@@ -195,7 +195,7 @@ def get_transformations_vector(constraints_order: tuple[list[Constraint], dict[i
 
 def execute_transformations_vector(fm: bytes, 
                                    transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]], 
-                                   binary_vector: list[str]) -> tuple[FeatureModel, int]:
+                                   binary_vector: list[str]) -> tuple[FM, int]:
     """Execute a transformations vector according to the binary number of the vector provided.
     
     It returns the resulting model and the transformation (bit) that fails in case of a
@@ -277,7 +277,7 @@ def get_min_max_ids_transformations_for_parallelization(n_bits: int, n_cores: in
     return (min_number, max_number)
 
 
-def get_basic_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
+def get_basic_constraints_order(fm: FM) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
     """It returns a basic constraints order for the transformations.  
     
     The result is a tuple with:

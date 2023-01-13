@@ -1,7 +1,6 @@
 from typing import Any
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
-
+from fm_solver.models.feature_model import FM
 from fm_solver.operations import FMOperation
 from fm_solver.operations import (
     FMConfigurationsNumber,
@@ -26,7 +25,7 @@ class FMFullAnalysis(FMOperation):
     def get_result(self) -> dict[str, Any]:
         return self.result
 
-    def execute(self, model: FeatureModel) -> 'FMFullAnalysis':
+    def execute(self, model: FM) -> 'FMFullAnalysis':
         self.feature_model = model
         self.result = get_full_analysis(model)
         return self
@@ -44,7 +43,7 @@ class FMFullAnalysis(FMOperation):
         return result
 
 
-def get_full_analysis(feature_model: FeatureModel) -> dict[str, Any]:
+def get_full_analysis(feature_model: FM) -> dict[str, Any]:
     if feature_model.root is None:
         return {}
     

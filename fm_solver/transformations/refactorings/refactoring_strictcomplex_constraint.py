@@ -1,12 +1,11 @@
 from flamapy.core.models.ast import AST, ASTOperation, Node
 from flamapy.metamodels.fm_metamodel.models import (
-    FeatureModel, 
     Feature, 
     Relation, 
     Constraint,
-    Attribute
 )
 
+from fm_solver.models.feature_model import FM
 from fm_solver.transformations.refactorings import FMRefactoring
 from fm_solver.utils import fm_utils, constraints_utils
 
@@ -29,16 +28,16 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
         return 'Strict-complex constraint'
 
     @staticmethod
-    def get_instances(model: FeatureModel) -> list[Constraint]:
+    def get_instances(model: FM) -> list[Constraint]:
         return [ctc for ctc in model.get_constraints() 
                 if constraints_utils.is_complex_constraint(ctc)]
 
     @staticmethod
-    def is_applicable(model: FeatureModel) -> bool:
+    def is_applicable(model: FM) -> bool:
         return len(RefactoringStrictComplexConstraint.get_instances(model)) > 0
 
     @staticmethod
-    def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
+    def transform(model: FM, instance: Constraint) -> FM:
         model.ctcs.remove(instance)
         ctcs_names = [ctc.name for ctc in model.get_constraints()]
         features_dict = get_features_clauses(instance)  # NOT before negatives (dict)
@@ -52,10 +51,12 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
             new_or = Feature(fm_utils.get_new_feature_name(model, 
                              RefactoringStrictComplexConstraint.ABSTRACT_AUX_OR_FEATURE_NAME), 
                              is_abstract=True)
+            model.add_feature(new_or)
             features = []
             for f in features_dict.keys():
                 new_feature = Feature(fm_utils.get_new_feature_name(model, f), 
                                       parent=new_or, is_abstract=True)
+                model.add_feature(new_feature)
                 features.append(new_feature)
                 ast_op = ASTOperation.REQUIRES if features_dict[f] else ASTOperation.EXCLUDES
                 ctc = Constraint(constraints_utils.get_new_ctc_name(ctcs_names, 'CTC'), 
@@ -71,6 +72,7 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
             # New root (only needed if the root feature is a group)
             if model.root.is_group():
                 new_root = Feature(fm_utils.get_new_feature_name(model, 'root'), is_abstract=True)
+                model.add_feature(new_root)
                 rel_1 = Relation(new_root, [model.root], 1, 1)  # mandatory
                 new_root.add_relation(rel_1)
                 model.root.parent = new_root

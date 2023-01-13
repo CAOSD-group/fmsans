@@ -150,41 +150,41 @@ constraints
 	!SocialLogin | Monolithic
 	!SpringWebSockets | Application
 	!ClusteredSession | Application
-	OAuth21 => ! OAuth2
-	SocialLogin1 => SocialLogin
-	MicroserviceApplication1 => MicroserviceApplication
-	SQL1 => SQL
-	MongoDB1 => MongoDB
-	OAuth22 => OAuth2
-	SocialLogin2 => SocialLogin
-	MicroserviceApplication2 => MicroserviceApplication
-	SQL2 => SQL
-	MongoDB2 => MongoDB
-	Cassandra1 => Cassandra
-	Server1 => Server
-	Protractor1 => Protractor
-	MySQL1 => ! MySQL
-	H21 => H2
-	MySql1 => MySql
-	Monolithic1 => ! Monolithic
-	JWT1 => JWT
-	HTTPSession1 => HTTPSession
-	OAuth23 => OAuth2
-	MariaDB1 => ! MariaDB
-	H22 => H2
-	MariaDBDev1 => MariaDBDev
-	PostgreSQL1 => ! PostgreSQL
-	H23 => H2
-	PostgreSQLDev1 => PostgreSQLDev
-	SocialLogin3 => ! SocialLogin
-	HTTPSession2 => HTTPSession
-	JWT2 => JWT
-	SocialLogin4 => ! SocialLogin
-	SQL3 => SQL
-	MongoDB3 => MongoDB
-	MicroserviceApplication3 => ! MicroserviceApplication
-	JWT3 => JWT
-	Uaa1 => Uaa
-	MicroserviceGateway1 => ! MicroserviceGateway
-	JWT4 => JWT
-	Uaa2 => Uaa
+	OAuth21 excludes OAuth2
+	SocialLogin1 requires SocialLogin
+	MicroserviceApplication1 requires MicroserviceApplication
+	SQL1 requires SQL
+	MongoDB1 requires MongoDB
+	OAuth22 requires OAuth2
+	SocialLogin2 requires SocialLogin
+	MicroserviceApplication2 requires MicroserviceApplication
+	SQL2 requires SQL
+	MongoDB2 requires MongoDB
+	Cassandra1 requires Cassandra
+	Server1 requires Server
+	Protractor1 requires Protractor
+	MySQL1 excludes MySQL
+	H21 requires H2
+	MySql1 requires MySql
+	Monolithic1 excludes Monolithic
+	JWT1 requires JWT
+	HTTPSession1 requires HTTPSession
+	OAuth23 requires OAuth2
+	MariaDB1 excludes MariaDB
+	H22 requires H2
+	MariaDBDev1 requires MariaDBDev
+	PostgreSQL1 excludes PostgreSQL
+	H23 requires H2
+	PostgreSQLDev1 requires PostgreSQLDev
+	SocialLogin3 excludes SocialLogin
+	HTTPSession2 requires HTTPSession
+	JWT2 requires JWT
+	SocialLogin4 excludes SocialLogin
+	SQL3 requires SQL
+	MongoDB3 requires MongoDB
+	MicroserviceApplication3 excludes MicroserviceApplication
+	JWT3 requires JWT
+	Uaa1 requires Uaa
+	MicroserviceGateway1 excludes MicroserviceGateway
+	JWT4 requires JWT
+	Uaa2 requires Uaa
