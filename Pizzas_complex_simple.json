@@ -1,0 +1,277 @@
+{
+    "features_without_constraints": {
+        "name": "Pizza",
+        "abstract": true,
+        "relations": [],
+        "attributes": []
+    },
+    "features_with_constraints": {
+        "name": "Pizza",
+        "abstract": true,
+        "relations": [
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Topping",
+                        "abstract": false,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Salami",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Ham",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Mozzarella",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Size",
+                        "abstract": false,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Normal",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Big",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Dough",
+                        "abstract": false,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Neapolitan",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Sicilian",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "OPTIONAL",
+                "card_min": 0,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "CheesyCrust",
+                        "abstract": false,
+                        "relations": [],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "CheesyCrust1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Sicilian1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Big1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            }
+        ],
+        "attributes": []
+    },
+    "ctcs_transformations": [
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Salami"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Neapolitan",
+                    "Salami"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Ham"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Neapolitan",
+                    "Ham"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "CheesyCrust"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "CheesyCrust1",
+                    "CheesyCrust"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Sicilian"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Sicilian1",
+                    "Sicilian"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Big"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Big1",
+                    "Big"
+                ]
+            }
+        ]
+    ],
+    "transformations_ids": {
+        "6668987419567533375": 0,
+        "7460220901770325320": 1,
+        "-7711704795810763589": 2,
+        "1077358289155121534": 3,
+        "-728890319381592228": 4,
+        "2559140858845275493": 5,
+        "6780292933317334924": 6,
+        "542517110885895137": 10,
+        "1844599148542727080": 11,
+        "2207439160367313178": 14,
+        "2999918680129136709": 18,
+        "3589074761298554166": 19,
+        "1479682612661914814": 22,
+        "6295159730004085949": 26,
+        "2787759096771429419": 27,
+        "2433811099921125822": 30
+    }
+}

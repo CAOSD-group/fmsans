@@ -27,7 +27,7 @@ class FMCoreFeatures(FMOperation):
 
     @staticmethod
     def join_results(subtrees_results: list[set[Feature]]) -> set[Feature]:
-        return set().intersection(*subtrees_results)
+        return set.intersection(*subtrees_results)
 
 
 def get_core_features(feature_model: FeatureModel) -> set[Feature]:
@@ -42,7 +42,11 @@ def get_core_features(feature_model: FeatureModel) -> set[Feature]:
         feature = features.pop()
         for relation in feature.get_relations():
             if relation.is_mandatory():
-                core_features.update(relation.children)
+                core = relation.children[0]
+                aux = next((a for a in core.get_attributes() if a.name == 'aux'), None)
+                print(f'Core: {core} -> {aux}')
+                if aux is None:
+                    core_features.update(relation.children)
                 features.extend(relation.children)
 
     return core_features

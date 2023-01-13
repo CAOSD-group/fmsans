@@ -1,5 +1,11 @@
 from flamapy.core.models.ast import AST, ASTOperation, Node
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.metamodels.fm_metamodel.models import (
+    FeatureModel, 
+    Feature, 
+    Relation, 
+    Constraint,
+    Attribute
+)
 
 from fm_solver.transformations.refactorings import FMRefactoring
 from fm_solver.utils import fm_utils, constraints_utils

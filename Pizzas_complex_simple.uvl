@@ -1,0 +1,32 @@
+features
+	Pizza {abstract}
+		mandatory
+			Topping 
+				or
+					Salami 
+					Ham 
+					Mozzarella 
+		mandatory
+			Size 
+				alternative
+					Normal 
+					Big 
+		mandatory
+			Dough 
+				alternative
+					Neapolitan 
+					Sicilian 
+		optional
+			CheesyCrust 
+		mandatory
+			OR_FEATURE {abstract}
+				or
+					CheesyCrust1 {abstract}
+					Sicilian1 {abstract}
+					Big1 {abstract}
+constraints
+	!Neapolitan | !Salami
+	!Neapolitan | !Ham
+	CheesyCrust1 => ! CheesyCrust
+	Sicilian1 => ! Sicilian
+	Big1 => Big

@@ -1,3 +1,4 @@
+import pickle
 import os
 import argparse
 import multiprocessing
@@ -50,9 +51,10 @@ def main(fm_filepath: str, n_cores: int):
     n_bits = len(constraints_order[0])
     cpu_count = n_cores
     n_processes = cpu_count if n_bits > cpu_count else 1
+    pick_tree = pickle.dumps(subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
     for process_i in range(n_processes):
         min_id, max_id = get_min_max_ids_transformations_for_parallelization(len(constraints_order[0]), n_processes, process_i)
-        p = Process(target=get_valid_transformations_ids, args=(subtree_with_constraints_implications, transformations_vector, min_id, max_id, queue))
+        p = Process(target=get_valid_transformations_ids, args=(pick_tree, transformations_vector, min_id, max_id, queue))
         p.start()
         processes.append(p)
 

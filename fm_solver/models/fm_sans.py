@@ -1,3 +1,4 @@
+import pickle
 import math
 import copy
 import multiprocessing
@@ -55,6 +56,8 @@ class FMSans():
           1 1 1 1 ... 1 = 2^n-1 
     """
 
+    AUXILIARY_FEATURES_ATTRIBUTE = 'aux'
+
     def __init__(self, 
                  subtree_with_constraints_implications: FeatureModel,
                  subtree_without_constraints_implications: FeatureModel,
@@ -75,9 +78,11 @@ class FMSans():
         subtrees = set()
         n_bits = len(self.transformations_vector)
         max = len(self.transformations_ids)
+        pick_tree = pickle.dumps(self.subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
         for i, num in enumerate(self.transformations_ids.values()):
             binary_vector = list(format(num, f'0{n_bits}b'))
-            tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
+            tree, _ = execute_transformations_vector(pick_tree, self.transformations_vector, binary_vector)
+            tree = fm_utils.remove_leaf_abstract_features(tree)
             subtrees.add(tree)
             percentage = (i / max) * 100
             #logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
@@ -93,7 +98,9 @@ class FMSans():
             #self.subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')  # This is not needed.
             new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)  # We can use the same feature's name for Root.
             #new_root = Feature(result_fm.root.name, is_abstract=True)   # We may use the same feature's name for Root.
-            new_root.add_attribute(Attribute(name='new', domain=None, default_value=None, null_value=None))
+            aux_attribute = Attribute(name=FMSans.AUXILIARY_FEATURES_ATTRIBUTE, domain=None, default_value=None, null_value=None)
+            aux_attribute.set_parent(new_root)
+            new_root.add_attribute(aux_attribute)
             new_root.add_relation(Relation(new_root, [self.subtree_without_constraints_implications.root], 1, 1))
             self.subtree_without_constraints_implications.root.parent = new_root
             new_root.add_relation(Relation(new_root, [result_fm.root], 1, 1))
@@ -102,7 +109,7 @@ class FMSans():
             fm = FeatureModel(new_root)
         #logging_utils.LOGGER.debug(f'Removing {sum(f.is_abstract for f in fm.get_features())} abstract features...')
         #with timer.Timer(logger=logging_utils.LOGGER.info, message="Removing abstract features."): 
-        fm = fm_utils.remove_leaf_abstract_features(fm)
+        #fm = fm_utils.remove_leaf_abstract_features(fm)
         return fm
 
     def get_analysis(self) -> dict[str, Any]:
@@ -112,9 +119,10 @@ class FMSans():
         max = len(self.transformations_ids)
         results: list[dict[str, Any]] = []
         subtrees = set()  # usar mejor un dictionary de hash -> resultado de analysis (así evitamos el "if")
+        pick_tree = pickle.dumps(self.subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
         for i, num in enumerate(self.transformations_ids.values()):
             binary_vector = list(format(num, f'0{n_bits}b'))
-            tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
+            tree, _ = execute_transformations_vector(pick_tree, self.transformations_vector, binary_vector)
             tree = fm_utils.remove_leaf_abstract_features(tree)
             h = hash(tree)
             if h not in subtrees:
@@ -130,7 +138,7 @@ class FMSans():
         result_subtree_without_constraints = FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
         analysis_result = {}
         analysis_result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = result[FMFullAnalysis.CONFIGURATIONS_NUMBER] * result_subtree_without_constraints[FMFullAnalysis.CONFIGURATIONS_NUMBER]
-        analysis_result[FMFullAnalysis.CORE_FEATURES] = result[FMFullAnalysis.CORE_FEATURES].intersection(result_subtree_without_constraints[FMFullAnalysis.CORE_FEATURES])
+        analysis_result[FMFullAnalysis.CORE_FEATURES] = result[FMFullAnalysis.CORE_FEATURES].union(result_subtree_without_constraints[FMFullAnalysis.CORE_FEATURES])
         return analysis_result
         
 
@@ -185,7 +193,7 @@ def get_transformations_vector(constraints_order: tuple[list[Constraint], dict[i
     return transformations_vector
 
 
-def execute_transformations_vector(fm: FeatureModel, 
+def execute_transformations_vector(fm: bytes, 
                                    transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]], 
                                    binary_vector: list[str]) -> tuple[FeatureModel, int]:
     """Execute a transformations vector according to the binary number of the vector provided.
@@ -193,9 +201,10 @@ def execute_transformations_vector(fm: FeatureModel,
     It returns the resulting model and the transformation (bit) that fails in case of a
     transformation returns NIL (None).
     """
-    assert len(transformations_vector) == len(binary_vector)
+    #assert len(transformations_vector) == len(binary_vector)
 
-    tree = FeatureModel(copy.deepcopy(fm.root))
+    #tree = FeatureModel(copy.deepcopy(fm.root))
+    tree = pickle.loads(fm)
     i = 0
     while i < len(transformations_vector) and tree is not None:
         tree = transformations_vector[i][int(binary_vector[i])].transforms(tree)
@@ -220,7 +229,7 @@ def get_next_number_prunning_binary_vector(binary_vector: list[str], bit: int) -
     return num
 
 
-def get_valid_transformations_ids(fm: FeatureModel,
+def get_valid_transformations_ids(fm: bytes,
                                   transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]],
                                   min_id: int,
                                   max_id: int,

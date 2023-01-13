@@ -154,7 +154,7 @@ def get_model_from_subtrees(fm: FeatureModel, subtrees: set[FeatureModel]) -> Fe
     of the subtrees.
     """
     new_root = Feature(get_new_feature_name(fm, 'XOR_Root'), is_abstract=True)
-    new_root.add_attribute(Attribute(name='new', domain=None, default_value=None, null_value=None))
+    #new_root.add_attribute(Attribute(name='new', domain=None, default_value=None, null_value=None))
     #new_root = Feature(fm.root.name, is_abstract=True)  # We may use the same feature's name root.
     children = []
     for tree in subtrees:
