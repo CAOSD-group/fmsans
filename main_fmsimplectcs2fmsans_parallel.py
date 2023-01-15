@@ -5,7 +5,7 @@ import multiprocessing
 import math
 from multiprocessing import Process, Queue
 
-from flamapy.metamodels.fm_metamodel.transformations import UVLReader
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 
 from fm_solver.models.feature_model import FM
 from fm_solver.models import FMSans
@@ -15,8 +15,14 @@ from fm_solver.models.fm_sans import (
     get_basic_constraints_order,
     get_min_max_ids_transformations_for_parallelization
 )
+from fm_solver.operations import (
+    FMConfigurationsNumber,
+    FMFullAnalysis,
+    FMCoreFeatures
+)
 
-from fm_solver.transformations import FMSansWriter
+
+from fm_solver.transformations import FMSansWriter, FMSansReader
 from fm_solver.utils import fm_utils, constraints_utils
 
 
@@ -78,6 +84,34 @@ def main(fm_filepath: str, n_cores: int):
     # Serializing the FMSans model
     output_fmsans_filepath = f'{fm_name}.json'
     FMSansWriter(output_fmsans_filepath, fm_sans_model).transform()
+
+    # fm_full = fm_sans_model.get_feature_model()
+    # fm_full = fm_utils.to_unique_features(fm_full)
+    # output_fullfm_filepath = f'{fm_name}_full.uvl'
+    # UVLWriter(path=output_fullfm_filepath, source_model=fm).transform()
+
+    #print(FM(feature_model.root) == fm_sans_model.subtree_with_constraints_implications)
+
+    #fm_sans2 = FMSansReader(output_fmsans_filepath).transform()
+    # print(fm_sans2.subtree_with_constraints_implications == fm_sans_model.subtree_with_constraints_implications)
+    # print(fm_sans2.subtree_without_constraints_implications == fm_sans_model.subtree_without_constraints_implications)
+    # print(fm_sans2.transformations_ids == fm_sans_model.transformations_ids)
+    # print(fm_sans2.transformations_vector == fm_sans_model.transformations_vector)
+    # print(fm_sans2 == fm_sans_model)
+
+    result = fm_sans_model.get_analysis()
+    print(f'Result from paralelization analysis: ')
+    print(f'#Configurations: {result[FMFullAnalysis.CONFIGURATIONS_NUMBER]}')
+    print(f'Core features: {len(result[FMFullAnalysis.CORE_FEATURES])}, {[f.name for f in result[FMFullAnalysis.CORE_FEATURES]]}')
+
+    fm = fm_sans_model.get_feature_model()
+    print(f'Result from full composed feature model: ')
+    n_configurations = FMConfigurationsNumber().execute(fm).get_result()
+    print(f'#Configurations: {n_configurations}')
+
+    core_features = FMCoreFeatures().execute(fm).get_result()
+    print(f'Core features: {len(core_features)}, {[f.name for f in core_features]}')
+
 
 
 if __name__ == '__main__':

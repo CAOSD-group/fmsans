@@ -73,76 +73,76 @@ features
 				mandatory
 					Cucumber 
 		mandatory
-			OR_FEATURE {abstract}
+			OR_FEATURE {abstract, aux}
 				or
-					OAuth21 {abstract}
-					SocialLogin1 {abstract}
-					MicroserviceApplication1 {abstract}
-					SQL1 {abstract}
-					MongoDB1 {abstract}
+					OAuth21 {abstract, aux}
+					SocialLogin1 {abstract, aux}
+					MicroserviceApplication1 {abstract, aux}
+					SQL1 {abstract, aux}
+					MongoDB1 {abstract, aux}
 		mandatory
-			OR_FEATURE1 {abstract}
+			OR_FEATURE1 {abstract, aux}
 				or
-					OAuth22 {abstract}
-					SocialLogin2 {abstract}
-					MicroserviceApplication2 {abstract}
-					SQL2 {abstract}
-					MongoDB2 {abstract}
-					Cassandra1 {abstract}
+					OAuth22 {abstract, aux}
+					SocialLogin2 {abstract, aux}
+					MicroserviceApplication2 {abstract, aux}
+					SQL2 {abstract, aux}
+					MongoDB2 {abstract, aux}
+					Cassandra1 {abstract, aux}
 		mandatory
-			OR_FEATURE2 {abstract}
+			OR_FEATURE2 {abstract, aux}
 				or
-					Server1 {abstract}
-					Protractor1 {abstract}
+					Server1 {abstract, aux}
+					Protractor1 {abstract, aux}
 		mandatory
-			OR_FEATURE3 {abstract}
+			OR_FEATURE3 {abstract, aux}
 				or
-					MySQL1 {abstract}
-					H21 {abstract}
-					MySql1 {abstract}
+					MySQL1 {abstract, aux}
+					H21 {abstract, aux}
+					MySql1 {abstract, aux}
 		mandatory
-			OR_FEATURE4 {abstract}
+			OR_FEATURE4 {abstract, aux}
 				or
-					Monolithic1 {abstract}
-					JWT1 {abstract}
-					HTTPSession1 {abstract}
-					OAuth23 {abstract}
+					Monolithic1 {abstract, aux}
+					JWT1 {abstract, aux}
+					HTTPSession1 {abstract, aux}
+					OAuth23 {abstract, aux}
 		mandatory
-			OR_FEATURE5 {abstract}
+			OR_FEATURE5 {abstract, aux}
 				or
-					MariaDB1 {abstract}
-					H22 {abstract}
-					MariaDBDev1 {abstract}
+					MariaDB1 {abstract, aux}
+					H22 {abstract, aux}
+					MariaDBDev1 {abstract, aux}
 		mandatory
-			OR_FEATURE6 {abstract}
+			OR_FEATURE6 {abstract, aux}
 				or
-					PostgreSQL1 {abstract}
-					H23 {abstract}
-					PostgreSQLDev1 {abstract}
+					PostgreSQL1 {abstract, aux}
+					H23 {abstract, aux}
+					PostgreSQLDev1 {abstract, aux}
 		mandatory
-			OR_FEATURE7 {abstract}
+			OR_FEATURE7 {abstract, aux}
 				or
-					SocialLogin3 {abstract}
-					HTTPSession2 {abstract}
-					JWT2 {abstract}
+					SocialLogin3 {abstract, aux}
+					HTTPSession2 {abstract, aux}
+					JWT2 {abstract, aux}
 		mandatory
-			OR_FEATURE8 {abstract}
+			OR_FEATURE8 {abstract, aux}
 				or
-					SocialLogin4 {abstract}
-					SQL3 {abstract}
-					MongoDB3 {abstract}
+					SocialLogin4 {abstract, aux}
+					SQL3 {abstract, aux}
+					MongoDB3 {abstract, aux}
 		mandatory
-			OR_FEATURE9 {abstract}
+			OR_FEATURE9 {abstract, aux}
 				or
-					MicroserviceApplication3 {abstract}
-					JWT3 {abstract}
-					Uaa1 {abstract}
+					MicroserviceApplication3 {abstract, aux}
+					JWT3 {abstract, aux}
+					Uaa1 {abstract, aux}
 		mandatory
-			OR_FEATURE10 {abstract}
+			OR_FEATURE10 {abstract, aux}
 				or
-					MicroserviceGateway1 {abstract}
-					JWT4 {abstract}
-					Uaa2 {abstract}
+					MicroserviceGateway1 {abstract, aux}
+					JWT4 {abstract, aux}
+					Uaa2 {abstract, aux}
 constraints
 	UaaServer => Uaa
 	Server => !Protractor

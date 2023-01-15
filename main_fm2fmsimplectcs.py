@@ -23,8 +23,8 @@ def main(fm_filepath: str):
     fm = FM.from_feature_model(feature_model)
     
     # Check if the feature model has any cross-tree constraints
-    if not fm.get_constraints() or not any(constraints_utils.is_complex_constraint(ctc) for ctc in fm.get_constraints()):
-        print(f'Warning: The feature model has not any cross-tree constraints. The output FM is the same as the input.')
+    if not any(constraints_utils.is_complex_constraint(ctc) for ctc in fm.get_constraints()):
+        print(f'Warning: The feature model has not any complex cross-tree constraints. The output FM is the same as the input.')
 
     # Refactor pseudo-complex constraints
     fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)

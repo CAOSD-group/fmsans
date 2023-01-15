@@ -29,9 +29,9 @@ def commitment_feature(feature_model: FM, feature_name: str, features_already_ex
     if feature_name in features_already_executed[0]:
         return feature_model
     features_already_executed[0].add(feature_name)
-    feature = feature_model.get_feature_by_name(feature_name)  # TODO: cuello de botella
+    feature = feature_model.get_feature_by_name(feature_name)  # bottleneck with normal FeatureModel class (use FM class to solve it)
     # Step 1. If T does not contain F, the result is NIL.
-    if feature not in feature_model.get_features():  # TODO: cuello de botella
+    if feature not in feature_model.get_features():  # bottleneck with normal FeatureModel class (use FM class to solve it)
         return None
     feature_to_commit = feature
     # Step 2. If F is the root of T, the result is T.
@@ -165,9 +165,7 @@ def get_model_from_subtrees(fm: FM, subtrees: set[FM]) -> FM:
     of the subtrees.
     """
     new_root = Feature(get_new_feature_name(fm, 'XOR_Root'), is_abstract=True)
-    aux_attribute = Attribute('aux', None, None, None)
-    aux_attribute.set_parent(new_root)
-    new_root.add_attribute(aux_attribute)
+    add_auxiliary_feature_attribute(new_root)
     fm.add_feature(new_root)
     #new_root.add_attribute(Attribute(name='new', domain=None, default_value=None, null_value=None))
     #new_root = Feature(fm.root.name, is_abstract=True)  # We may use the same feature's name root.
@@ -299,15 +297,15 @@ def remove_feature_branch(fm: FM, feature: Feature) -> FM:
     return fm
 
 
-def remove_leaf_abstract_features(model: FM) -> FM:
+def remove_leaf_abstract_auxiliary_features(model: FM) -> FM:
     """Remove all leaf abstract features from the feature model."""
     assert len(model.get_constraints()) == 0
     
-    is_there_leaf_abstract_features = False
+    is_there_leaf_abstract_aux_features = False
     features = list(model.get_features())
     for feature in features:
-        if feature.is_leaf() and feature.is_abstract:
-            is_there_leaf_abstract_features = True
+        if feature.is_leaf() and feature.is_abstract and is_auxiliary_feature(feature):
+            is_there_leaf_abstract_aux_features = True
             parent = feature.get_parent()
             # If parent is not group we eliminate the relation
             if not parent.is_group():
@@ -322,8 +320,8 @@ def remove_leaf_abstract_features(model: FM) -> FM:
                 model.delete_branch(feature)
                 if rel.card_max > 1:
                     rel.card_max -= 1
-    if is_there_leaf_abstract_features:  # need recursion
-        model = remove_leaf_abstract_features(model)
+    if is_there_leaf_abstract_aux_features:  # need recursion
+        model = remove_leaf_abstract_auxiliary_features(model)
     return model
 
 
@@ -371,6 +369,13 @@ def fm_stats(fm: FM) -> str:
     return '\n'.join(lines)
 
 
+def add_auxiliary_feature_attribute(feature: Feature) -> Feature:
+    aux_attribute = Attribute(name=FM.AUXILIARY_FEATURES_ATTRIBUTE, domain=None, default_value=None, null_value=None)
+    aux_attribute.set_parent(feature)
+    feature.add_attribute(aux_attribute)
+    return feature 
+
+
 def is_auxiliary_feature(feature: Feature) -> bool:
-    return any(a for a in feature.get_attributes() if a.name == 'aux')
+    return any(a for a in feature.get_attributes() if a.name == FM.AUXILIARY_FEATURES_ATTRIBUTE)
     

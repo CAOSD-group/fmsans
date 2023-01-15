@@ -19,11 +19,11 @@ features
 		optional
 			CheesyCrust 
 		mandatory
-			OR_FEATURE {abstract}
+			OR_FEATURE {abstract, aux}
 				or
-					CheesyCrust1 {abstract}
-					Sicilian1 {abstract}
-					Big1 {abstract}
+					CheesyCrust1 {abstract, aux}
+					Sicilian1 {abstract, aux}
+					Big1 {abstract, aux}
 constraints
 	!Neapolitan | !Salami
 	!Neapolitan | !Ham

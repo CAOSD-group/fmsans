@@ -55,9 +55,6 @@ class FMSans():
           ...
           1 1 1 1 ... 1 = 2^n-1 
     """
-
-    AUXILIARY_FEATURES_ATTRIBUTE = 'aux'
-
     def __init__(self, 
                  subtree_with_constraints_implications: FM,
                  subtree_without_constraints_implications: FM,
@@ -68,8 +65,6 @@ class FMSans():
         self.subtree_without_constraints_implications = subtree_without_constraints_implications
         # Order of the transformations of the constraints
         self.transformations_vector = transformations_vector  
-        for i, c in enumerate(transformations_vector):
-            print(f'{i}: {c[0]}, {c[1]}')
         # Numbers of the transformations
         self.transformations_ids = transformations_ids  
     
@@ -81,10 +76,10 @@ class FMSans():
         n_bits = len(self.transformations_vector)
         max = len(self.transformations_ids)
         pick_tree = pickle.dumps(self.subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
-        for i, num in enumerate(self.transformations_ids.keys()):
+        for i, num in enumerate(self.transformations_ids.values()):
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, _ = execute_transformations_vector(pick_tree, self.transformations_vector, binary_vector)
-            tree = fm_utils.remove_leaf_abstract_features(tree)
+            tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
             subtrees.add(tree)
             percentage = (i / max) * 100
             #logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
@@ -100,7 +95,7 @@ class FMSans():
             #self.subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')  # This is not needed.
             new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)  # We can use the same feature's name for Root.
             #new_root = Feature(result_fm.root.name, is_abstract=True)   # We may use the same feature's name for Root.
-            aux_attribute = Attribute(name=FMSans.AUXILIARY_FEATURES_ATTRIBUTE, domain=None, default_value=None, null_value=None)
+            aux_attribute = Attribute(name=FM.AUXILIARY_FEATURES_ATTRIBUTE, domain=None, default_value=None, null_value=None)
             aux_attribute.set_parent(new_root)
             new_root.add_attribute(aux_attribute)
             new_root.add_relation(Relation(new_root, [self.subtree_without_constraints_implications.root], 1, 1))
@@ -120,18 +115,21 @@ class FMSans():
         n_bits = len(self.transformations_vector)
         max = len(self.transformations_ids)
         results: list[dict[str, Any]] = []
-        subtrees = set()  # usar mejor un dictionary de hash -> resultado de analysis (así evitamos el "if")
+        total_configs = 0
+        #subtrees = set()  # usar mejor un dictionary de hash -> resultado de analysis (así evitamos el "if")
         pick_tree = pickle.dumps(self.subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
-        for i, num in enumerate(self.transformations_ids.keys()):
+        for i, num in enumerate(self.transformations_ids.values()):
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, _ = execute_transformations_vector(pick_tree, self.transformations_vector, binary_vector)
-            tree = fm_utils.remove_leaf_abstract_features(tree)
-            h = hash(tree)
-            if h not in subtrees:
-                subtrees.add(h)
-                analysis_result = FMFullAnalysis().execute(tree).get_result()
-                results.append(analysis_result)
-            percentage = (i / max) * 100
+            tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+            #h = hash(tree)
+            #if h not in subtrees:
+                #subtrees.add(h)
+            analysis_result = FMFullAnalysis().execute(tree).get_result()
+            total_configs += analysis_result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
+            
+            results.append(analysis_result)
+            #percentage = (i / max) * 100
             #logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
         # Join all subtrees
         result = FMFullAnalysis.join_results(results)
@@ -262,7 +260,7 @@ def get_valid_transformations_ids(fm: bytes,
     num = min_id
     max = max_id
     valid_transformed_numbers_trees = {}
-    percentage = 0.0
+    #percentage = 0.0
     total_invalids = 0
     total_skipped = 0
     while num <= max:
@@ -270,7 +268,7 @@ def get_valid_transformations_ids(fm: bytes,
         binary_vector = list(format(num, f'0{n_bits}b'))
         tree, null_bit = execute_transformations_vector(fm, transformations_vector, binary_vector)
         if tree is not None:
-            valid_transformed_numbers_trees[num] = hash(tree)
+            valid_transformed_numbers_trees[hash(tree)] = num
             #logging_utils.LOGGER.debug(f'ID (valid): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
             num += 1
         else:  # tree is None
@@ -280,7 +278,7 @@ def get_valid_transformations_ids(fm: bytes,
             skipped = num - previous_num - 1
             total_skipped += skipped
             #logging_utils.LOGGER.debug(f'ID (not valid): {previous_num} / {max} ({percentage}%), null_bit: {null_bit}, {skipped} skipped. #Valids: {len(valid_transformed_numbers_trees)}')
-        percentage = (num / max) * 100
+        #percentage = (num / max) * 100
     #logging_utils.LOGGER.debug(f'Total IDs: {max}, #Valids: {len(valid_transformed_numbers_trees)}, #Invalids: {total_invalids}, #Skipped: {total_skipped}.')
     queue.put(valid_transformed_numbers_trees)
     return valid_transformed_numbers_trees

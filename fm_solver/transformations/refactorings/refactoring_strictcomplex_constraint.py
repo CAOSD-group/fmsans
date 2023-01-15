@@ -51,11 +51,13 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
             new_or = Feature(fm_utils.get_new_feature_name(model, 
                              RefactoringStrictComplexConstraint.ABSTRACT_AUX_OR_FEATURE_NAME), 
                              is_abstract=True)
+            fm_utils.add_auxiliary_feature_attribute(new_or)
             model.add_feature(new_or)
             features = []
             for f in features_dict.keys():
                 new_feature = Feature(fm_utils.get_new_feature_name(model, f), 
                                       parent=new_or, is_abstract=True)
+                fm_utils.add_auxiliary_feature_attribute(new_feature)
                 model.add_feature(new_feature)
                 features.append(new_feature)
                 ast_op = ASTOperation.REQUIRES if features_dict[f] else ASTOperation.EXCLUDES
@@ -72,6 +74,7 @@ class RefactoringStrictComplexConstraint(FMRefactoring):
             # New root (only needed if the root feature is a group)
             if model.root.is_group():
                 new_root = Feature(fm_utils.get_new_feature_name(model, 'root'), is_abstract=True)
+                fm_utils.add_auxiliary_feature_attribute(new_root)
                 model.add_feature(new_root)
                 rel_1 = Relation(new_root, [model.root], 1, 1)  # mandatory
                 new_root.add_relation(rel_1)

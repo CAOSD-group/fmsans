@@ -10,6 +10,8 @@ from flamapy.metamodels.fm_metamodel.models import (
 
 class FM(FeatureModel):
 
+    AUXILIARY_FEATURES_ATTRIBUTE = 'aux'
+
     def __init__(self, root: Feature, constraints: Optional[list[Constraint]] = None) -> None:
         super().__init__(root, constraints)
         self._features: set[Feature] = {f for f in super().get_features()}
