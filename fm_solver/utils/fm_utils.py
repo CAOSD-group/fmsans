@@ -16,7 +16,7 @@ from fm_solver.models.feature_model import FM
 from fm_solver.utils import constraints_utils
 
 
-def commitment_feature(feature_model: FM, feature_name: str, features_already_executed: tuple[set[str], set[str]]) -> FM:
+def commitment_feature(feature_model: FM, feature_name: str, features_already_executed: tuple[set[str], set[str]] = (set(), set())) -> FM:
     """Given a feature diagram T and a feature F, 
     this algorithm computes the feature model T(+F) 
     whose products are precisely those products of T with contain F.
@@ -69,7 +69,7 @@ def commitment_feature(feature_model: FM, feature_name: str, features_already_ex
     return feature_model
 
 
-def deletion_feature(feature_model: FM, feature_name: str, features_already_executed: tuple[set[str], set[str]]) -> FM:
+def deletion_feature(feature_model: FM, feature_name: str, features_already_executed: tuple[set[str], set[str]] = (set(), set())) -> FM:
     """Given a feature diagram T and a feature F,
     this algorithm computes the feature model T(-F) 
     whose products are precisely those products of T with do not contain F.

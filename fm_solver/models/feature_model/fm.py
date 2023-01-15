@@ -36,7 +36,7 @@ class FM(FeatureModel):
         self._feature_by_name.pop(feature.name)
 
     def delete_branch(self, feature: Feature) -> None:
-        """Delete all children of the specified feature."""
+        """Delete the current feature and all children of the specified feature."""
         features = [feature]
         while features:
             f = features.pop()

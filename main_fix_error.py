@@ -110,7 +110,7 @@ def main(fm_filepath: str, n_cores: int) -> int:
 
     #constraints = reversed(feature_model.get_constraints())
     constraints = feature_model.get_constraints()
-    constraints = [constraints[3]]
+    #constraints = [constraints[3]]
     constraints_incremental = []
     errors = {}
     print(f'Constraints: {len(constraints)}')
@@ -129,6 +129,7 @@ def main(fm_filepath: str, n_cores: int) -> int:
             #UVLWriter(path=output_fullfm_filepath, source_model=fm_output).transform()
             constraints_incremental.remove(ctc)
             errors[i] = ctc
+            raise Exception
         print('------------------------------')
 
     for i, c in errors.items():
