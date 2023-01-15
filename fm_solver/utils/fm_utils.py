@@ -273,6 +273,8 @@ def get_subtree_without_constraints_implications(fm: FM) -> FM:
             if subtree is not None:
                 feature = subtree.get_feature_by_name(f)
                 subtree = remove_feature_branch(subtree, feature)
+    if len(subtree.get_features()) == 1:
+        subtree = None
     return subtree
 
 

@@ -135,11 +135,13 @@ class FMSans():
         result = FMFullAnalysis.join_results(results)
         #logging_utils.LOGGER.debug(f'Joining results from {max} unique subtrees...')
         # Join result with subtree without CTCs implications
-        result_subtree_without_constraints = FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
-        analysis_result = {}
-        analysis_result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = result[FMFullAnalysis.CONFIGURATIONS_NUMBER] * result_subtree_without_constraints[FMFullAnalysis.CONFIGURATIONS_NUMBER]
-        analysis_result[FMFullAnalysis.CORE_FEATURES] = result[FMFullAnalysis.CORE_FEATURES].union(result_subtree_without_constraints[FMFullAnalysis.CORE_FEATURES])
-        return analysis_result
+        if self.subtree_without_constraints_implications is not None:
+            result_subtree_without_constraints = FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
+            analysis_result = {}
+            analysis_result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = result[FMFullAnalysis.CONFIGURATIONS_NUMBER] * result_subtree_without_constraints[FMFullAnalysis.CONFIGURATIONS_NUMBER]
+            analysis_result[FMFullAnalysis.CORE_FEATURES] = result[FMFullAnalysis.CORE_FEATURES].union(result_subtree_without_constraints[FMFullAnalysis.CORE_FEATURES])
+            result = analysis_result
+        return result
         
 
 class SimpleCTCTransformation():
@@ -242,7 +244,7 @@ def get_valid_transformations_ids(fm: bytes,
     percentage = 0.0
     total_invalids = 0
     total_skipped = 0
-    while num < max:
+    while num <= max:
         #binary_vector = list(format(num, f'0{n_bits}b')[::-1])
         binary_vector = list(format(num, f'0{n_bits}b'))
         tree, null_bit = execute_transformations_vector(fm, transformations_vector, binary_vector)

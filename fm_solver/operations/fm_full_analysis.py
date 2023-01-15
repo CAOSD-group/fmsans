@@ -36,7 +36,8 @@ class FMFullAnalysis(FMOperation):
     @staticmethod
     def join_results(subtrees_results: list[dict[str, Any]]) -> dict[str, Any]:
         if not subtrees_results:
-            return {}
+            return {FMFullAnalysis.CONFIGURATIONS_NUMBER: 0, 
+                    FMFullAnalysis.CORE_FEATURES: set()}
         result = {}
         result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = FMConfigurationsNumber.join_results([r[FMFullAnalysis.CONFIGURATIONS_NUMBER] for r in subtrees_results])
         result[FMFullAnalysis.CORE_FEATURES] = FMCoreFeatures.join_results([r[FMFullAnalysis.CORE_FEATURES] for r in subtrees_results])

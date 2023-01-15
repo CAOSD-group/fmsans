@@ -36,40 +36,44 @@ def main(fm_filepath: str, n_cores: int):
         print(f'The feature model has complex constraints. Please use before the "main_fm2fmsimplectcs.py" script to refactor them.')
         return None
 
-    # Split the feature model into two
-    subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
-    
-    # Get constraints order
-    constraints_order = get_basic_constraints_order(fm)
-    
-    # Get transformations vector
-    transformations_vector = get_transformations_vector(constraints_order)
+    if fm.get_constraints():  # The feature model has constraints.
+        # Split the feature model into two
+        subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
+        #subtree_with_constraints_implications, subtree_without_constraints_implications = fm, None
+        
+        # Get constraints order
+        constraints_order = get_basic_constraints_order(fm)
 
-    # Get valid transformations ids.
-    ### PARALLEL CODE
-    valid_transformed_numbers_trees = {}
-    queue = Queue()
-    processes = []
-    n_bits = len(constraints_order[0])
-    cpu_count = n_cores
-    n_processes = cpu_count if n_bits > cpu_count else 1
-    pick_tree = pickle.dumps(subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
-    for process_i in range(n_processes):
-        min_id, max_id = get_min_max_ids_transformations_for_parallelization(len(constraints_order[0]), n_processes, process_i)
-        p = Process(target=get_valid_transformations_ids, args=(pick_tree, transformations_vector, min_id, max_id, queue))
-        p.start()
-        processes.append(p)
+        # Get transformations vector
+        transformations_vector = get_transformations_vector(constraints_order)
 
-    for p in processes:
-        valid_ids = queue.get()
-        valid_transformed_numbers_trees.update(valid_ids)
-    ### End of parallel code.
+        # Get valid transformations ids.
+        ### PARALLEL CODE
+        valid_transformed_numbers_trees = {}
+        queue = Queue()
+        processes = []
+        n_bits = len(constraints_order[0])
+        cpu_count = n_cores
+        n_processes = cpu_count if n_bits > cpu_count else 1
+        pick_tree = pickle.dumps(subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
+        for process_i in range(n_processes):
+            min_id, max_id = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i)
+            p = Process(target=get_valid_transformations_ids, args=(pick_tree, transformations_vector, min_id, max_id, queue))
+            p.start()
+            processes.append(p)
 
-    # Get FMSans instance
-    fm_sans_model = FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications, 
-                       subtree_without_constraints_implications=subtree_without_constraints_implications,
-                       transformations_vector=transformations_vector,
-                       transformations_ids=valid_transformed_numbers_trees)
+        for p in processes:
+            valid_ids = queue.get()
+            valid_transformed_numbers_trees.update(valid_ids)
+        ### End of parallel code.
+
+        # Get FMSans instance
+        fm_sans_model = FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications, 
+                        subtree_without_constraints_implications=subtree_without_constraints_implications,
+                        transformations_vector=transformations_vector,
+                        transformations_ids=valid_transformed_numbers_trees)
+    else:  # The feature model has not any constraint.
+        fm_sans_model = FMSans(None, fm, [], {})
 
     # Serializing the FMSans model
     output_fmsans_filepath = f'{fm_name}.json'

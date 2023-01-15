@@ -4,7 +4,7 @@ import argparse
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 
 from fm_solver.models.feature_model import FM
-from fm_solver.utils import utils
+from fm_solver.utils import utils, constraints_utils
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
     RefactoringStrictComplexConstraint
@@ -23,9 +23,8 @@ def main(fm_filepath: str):
     fm = FM.from_feature_model(feature_model)
     
     # Check if the feature model has any cross-tree constraints
-    if not fm.get_constraints():
-        print(f'The feature model has not any cross-tree constraints. Nothing to do.')
-        return None
+    if not fm.get_constraints() or not any(constraints_utils.is_complex_constraint(ctc) for ctc in fm.get_constraints()):
+        print(f'Warning: The feature model has not any cross-tree constraints. The output FM is the same as the input.')
 
     # Refactor pseudo-complex constraints
     fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
