@@ -44,7 +44,7 @@ class FMFullAnalysis(FMOperation):
 
 
 def get_full_analysis(feature_model: FM) -> dict[str, Any]:
-    if feature_model.root is None:
+    if feature_model is None or feature_model.root is None:
         return {}
     
     result = {}
