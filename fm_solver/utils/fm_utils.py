@@ -16,7 +16,7 @@ from fm_solver.models.feature_model import FM
 from fm_solver.utils import constraints_utils
 
 
-def commitment_feature(feature_model: FM, feature_name: str) -> FM:
+def commitment_feature(feature_model: FM, feature_name: str, features_already_executed: tuple[set[str], set[str]]) -> FM:
     """Given a feature diagram T and a feature F, 
     this algorithm computes the feature model T(+F) 
     whose products are precisely those products of T with contain F.
@@ -26,6 +26,9 @@ def commitment_feature(feature_model: FM, feature_name: str) -> FM:
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
+    if feature_name in features_already_executed[0]:
+        return feature_model
+    features_already_executed[0].add(feature_name)
     feature = feature_model.get_feature_by_name(feature_name)  # TODO: cuello de botella
     # Step 1. If T does not contain F, the result is NIL.
     if feature not in feature_model.get_features():  # TODO: cuello de botella
@@ -66,7 +69,7 @@ def commitment_feature(feature_model: FM, feature_name: str) -> FM:
     return feature_model
 
 
-def deletion_feature(feature_model: FM, feature_name: str) -> FM:
+def deletion_feature(feature_model: FM, feature_name: str, features_already_executed: tuple[set[str], set[str]]) -> FM:
     """Given a feature diagram T and a feature F,
     this algorithm computes the feature model T(-F) 
     whose products are precisely those products of T with do not contain F.
@@ -76,6 +79,9 @@ def deletion_feature(feature_model: FM, feature_name: str) -> FM:
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
+    if feature_name in features_already_executed[1]:
+        return feature_model
+    features_already_executed[1].add(feature_name)
     feature = feature_model.get_feature_by_name(feature_name)
     # Step 1. If T does not contain F, the result is T.
     if feature not in feature_model.get_features():
@@ -107,7 +113,7 @@ def deletion_feature(feature_model: FM, feature_name: str) -> FM:
     return feature_model
 
 
-def transform_tree(functions: list[Callable], fm: FM, features: list[str], copy_tree: bool) -> FM:
+def transform_tree(functions: list[Callable], fm: FM, features: list[str], copy_tree: bool, features_already_executed: tuple[set[str], set[str]]) -> FM:
     """Apply a list of functions (commitment_feature or deletion_feature) 
     to the tree of the feature model. 
     
@@ -119,7 +125,7 @@ def transform_tree(functions: list[Callable], fm: FM, features: list[str], copy_
         tree = fm
     for func, feature in zip(functions, features):
         if tree is not None:
-            tree = func(tree, feature)
+            tree = func(tree, feature, features_already_executed)
     return tree
 
 

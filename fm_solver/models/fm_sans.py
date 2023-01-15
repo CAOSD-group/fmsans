@@ -68,6 +68,8 @@ class FMSans():
         self.subtree_without_constraints_implications = subtree_without_constraints_implications
         # Order of the transformations of the constraints
         self.transformations_vector = transformations_vector  
+        for i, c in enumerate(transformations_vector):
+            print(f'{i}: {c[0]}, {c[1]}')
         # Numbers of the transformations
         self.transformations_ids = transformations_ids  
     
@@ -79,7 +81,7 @@ class FMSans():
         n_bits = len(self.transformations_vector)
         max = len(self.transformations_ids)
         pick_tree = pickle.dumps(self.subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
-        for i, num in enumerate(self.transformations_ids.values()):
+        for i, num in enumerate(self.transformations_ids.keys()):
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, _ = execute_transformations_vector(pick_tree, self.transformations_vector, binary_vector)
             tree = fm_utils.remove_leaf_abstract_features(tree)
@@ -120,7 +122,7 @@ class FMSans():
         results: list[dict[str, Any]] = []
         subtrees = set()  # usar mejor un dictionary de hash -> resultado de analysis (así evitamos el "if")
         pick_tree = pickle.dumps(self.subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
-        for i, num in enumerate(self.transformations_ids.values()):
+        for i, num in enumerate(self.transformations_ids.keys()):
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, _ = execute_transformations_vector(pick_tree, self.transformations_vector, binary_vector)
             tree = fm_utils.remove_leaf_abstract_features(tree)
@@ -167,8 +169,25 @@ class SimpleCTCTransformation():
         self.transformations = transformations
         self.features = features
 
-    def transforms(self, fm: FM, copy_model: bool = False) -> FM:
-        return fm_utils.transform_tree(self.transformations, fm, self.features, copy_model)
+    def transforms(self, fm: FM, copy_model: bool = False, features_already_executed: tuple[set[str], set[str]] = None) -> FM:
+        return fm_utils.transform_tree(self.transformations, fm, self.features, copy_model, features_already_executed)
+
+    def __hash__(self) -> int:
+        return hash((
+            self.type,
+            self.value,
+            self.transformations,
+            self.features
+        ))
+
+    def __eq__(self, other: Any) -> bool:
+        return (
+            isinstance(other, SimpleCTCTransformation) and
+            self.type == other.type and
+            self.value == other.value and
+            self.transformations == other.transformations and
+            self.features == other.features
+        )
 
     def __str__(self) -> str:
         return f'{self.type}{self.value}{[f for f in self.features]}'
@@ -208,8 +227,10 @@ def execute_transformations_vector(fm: bytes,
     #tree = FeatureModel(copy.deepcopy(fm.root))
     tree = pickle.loads(fm)
     i = 0
+    commitment_features = set()  # Set of features already commitment in this tree.
+    deletion_features = set()  # Set of features already deleted in this tree.
     while i < len(transformations_vector) and tree is not None:
-        tree = transformations_vector[i][int(binary_vector[i])].transforms(tree)
+        tree = transformations_vector[i][int(binary_vector[i])].transforms(tree, False, (commitment_features, deletion_features))
         i += 1
     return (tree, i-1)
 
@@ -249,7 +270,7 @@ def get_valid_transformations_ids(fm: bytes,
         binary_vector = list(format(num, f'0{n_bits}b'))
         tree, null_bit = execute_transformations_vector(fm, transformations_vector, binary_vector)
         if tree is not None:
-            valid_transformed_numbers_trees[hash(tree)] = num
+            valid_transformed_numbers_trees[num] = hash(tree)
             #logging_utils.LOGGER.debug(f'ID (valid): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
             num += 1
         else:  # tree is None
