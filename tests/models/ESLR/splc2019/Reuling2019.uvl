@@ -1,0 +1,23 @@
+namespace Root
+
+features
+	PPU	
+		mandatory
+			Stack
+			Crane
+			Slide
+
+		optional
+			Stamp	
+				alternative
+					SPressure
+					APressure
+
+		mandatory
+			Workpiece {abstract}	
+				or
+					Plastic
+					Metal
+
+constraints
+	Stamp & Plastic => APressure

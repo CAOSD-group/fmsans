@@ -1,0 +1,37 @@
+namespace Root
+
+features
+	Component {abstract}	
+		mandatory
+			Jacket	
+				mandatory
+					Jacket_material	
+						or
+							Mat1
+							Mat2
+					Jacket_design	
+						or
+							H_design
+							O_design
+							Raco_design
+
+				optional
+					Flange
+					Extended_Heel
+			Spring	
+				or
+					H_spring	
+						or
+							Heavy
+							Standard
+					Raco_spring
+					O_spring	
+						optional
+							Double
+
+		optional
+			Spacer	
+				or
+					Normal_Spacer
+					Ball_spacer
+					T_spacer

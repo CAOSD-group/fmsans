@@ -1,0 +1,22 @@
+namespace Root
+
+features
+	Toasty {abstract}	
+		mandatory
+			Bread	
+				alternative
+					White
+					WholeGrain
+			Toppings	
+				or
+					Ham
+					Cheese
+
+		optional
+			Extras	
+				or
+					Cucumber
+					Pineapple
+
+constraints
+	Pineapple => Cheese

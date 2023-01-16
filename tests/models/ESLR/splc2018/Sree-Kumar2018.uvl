@@ -1,0 +1,20 @@
+namespace Root
+
+features
+	CentralEvaluationSystem {abstract}	
+		mandatory
+			ConsolidatorModule	
+				optional
+					EvaluatorTerminals
+			PublishingModule	
+				or
+					SendingEmails
+					MobileTextMessages
+
+		optional
+			CustomReportsModule	
+				mandatory
+					OverallPerformance
+
+				optional
+					AnalysisResults

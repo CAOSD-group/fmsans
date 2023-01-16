@@ -1,0 +1,46 @@
+namespace Root
+
+features
+	webshops {abstract}	
+		optional
+			UserManagement {abstract}	
+				mandatory
+					Login
+
+				optional
+					Logout
+
+				mandatory
+					Register
+
+		mandatory
+			Payment {abstract}	
+				optional
+					PaymentGateway
+					CreditCard
+			Catalog {abstract}	
+				mandatory
+					DisplayCatalog {abstract}	
+						mandatory
+							DisplayAllItem
+
+						optional
+							FilterCatalog
+
+				optional
+					Catalogltem
+					SearchItem
+			Cart {abstract}	
+				mandatory
+					CartUser
+					CartItem
+
+				optional
+					Checkout
+			Order {abstract}	
+				mandatory
+					ProcessOrder
+
+				optional
+					CreditCardType
+					ShippingOrder

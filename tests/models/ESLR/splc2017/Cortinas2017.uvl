@@ -1,0 +1,167 @@
+namespace Root
+
+features
+	GIS_SPL {abstract}	
+		mandatory
+			DataManagement	
+				mandatory
+					DM_SpatialDatabase	
+						alternative
+							DM_SD_PostGIS
+							MD_SD_MySQL
+							MD_SD_OracleSpatial
+
+				optional
+					DM_DataServer
+					DM_DataInput	
+						or
+							DM_DI_Datafeeding	
+								or
+									DM_DI_DF_Shapefile
+									DM_DI_DF_Raster
+									DM_DI_DF_Network
+							DM_DI_Digitizing	
+								or
+									DM_DI_D_Form
+									DM_DI_D_Map
+					DM_Algorithmics	
+						or
+							DM_A_Connectivity	
+								or
+									DM_A_C_RouteCalculation
+									DM_A_C_NetworkTracing
+									DM_A_C_ConectivityCheck
+							DM_A_Geolocalization	
+								optional
+									DM_A_G_Addresses
+									DM_A_G_Documents
+			GraphicalUserInterface	
+				optional
+					GUI_Menu	
+						or
+							GUI_M_Top
+							GUI_M_Bottom
+							GUI_M_Right
+							GUI_M_Left
+					GUI_Forms	
+						mandatory
+							GUI_F_Editable
+							GUI_F_Creatable
+							GUI_F_Removable	
+								optional
+									GUI_F_R_ConfirmationAlert
+					GUI_Lists	
+						optional
+							GUI_L_Sortable
+							GUI_L_Filterable	
+								or
+									GUI_L_F_RowFilter
+									GUI_L_F_BasicSearch
+							GUI_L_LocateInMap
+							GUI_L_ViewListAsMap
+							GUI_L_FormLink
+					GUI_StaticPages	
+						optional
+							GUI_SP_Management
+			MapViewer	
+				optional
+					MV_MapServer	
+						alternative
+							MV_MS_Geoserver
+							MV_MS_Degree
+					MV_Tools	
+						mandatory
+							MV_T_Pan
+							MV_T_Zoom
+
+						optional
+							MV_T_Measure	
+								or
+									MV_T_M_Distance
+									MV_T_M_Line
+									MV_T_M_Polygon
+									MV_T_M_MapElement
+							MV_T_Export	
+								optional
+									MV_T_E_SetScale
+									MV_T_E_ShowLegend
+									MV_T_E_DRM
+
+								mandatory
+									MV_T_E_Type	
+										or
+											MV_T_E_F_PNG
+											MV_T_E_F_PDF
+											MV_T_E_F_URL
+							MV_T_Filterable	
+								or
+									MV_T_F_RowFilter
+									MV_T_F_BasicSearch
+							MV_T_UserGeolocation
+							MV_T_InformationMode
+							MV_T_ViewMapAsList
+					MV_ContextInformation	
+						or
+							MV_CI_Map
+							MV_CI_Scale
+							MV_CI_CenterCoordinates
+							MV_CI_Dimensions
+					MV_LayerManagement	
+						or
+							MV_LM_Order
+							MV_LM_HideLayer
+							MV_LM_Opacity
+							MV_LM_Style
+							MV_LM_ExternalLayer
+							MV_LM_Clustering
+
+				mandatory
+					MV_MapCenter	
+						alternative
+							MV_MC_BBox
+							MV_MC_UserPosition
+
+				optional
+					MV_DetallOnClick
+
+		optional
+			UserManagement	
+				optional
+					UM_Registration	
+						or
+							UM_R_ByAdmin
+							UM_R_Anonymous
+
+				mandatory
+					UM_Authentication	
+						optional
+							UM_A_RememberPass
+							UM_A_RecoverPass
+
+				optional
+					UM_AccountActivation	
+						or
+							UM_AA_ByEmail
+							UM_AA_ByAdmin
+					UM_UpdateEmail
+
+				mandatory
+					UM_UpdatePassword	
+						mandatory
+							UM_UP_ByUser
+
+						optional
+							UM_UP_ByAdmin
+
+				optional
+					UM_UserProfile
+					UM_UserCRUD
+
+				mandatory
+					UM_SecurityType	
+						alternative
+							UM_ST_Session
+							UM_ST_JWT
+
+				optional
+					UM_LDAP

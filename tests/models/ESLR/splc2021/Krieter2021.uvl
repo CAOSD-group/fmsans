@@ -1,0 +1,22 @@
+namespace Root
+
+features
+	Server {abstract}	
+		mandatory
+			OS	
+				alternative
+					Linux
+					Windows
+					Mac
+
+		optional
+			Log
+			Login
+			FS	
+				or
+					EXT4
+					NTFS
+					APFS
+
+constraints
+	(Windows => NTFS) & (Mac => APFS) & (Linux | NTFS | APFS) & (Server => !Login)

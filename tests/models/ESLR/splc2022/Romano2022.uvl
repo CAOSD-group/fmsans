@@ -1,0 +1,29 @@
+namespace WeatherStation
+
+features
+	WheatherStation	
+		optional
+			Warnings	
+				or
+					Gale
+					Heat
+
+		mandatory
+			Languages	
+				alternative
+					Turkish
+					Dutch
+					English
+					German
+					Japanese
+			Sensors	
+				optional
+					Temperature	
+						optional
+							Color
+					WindSpeed
+					AirPressure
+
+constraints
+	Gale => WindSpeed
+	Heat => Temperature

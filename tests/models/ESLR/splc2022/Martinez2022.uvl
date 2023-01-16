@@ -1,0 +1,18 @@
+namespace R
+
+features
+	R	
+		optional
+			F1	
+				or
+					F2
+					F3
+			F4	
+				alternative
+					F5
+					F6
+					F7
+
+constraints
+	!F1 | F4
+	!F3 | !F5

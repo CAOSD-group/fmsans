@@ -1,0 +1,24 @@
+namespace Root
+
+features
+	FeatureRetrieval {abstract}	
+		optional
+			Type {abstract}	
+				or
+					ExpertDriven
+					Heuristics
+					RuleBased
+
+		mandatory
+			Techniques {abstract}	
+				or
+					StaticAnalysis {abstract}	
+						or
+							dependencyAnalysis
+							DataFlowAnalysis
+							Clustering
+					informationRetrieval {abstract}	
+						or
+							LSI
+							VSM
+							FCA

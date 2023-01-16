@@ -1,0 +1,23 @@
+namespace Root
+
+features
+	Body_Comfort_System {abstract}	
+		mandatory
+			Human_Machine_Interface	
+				optional
+					Status_LEd	
+						or
+							LED_Exterior_Mirror
+							LED_Heatable
+			Door_system	
+				mandatory
+					Esterior_Mirror	
+						optional
+							Heatable
+
+						mandatory
+							Electric
+					Power_Window
+
+constraints
+	LED_Heatable => Heatable

@@ -1,0 +1,40 @@
+namespace Root
+
+features
+	SmartHome {abstract}	
+		optional
+			HVAC	
+				alternative
+					heating	
+						optional
+							Temperature {abstract}
+					air
+					ventilation
+			automation	
+				mandatory
+					window	
+						alternative
+							window_open	
+								optional
+									Weather {abstract}
+							window_close
+					illumination	
+						alternative
+							on	
+								optional
+									Time {abstract}
+							off
+					door	
+						alternative
+							door_open
+							door_close
+			garden	
+				or
+					water_on
+					pet_care	
+						or
+							access_rights
+							cleaning
+
+constraints
+	access_rights => door_close

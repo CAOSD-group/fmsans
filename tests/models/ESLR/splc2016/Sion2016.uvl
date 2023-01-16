@@ -1,0 +1,31 @@
+namespace Root
+
+features
+	SafetyElements {abstract}	
+		optional
+			Watchdog
+			ErrorDebouncing
+			ErrorHandling {abstract}	
+				alternative
+					FailSafeMode
+					SoftResetOnError
+			SelfCalibration {abstract}	
+				optional
+					FineOffSetCorrectionOverTemperature
+
+				mandatory
+					FineOffSetCorrectionOverGain
+
+				optional
+					SensitivityMismatchCorrection
+					OrthogonalityCorrection
+					AutomaticGainControl
+			MARCHtestoninit
+			BackgroundSelfTesting {abstract}	
+				optional
+					RAMtesting
+					ADCclippingcheck
+					ROMtesting
+
+constraints
+	BackgroundSelfTesting => ErrorHandling

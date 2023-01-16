@@ -1,0 +1,18 @@
+namespace Root
+
+features
+	ExpressionProductLine {abstract}	
+		mandatory
+			Data	
+				mandatory
+					Lift
+
+				optional
+					Add
+					Neg
+			Operations	
+				mandatory
+					Print
+
+				optional
+					Eval

@@ -82,7 +82,7 @@ def main(fm_filepath: str, n_cores: int):
         fm_sans_model = FMSans(None, fm, [], {})
 
     # Serializing the FMSans model
-    output_fmsans_filepath = f'{fm_name}.json'
+    output_fmsans_filepath = f'{fm_name}_{n_processes}.json'
     FMSansWriter(output_fmsans_filepath, fm_sans_model).transform()
 
     # fm_full = fm_sans_model.get_feature_model()

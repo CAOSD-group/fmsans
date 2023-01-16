@@ -1,0 +1,65 @@
+namespace Root
+
+features
+	RML {abstract}	
+		mandatory
+			RoleTypes	
+				optional
+					RoleStructure {abstract}	
+						optional
+							RolePropoerties
+							RoleBehavior
+							RoleInheritance
+
+				mandatory
+					Playable {abstract}	
+						mandatory
+							Players {abstract}	
+								mandatory
+									Objects
+
+								optional
+									Roles
+									Compartments
+
+						optional
+							SeveralTimes
+							UnrelatedPlayers
+
+				optional
+					Dependent {abstract}	
+						optional
+							OnRelationships
+							OnCompartments
+
+		optional
+			Relationships	
+				optional
+					Constraints {abstract}	
+						optional
+							RelationshipsCardinality
+							IntraRelationshipConstraint
+							InterRelationshipConstraint
+			CompartmentTypes	
+				optional
+					CompStructure {abstract}	
+						optional
+							CompartmentInheritance
+							CompartmentBehavior
+							CompartmentProperties
+
+				mandatory
+					Participants {abstract}	
+						mandatory
+							ContainsRoles
+
+						optional
+							ContainsCompartments
+
+				optional
+					OccurrenceConstraints
+
+constraints
+	Compartments => CompartmentTypes
+	OnRelationships => Relationships
+	OnCompartments => CompartmentTypes

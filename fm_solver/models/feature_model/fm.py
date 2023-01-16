@@ -3,9 +3,7 @@ from typing import Any, Optional
 from flamapy.metamodels.fm_metamodel.models import (
     FeatureModel, 
     Feature, 
-    Relation, 
-    Constraint, 
-    Attribute
+    Constraint 
 )
 
 class FM(FeatureModel):

@@ -1,0 +1,18 @@
+namespace Root
+
+features
+	MiscFilesystems {abstract}	
+		optional
+			JournallingFlashFilesystem	
+				mandatory
+					DebugLevel
+
+				optional
+					CompressData	
+						optional
+							SupportZLIB
+							DefaultCompression	
+								alternative
+									None
+									Priority
+									Size

@@ -1,0 +1,20 @@
+namespace Root
+
+features
+	PokerSPL {abstract}	
+		mandatory
+			Player
+			Table
+			Cards	
+				alternative
+					MaxPlayerCardsTwo
+					MaxPlayerCardsFive
+					MaxPlayerCardsSeven
+
+		optional
+			Wager	
+				or
+					Blinds	
+						optional
+							IncreasingBlinds
+					Pot_Limit

@@ -1,0 +1,23 @@
+namespace Root
+
+features
+	Catalog {abstract}	
+		mandatory
+			DisplayCatalog {abstract}	
+				alternative
+					DisplayAllItem
+					FilterCatalog {abstract}	
+						alternative
+							FilterByBrand
+							FilterByCategory
+			CatalogItem {abstract}	
+				mandatory
+					GetItemByld
+
+				optional
+					GetItemByName
+					CreateItem
+					DeleteItem
+
+		optional
+			SearchItem

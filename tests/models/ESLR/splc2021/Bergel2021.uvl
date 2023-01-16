@@ -1,0 +1,125 @@
+namespace BitcoinWallet
+
+features
+	BitcoinWallet {abstract}	
+		mandatory
+			BitCoins {abstract}	
+				mandatory
+					Denomination	
+						alternative
+							BTC8dp
+							BTC6dp
+							BTC4dp
+							mBTC
+							uBTC
+					Currency {abstract}	
+						mandatory
+							Calculator
+
+						optional
+							ExchangeRate	
+								mandatory
+									Search
+									Rate
+									SetDefault
+					TradeCoins {abstract}	
+						mandatory
+							TradeMethod {abstract}	
+								alternative
+									NFC
+									QRCode
+									URL
+									Email
+									CloudStorage
+									WebpageFileDownload
+							SendCoins	
+								optional
+									AutoCloseSendDialog
+
+								mandatory
+									EmptyWallet
+									Fee	
+										alternative
+											Economic
+											Normal
+											Priority
+							SweepPaperWallet
+							RequestCoins	
+								mandatory
+									ShareRequest
+									FromLocalApp
+									CopyRequest
+
+								optional
+									NotifyOnReceive
+							DonateCoins
+							Codecs	
+								or
+									base58
+									BIP21
+									BIP70
+									BIP72
+									TBIP75
+					BitcoinBalance
+
+				optional
+					BalanceReminder
+			Wallet {abstract}	
+				mandatory
+					Diagnostics {abstract}	
+						mandatory
+							ShowXPub
+							ResetBlockChain
+							IssueReporter	
+								optional
+									DeviceInfo
+									AppLog
+									WalletDump
+									InstalledPackages
+					Peers {abstract}	
+						mandatory
+							AddressBook	
+								mandatory
+									OwnAddress
+									SenderAddresses
+							OwnName
+							TrustedPeer
+
+						optional
+							SkipPeerDiscovery
+
+						mandatory
+							BlockExplorer	
+								alternative
+									Blochchain
+									Blocktrail
+									Blockcypher
+							NetworkMonitor
+					Connectvity {abstract}	
+						optional
+							ConnectvityIndicator
+
+						mandatory
+							DataUsage
+
+						optional
+							Bluetooth
+					Security {abstract}	
+						mandatory
+							Backup
+							Restore
+							SpendingPIN
+
+						optional
+							ShowDisclaimer
+
+						mandatory
+							BackupReminder
+							DustSpamProtection
+			BlockchainSync
+			ViewTransactions	
+				alternative
+					ViewAll
+					ViewSent
+					ViewReceived
+			Localisation

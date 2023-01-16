@@ -1,0 +1,24 @@
+namespace Root
+
+features
+	e_shop {abstract}	
+		mandatory
+			ProductPurchase {abstract}	
+				mandatory
+					ConfirmPurchase_A1_B5
+
+				optional
+					CancelOrder_B9_B10
+
+				mandatory
+					Payment_A2_A5_A7_B6
+			SystemOperation {abstract}	
+				mandatory
+					ProductReviews_A11_B8_B11
+					UpdateCatalog_A10_B1
+					UpdateInventory_A9_B3
+					AvailableProducts_A6_B2
+			Shipping {abstract}	
+				mandatory
+					ShippingDocuments_A3_A4_B4
+					ShipmentDetails_A8_B7

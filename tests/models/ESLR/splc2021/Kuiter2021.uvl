@@ -1,0 +1,28 @@
+namespace Root
+
+features
+	PigNap_Firmware {abstract}	
+		mandatory
+			PCB	
+				alternative
+					PCB1
+					PCB2
+					NewFeature
+					PCB4
+
+		optional
+			Display	
+				alternative
+					LCD
+					OLED
+			History	
+				alternative
+					NVS
+					FRAM1
+					FRAM2
+
+		mandatory
+			Mode_of_operation	
+				alternative
+					Debug
+					Production

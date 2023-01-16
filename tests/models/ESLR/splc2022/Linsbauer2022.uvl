@@ -1,0 +1,33 @@
+namespace Root
+
+features
+	ATM {abstract}	
+		mandatory
+			Language {abstract}	
+				or
+					English
+					German
+					French
+			Currency {abstract}	
+				alternative
+					EUR
+					GBP
+
+		optional
+			Bank_Statement	
+				optional
+					Print_Statement
+			Printer
+
+		mandatory
+			Authentication	
+				alternative
+					PIN	
+						optional
+							Change_PIN
+					Password
+					Facial_Recognition
+					Iris_Scan
+
+constraints
+	Print_Statement => Printer

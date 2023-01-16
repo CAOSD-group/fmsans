@@ -1,0 +1,23 @@
+namespace Root
+
+features
+	VMS {abstract}	
+		mandatory
+			Frontend	
+				mandatory
+					Parser
+					ScriptProcessor
+			Deliverable	
+				optional
+					Coin
+					Pops {abstract}	
+						alternative
+							PopCan
+							Pop
+
+		optional
+			HardwareSimulator
+			VendingMachine {abstract}	
+				optional
+					VendingMachineLogic
+					VendingMachineFactory

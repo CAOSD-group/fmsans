@@ -1,0 +1,34 @@
+namespace ElevatorSPL
+
+features
+	ElevatorSPL {abstract}	
+		mandatory
+			Behavior	
+				optional
+					Models	
+						alternative
+							Sabbath
+							FIFO
+							ShortestPath
+					Service
+					Priorities	
+						or
+							RushHour
+							FloorPriority
+							PersonPriority
+
+		optional
+			VoiceOutput
+			CallButtons	
+				optional
+					DorectedCall
+					UndirectedCall
+			Security	
+				mandatory
+					Permission	
+						or
+							FloorPermission
+							PermissionControl
+			Safety	
+				optional
+					Overloaded

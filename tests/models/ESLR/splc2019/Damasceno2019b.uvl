@@ -1,0 +1,22 @@
+namespace Root
+
+features
+	VM	
+		mandatory
+			BEV	
+				optional
+					COF
+					TEA
+					CAP
+
+		optional
+			TON
+
+		mandatory
+			CUR	
+				alternative
+					EUR
+					DOL
+
+constraints
+	CAP => TON

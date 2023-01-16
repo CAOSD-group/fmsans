@@ -277,13 +277,15 @@ def get_subtree_without_constraints_implications(fm: FM) -> FM:
             if subtree is not None:
                 feature = subtree.get_feature_by_name(f)
                 subtree = remove_feature_branch(subtree, feature)
-    if len(subtree.get_features()) == 1:
+    if subtree is None or len(subtree.get_features()) == 1:
         subtree = None
     return subtree
 
 
 def remove_feature_branch(fm: FM, feature: Feature) -> FM:
     """Remove the entire branch from the root that containts the given feature."""
+    if feature == fm.root:
+        return None
     parent = feature.get_parent() if feature is not None else None
     while feature is not None and parent != fm.root:
         feature = parent
