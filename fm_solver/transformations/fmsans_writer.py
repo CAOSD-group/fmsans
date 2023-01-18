@@ -7,7 +7,9 @@ from flamapy.core.transformations import ModelToText
 
 from flamapy.metamodels.fm_metamodel.models import  Feature, Attribute
 
-from fm_solver.models import FMSans, SimpleCTCTransformation
+from fm_solver.models import FMSans
+from fm_solver.models.utils import TransformationsVector, SimpleCTCTransformation
+
 
 
 class JSONFeatureType(Enum):
@@ -50,8 +52,9 @@ class FMSansWriter(ModelToText):
 
 def _to_json(fm_sans: FMSans) -> dict[str, Any]:
     result: dict[str, Any] = {}
-    result['features_without_constraints'] = {} if fm_sans.subtree_without_constraints_implications is None else _get_tree_info(fm_sans.subtree_without_constraints_implications.root)
-    result['features_with_constraints'] = {} if fm_sans.subtree_with_constraints_implications is None else _get_tree_info(fm_sans.subtree_with_constraints_implications.root)
+    #result['features_without_constraints'] = {} if fm_sans.subtree_without_constraints_implications is None else _get_tree_info(fm_sans.subtree_without_constraints_implications.root)
+    #result['features_with_constraints'] = {} if fm_sans.subtree_with_constraints_implications is None else _get_tree_info(fm_sans.subtree_with_constraints_implications.root)
+    result['feature_tree'] = {} if fm_sans.fm is None else _get_tree_info(fm_sans.fm.root)
     result['ctcs_transformations'] = [] if fm_sans.transformations_vector is None else _get_ctcs_transformations_info(fm_sans.transformations_vector)
     result['transformations_ids'] = {} if fm_sans.transformations_ids is None else fm_sans.transformations_ids
     return result
@@ -105,9 +108,9 @@ def _get_attributes_info(attributes: list[Attribute]) -> list[dict[str, Any]]:
     return attributes_info
 
 
-def _get_ctcs_transformations_info(transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]) -> list[dict[str, Any]]:
+def _get_ctcs_transformations_info(transformations_vector: TransformationsVector) -> list[dict[str, Any]]:
     info = []
-    for tv in transformations_vector:
+    for tv in transformations_vector.transformations:
         tv_info = [_get_transformation_info(tv[0]), _get_transformation_info(tv[1])]
         info.append(tv_info)
     return info

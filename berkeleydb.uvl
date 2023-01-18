@@ -111,17 +111,19 @@ features
 							dummyFeatureLocking
 							featureCheckLeaks
 					FDbOperation {abstract}	
-						mandatory
+						or
 							featureDeleteDb
 							featureTruncateDb
 
 constraints
 	featureEvictor | featureEvictorDaemon | featureLookAheadCache | featureStatisticsEnvCaching => featureMemoryBudget
 	featureCheckLeaks => featureStatisticsLock
+	featureCriticalEviction => featureINCompressor
 	featureCustomizableCheckpointerBytes => featureCustomizableCheckpointerTime
 	featureDeleteDb => dummyFeatureLocking & featureEvictor & featureINCompressor & featureMemoryBudget
 	featureLatch => dummyFeatureLocking & featureCheckLeaks & featureDeleteDb & featureEvictor & featureFileHandleCache & featureFSync & featureINCompressor & featureMemoryBudget & featureStatisticsLock & featureTreeVisitor & featureTruncateDb & featureVerifier
 	featureLoggingSevere => featureEnvironmentLock
+	featureLoggingFine => dummyFeatureLocking & featureEvictor & featureINCompressor
 	featureLoggingInfo => featureChecksum & featureMemoryBudget
 	featureLoggingBase | featureLoggingFinest => featureTransaction
 	featureMemoryBudget => featureEvictor & featureLatch

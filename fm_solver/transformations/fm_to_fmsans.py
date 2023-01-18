@@ -1,13 +1,9 @@
-import pickle
-import multiprocessing
-import math
-from multiprocessing import Process, Queue
-
 from flamapy.core.transformations import ModelToModel
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 
 from fm_solver.models.feature_model import FM
-from fm_solver.models import FMSans, fm_sans, SimpleCTCTransformation
+from fm_solver.models import FMSans, fm_sans
+from fm_solver.models.utils import TransformationsVector
 from fm_solver.utils import utils, fm_utils
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
@@ -32,11 +28,11 @@ class FMToFMSans(ModelToModel):
         return 'fmsans'
 
     def __init__(self, source_model: FeatureModel, n_cores: int = 1) -> None:
-        self._fm = source_model
+        self.feature_model = source_model
         self.n_cores = n_cores
     
     def transform(self) -> FMSans:
-        return fm_to_fmsans(self._fm, self.n_cores)
+        return fm_to_fmsans(self.feature_model, self.n_cores)
 
 
 def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1) -> FMSans:
@@ -51,127 +47,19 @@ def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1) -> FMSans:
     # Refactor strict-complex constraints
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
 
-    # Get optimum constraints order
-    #constraints_order = analysis_constraints_order(fm)  TODO: Future Work (getting an optimum ordering for the constraints)
-    constraints_order = get_basic_constraints_order(fm)
-
-    # Split the feature model into two
-    subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
-    
     # Get transformations vector
-    transformations_vector = fm_sans.get_transformations_vector(constraints_order)
+    trans_vector = TransformationsVector(fm.get_constraints())
     
     # Get valid transformations ids.
-    valid_transformed_numbers_trees = get_valid_transformations_ids_parallel(subtree_with_constraints_implications, transformations_vector, n_cores)
+    n_bits = trans_vector.n_bits()
+    n_processes  = n_cores if n_bits > n_cores else 1
+    valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids(fm, n_processes)
     
     # Get FMSans instance
-    result_fm = FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications, 
-                       subtree_without_constraints_implications=subtree_without_constraints_implications,
-                       transformations_vector=transformations_vector,
-                       transformations_ids=valid_transformed_numbers_trees)
-    return result_fm
+    return FMSans(FM(fm.root), trans_vector, valid_transformed_numbers_trees)
 
 
-def get_next_number_prunning_binary_vector(binary_vector: list[str], bit: int) -> int:
-    """Given a binary vector and the bit that returns NIL (None or Null),
-    it returns the next decimal number to be considered (i.e., the next binary vector)."""
-    stop = False
-    while bit >= 0 and not stop:
-        if binary_vector[bit] == '0':
-            binary_vector[bit] = '1'
-            stop = True
-        else:
-            bit -= 1
-    binary_vector[bit+1:] = ['0' for d in binary_vector[bit+1:]] 
-    num = int(''.join(binary_vector), 2)
-    if bit < 0:
-        num = 2**len(binary_vector)
-    return num
-
-
-def get_valid_transformations_ids(fm: bytes,
-                                  transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]],
-                                  min_id: int,
-                                  max_id: int,
-                                  queue: multiprocessing.Queue) -> dict[str, int]:
-    
-    n_bits = len(transformations_vector)
-    num = min_id
-    max = max_id
-    valid_transformed_numbers_trees = {}
-    #percentage = 0.0
-    total_invalids = 0
-    total_skipped = 0
-    while num <= max:
-        #binary_vector = list(format(num, f'0{n_bits}b')[::-1])
-        binary_vector = list(format(num, f'0{n_bits}b'))
-        tree, null_bit = fm_sans.execute_transformations_vector(fm, transformations_vector, binary_vector)
-        if tree is not None:
-            valid_transformed_numbers_trees[hash(tree)] = num
-            #logging_utils.LOGGER.debug(f'ID (valid): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
-            num += 1
-        else:  # tree is None
-            previous_num = num
-            total_invalids += 1
-            num = get_next_number_prunning_binary_vector(binary_vector, null_bit)
-            skipped = num - previous_num - 1
-            total_skipped += skipped
-            #logging_utils.LOGGER.debug(f'ID (not valid): {previous_num} / {max} ({percentage}%), null_bit: {null_bit}, {skipped} skipped. #Valids: {len(valid_transformed_numbers_trees)}')
-        #percentage = (num / max) * 100
-    #logging_utils.LOGGER.debug(f'Total IDs: {max}, #Valids: {len(valid_transformed_numbers_trees)}, #Invalids: {total_invalids}, #Skipped: {total_skipped}.')
-    queue.put(valid_transformed_numbers_trees)
-    return valid_transformed_numbers_trees
-
-
-def get_valid_transformations_ids_parallel(fm: FM, 
-                                           transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]], 
-                                           n_cores: int = 1) -> dict[str, int]:
-    valid_transformed_numbers_trees = {}
-    queue = Queue()
-    processes = []
-    n_bits = len(transformations_vector)
-    cpu_count = n_cores
-    n_processes = cpu_count if n_bits > cpu_count else 1
-    pick_tree = pickle.dumps(fm, protocol=pickle.HIGHEST_PROTOCOL)
-    for process_i in range(n_processes):
-        min_id, max_id = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i)
-        p = Process(target=get_valid_transformations_ids, args=(pick_tree, transformations_vector, min_id, max_id, queue))
-        p.start()
-        processes.append(p)
-    for p in processes:
-        valid_ids = queue.get()
-        valid_transformed_numbers_trees.update(valid_ids)
-    return valid_transformed_numbers_trees
-
-
-def get_min_max_ids_transformations_for_parallelization(n_bits: int, n_cores: int, current_core: int) -> tuple[int, int]:
-    if current_core >= n_cores:
-        raise Exception(f'The current core must be in range [0, n_cores).')
-    left_bits = math.log(n_cores, 2)  # number of bits on the left
-    if not left_bits.is_integer():
-        raise Exception(f'The number of cores (or processors) must be power of 2.')
-    left_bits = int(left_bits)
-    right_bits = n_bits - left_bits  # number of bits on the left
-    binary_min_number = format(current_core, f'0{left_bits}b') + format(0, f'0{right_bits}b')
-    min_number = int(binary_min_number, 2)
-    max_number = min_number + 2**right_bits - 1
-    return (min_number, max_number)
-
-
-def get_basic_constraints_order(fm: FM) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
-    """It returns a basic constraints order for the transformations.  
-    
-    The result is a tuple with:
-     - The list of constraints in order.
-     - A dictionary of 'index -> (T0, T1)',
-        where index is the index of the constraint in the previous list,
-        and T0 and T1 are the two transformations of each constraint,
-            where T0 will be codified with a bit to 0, and T1 will be codified with a bit to 1.
-    """
-    constraints = fm.get_constraints()
-    transformations = {i: (0, 1) for i, _ in enumerate(constraints)}
-    return (constraints, transformations)
-
+### The following is an optimization.
 
 def get_optimum_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
     """It analyses and returns the best order in which the constrainst will be eliminated.  

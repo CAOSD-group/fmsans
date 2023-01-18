@@ -23,7 +23,9 @@ FM_OUTPUT_FILENAME_POSTFIX = '_fmsans'
 def fmsans_test(fm: FM) -> int:
     fm_sans_model = FMToFMSans(fm, 8).transform()
     result = fm_sans_model.get_analysis()
-    return result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
+    configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
+    print(f'#Configs: {configs}')  
+    return configs
 
 
 def bdd_test(fm: FeatureModel) -> int:
@@ -49,7 +51,7 @@ def main(fm_filepath: str, n_cores: int) -> int:
 
     #constraints = reversed(feature_model.get_constraints())
     constraints = feature_model.get_constraints()
-    #constraints = [constraints[3]]
+    #constraints = [constraints[0]]
     constraints_incremental = []
     errors = {}
     print(f'Constraints: {len(constraints)}')
