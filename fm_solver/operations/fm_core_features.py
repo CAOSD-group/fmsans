@@ -16,7 +16,7 @@ class FMCoreFeatures(FMOperation):
         self.result: list[Feature] = []
         self.feature_model = None
 
-    def get_result(self) -> list[Feature]:
+    def get_result(self) -> set[Feature]:
         return self.result
 
     def execute(self, model: FM) -> 'FMCoreFeatures':

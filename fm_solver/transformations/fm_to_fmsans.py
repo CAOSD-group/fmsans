@@ -40,7 +40,7 @@ def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1) -> FMSans:
 
     if not fm.get_constraints():
         # The feature model has not any constraint.
-        return FMSans(None, fm, [], {})
+        return FMSans(FM(fm.root), None, {})
 
     # Refactor pseudo-complex constraints
     fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
@@ -48,7 +48,7 @@ def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1) -> FMSans:
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
 
     # Get transformations vector
-    trans_vector = TransformationsVector(fm.get_constraints())
+    trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
     
     # Get valid transformations ids.
     n_bits = trans_vector.n_bits()

@@ -10,7 +10,8 @@ from flamapy.metamodels.fm_metamodel.models import (
 )
 
 from fm_solver.models.feature_model import FM
-from fm_solver.models import FMSans, SimpleCTCTransformation
+from fm_solver.models import FMSans
+from fm_solver.models.utils import TransformationsVector, SimpleCTCTransformation
 from fm_solver.transformations import JSONFeatureType
 
 
@@ -89,13 +90,13 @@ def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
     return feature
 
 
-def parse_ctcs_transformations(ctcs_transformations_info: list[dict[str, Any]]) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
+def parse_ctcs_transformations(ctcs_transformations_info: list[dict[str, Any]]) -> TransformationsVector:
     transformations_vector = []
     for ct_info in ctcs_transformations_info:
         t0 = parse_simple_transformation(ct_info[0])
         t1 = parse_simple_transformation(ct_info[1])
         transformations_vector.append((t0, t1))
-    return transformations_vector
+    return TransformationsVector(transformations_vector)
 
 
 def parse_simple_transformation(transformation_info: dict[str, Any]) -> SimpleCTCTransformation:

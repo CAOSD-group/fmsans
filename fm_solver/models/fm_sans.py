@@ -1,11 +1,11 @@
 import pickle
+import multiprocessing
 from typing import Any
-
 
 from fm_solver.models.utils import TransformationsVector
 from fm_solver.models.feature_model import FM
 from fm_solver.utils import fm_utils
-from fm_solver.operations import FMFullAnalysis
+from fm_solver.operations import FMFullAnalysis, FMCoreFeatures, FMOperation
 
 
 class FMSans():
@@ -57,6 +57,8 @@ class FMSans():
     
     def get_feature_model(self) -> FM:
         """Returns the complete feature model without cross-tree constraints."""
+        if self.transformations_vector is None:
+            return self.fm
         subtrees = set()
         n_bits = self.transformations_vector.n_bits()
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
@@ -71,6 +73,8 @@ class FMSans():
         return result_fm
 
     def get_analysis(self) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            return FMFullAnalysis().execute(self.fm).get_result()
         n_bits = self.transformations_vector.n_bits()
         results: list[dict[str, Any]] = []
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
@@ -82,7 +86,36 @@ class FMSans():
             results.append(analysis_result)
         # Join all results
         return FMFullAnalysis.join_results(results)
-        
+
+    def get_core_features(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            return FMCoreFeatures().execute(self.fm).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMCoreFeatures) for num in self.transformations_ids.values()]
+            analysis_result = pool.starmap_async(self.execute_paralell, items)
+            result = set.intersection(*analysis_result.get())
+        return result
+
+    def execute_paralell(self, fm: bytes, binary_vector: list[str], op: FMOperation) -> Any:
+        tree, _ = self.transformations_vector.execute(fm, binary_vector)
+        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        return op().execute(tree).get_result()
+
+
+    def get_subtrees(self) -> list[FM]:
+        if self.transformations_vector is None:
+            return [self.fm]
+        subtrees = set()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        for num in self.transformations_ids.values():
+            binary_vector = list(format(num, f'0{n_bits}b'))
+            tree, _ = self.transformations_vector.execute(pick_tree, binary_vector)
+            tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+            subtrees.add(tree)
+        return subtrees
 
 # def fmsans_stats(fm: FMSans) -> str:
 #     features_without_implications = 0 if fm.subtree_without_constraints_implications is None else len(fm.subtree_without_constraints_implications.get_features())

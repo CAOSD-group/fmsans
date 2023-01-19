@@ -1,0 +1,2329 @@
+{
+    "feature_tree": {
+        "name": "BerkeleyDb",
+        "abstract": true,
+        "relations": [
+            {
+                "type": "OPTIONAL",
+                "card_min": 0,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "BerkeleyDB",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "MANDATORY",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "FPersistency",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "OPTIONAL",
+                                                "card_min": 0,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Persistency",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "FIOFeature",
+                                                                        "abstract": true,
+                                                                        "relations": [
+                                                                            {
+                                                                                "type": "XOR",
+                                                                                "card_min": 1,
+                                                                                "card_max": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "name": "NIO",
+                                                                                        "abstract": true,
+                                                                                        "relations": [
+                                                                                            {
+                                                                                                "type": "MANDATORY",
+                                                                                                "card_min": 1,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "FNIOType",
+                                                                                                        "abstract": true,
+                                                                                                        "relations": [
+                                                                                                            {
+                                                                                                                "type": "XOR",
+                                                                                                                "card_min": 1,
+                                                                                                                "card_max": 1,
+                                                                                                                "children": [
+                                                                                                                    {
+                                                                                                                        "name": "featureNIO",
+                                                                                                                        "abstract": false,
+                                                                                                                        "relations": [],
+                                                                                                                        "attributes": []
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        "name": "featureChunkedNIO",
+                                                                                                                        "abstract": false,
+                                                                                                                        "relations": [],
+                                                                                                                        "attributes": []
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureDirectNIO",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "IO",
+                                                                                        "abstract": true,
+                                                                                        "relations": [
+                                                                                            {
+                                                                                                "type": "MANDATORY",
+                                                                                                "card_min": 1,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureIO",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureSynchronizedIO",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ],
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "FPersistencyFeatures",
+                                                                        "abstract": true,
+                                                                        "relations": [
+                                                                            {
+                                                                                "type": "OR",
+                                                                                "card_min": 1,
+                                                                                "card_max": 6,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "name": "featureChecksum",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "featureFileHandleCache",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "featureHandleFullDiscError",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "featureEnvironmentLock",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "Checkpointer",
+                                                                                        "abstract": true,
+                                                                                        "relations": [
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureCustomizableCheckpointerTime",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureCustomizableCheckpointerBytes",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureCheckpointerDaemon",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "Cleaner",
+                                                                                        "abstract": true,
+                                                                                        "relations": [
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureLookAheadCache",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureCleanerDaemon",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ],
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MANDATORY",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "FBtree",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "OPTIONAL",
+                                                "card_min": 0,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "BTree",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureVerifier",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureTreeVisitor",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureINCompressor",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "FEvictor",
+                                                                        "abstract": true,
+                                                                        "relations": [
+                                                                            {
+                                                                                "type": "OPTIONAL",
+                                                                                "card_min": 0,
+                                                                                "card_max": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "name": "Evictor",
+                                                                                        "abstract": true,
+                                                                                        "relations": [
+                                                                                            {
+                                                                                                "type": "MANDATORY",
+                                                                                                "card_min": 1,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureEvictor",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureCriticalEviction",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureEvictorDaemon",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ],
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MANDATORY",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "BASE",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "FLogging",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "OPTIONAL",
+                                                "card_min": 0,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Logging",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingBase",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingFile",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingConsole",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingDbLog",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingFinest",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingFiner",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingFine",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingInfo",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingConfig",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureLoggingSevere",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "FStatistics",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "OPTIONAL",
+                                                "card_min": 0,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Statistics",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "FStatisticsFeatures",
+                                                                        "abstract": true,
+                                                                        "relations": [
+                                                                            {
+                                                                                "type": "OR",
+                                                                                "card_min": 1,
+                                                                                "card_max": 6,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "name": "EnvStats",
+                                                                                        "abstract": true,
+                                                                                        "relations": [
+                                                                                            {
+                                                                                                "type": "MANDATORY",
+                                                                                                "card_min": 1,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureStatisticsEnvBase",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureStatisticsEnvLog",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureStatisticsEnvINCompressor",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureStatisticsEnvFSync",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureStatisticsEnvEvictor",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureStatisticsEnvCleaner",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureStatisticsEnvCheckpointer",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "OPTIONAL",
+                                                                                                "card_min": 0,
+                                                                                                "card_max": 1,
+                                                                                                "children": [
+                                                                                                    {
+                                                                                                        "name": "featureStatisticsEnvCaching",
+                                                                                                        "abstract": false,
+                                                                                                        "relations": [],
+                                                                                                        "attributes": []
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "featureStatisticsDatabase",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "featureStatisticsLock",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "featureStatisticsPreload",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "featureStatisticsSequence",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "featureStatisticsTransaction",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "featureStatisticsBase",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "featureMemoryBudget",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "FConcurrency",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "OR",
+                                                "card_min": 1,
+                                                "card_max": 5,
+                                                "children": [
+                                                    {
+                                                        "name": "featureLatch",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "featureFSync",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "featureTransaction",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "dummyFeatureLocking",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "featureCheckLeaks",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "FDbOperation",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "OR",
+                                                "card_min": 1,
+                                                "card_max": 2,
+                                                "children": [
+                                                    {
+                                                        "name": "featureDeleteDb",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "featureTruncateDb",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            }
+        ],
+        "attributes": []
+    },
+    "ctcs_transformations": [
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureStatisticsLock"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureCheckLeaks",
+                    "featureStatisticsLock"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureINCompressor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureCriticalEviction",
+                    "featureINCompressor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureCustomizableCheckpointerTime"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureCustomizableCheckpointerBytes",
+                    "featureCustomizableCheckpointerTime"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureEnvironmentLock"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLoggingSevere",
+                    "featureEnvironmentLock"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureEvictor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureStatisticsEnvEvictor",
+                    "featureEvictor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureFSync"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureStatisticsEnvFSync",
+                    "featureFSync"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureINCompressor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureStatisticsEnvINCompressor",
+                    "featureINCompressor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureTransaction"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureStatisticsTransaction",
+                    "featureTransaction"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureTreeVisitor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureStatisticsDatabase",
+                    "featureTreeVisitor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureDeleteDb"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureTruncateDb",
+                    "featureDeleteDb"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureMemoryBudget"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureEvictor",
+                    "featureMemoryBudget"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureMemoryBudget"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureEvictorDaemon",
+                    "featureMemoryBudget"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureMemoryBudget"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLookAheadCache",
+                    "featureMemoryBudget"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureMemoryBudget"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureStatisticsEnvCaching",
+                    "featureMemoryBudget"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dummyFeatureLocking"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureDeleteDb",
+                    "dummyFeatureLocking"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureEvictor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureDeleteDb",
+                    "featureEvictor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureINCompressor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureDeleteDb",
+                    "featureINCompressor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureMemoryBudget"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureDeleteDb",
+                    "featureMemoryBudget"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dummyFeatureLocking"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "dummyFeatureLocking"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureCheckLeaks"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureCheckLeaks"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureDeleteDb"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureDeleteDb"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureEvictor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureEvictor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureFileHandleCache"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureFileHandleCache"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureFSync"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureFSync"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureINCompressor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureINCompressor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureMemoryBudget"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureMemoryBudget"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureStatisticsLock"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureStatisticsLock"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureTreeVisitor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureTreeVisitor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureTruncateDb"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureTruncateDb"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureVerifier"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLatch",
+                    "featureVerifier"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dummyFeatureLocking"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLoggingFine",
+                    "dummyFeatureLocking"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureEvictor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLoggingFine",
+                    "featureEvictor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureINCompressor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLoggingFine",
+                    "featureINCompressor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureChecksum"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLoggingInfo",
+                    "featureChecksum"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureMemoryBudget"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLoggingInfo",
+                    "featureMemoryBudget"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureTransaction"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLoggingBase",
+                    "featureTransaction"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureTransaction"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureLoggingFinest",
+                    "featureTransaction"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureEvictor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureMemoryBudget",
+                    "featureEvictor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureLatch"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureMemoryBudget",
+                    "featureLatch"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dummyFeatureLocking"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureStatisticsLock",
+                    "dummyFeatureLocking"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dummyFeatureLocking"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureStatisticsTransaction",
+                    "dummyFeatureLocking"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dummyFeatureLocking"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureTransaction",
+                    "dummyFeatureLocking"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureDeleteDb"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureTransaction",
+                    "featureDeleteDb"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureTruncateDb"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureTransaction",
+                    "featureTruncateDb"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureINCompressor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureVerifier",
+                    "featureINCompressor"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "featureTreeVisitor"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "featureVerifier",
+                    "featureTreeVisitor"
+                ]
+            }
+        ]
+    ],
+    "transformations_ids": {
+        "8386968359366333713": 64731452501902,
+        "4602395586756568670": 64731452505998,
+        "-3298357524078762029": 64731460890510,
+        "3083558639188286496": 64731460894606,
+        "1688796942847767277": 64733734236158,
+        "-2337880423103106662": 64733734240254,
+        "2134480806447699752": 64733742624766,
+        "6608927294746557598": 64733742628862,
+        "7111155865318509585": 64868891717519,
+        "-2544791890173155757": 64868891721615,
+        "-2344340540552453766": 64868900106127,
+        "-3617452975476691730": 64868900110223,
+        "-7250271290674879237": 64871173451775,
+        "7091890679702161693": 64871173455871,
+        "-6188486671424924231": 64871181840383,
+        "423750098984174892": 64871181844479,
+        "-8494485852103478049": 65830968323982,
+        "-6802525302771104143": 65830968328078,
+        "763013939007585659": 65830976712590,
+        "7467336149185328965": 65830976716686,
+        "3140863913970889385": 65833250058238,
+        "5149663513154914998": 65833250062334,
+        "-1695511504961761324": 65833258446846,
+        "-8399760424804803483": 65833258450942,
+        "2425556597067106267": 65968407539599,
+        "1345176041894042393": 65968407543695,
+        "-4142619739494080603": 65968415928207,
+        "5970197110148612335": 65968415932303,
+        "-3243519810461153914": 65970689273855,
+        "-5387287143415134961": 65970689277951,
+        "2807590331751165535": 65970697662463,
+        "-7878232103582398319": 65970697666559,
+        "5519096520459675554": 69129499013006,
+        "5002554747331078751": 69129499017102,
+        "2817540848265479966": 69129507401614,
+        "-8858298504030943485": 69129507405710,
+        "4242755484769666798": 69131780747262,
+        "185021518044485632": 69131780751358,
+        "5608510567519776846": 69131789135870,
+        "2904676616258259520": 69131789139966,
+        "-1598816716269184628": 69266938228623,
+        "6829536238642781365": 69266938232719,
+        "9222833540905674504": 69266946617231,
+        "9146832780669100122": 69266946621327,
+        "196590974916768674": 69269219962879,
+        "-5536952374164629347": 69269219966975,
+        "-7664487277596217451": 69269228351487,
+        "5022983541550167371": 69269228355583,
+        "7756535120091272440": 70229014835086,
+        "-5787530311554821955": 70229014839182,
+        "237898326110873350": 70229023223694,
+        "-6568367585248257716": 70229023227790,
+        "-6791405487984375056": 70231296569342,
+        "1234908468428871395": 70231296573438,
+        "8207617199042542815": 70231304957950,
+        "-1091715783446682678": 70231304962046,
+        "2132948111521890582": 70366454050703,
+        "925525585269598484": 70366454054799,
+        "2986090672613329263": 70366462439311,
+        "-3933403699647099678": 70366462443407,
+        "3351410959314280711": 70368735784959,
+        "-753344122247586676": 70368735789055,
+        "-6832835854297717900": 70368744173567,
+        "-3547791490102893778": 70368744177663,
+        "7808654606444607089": 55935359479694,
+        "-3280989467745269349": 55935359483790,
+        "4804449317704254745": 55935367868302,
+        "-7890646182066436529": 55935367872398,
+        "541616054487989277": 55937641213950,
+        "-1164399082420550453": 55937641218046,
+        "2377504841265681284": 55937649602558,
+        "-4714328727285166541": 55937649606654,
+        "6540191940551350252": 56072798695311,
+        "-5942002572636672218": 56072798699407,
+        "732010340166622066": 56072807083919,
+        "-6273500671644628433": 56072807088015,
+        "4953870945130982371": 56075080429567,
+        "3811421981971272065": 56075080433663,
+        "-7323773271748667177": 56075088818175,
+        "-4979811988576487000": 56075088822271,
+        "2329117782018788127": 57034875301774,
+        "1897819618864706710": 57034875305870,
+        "1866426482279068197": 57034883690382,
+        "2160073464942957056": 57034883694478,
+        "-5030975737267064605": 57037157036030,
+        "1198907831324415034": 57037157040126,
+        "-2798606880101215342": 57037165424638,
+        "-5268764940129751025": 57037165428734,
+        "4083453949257808442": 57172314517391,
+        "3631957101542970862": 57172314521487,
+        "-7393418481656529701": 57172322905999,
+        "3449810731377384411": 57172322910095,
+        "-1985947662919439340": 57174596251647,
+        "8102781378344159959": 57174596255743,
+        "-3920549744033546649": 57174604640255,
+        "-656988129075372903": 57174604644351,
+        "-8127543326330339980": 60333405990798,
+        "627881973300535419": 60333405994894,
+        "8883919574670600415": 60333414379406,
+        "-2078373923940389085": 60333414383502,
+        "-280148851303777973": 60335687725054,
+        "-2259476703948833824": 60335687729150,
+        "-3498666797145699929": 60335696113662,
+        "7974754917816152638": 60335696117758,
+        "-6921652924501785817": 60470845206415,
+        "-387271063009979358": 60470845210511,
+        "8250848492287186130": 60470853595023,
+        "3408399300877322260": 60470853599119,
+        "-6613185552471691293": 60473126940671,
+        "4268325685167036653": 60473126944767,
+        "8567590672102945173": 60473135329279,
+        "-5494146701007472347": 60473135333375,
+        "5843077916231984425": 61432921812878,
+        "-1440502290376753035": 61432921816974,
+        "4910556455524293389": 61432930201486,
+        "-8069184479379614841": 61432930205582,
+        "-4984550862508010232": 61435203547134,
+        "-255514540166911469": 61435203551230,
+        "-4919135668700002513": 61435211935742,
+        "-2047108461376811686": 61435211939838,
+        "2615306197078581466": 61570361028495,
+        "-5192558145000935986": 61570361032591,
+        "-5614580235156945782": 61570369417103,
+        "-6923691393518877913": 61570369421199,
+        "-3343796554487238190": 61572642762751,
+        "4279467073756316246": 61572642766847,
+        "6887980116169657054": 61572651151359,
+        "-7000263020040022916": 61572651155455,
+        "5494496183298628111": 46588971601804,
+        "1440045593552360131": 46588971605900,
+        "1345930654319530411": 46588971667340,
+        "2797761869066081702": 46588971671436,
+        "-7854964279863149406": 46588979990412,
+        "-8751741827147312849": 46588979994508,
+        "2425514103065442431": 46588980055948,
+        "-5939000232936117407": 46588980060044,
+        "7027680622926146895": 46591253336060,
+        "-2693414518522601774": 46591253340156,
+        "9077930789598612612": 46591253401596,
+        "9170962995923659681": 46591253405692,
+        "-5651879557601526820": 46591261724668,
+        "2581713835325472371": 46591261728764,
+        "897393482117719096": 46591261790204,
+        "6706858306606628890": 46591261794300,
+        "2339720202242583276": 46726410882957,
+        "-553758569323434018": 46726410887053,
+        "-7275923661770489604": 46726419271565,
+        "-1580456039411574626": 46726419275661,
+        "113483794644011386": 46728692617213,
+        "-4214309566517455851": 46728692621309,
+        "1716075651132098653": 46728701005821,
+        "542219698361083844": 46728701009917,
+        "451808893221740657": 47688487423884,
+        "7861631405529465817": 47688487427980,
+        "-4656627952050794906": 47688487489420,
+        "-4125588463479375992": 47688487493516,
+        "8149011559046926381": 47688495812492,
+        "-5459354597057931640": 47688495816588,
+        "-8202350806460612237": 47688495878028,
+        "-54664212397308544": 47688495882124,
+        "8621106706125103063": 47690769158140,
+        "5093909043116986993": 47690769162236,
+        "-4586899097892973764": 47690769223676,
+        "4428893044439726962": 47690769227772,
+        "4689029100249195342": 47690777546748,
+        "5444715417048329752": 47690777550844,
+        "-6013823010511198421": 47690777612284,
+        "1173049712744096656": 47690777616380,
+        "-5705880589713132470": 47825926705037,
+        "-7165715819511697403": 47825926709133,
+        "5211222889568799147": 47825935093645,
+        "-779022552056089668": 47825935097741,
+        "6832658320401302138": 47828208439293,
+        "8193505311505005782": 47828208443389,
+        "-7527683627420165298": 47828216827901,
+        "-8253604303638923845": 47828216831997,
+        "3181347048066282890": 50987018112908,
+        "-5025967553200220028": 50987018117004,
+        "6366752432028167023": 50987018178444,
+        "8014163769133114633": 50987018182540,
+        "3571407641804715706": 50987026501516,
+        "-5025117390245566690": 50987026505612,
+        "2847458617526274046": 50987026567052,
+        "9079887443034439624": 50987026571148,
+        "2009522515025812680": 50989299847164,
+        "6978391326490554097": 50989299851260,
+        "6102770437253945731": 50989299912700,
+        "-764973241699311675": 50989299916796,
+        "1516265225513021240": 50989308235772,
+        "-1220227047692452656": 50989308239868,
+        "-5892690050458383241": 50989308301308,
+        "-2473840124341278420": 50989308305404,
+        "511887935171844353": 51124457394061,
+        "7556266612290518445": 51124457398157,
+        "4605392426952925062": 51124465782669,
+        "7718084479145973788": 51124465786765,
+        "6865232889049689554": 51126739128317,
+        "-2901774639661116865": 51126739132413,
+        "954209747748177661": 51126747516925,
+        "8097394462588748975": 51126747521021,
+        "-1947219696450122990": 52086533934988,
+        "5921220446798169285": 52086533939084,
+        "-5697254543071565298": 52086534000524,
+        "-1913924082531034136": 52086534004620,
+        "-699155818381843278": 52086542323596,
+        "8619993916102858397": 52086542327692,
+        "5590943280747740317": 52086542389132,
+        "-4278582023844031564": 52086542393228,
+        "2059895396906598456": 52088815669244,
+        "3237520699874631365": 52088815673340,
+        "5859551407837505370": 52088815734780,
+        "-774842710906859620": 52088815738876,
+        "3043315371694673826": 52088824057852,
+        "3666549027859320538": 52088824061948,
+        "-2270779329305550120": 52088824123388,
+        "-4885665258154065135": 52088824127484,
+        "-1389165204479476928": 52223973216141,
+        "7233548489173094623": 52223973220237,
+        "4787622734565202578": 52223981604749,
+        "2178758355682080386": 52223981608845,
+        "724403232881986157": 52226254950397,
+        "-1337833497771737872": 52226254954493,
+        "-7968982451526043107": 52226263339005,
+        "1460223467512770529": 52226263343101,
+        "-7776783452857358816": 37792878579596,
+        "4451810893604316509": 37792878583692,
+        "-823095606311665613": 37792878645132,
+        "-8683398840392836378": 37792878649228,
+        "-3514848491918939447": 37792886968204,
+        "2637457235911305059": 37792886972300,
+        "315822388926276160": 37792887033740,
+        "764801626753794578": 37792887037836,
+        "7155707101876130861": 37795160313852,
+        "2632502456720389310": 37795160317948,
+        "-1996927128545041852": 37795160379388,
+        "3200034775726540515": 37795160383484,
+        "-7726904087936533350": 37795168702460,
+        "6384500910693595686": 37795168706556,
+        "-2653049499552071763": 37795168767996,
+        "201677082545093939": 37795168772092,
+        "-6516588476053358290": 37930317860749,
+        "-3687549204408682098": 37930317864845,
+        "-4336826056951370624": 37930326249357,
+        "-3051358403097521454": 37930326253453,
+        "1582793171635214853": 37932599595005,
+        "8631923983949654503": 37932599599101,
+        "4339424744585432650": 37932607983613,
+        "-1534234794465963080": 37932607987709,
+        "-3035101937213104280": 38892394401676,
+        "-7882644914277491010": 38892394405772,
+        "1349257716900853960": 38892394467212,
+        "3598398217195161978": 38892394471308,
+        "-8354039133258896361": 38892402790284,
+        "-31679265805983758": 38892402794380,
+        "-4758697584635489251": 38892402855820,
+        "6076171653402422811": 38892402859916,
+        "1407037236555171818": 38894676135932,
+        "-6303057176945240866": 38894676140028,
+        "7435869283181421135": 38894676201468,
+        "8023101936912814126": 38894676205564,
+        "4047741707430314861": 38894684524540,
+        "-5900089938979454984": 38894684528636,
+        "4774601027675876035": 38894684590076,
+        "3244205360666935897": 38894684594172,
+        "263999437806560724": 39029833682829,
+        "-3397901897698945187": 39029833686925,
+        "-1458644588152476529": 39029842071437,
+        "3154480491760034052": 39029842075533,
+        "-3016475495649907423": 39032115417085,
+        "3404764690424569063": 39032115421181,
+        "-1303833336141283943": 39032123805693,
+        "-8559223031224692727": 39032123809789,
+        "-8185710335767622340": 42190925090700,
+        "-5335577396820629903": 42190925094796,
+        "2891019451636931338": 42190925156236,
+        "-2957887939315041779": 42190925160332,
+        "1271520277775846869": 42190933479308,
+        "-6794501058492506924": 42190933483404,
+        "-5313730655918667253": 42190933544844,
+        "2202069821626841413": 42190933548940,
+        "-7482250626020238645": 42193206824956,
+        "-3301579156435491648": 42193206829052,
+        "-8785774708266539304": 42193206890492,
+        "-2804608958760316818": 42193206894588,
+        "5181599293832867623": 42193215213564,
+        "-4185168046644863880": 42193215217660,
+        "6676351044347059732": 42193215279100,
+        "4290707403489945283": 42193215283196,
+        "-9095643409456146420": 42328364371853,
+        "8386024041929391679": 42328364375949,
+        "-7909236825953510486": 42328372760461,
+        "59530469686350318": 42328372764557,
+        "977091859565095160": 42330646106109,
+        "-3926333943000541892": 42330646110205,
+        "-4579013780974185385": 42330654494717,
+        "-8927357410151914136": 42330654498813,
+        "882828348088023632": 43290440912780,
+        "-2644743213599999488": 43290440916876,
+        "-7228156759435748553": 43290440978316,
+        "-6693046793029625480": 43290440982412,
+        "-5156100987109392718": 43290449301388,
+        "370856012763429865": 43290449305484,
+        "-1381966072112009790": 43290449366924,
+        "5277225640792097519": 43290449371020,
+        "-8648662282688209407": 43292722647036,
+        "6138682713404068060": 43292722651132,
+        "-4079760767636280354": 43292722712572,
+        "-7569708885109048257": 43292722716668,
+        "-8434893847879868997": 43292731035644,
+        "-7809149357524627711": 43292731039740,
+        "-2376591792862970574": 43292731101180,
+        "5378022557578935114": 43292731105276,
+        "-2913189977648681727": 43427880193933,
+        "-6678089628664269513": 43427880198029,
+        "7216199393989971212": 43427888582541,
+        "683674584129208465": 43427888586637,
+        "2231781111342926198": 43430161928189,
+        "-2638894954907326818": 43430161932285,
+        "-8062292930904539073": 43430170316797,
+        "3230997422674922699": 43430170320893,
+        "-8316865870566107285": 20750919757710,
+        "9188718308592720337": 20750919761806,
+        "-9136798163838944247": 20750928146318,
+        "9056362810913352742": 20750928150414,
+        "7659923546472350010": 20750986866574,
+        "5266887506277422080": 20750986870670,
+        "-4541953300104104473": 20750995255182,
+        "-3074301337648831382": 20750995259278,
+        "8858323380030071963": 20888358973327,
+        "5669332026975850831": 20888358977423,
+        "-2357655583169892567": 20888367361935,
+        "7962654269211784282": 20888367366031,
+        "4857626699369803084": 20888426082191,
+        "1124389026129329587": 20888426086287,
+        "-2707099779086795264": 20888434470799,
+        "-4775606371094309417": 20888434474895,
+        "5817417826589711417": 21850435579790,
+        "-8736289291002682546": 21850435583886,
+        "4763407970682565122": 21850443968398,
+        "1311213178183228665": 21850443972494,
+        "-4520145949039300491": 21850502688654,
+        "2891670893979771518": 21850502692750,
+        "3116906627327684746": 21850511077262,
+        "1900775467928292230": 21850511081358,
+        "-264991854563905534": 21987874795407,
+        "-3820402200107374129": 21987874799503,
+        "-8020974551942061718": 21987883184015,
+        "-5083482921109944447": 21987883188111,
+        "8940080165334543486": 21987941904271,
+        "-2539885391066323689": 21987941908367,
+        "5813671405725508032": 21987950292879,
+        "1987088742589241463": 21987950296975,
+        "-2704842775620252732": 25148966268814,
+        "-819237033430555031": 25148966272910,
+        "-2347603044278678538": 25148974657422,
+        "4360014385115958805": 25148974661518,
+        "4388906417977727925": 25149033377678,
+        "8245706377395795561": 25149033381774,
+        "6640663804518361993": 25149041766286,
+        "-3703576548619153189": 25149041770382,
+        "-6871273439210099133": 25286405484431,
+        "6073104770600795270": 25286405488527,
+        "5282103675192445892": 25286413873039,
+        "8246355068334793124": 25286413877135,
+        "-8701628267430828972": 25286472593295,
+        "3871479310722271523": 25286472597391,
+        "129249891762713899": 25286480981903,
+        "4167758278469504082": 25286480985999,
+        "-2628807024015574139": 26248482090894,
+        "-9155487239498165630": 26248482094990,
+        "-4101119086925522330": 26248490479502,
+        "1074792243211267955": 26248490483598,
+        "1250002333535721506": 26248549199758,
+        "-2941139710553335257": 26248549203854,
+        "-3071264847865312065": 26248557588366,
+        "5312432702194019357": 26248557592462,
+        "-6591334611907594340": 26385921306511,
+        "2730490477081561048": 26385921310607,
+        "7264790440809090240": 26385929695119,
+        "8670081700548703384": 26385929699215,
+        "3256270085145673893": 26385988415375,
+        "6208827808733026416": 26385988419471,
+        "2502585850465956661": 26385996803983,
+        "-2258105979339397695": 26385996808079,
+        "-5213623777015861852": 29547012779918,
+        "-3960153467737224598": 29547012784014,
+        "-8609925383836670580": 29547021168526,
+        "-1342709758028657286": 29547021172622,
+        "287301140722654807": 29547079888782,
+        "7104137333312874490": 29547079892878,
+        "-3552703825295190983": 29547088277390,
+        "6283736296658111041": 29547088281486,
+        "-5428739139526370473": 29684451995535,
+        "-6704040953463595727": 29684451999631,
+        "-5066090884483163130": 29684460384143,
+        "-4906290650833730833": 29684460388239,
+        "-3522312857140613050": 29684519104399,
+        "2234960362258552102": 29684519108495,
+        "-2859665866654997836": 29684527493007,
+        "-7520873786974277459": 29684527497103,
+        "4798125248563854979": 30646528601998,
+        "1179042668597233961": 30646528606094,
+        "5903833010387592980": 30646536990606,
+        "-6564567818435643548": 30646536994702,
+        "8673072957142700134": 30646595710862,
+        "-8316400524059708870": 30646595714958,
+        "-133464028910565325": 30646604099470,
+        "1463166941067199057": 30646604103566,
+        "8259593034475397533": 30783967817615,
+        "7424535396282362979": 30783967821711,
+        "-7062710926124891239": 30783976206223,
+        "-6788451963809531244": 30783976210319,
+        "9139413967549225121": 30784034926479,
+        "-4311623664821608717": 30784034930575,
+        "7587072783268880596": 30784043315087,
+        "997342633926830204": 30784043319183,
+        "6988904634997278269": 33945059291022,
+        "-8348294534752627922": 33945059295118,
+        "4193935341121873186": 33945067679630,
+        "5238411821034861914": 33945067683726,
+        "-5657185991974551782": 33945126399886,
+        "-1560122890914130175": 33945126403982,
+        "-9212432169438479501": 33945134788494,
+        "8311071363006950993": 33945134792590,
+        "2992673525329314346": 34082498506639,
+        "219101922004662323": 34082498510735,
+        "-3452907231501826269": 34082506895247,
+        "4984532351959115905": 34082506899343,
+        "-3365414628686297293": 34082565615503,
+        "4442440189802078260": 34082565619599,
+        "-86659265439323750": 34082574004111,
+        "4516206309951214913": 34082574008207,
+        "-8011196608372747227": 35044575113102,
+        "-6325291563761198581": 35044575117198,
+        "-7605625255778277855": 35044583501710,
+        "140401677935263285": 35044583505806,
+        "5297219662743447637": 35044642221966,
+        "5706246295320841813": 35044642226062,
+        "-2405174915740636004": 35044650610574,
+        "8503275640451972680": 35044650614670,
+        "-7255243788435832901": 35182014328719,
+        "5101162981477421540": 35182014332815,
+        "8154314399291631886": 35182022717327,
+        "2663900418706265214": 35182022721423,
+        "-1266871410494765705": 35182081437583,
+        "-7383253351913498888": 35182081441679,
+        "-779202955326425236": 35182089826191,
+        "7000613047331889064": 35182089830287,
+        "-6623897519662874711": 0,
+        "-3079806498249430392": 4096,
+        "3341003687509713055": 274877908480,
+        "9088106393494168681": 274877912576,
+        "9191881192526144659": 2608438857612,
+        "2888981173997622857": 2608438861708,
+        "-2630128905373770119": 2608438923148,
+        "-489214654835042157": 2608438927244,
+        "1675380299329120978": 2608447246220,
+        "1334230366356384626": 2608447250316,
+        "2793347489709445999": 2608447311756,
+        "8565678671446728729": 2608447315852,
+        "3394340384385899111": 2608505966476,
+        "2226955928586999596": 2608505970572,
+        "4641356066086517422": 2608506032012,
+        "-4585054831242389460": 2608506036108,
+        "464299583349649087": 2608514355084,
+        "-253243680552660702": 2608514359180,
+        "3897346890874815999": 2608514420620,
+        "461721120546261949": 2608514424716,
+        "-1714712244874794629": 2745878138765,
+        "4627853580272863089": 2745878142861,
+        "718242982253155007": 2745886527373,
+        "-6527132493244755075": 2745886531469,
+        "-1046205001363663262": 2745945247629,
+        "-5658435285568321703": 2745945251725,
+        "6412339400623788435": 2745953636237,
+        "-6010550811738029448": 2745953640333,
+        "-2910828337001748506": 3707954679692,
+        "-5835180693780214957": 3707954683788,
+        "6978200503941086933": 3707954745228,
+        "-59025631156169177": 3707954749324,
+        "5522941184443403596": 3707963068300,
+        "-18151577347301217": 3707963072396,
+        "4794770409629914564": 3707963133836,
+        "6579902139774034625": 3707963137932,
+        "455372114798779107": 3708021788556,
+        "5230704823530235437": 3708021792652,
+        "5062102942633779017": 3708021854092,
+        "-7044989021264101936": 3708021858188,
+        "-8119714262073224828": 3708030177164,
+        "-1978752041161065161": 3708030181260,
+        "4897736692633193670": 3708030242700,
+        "-1917659745724680250": 3708030246796,
+        "5711661506252856977": 3845393960845,
+        "-6628558636416798923": 3845393964941,
+        "-5324109151652731523": 3845402349453,
+        "-8936274976600823027": 3845402353549,
+        "7933448529218003857": 3845461069709,
+        "-835055128339998403": 3845461073805,
+        "-6541428370213455220": 3845469458317,
+        "-2679745191590285200": 3845469462413,
+        "-5452651888739766864": 4398046511104,
+        "9207586265805883017": 4398046515200,
+        "-5344868494802176966": 4672924419584,
+        "2491762972887924234": 4672924423680,
+        "-1252476228752705667": 7006485368716,
+        "4989278227481095028": 7006485372812,
+        "8289378852118753795": 7006485434252,
+        "-621173832760743211": 7006485438348,
+        "4808935078887988092": 7006493757324,
+        "-7414807784206122951": 7006493761420,
+        "-1178783003900820873": 7006493822860,
+        "2472388662423029259": 7006493826956,
+        "-8544213304962540641": 7006552477580,
+        "-1534798555717375839": 7006552481676,
+        "-5339686872341923928": 7006552543116,
+        "3459909495050656686": 7006552547212,
+        "2109439439205419285": 7006560866188,
+        "-8744004968730040339": 7006560870284,
+        "-3322300309590781921": 7006560931724,
+        "1536061176790753804": 7006560935820,
+        "-3771572726405121753": 7143924649869,
+        "2317039609546875065": 7143924653965,
+        "-7323695147514365335": 7143933038477,
+        "-6590966267989500364": 7143933042573,
+        "-7628442204056639360": 7143991758733,
+        "-8558837959487611129": 7143991762829,
+        "-5629548952484129959": 7144000147341,
+        "-4709945402824866250": 7144000151437,
+        "-830734360578591103": 8106001190796,
+        "-2395186645913177176": 8106001194892,
+        "-8937167791249320454": 8106001256332,
+        "8565755713770485784": 8106001260428,
+        "-1568154984433548436": 8106009579404,
+        "4845064186229812952": 8106009583500,
+        "-5802706774337388319": 8106009644940,
+        "-247295400550198469": 8106009649036,
+        "4989749498955368579": 8106068299660,
+        "-5848299202759337239": 8106068303756,
+        "4675858156574536585": 8106068365196,
+        "-1771745884599802472": 8106068369292,
+        "7596924189120168740": 8106076688268,
+        "2036193162381908948": 8106076692364,
+        "-2188955914334290467": 8106076753804,
+        "5457088740302940236": 8106076757900,
+        "-8809712214858860262": 8243440471949,
+        "-1569764647601088043": 8243440476045,
+        "6827036211836765477": 8243448860557,
+        "-8666138647373194461": 8243448864653,
+        "3332669953800772474": 8243507580813,
+        "-3896952938919594836": 8243507584909,
+        "5010089609144293623": 8243515969421,
+        "-8466572276773211772": 8243515973517,
+        "2799580181726097667": 8796093022208,
+        "3225543306004787758": 8796093026304,
+        "-2713081567243912880": 9070970930688,
+        "5762837993889933067": 9070970934784,
+        "-6664443703350457949": 11404531879820,
+        "2373892243128944520": 11404531883916,
+        "256904561374513279": 11404531945356,
+        "554852491323994230": 11404531949452,
+        "-4715800637302059933": 11404540268428,
+        "-7103256510757989185": 11404540272524,
+        "7025364684579767020": 11404540333964,
+        "4682319091718306707": 11404540338060,
+        "-6549067662017749084": 11404598988684,
+        "4677739668857339877": 11404598992780,
+        "-3261952329726884372": 11404599054220,
+        "-7483185088248182541": 11404599058316,
+        "-5264290254317092275": 11404607377292,
+        "4444405511388461974": 11404607381388,
+        "6680637048199139153": 11404607442828,
+        "847613864309876370": 11404607446924,
+        "-4307963213100772868": 11541971160973,
+        "3819939554330488805": 11541971165069,
+        "3816824231540698226": 11541979549581,
+        "-2955387115828596904": 11541979553677,
+        "1580785104612205494": 11542038269837,
+        "-7877680222966813152": 11542038273933,
+        "-7609663117471041527": 11542046658445,
+        "6942898405341202211": 11542046662541,
+        "4566215815890599904": 12504047701900,
+        "-953038778293828680": 12504047705996,
+        "7662670605627421801": 12504047767436,
+        "-6387271315993160225": 12504047771532,
+        "-4512183228142872539": 12504056090508,
+        "627832866184797397": 12504056094604,
+        "-7087339403757047722": 12504056156044,
+        "2800573480319405877": 12504056160140,
+        "2777913778809761166": 12504114810764,
+        "-7914433963264548637": 12504114814860,
+        "-5474949323569866352": 12504114876300,
+        "-7939588897741951666": 12504114880396,
+        "-6529937935406809593": 12504123199372,
+        "498205688771587876": 12504123203468,
+        "832548651731664238": 12504123264908,
+        "-1273433625346498802": 12504123269004,
+        "772574580388826133": 12641486983053,
+        "-7011999588763507140": 12641486987149,
+        "-8117715410526097432": 12641495371661,
+        "818538294800339962": 12641495375757,
+        "-8906523234956171881": 12641554091917,
+        "1342521225233170575": 12641554096013,
+        "32353993376243703": 12641562480525,
+        "-2567906824473913998": 12641562484621,
+        "-7716094512252270293": 13194139533312,
+        "-7657441645291927965": 13194139537408,
+        "-4708807811777691312": 13469017441792,
+        "4832282747078909431": 13469017445888,
+        "8339851457519678580": 15802578390924,
+        "-4838856735832301711": 15802578395020,
+        "3116952385959486170": 15802578456460,
+        "-5457224045975570604": 15802578460556,
+        "934428194379823097": 15802586779532,
+        "8381031658562061": 15802586783628,
+        "-445279319387997736": 15802586845068,
+        "-6087575322240695347": 15802586849164,
+        "4172848285588270408": 15802645499788,
+        "2584388782028665335": 15802645503884,
+        "-5145919691569747305": 15802645565324,
+        "7031475923432679062": 15802645569420,
+        "4860958606345000251": 15802653888396,
+        "-8998604394294930511": 15802653892492,
+        "-3482176381365485868": 15802653953932,
+        "-8619349132837329757": 15802653958028,
+        "8821338422163792037": 15940017672077,
+        "5956277493462090616": 15940017676173,
+        "2323451896116673292": 15940026060685,
+        "2692238538233834107": 15940026064781,
+        "-8341335929340269795": 15940084780941,
+        "-7536877773983652349": 15940084785037,
+        "2751802715982089618": 15940093169549,
+        "-5724868096457774196": 15940093173645,
+        "846995090799189994": 16902094213004,
+        "4638602075623033178": 16902094217100,
+        "-5491019880906289198": 16902094278540,
+        "823680699848317391": 16902094282636,
+        "542781034578740474": 16902102601612,
+        "2434165114342431384": 16902102605708,
+        "-5644447570717251735": 16902102667148,
+        "-3451230144433666517": 16902102671244,
+        "1213595437565723436": 16902161321868,
+        "4099429173490868673": 16902161325964,
+        "-3993477868232979749": 16902161387404,
+        "4978171451258169158": 16902161391500,
+        "4718313254130455325": 16902169710476,
+        "-4205964567819483646": 16902169714572,
+        "7523441763935794554": 16902169776012,
+        "6970820480166884690": 16902169780108,
+        "-4416792271105640396": 17039533494157,
+        "-6603216492614658577": 17039533498253,
+        "-763487171385869332": 17039541882765,
+        "5197870083339641378": 17039541886861,
+        "-6296675690132991562": 17039600603021,
+        "9102250412588358316": 17039600607117,
+        "5463499592598181269": 17039608991629,
+        "8505828243626278483": 17039608995725
+    }
+}

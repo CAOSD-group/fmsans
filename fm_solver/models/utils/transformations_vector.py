@@ -63,11 +63,15 @@ class SimpleCTCTransformation():
 
 class TransformationsVector():
     
-    def __init__(self, constraints: list[Constraint]) -> None:
-        self.constraints: list[Constraint] = constraints
-        self.transformations: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]] = self._built_vector(constraints)
+    def __init__(self, transformations: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]) -> None:
+        self.transformations = transformations
 
-    def _built_vector(self, constraints: list[Constraint]) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
+    @classmethod
+    def from_constraints(cls, constraints: list[Constraint]) -> 'TransformationsVector':
+        return TransformationsVector(cls._built_vector(constraints))
+
+    @classmethod
+    def _built_vector(cls, constraints: list[Constraint]) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
         vector = []
         for ctc in constraints:
             left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)

@@ -15,7 +15,7 @@ from fm_solver.operations import (
 )
 
 
-TESTING_MODELS_DIR = 'models'
+TESTING_MODELS_DIR = 'models/Pizzas_tests/'
 N_CORES = 8
 
 
