@@ -42,10 +42,10 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     output_fmsans_filepath = f'{fm_name}_{n_cores}_{current_task}-{n_tasks}.json'
     FMSansWriter(output_fmsans_filepath, fmsans_model).transform()
 
-    fm_full = fmsans_model.get_feature_model()
-    fm_full = fm_utils.to_unique_features(fm_full)
-    output_fullfm_filepath = f'{fm_name}_full.uvl'
-    UVLWriter(path=output_fullfm_filepath, source_model=fm).transform()
+    # fm_full = fmsans_model.get_feature_model()
+    # fm_full = fm_utils.to_unique_features(fm_full)
+    # output_fullfm_filepath = f'{fm_name}_full.uvl'
+    # UVLWriter(path=output_fullfm_filepath, source_model=fm).transform()
 
 
 if __name__ == '__main__':
