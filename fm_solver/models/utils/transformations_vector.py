@@ -165,16 +165,16 @@ class TransformationsVector():
             queue.put(valid_transformed_numbers_trees)
         return valid_transformed_numbers_trees
 
-    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1) -> dict[str, int]:
+    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1) -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
         queue = multiprocessing.Queue()
         processes = []
         n_bits = self.n_bits()
-        n_fixed_bits = int(math.log(n_processes, 2))
+        #n_fixed_bits = int(math.log(n_tasks, 2)) + int(math.log(n_processes, 2))
         for process_i in range(n_processes):
-            min_id, max_id = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i)
-            p = multiprocessing.Process(target=self._get_valid_transformations_ids, args=(fm, n_fixed_bits, min_id, max_id, queue))
+            min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i, n_tasks, current_task)
+            p = multiprocessing.Process(target=self._get_valid_transformations_ids, args=(fm, left_bits, min_id, max_id, queue))
             p.start()
             processes.append(p)
         for p in processes:
@@ -185,15 +185,24 @@ class TransformationsVector():
 
 def get_min_max_ids_transformations_for_parallelization(n_bits: int, 
                                                         n_processes: int, 
-                                                        current_process: int) -> tuple[int, int]:
+                                                        current_process: int,
+                                                        n_tasks: int = 1, 
+                                                        current_task: int = 1) -> tuple[int, int, int]:
     if current_process >= n_processes:
         raise Exception(f'The current process must be in range [0, n_processes).')
-    left_bits = math.log(n_processes, 2)  # number of bits on the left
+    if current_task >= n_tasks:
+        raise Exception(f'The current task must be in range [0, n_tasks).')
+    
+    left_bits_tasks = math.log(n_tasks, 2)
+    left_bits_processes = math.log(n_processes, 2)
+    left_bits = left_bits_tasks + left_bits_processes  # number of bits on the left
     if not left_bits.is_integer():
-        raise Exception(f'The number of processes must be power of 2.')
+        raise Exception(f'The number of tasks and processes must be power of 2.')
     left_bits = int(left_bits)
+    left_bits_tasks = int(left_bits_tasks)
+    left_bits_processes = int(left_bits_processes)
     right_bits = n_bits - left_bits  # number of bits on the right
-    binary_min_number = format(current_process, f'0{left_bits}b') + format(0, f'0{right_bits}b')
+    binary_min_number = format(current_task, f'0{left_bits_tasks}b') + format(current_process, f'0{left_bits_processes}b') + format(0, f'0{right_bits}b')
     min_number = int(binary_min_number, 2)
     max_number = min_number + 2**right_bits - 1
-    return (min_number, max_number)
+    return (min_number, max_number, left_bits)

@@ -27,15 +27,17 @@ class FMToFMSans(ModelToModel):
     def get_destination_extension() -> str:
         return 'fmsans'
 
-    def __init__(self, source_model: FeatureModel, n_cores: int = 1) -> None:
+    def __init__(self, source_model: FeatureModel, n_cores: int = 1, n_tasks: int = 1, current_task: int = 1) -> None:
         self.feature_model = source_model
         self.n_cores = n_cores
+        self.n_tasks = n_tasks
+        self.current_task = current_task
     
     def transform(self) -> FMSans:
-        return fm_to_fmsans(self.feature_model, self.n_cores)
+        return fm_to_fmsans(self.feature_model, self.n_cores, self.n_tasks, self.current_task)
 
 
-def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1) -> FMSans:
+def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1, n_tasks: int = 1, current_task: int = 1) -> FMSans:
     fm = FM.from_feature_model(feature_model)
 
     if not fm.get_constraints():
@@ -53,7 +55,7 @@ def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1) -> FMSans:
     # Get valid transformations ids.
     n_bits = trans_vector.n_bits()
     n_processes  = n_cores if n_bits > n_cores else 1
-    valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids(fm, n_processes)
+    valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids(fm, n_processes, n_tasks, current_task)
     
     # Get FMSans instance
     return FMSans(FM(fm.root), trans_vector, valid_transformed_numbers_trees)
