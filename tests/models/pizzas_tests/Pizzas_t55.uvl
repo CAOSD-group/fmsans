@@ -1,0 +1,19 @@
+namespace root
+
+features
+	Pizza {abstract}	
+		mandatory
+			Topping	
+				or
+					Salami
+					Ham
+					Mozzarella
+			Size	
+				mandatory
+					Big
+			Dough	
+				mandatory
+					Neapolitan
+
+constraints
+	Salami => !(Topping & Size & Salami)
