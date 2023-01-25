@@ -1,39 +1,63 @@
 import os
 import argparse
-import time
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from flamapy.metamodels.pysat_metamodel.operations import SATCoreFeatures
 
+from fm_solver.utils import utils, timer, memory_profiler
 
-NS_TO_MS = 1e-6
+SOLVER_NAMES = """
+            cadical     = ('cd', 'cdl', 'cadical')
+            gluecard3   = ('gc3', 'gc30', 'gluecard3', 'gluecard30')
+            gluecard41  = ('gc3', 'gc41', 'gluecard4', 'gluecard41')
+            glucose3    = ('g3', 'g30', 'glucose3', 'glucose30')
+            glucose4    = ('g4', 'g41', 'glucose4', 'glucose41')
+            lingeling   = ('lgl', 'lingeling')
+            maplechrono = ('mcb', 'chrono', 'maplechrono')
+            maplecm     = ('mcm', 'maplecm')
+            maplesat    = ('mpl', 'maple', 'maplesat')
+            mergesat3   = ('mg3', 'mgs3', 'mergesat3', 'mergesat30')
+            minicard    = ('mc', 'mcard', 'minicard')
+            minisat22   = ('m22', 'msat22', 'minisat22')
+            minisatgh   = ('mgh', 'msat-gh', 'minisat-gh')
+"""
+
+CODES = ['Reading', 'Transformation', 'CoreFeatures_op']
 
 
-def main(fm_filepath: str) -> None:
+def main(fm_filepath: str, solver_name: str) -> None:
     # Get feature model name
     fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
 
     # Load the feature model
-    fm = UVLReader(fm_filepath).transform()
+    with memory_profiler.MemoryProfiler(name=CODES[0], logger=None), timer.Timer(name=CODES[0], logger=None):
+        feature_model = UVLReader(fm_filepath).transform()
 
-    # Create the SAT model from the FM
-    sat_model = FmToPysat(fm).transform()
+    # Create the BDD from the FM
+    with memory_profiler.MemoryProfiler(name=CODES[1], logger=None), timer.Timer(name=CODES[1], logger=None):
+        sat_model = FmToPysat(feature_model).transform()
 
-    # Core features
-    start_time = time.perf_counter_ns()
-    core_features = SATCoreFeatures().execute(sat_model).get_result()
-    end_time = time.perf_counter_ns()
-    elapsed_time = (end_time - start_time) * NS_TO_MS
-    print(f'Core features: {core_features}')
-    print(f'Time: {elapsed_time} ms')    
-    
+    # Products numbers
+    with memory_profiler.MemoryProfiler(name=CODES[2], logger=None), timer.Timer(name=CODES[2], logger=None):
+        core_features = SATCoreFeatures(solver_name).execute(sat_model).get_result()
+    print(f'Core features: {len(core_features)} {core_features}')
+
+    # Print outputs
+    header = f"{','.join(c + '(s)' for c in CODES)},{','.join(c + '(B)' for c in CODES)},#Cores,Cores"
+    values = ','.join([str(timer.Timer.timers[c]) for c in CODES])
+    values += ',' + ','.join([str(memory_profiler.MemoryProfiler.memory_profilers[c]) for c in CODES])
+    values += f',{len(core_features)},{core_features}'
+    print(header)
+    print(values)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Analyze an FM using the SAT Solver.')
     parser.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, required=True, help='Input feature model in UVL format (.uvl).')
+    parser.add_argument('-s', '--solver', dest='solver', type=str, required=False, default='glucose3', help='Solver to use (default "glucose3").' + SOLVER_NAMES)
     args = parser.parse_args()
 
-    main(args.feature_model)
+    main(args.feature_model, args.solver)
     
