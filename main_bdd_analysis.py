@@ -11,7 +11,7 @@ from flamapy.metamodels.bdd_metamodel.operations import (
 )
 
 from fm_solver.models.feature_model import FM
-from fm_solver.utils import fm_utils
+from fm_solver.utils import utils
 
 
 def main(fm_filepath: str) -> None:
@@ -27,29 +27,29 @@ def main(fm_filepath: str) -> None:
 
     # Products numbers
     n_configs = BDDProductsNumber().execute(bdd_model).get_result()
-    print(f'#Configs: {n_configs}')    
+    print(f'#Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
 
-    prod_dist = BDDProductDistribution().execute(bdd_model).get_result()
-    print(f'#Configs (prod_dist): {sum(prod_dist)}')
+    # prod_dist = BDDProductDistribution().execute(bdd_model).get_result()
+    # print(f'#Configs (prod_dist): {sum(prod_dist)}')
 
-    feat_prob = BDDFeatureInclusionProbability().execute(bdd_model).get_result()
-    for f, p in feat_prob.items():
-        if p == 0:
-            print(f)
-            feature = fm.get_feature_by_name(f)
-            if feature is not None:
-                fm = fm_utils.deletion_feature(fm, f)
+    # feat_prob = BDDFeatureInclusionProbability().execute(bdd_model).get_result()
+    # for f, p in feat_prob.items():
+    #     if p == 0:
+    #         print(f)
+    #         feature = fm.get_feature_by_name(f)
+    #         if feature is not None:
+    #             fm = fm_utils.deletion_feature(fm, f)
 
-    constraints = [ctc for ctc in fm.get_constraints()]
-    for ctc in fm.get_constraints():
-        features = ctc.get_features()
-        if any(fm.get_feature_by_name(f) is None for f in features):
-            constraints.remove(ctc)
+    # constraints = [ctc for ctc in fm.get_constraints()]
+    # for ctc in fm.get_constraints():
+    #     features = ctc.get_features()
+    #     if any(fm.get_feature_by_name(f) is None for f in features):
+    #         constraints.remove(ctc)
     
-    fm.ctcs = constraints
+    # fm.ctcs = constraints
 
-    output_fm_filepath = f'{fm_name}_clean.uvl'
-    UVLWriter(path=output_fm_filepath, source_model=fm).transform()
+    # output_fm_filepath = f'{fm_name}_clean.uvl'
+    # UVLWriter(path=output_fm_filepath, source_model=fm).transform()
 
 
 if __name__ == '__main__':

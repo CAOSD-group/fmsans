@@ -206,7 +206,7 @@ def remove_feature_branch(fm: FM, feature: Feature) -> FM:
         for rel in relations_to_be_deleted:
             parent.get_relations().remove(rel)
             for f in rel.children:
-                fm.delete_branch(f)
+                fm.delete_feature(f)
     return fm
 
 
@@ -259,26 +259,30 @@ def to_unique_features(model: FM) -> FM:
 
 def fm_stats(fm: FM) -> str:
     lines = []
-    unique_features = [f for f in fm.get_features() if not any(a.name == 'ref' for a in f.get_attributes())]
-    subtree_with_constraints_implications, subtree_without_constraints_implications = get_subtrees_constraints_implications(fm)
-    features_without_implications = 0 if subtree_without_constraints_implications is None else len(subtree_without_constraints_implications.get_features())
-    features_with_implications = 0 if subtree_with_constraints_implications is None else len(subtree_with_constraints_implications.get_features())
+    #unique_features = [f for f in fm.get_features() if not any(a.name == 'ref' for a in f.get_attributes())]
+    concrete_features = [f for f in fm.get_features() if not f.is_abstract]
+    abstract_features = [f for f in fm.get_features() if f.is_abstract]
+    #subtree_with_constraints_implications, subtree_without_constraints_implications = get_subtrees_constraints_implications(fm)
+    #features_without_implications = 0 if subtree_without_constraints_implications is None else len(subtree_without_constraints_implications.get_features())
+    #features_with_implications = 0 if subtree_with_constraints_implications is None else len(subtree_with_constraints_implications.get_features())
     complex_ctcs = len([ctc for ctc in fm.get_constraints() if constraints_utils.is_complex_constraint(ctc)])
     pseudo_complex_ctcs = len([ctc for ctc in fm.get_constraints() if len(constraints_utils.split_constraint(ctc)) > 1])
     strict_complex_ctcs = complex_ctcs - pseudo_complex_ctcs
     lines.append(f'FM stats:')
     lines.append(f'  #Features:            {len(fm.get_features())}')
-    lines.append(f'    #Unique Features:   {len(unique_features)}')
-    lines.append(f'    #Features out CTCs: {features_without_implications}')
-    lines.append(f'    #Features in CTCs:  {features_with_implications}')
+    lines.append(f'    #Concrete features: {len(concrete_features)}')
+    lines.append(f'    #Abstract features: {len(abstract_features)}')
+    # lines.append(f'    #Unique Features:   {len(unique_features)}')
+    # lines.append(f'    #Features out CTCs: {features_without_implications}')
+    # lines.append(f'    #Features in CTCs:  {features_with_implications}')
     lines.append(f'  #Relations:           {len(fm.get_relations())}')
     lines.append(f'  #Constraints:         {len(fm.get_constraints())}')
     lines.append(f'    #Simple CTCs:       {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_simple_constraint(ctc)])}')
     lines.append(f'      #Requires:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_requires_constraint(ctc)])}')
     lines.append(f'      #Excludes:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_excludes_constraint(ctc)])}')
     lines.append(f'    #Complex CTCs:      {complex_ctcs}')
-    lines.append(f'      #Pseudo CTCs:      {pseudo_complex_ctcs}')
-    lines.append(f'      #Strict CTCs:      {strict_complex_ctcs}')
+    lines.append(f'      #Pseudo CTCs:     {pseudo_complex_ctcs}')
+    lines.append(f'      #Strict CTCs:     {strict_complex_ctcs}')
     return '\n'.join(lines)
 
 

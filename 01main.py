@@ -7,7 +7,7 @@ from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 
 from fm_solver.models.feature_model import FM
 from fm_solver.transformations import FMToFMSans
-from fm_solver.utils import fm_utils
+from fm_solver.utils import utils
 
 from fm_solver.operations import (
     FMConfigurationsNumber,
@@ -29,6 +29,7 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
 
     # Load the feature model
+    print(f'Reading FM model... {fm_filepath}')
     feature_model = UVLReader(fm_filepath).transform()
     
     # Transform the FM to the fmsans model
@@ -36,7 +37,7 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     fmsans_model = FMToFMSans(fm, n_cores=n_cores, n_tasks=n_tasks, current_task=current_task).transform()
     result = fmsans_model.get_analysis()
     n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
-    print(f'Configs: {n_configs}')
+    print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
 
     # Serializing the FMSans model
     output_fmsans_filepath = f'{fm_name}_{n_cores}_{current_task}-{n_tasks}.json'

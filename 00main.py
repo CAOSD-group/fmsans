@@ -19,6 +19,7 @@ def main(fm_filepath: str):
     fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
 
     # Load the feature model
+    print(f'Reading FM model... {fm_filepath}')
     feature_model = UVLReader(fm_filepath).transform()
     fm = FM.from_feature_model(feature_model)
     
@@ -27,8 +28,10 @@ def main(fm_filepath: str):
         print(f'Warning: The feature model has not any complex cross-tree constraints. The output FM is the same as the input.')
 
     # Refactor pseudo-complex constraints
+    print(f'Refactoring pseudo-complex constraints...')
     fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
     # Refactor strict-complex constraints
+    print(f'Refactoring strict-complex constraints...')
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
 
     # Serializing the feature model    
