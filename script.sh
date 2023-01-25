@@ -22,3 +22,4 @@ for i in $(seq 2 1 $RUNS); do
     tail -1 $AUXFILE >> $OUTPUT
 done
 echo ""
+rm $AUXFILE
