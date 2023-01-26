@@ -6,7 +6,8 @@ from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from flamapy.metamodels.pysat_metamodel.operations import SATCoreFeatures
 
-from fm_solver.utils import utils, timer, memory_profiler
+from fm_solver.utils import timer, memory_profiler
+
 
 SOLVER_NAMES = """
             cadical     = ('cd', 'cdl', 'cadical')

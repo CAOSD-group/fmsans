@@ -1,0 +1,3684 @@
+{
+    "feature_tree": {
+        "name": "Gpl",
+        "abstract": true,
+        "relations": [
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "MainGpl",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "MANDATORY",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Test",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "MANDATORY",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "StartHere",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Base",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Benchmark",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Prog",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Implementation",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "NoEdges",
+                                                        "abstract": true,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "OnlyNeighbors",
+                                                        "abstract": true,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Edges",
+                                                        "abstract": true,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "GraphType",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Directed",
+                                                        "abstract": true,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Undirected",
+                                                        "abstract": true,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "GraphTypeReal",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "DirType",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "DirectedCommon",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Dir",
+                                                                        "abstract": true,
+                                                                        "relations": [
+                                                                            {
+                                                                                "type": "XOR",
+                                                                                "card_min": 1,
+                                                                                "card_max": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "name": "DirectedGR",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "DirectedGnR",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "DirectedGenR",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "UndirType",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "UndirectedCommon",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Undir",
+                                                                        "abstract": true,
+                                                                        "relations": [
+                                                                            {
+                                                                                "type": "XOR",
+                                                                                "card_min": 1,
+                                                                                "card_max": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "name": "UndirectedGR",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "UndirectedGnR",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "UndirectedGenR",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Weight",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Wgt",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Weighted",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "WeightedCommon",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "dProgdWeightedCommon",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "UnWeighted",
+                                                        "abstract": true,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "WeightReal",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "WeightedGR",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "WeightedGnR",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "WeightedGenR",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "SearchCommon",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Search",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "DFS",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "BFS",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Alg",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "OR",
+                                                "card_min": 1,
+                                                "card_max": 7,
+                                                "children": [
+                                                    {
+                                                        "name": "Num",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Number",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "dProgdNumber",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Conn",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Connected",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "dProgdConnected",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "StrongC",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Transpose",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "StronglyConnected",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "dProgdStronglyConnected",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Cyc",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Cycle",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "dProgdCycle",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "MPrim",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "MSTPrimPrepGnR",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "MSTPrimPrepGR",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "MSTPrim",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "dProgdMSTPrim",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "MKrus",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "MSTKruskalPrepGnR",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "MSTKruskalPrepGR",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "MSTKruskal",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "dProgdMSTKruskal",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Shortest",
+                                                        "abstract": true,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Directed1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "NoEdges1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DirectedGR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE1",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Directed2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "OnlyNeighbors1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DirectedGnR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE2",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Directed3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Edges1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DirectedGenR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE3",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Undirected1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "NoEdges2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "UndirectedGR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE4",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Undirected2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "OnlyNeighbors2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "UndirectedGnR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE5",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Undirected3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Edges2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "UndirectedGenR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE6",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Weighted1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "NoEdges3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "WeightedGR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE7",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Weighted2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "OnlyNeighbors3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "WeightedGnR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE8",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Weighted3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Edges3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "WeightedGenR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE9",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Prog1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Weighted4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "dProgdWeightedCommon1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE10",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Prog2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Number1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "dProgdNumber1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE11",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Prog3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Connected1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "dProgdConnected1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE12",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Prog4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "StronglyConnected1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "dProgdStronglyConnected1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE13",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Prog5",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Cycle1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "dProgdCycle1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE14",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Prog6",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MSTPrim1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "dProgdMSTPrim1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE15",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "MSTPrim2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "NoEdges4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MSTPrimPrepGR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE16",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "MSTPrim3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "OnlyNeighbors4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MSTPrimPrepGnR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE17",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Prog7",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MSTPrim4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "dProgdMSTPrim2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE18",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Prog8",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MSTKruskal1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "dProgdMSTKruskal1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE19",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "MSTKruskal2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "NoEdges5",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MSTKruskalPrepGR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE20",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "MSTKruskal3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "OnlyNeighbors5",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MSTKruskalPrepGnR1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE21",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 2,
+                                "children": [
+                                    {
+                                        "name": "MSTKruskal4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MSTPrim5",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE22",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 2,
+                                "children": [
+                                    {
+                                        "name": "MSTPrim6",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MSTKruskal5",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "attributes": []
+    },
+    "ctcs_transformations": [
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "WeightedCommon"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Weighted",
+                    "WeightedCommon"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Benchmark"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Prog",
+                    "Benchmark"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "SearchCommon"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Search",
+                    "SearchCommon"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Benchmark"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Prog",
+                    "Benchmark"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "GraphType"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Number",
+                    "GraphType"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Search"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Number",
+                    "Search"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Undirected"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Connected",
+                    "Undirected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Search"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Connected",
+                    "Search"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Directed"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "StronglyConnected",
+                    "Directed"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DFS"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "StronglyConnected",
+                    "DFS"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Transpose"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "StronglyConnected",
+                    "Transpose"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "GraphType"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Cycle",
+                    "GraphType"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DFS"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Cycle",
+                    "DFS"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Undirected"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MSTKruskal",
+                    "Undirected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Weighted"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MSTKruskal",
+                    "Weighted"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Undirected"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MSTPrim",
+                    "Undirected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Weighted"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MSTPrim",
+                    "Weighted"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Directed"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Shortest",
+                    "Directed"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Weighted"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Shortest",
+                    "Weighted"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Directed"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Directed1",
+                    "Directed"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "NoEdges"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "NoEdges1",
+                    "NoEdges"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DirectedGR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DirectedGR1",
+                    "DirectedGR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Directed"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Directed2",
+                    "Directed"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "OnlyNeighbors"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "OnlyNeighbors1",
+                    "OnlyNeighbors"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DirectedGnR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DirectedGnR1",
+                    "DirectedGnR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Directed"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Directed3",
+                    "Directed"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Edges"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Edges1",
+                    "Edges"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DirectedGenR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DirectedGenR1",
+                    "DirectedGenR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Undirected"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Undirected1",
+                    "Undirected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "NoEdges"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "NoEdges2",
+                    "NoEdges"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "UndirectedGR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "UndirectedGR1",
+                    "UndirectedGR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Undirected"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Undirected2",
+                    "Undirected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "OnlyNeighbors"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "OnlyNeighbors2",
+                    "OnlyNeighbors"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "UndirectedGnR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "UndirectedGnR1",
+                    "UndirectedGnR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Undirected"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Undirected3",
+                    "Undirected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Edges"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Edges2",
+                    "Edges"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "UndirectedGenR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "UndirectedGenR1",
+                    "UndirectedGenR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Weighted"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Weighted1",
+                    "Weighted"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "NoEdges"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "NoEdges3",
+                    "NoEdges"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "WeightedGR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "WeightedGR1",
+                    "WeightedGR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Weighted"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Weighted2",
+                    "Weighted"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "OnlyNeighbors"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "OnlyNeighbors3",
+                    "OnlyNeighbors"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "WeightedGnR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "WeightedGnR1",
+                    "WeightedGnR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Weighted"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Weighted3",
+                    "Weighted"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Edges"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Edges3",
+                    "Edges"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "WeightedGenR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "WeightedGenR1",
+                    "WeightedGenR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Prog"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Prog1",
+                    "Prog"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Weighted"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Weighted4",
+                    "Weighted"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dProgdWeightedCommon"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "dProgdWeightedCommon1",
+                    "dProgdWeightedCommon"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Prog"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Prog2",
+                    "Prog"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Number"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Number1",
+                    "Number"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dProgdNumber"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "dProgdNumber1",
+                    "dProgdNumber"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Prog"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Prog3",
+                    "Prog"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Connected"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Connected1",
+                    "Connected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dProgdConnected"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "dProgdConnected1",
+                    "dProgdConnected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Prog"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Prog4",
+                    "Prog"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "StronglyConnected"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "StronglyConnected1",
+                    "StronglyConnected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dProgdStronglyConnected"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "dProgdStronglyConnected1",
+                    "dProgdStronglyConnected"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Prog"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Prog5",
+                    "Prog"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Cycle"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Cycle1",
+                    "Cycle"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dProgdCycle"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "dProgdCycle1",
+                    "dProgdCycle"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Prog"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Prog6",
+                    "Prog"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTPrim"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTPrim1",
+                    "MSTPrim"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dProgdMSTPrim"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "dProgdMSTPrim1",
+                    "dProgdMSTPrim"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTPrim"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTPrim2",
+                    "MSTPrim"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "NoEdges"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "NoEdges4",
+                    "NoEdges"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MSTPrimPrepGR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MSTPrimPrepGR1",
+                    "MSTPrimPrepGR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTPrim"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTPrim3",
+                    "MSTPrim"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "OnlyNeighbors"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "OnlyNeighbors4",
+                    "OnlyNeighbors"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MSTPrimPrepGnR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MSTPrimPrepGnR1",
+                    "MSTPrimPrepGnR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Prog"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Prog7",
+                    "Prog"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTPrim"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTPrim4",
+                    "MSTPrim"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dProgdMSTPrim"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "dProgdMSTPrim2",
+                    "dProgdMSTPrim"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Prog"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Prog8",
+                    "Prog"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTKruskal"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTKruskal1",
+                    "MSTKruskal"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "dProgdMSTKruskal"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "dProgdMSTKruskal1",
+                    "dProgdMSTKruskal"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTKruskal"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTKruskal2",
+                    "MSTKruskal"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "NoEdges"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "NoEdges5",
+                    "NoEdges"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MSTKruskalPrepGR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MSTKruskalPrepGR1",
+                    "MSTKruskalPrepGR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTKruskal"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTKruskal3",
+                    "MSTKruskal"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "OnlyNeighbors"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "OnlyNeighbors5",
+                    "OnlyNeighbors"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MSTKruskalPrepGnR"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MSTKruskalPrepGnR1",
+                    "MSTKruskalPrepGnR"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTKruskal"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTKruskal4",
+                    "MSTKruskal"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTPrim"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTPrim5",
+                    "MSTPrim"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTPrim"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTPrim6",
+                    "MSTPrim"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MSTKruskal"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MSTKruskal5",
+                    "MSTKruskal"
+                ]
+            }
+        ]
+    ],
+    "transformations_ids": {
+        "4424433035935855660": 43521184567352845255910544,
+        "-429514124634023028": 43521184567353473545909392,
+        "6945579849633631525": 43521184567414417907066000,
+        "-3579671753764393840": 43521184567415046197064848,
+        "7846597569690379377": 43521184567422114488460432,
+        "-1203791324416921407": 43521184567422742778459280,
+        "-2836276075749053650": 43521184567423214000088208,
+        "-4557523364335756084": 43521184567423842290087056,
+        "4863036315439499521": 43521185144941696489432208,
+        "-4182148206101109692": 43521185144942324779431056,
+        "-3977503408999750988": 43521185145003269140587664,
+        "-1670251023550241469": 43521185145003897430586512,
+        "6771153719986881989": 43521185145010965721982096,
+        "7378032360405807620": 43521185145011594011980944,
+        "-2881698107983667306": 43521185145012065233609872,
+        "-739106387291229681": 43521185145012693523608720,
+        "3161650632707928460": 43521189188063655124214960,
+        "6020071964182796868": 43521189188064283414213808,
+        "4067352403154691131": 43521189188125227775370416,
+        "5646892967100449628": 43521189188125856065369264,
+        "2102439241824167189": 43521189188132924356764848,
+        "-2395216175269155747": 43521189188133552646763696,
+        "5665711973562083880": 43521189188134023868392624,
+        "2028040298174065673": 43521189188134652158391472,
+        "5641173650687834100": 43521200708253909751768208,
+        "2258037504315449302": 43521200708254538041767056,
+        "4828548616381876377": 43521200708315482402923664,
+        "-9192686455754297501": 43521200708316110692922512,
+        "4948612412793981922": 43521200708323178984318096,
+        "-2538897942475522662": 43521200708323807274316944,
+        "-844383466048865893": 43521200708324278495945872,
+        "-5917189571803358414": 43521200708324906785944720,
+        "1500245386515293601": 43521201285842760985289872,
+        "7910181598484545504": 43521201285843389275288720,
+        "6135678870479297486": 43521201285904333636445328,
+        "678695512135748778": 43521201285904961926444176,
+        "1021202524306850130": 43521201285912030217839760,
+        "6859438384768565139": 43521201285912658507838608,
+        "7619998634650349192": 43521201285913129729467536,
+        "-4819461493621413386": 43521201285913758019466384,
+        "-523803842884875922": 43521202725866542813750416,
+        "-1495074460382273685": 43521202725867171103749264,
+        "2950074786132405474": 43521202725928115464905872,
+        "5018940351402706878": 43521202725928743754904720,
+        "2434073244605653083": 43521202725935812046300304,
+        "-3253200451234859777": 43521202725936440336299152,
+        "-6834896381290348056": 43521202725936911557928080,
+        "-4213791947408300143": 43521202725937539847926928,
+        "-5623631680975419226": 43521202978068121946498192,
+        "-3357691105257781267": 43521202978068750236497040,
+        "-113614068959710631": 43521202978129694597653648,
+        "7421597471372235015": 43521202978130322887652496,
+        "8586445939861133022": 43521202978137391179048080,
+        "-3740745389836328435": 43521202978138019469046928,
+        "-10484514700547052": 43521202978138490690675856,
+        "1530483237724924297": 43521202978139118980674704,
+        "-6410581305540344264": 43521203009593319338091664,
+        "-958203015455060169": 43521203009593947628090512,
+        "4992528370779488010": 43521203009654891989247120,
+        "1310813920611322911": 43521203009655520279245968,
+        "-7425492817236949803": 43521203009662588570641552,
+        "-4180254878018847925": 43521203009663216860640400,
+        "933394384589280040": 43521203009663688082269328,
+        "6570768721689951870": 43521203009664316372268176,
+        "-1002831729508297016": 43521203013533969012040848,
+        "-2415935380570906608": 43521203013534597302039696,
+        "534448400999105354": 43521203013595541663196304,
+        "-5613194376569746851": 43521203013596169953195152,
+        "-8778548087302658822": 43521203013603238244590736,
+        "4594988301919486843": 43521203013603866534589584,
+        "8093215087625117820": 43521203013604337756218512,
+        "4834630101927216887": 43521203013604966046217360,
+        "8623846916630251505": 43521203014096918965462160,
+        "-7635775238071770998": 43521203014097547255461008,
+        "-3724901697424768820": 43521203014158491616617616,
+        "8560082153855213245": 43521203014159119906616464,
+        "-6621495835058060757": 43521203014166188198012048,
+        "-6095815835603889047": 43521203014166816488010896,
+        "6320098764235318712": 43521203014167287709639824,
+        "-6940602601879766637": 43521203014167915999638672,
+        "-8328955292064932878": 43521203303455394047272080,
+        "-3719529790253289771": 43521203303456022337270928,
+        "-3180845326011908527": 43521203303516966698427536,
+        "-2306194813545017122": 43521203303517594988426384,
+        "-7852277606678935514": 43521203303524663279821968,
+        "53653557940659806": 43521203303525291569820816,
+        "185822919448705304": 43521203303525762791449744,
+        "-1844379333121286646": 43521203303526391081448592,
+        "5632292679789339766": 43521203555656973180019856,
+        "-8182120513848821545": 43521203555657601470018704,
+        "6732243783020275228": 43521203555718545831175312,
+        "5570890614015333947": 43521203555719174121174160,
+        "4291055142294608563": 43521203555726242412569744,
+        "2413528465063541544": 43521203555726870702568592,
+        "2873216079407942594": 43521203555727341924197520,
+        "4806635086398937575": 43521203555727970214196368,
+        "-340334208670281264": 43521203587182170571613328,
+        "-219738898480660384": 43521203587182798861612176,
+        "8922551781610712482": 43521203587243743222768784,
+        "-7816414592369953454": 43521203587244371512767632,
+        "-5140444081152220412": 43521203587251439804163216,
+        "-823675566222011982": 43521203587252068094162064,
+        "2312334449188061844": 43521203587252539315790992,
+        "8624554386777600402": 43521203587253167605789840,
+        "5670714484158940209": 43521203591122820245562512,
+        "-6495424893284862603": 43521203591123448535561360,
+        "-2119149001553003405": 43521203591184392896717968,
+        "-4045989839920404110": 43521203591185021186716816,
+        "7142079448361320257": 43521203591192089478112400,
+        "8715606744296959945": 43521203591192717768111248,
+        "-3804249808618058721": 43521203591193188989740176,
+        "8394961420394938201": 43521203591193817279739024,
+        "5105277912444461514": 43521203591685770198983824,
+        "5815306239086221724": 43521203591686398488982672,
+        "-6591778868687567330": 43521203591747342850139280,
+        "-4285460154598842694": 43521203591747971140138128,
+        "8496408705500955461": 43521203591755039431533712,
+        "5173453410897610425": 43521203591755667721532560,
+        "-6197407665647847407": 43521203591756138943161488,
+        "-2105986605439299152": 43521203591756767233160336,
+        "430966246575237108": 43521205328964719620072624,
+        "-7538543403694638868": 43521205328965347910071472,
+        "7071776143443552883": 43521205329026292271228080,
+        "5446317489859831516": 43521205329026920561226928,
+        "-442151685445093553": 43521205329033988852622512,
+        "-6760182618080497590": 43521205329034617142621360,
+        "-6840644329424139579": 43521205329035088364250288,
+        "-7251870467583685998": 43521205329035716654249136,
+        "-9202212022669116591": 43521207346577352682054832,
+        "6087246436904086926": 43521207346577980972053680,
+        "3870423302311458172": 43521207346638925333210288,
+        "-3675336689676820171": 43521207346639553623209136,
+        "-5245523074939013193": 43521207346646621914604720,
+        "-7133984178551149956": 43521207346647250204603568,
+        "-1489957558093666611": 43521207346647721426232496,
+        "4932484655804917556": 43521207346648349716231344,
+        "6952980811513550744": 43521207598778931814802608,
+        "6177366540498085891": 43521207598779560104801456,
+        "9147897290535267236": 43521207598840504465958064,
+        "-8331565369791539551": 43521207598841132755956912,
+        "-7501581981940393732": 43521207598848201047352496,
+        "5081151296698663182": 43521207598848829337351344,
+        "1198133365020008420": 43521207598849300558980272,
+        "2811035652212924757": 43521207598849928848979120,
+        "-9141974894730593411": 43521207630304129206396080,
+        "6074437986179250005": 43521207630304757496394928,
+        "1488446781139573950": 43521207630365701857551536,
+        "-4769890923607994424": 43521207630366330147550384,
+        "7999795438455237345": 43521207630373398438945968,
+        "-281970228990387343": 43521207630374026728944816,
+        "-8439104314697936097": 43521207630374497950573744,
+        "373882389342630074": 43521207630375126240572592,
+        "583555282223334792": 43521207634244778880345264,
+        "1255932720840952605": 43521207634245407170344112,
+        "2427084164377382086": 43521207634306351531500720,
+        "-5940189318579040695": 43521207634306979821499568,
+        "7048232343594855957": 43521207634314048112895152,
+        "-4231765375017160052": 43521207634314676402894000,
+        "6440808140692291740": 43521207634315147624522928,
+        "8475877311263238257": 43521207634315775914521776,
+        "6037624004424499792": 43521207634807728833766576,
+        "5252433752905126665": 43521207634808357123765424,
+        "-6316748318354072876": 43521207634869301484922032,
+        "8011384620084732845": 43521207634869929774920880,
+        "-7224127292802923647": 43521207634876998066316464,
+        "-5330301813830824589": 43521207634877626356315312,
+        "-5599063336889623169": 43521207634878097577944240,
+        "-376477566496591822": 43521207634878725867943088,
+        "-8904236251098580192": 43521221533039324202345872,
+        "6115844039153422603": 43521221533039952492344720,
+        "744681874645928621": 43521221533100896853501328,
+        "6993333547142319642": 43521221533101525143500176,
+        "5928781241480399611": 43521221533108593434895760,
+        "962141171195132085": 43521221533109221724894608,
+        "1429480865225443439": 43521221533109692946523536,
+        "3713383871452565319": 43521221533110321236522384,
+        "-5534152140762020225": 43521237673940388698203536,
+        "4687224932233076936": 43521237673941016988202384,
+        "-20002937377377303": 43521237674001961349358992,
+        "7154720120703312916": 43521237674002589639357840,
+        "-4765297143136093992": 43521237674009657930753424,
+        "1493342248725435442": 43521237674010286220752272,
+        "6330383830556573936": 43521237674010757442381200,
+        "-4357393235559394292": 43521237674011385732380048,
+        "7325816331835577396": 43521239691553021760185744,
+        "-7903199879439161716": 43521239691553650050184592,
+        "-6395798233715333597": 43521239691614594411341200,
+        "1187236734307913169": 43521239691615222701340048,
+        "-4727392666449790445": 43521239691622290992735632,
+        "1271516875710865980": 43521239691622919282734480,
+        "-2577372795976941150": 43521239691623390504363408,
+        "3055236507044777210": 43521239691624018794362256,
+        "1398530777307884381": 43521239943754600892933520,
+        "-7454162409390414233": 43521239943755229182932368,
+        "8935707375941196063": 43521239943816173544088976,
+        "9213519083436329737": 43521239943816801834087824,
+        "-3723699082816974254": 43521239943823870125483408,
+        "3986857140431784801": 43521239943824498415482256,
+        "7253265504432184513": 43521239943824969637111184,
+        "2806829393747350024": 43521239943825597927110032,
+        "-821002275313318094": 43521239975279798284526992,
+        "1567436634015787347": 43521239975280426574525840,
+        "-2980788791393082331": 43521239975341370935682448,
+        "6325089631099122498": 43521239975341999225681296,
+        "-1734590975759929922": 43521239975349067517076880,
+        "3002216327751791430": 43521239975349695807075728,
+        "4190250971376487342": 43521239975350167028704656,
+        "-760978284710378203": 43521239975350795318703504,
+        "-4023549253165171870": 43521239979220447958476176,
+        "9066667584053264626": 43521239979221076248475024,
+        "-8540832284980403636": 43521239979282020609631632,
+        "1101825028989392863": 43521239979282648899630480,
+        "-3925243340375501970": 43521239979289717191026064,
+        "5987217872976216813": 43521239979290345481024912,
+        "163691852605196808": 43521239979290816702653840,
+        "-5829411680197139045": 43521239979291444992652688,
+        "2882380727353201302": 43521239979783397911897488,
+        "-8547235110772134288": 43521239979784026201896336,
+        "1543434430327373642": 43521239979844970563052944,
+        "-306521870101542725": 43521239979845598853051792,
+        "4963550631591204533": 43521239979852667144447376,
+        "-1392569313272319135": 43521239979853295434446224,
+        "-5225028631520749315": 43521239979853766656075152,
+        "-1589477221479829535": 43521239979854394946074000
+    }
+}

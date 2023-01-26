@@ -5,7 +5,7 @@ from typing import Any
 from fm_solver.models.utils import TransformationsVector
 from fm_solver.models.feature_model import FM
 from fm_solver.utils import fm_utils
-from fm_solver.operations import FMFullAnalysis, FMCoreFeatures, FMOperation
+from fm_solver.operations import FMFullAnalysis, FMCoreFeatures, FMOperation, FMConfigurationsNumber
 
 
 class FMSans():
@@ -96,6 +96,17 @@ class FMSans():
             items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMCoreFeatures) for num in self.transformations_ids.values()]
             analysis_result = pool.starmap_async(self.execute_paralell, items)
             result = set.intersection(*analysis_result.get())
+        return result
+
+    def get_number_of_configurations(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            return FMConfigurationsNumber().execute(self.fm).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMConfigurationsNumber) for num in self.transformations_ids.values()]
+            analysis_result = pool.starmap_async(self.execute_paralell, items)
+            result = FMConfigurationsNumber.join_results(analysis_result.get())
         return result
 
     def execute_paralell(self, fm: bytes, binary_vector: list[str], op: FMOperation) -> Any:
