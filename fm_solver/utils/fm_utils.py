@@ -6,6 +6,7 @@ import copy
 from collections.abc import Callable
 
 from flamapy.metamodels.fm_metamodel.models import (
+    FeatureModel,
     Feature, 
     Relation, 
     Constraint, 
@@ -69,7 +70,7 @@ def get_trees_from_original_root(fm: FM) -> list[FM]:
     return [fm]
 
 
-def get_model_from_subtrees(fm: FM, subtrees: set[FM]) -> FM:
+def get_model_from_subtrees(fm: FM, subtrees: set[FM]) -> FeatureModel:
     """It returns a new feature model by joining all exclusive subtrees with a XOR group.
     
     The result is a model with a new root, which is an XOR group where each subfeatures is one
@@ -88,7 +89,7 @@ def get_model_from_subtrees(fm: FM, subtrees: set[FM]) -> FM:
         return None
     xor_rel = Relation(new_root, children, 1, 1)
     new_root.add_relation(xor_rel)
-    return FM(new_root)
+    return FeatureModel(new_root)
 
 
 def numbers_of_features_to_be_removed(fm: FM, ctc: Constraint) -> tuple[int, int]:
@@ -257,32 +258,42 @@ def to_unique_features(model: FM) -> FM:
     return model
 
 
-def fm_stats(fm: FM) -> str:
+def get_unique_features(model: FeatureModel) -> list[Feature]:
+    unique_features = []
+    unique_features_names = set()
+    for feature in model.get_features():
+        if feature.name not in unique_features_names:
+            unique_features_names.add(feature.name)
+            unique_features.append(feature)
+    return unique_features
+
+
+def fm_stats(fm: FeatureModel) -> str:
     lines = []
-    #unique_features = [f for f in fm.get_features() if not any(a.name == 'ref' for a in f.get_attributes())]
-    concrete_features = [f for f in fm.get_features() if not f.is_abstract]
-    abstract_features = [f for f in fm.get_features() if f.is_abstract]
-    #subtree_with_constraints_implications, subtree_without_constraints_implications = get_subtrees_constraints_implications(fm)
-    #features_without_implications = 0 if subtree_without_constraints_implications is None else len(subtree_without_constraints_implications.get_features())
-    #features_with_implications = 0 if subtree_with_constraints_implications is None else len(subtree_with_constraints_implications.get_features())
-    complex_ctcs = len([ctc for ctc in fm.get_constraints() if constraints_utils.is_complex_constraint(ctc)])
-    pseudo_complex_ctcs = len([ctc for ctc in fm.get_constraints() if len(constraints_utils.split_constraint(ctc)) > 1])
-    strict_complex_ctcs = complex_ctcs - pseudo_complex_ctcs
+    n_features = len(fm.get_features())
+    n_abstract_features = sum(f.is_abstract for f in fm.get_features())
+    n_concrete_features = n_features - n_abstract_features
+    n_auxiliary_features = sum(is_auxiliary_feature(f) for f in fm.get_features())
+    n_ctcs = len(fm.get_constraints())
+    n_ctcs_simple = sum(constraints_utils.is_simple_constraint(ctc) for ctc in fm.get_constraints())
+    n_ctcs_complex = n_ctcs - n_ctcs_simple
+    n_pseudo_ctcs = sum(constraints_utils.is_pseudo_complex_constraint(ctc) for ctc in fm.get_constraints())
+    n_strict_ctcs = n_ctcs_complex - n_pseudo_ctcs
+    n_requires_ctcs = sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())
+    n_excludes_ctcs = n_ctcs_simple - n_requires_ctcs
+
     lines.append(f'FM stats:')
-    lines.append(f'  #Features:            {len(fm.get_features())}')
-    lines.append(f'    #Concrete features: {len(concrete_features)}')
-    lines.append(f'    #Abstract features: {len(abstract_features)}')
-    # lines.append(f'    #Unique Features:   {len(unique_features)}')
-    # lines.append(f'    #Features out CTCs: {features_without_implications}')
-    # lines.append(f'    #Features in CTCs:  {features_with_implications}')
-    lines.append(f'  #Relations:           {len(fm.get_relations())}')
-    lines.append(f'  #Constraints:         {len(fm.get_constraints())}')
-    lines.append(f'    #Simple CTCs:       {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_simple_constraint(ctc)])}')
-    lines.append(f'      #Requires:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_requires_constraint(ctc)])}')
-    lines.append(f'      #Excludes:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_excludes_constraint(ctc)])}')
-    lines.append(f'    #Complex CTCs:      {complex_ctcs}')
-    lines.append(f'      #Pseudo CTCs:     {pseudo_complex_ctcs}')
-    lines.append(f'      #Strict CTCs:     {strict_complex_ctcs}')
+    lines.append(f'  #Features:            {n_features}')
+    lines.append(f'    #Concrete features: {n_concrete_features}')
+    lines.append(f'    #Abstract features: {n_abstract_features}')
+    lines.append(f'    #Auxiliary features:{n_auxiliary_features}')
+    lines.append(f'  #Constraints:         {n_ctcs}')
+    lines.append(f'    #Simple CTCs:       {n_ctcs_simple}')
+    lines.append(f'      #Requires:        {n_requires_ctcs}')
+    lines.append(f'      #Excludes:        {n_excludes_ctcs}')
+    lines.append(f'    #Complex CTCs:      {n_ctcs_complex}')
+    lines.append(f'      #Pseudo CTCs:     {n_pseudo_ctcs}')
+    lines.append(f'      #Strict CTCs:     {n_strict_ctcs}')
     return '\n'.join(lines)
 
 

@@ -2,6 +2,8 @@ import pickle
 import multiprocessing
 from typing import Any
 
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
+
 from fm_solver.models.utils import TransformationsVector
 from fm_solver.models.feature_model import FM
 from fm_solver.utils import fm_utils
@@ -55,7 +57,7 @@ class FMSans():
         self.transformations_vector = transformations_vector  
         self.transformations_ids = transformations_ids  
     
-    def get_feature_model(self) -> FM:
+    def get_feature_model(self) -> FeatureModel:
         """Returns the complete feature model without cross-tree constraints."""
         if self.transformations_vector is None:
             return self.fm

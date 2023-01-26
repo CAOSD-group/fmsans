@@ -1,5 +1,5 @@
 {
-    "features_without_constraints": {
+    "feature_tree": {
         "name": "TankWar",
         "abstract": false,
         "relations": [
@@ -386,7 +386,6 @@
         ],
         "attributes": []
     },
-    "features_with_constraints": {},
     "ctcs_transformations": [],
     "transformations_ids": {}
 }
