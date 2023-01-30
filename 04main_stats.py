@@ -1,3 +1,4 @@
+import sys
 import argparse
 import statistics
 
@@ -11,6 +12,8 @@ from fm_solver.utils import fm_utils, utils
 from fm_solver.transformations import FMSansReader
 from fm_solver.operations import FMConfigurationsNumber
 
+
+sys.setrecursionlimit(10000)
 
 def main(fm_filepath: str):
     # Load the feature model
@@ -46,6 +49,7 @@ def main_fmsans(fm_filepath: str):
     n_unique_features = len(fm_utils.get_unique_features(fm))
     n_subtrees = len(subtrees)  # 1 if fmsans_model.transformations_ids is None else len(fmsans_model.transformations_ids)
     n_configs = FMConfigurationsNumber().execute(fm).get_result()
+    n_configs_subtrees = fmsans_model.get_number_of_configurations(8)
     min_features_subtrees = min(features_subtrees)
     max_features_subtrees = max(features_subtrees)
     median_features_subtrees = round(statistics.median(features_subtrees), 2)
@@ -59,6 +63,7 @@ def main_fmsans(fm_filepath: str):
     print(f'    #Mean features:     {mean_features_subtrees}')
     print(f'    #Stdev features:    {stdev_features_subtrees}')
     print(f'  #Configs:             {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
+    print(f'  #Configs (subtrees):  {n_configs_subtrees} ({utils.int_to_scientific_notation(n_configs_subtrees)})')
 
 
 if __name__ == '__main__':
