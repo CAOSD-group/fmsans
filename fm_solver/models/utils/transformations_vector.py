@@ -1,3 +1,4 @@
+import ctypes
 import pickle
 import math
 import copy
@@ -129,7 +130,11 @@ class TransformationsVector():
                                        initial_bit: int = 0,  # Initial bit to be executed
                                        min_id: int = None,
                                        max_id: int = None,  # included
-                                       queue: multiprocessing.Queue = None) -> dict[str, int]:
+                                       queue: multiprocessing.Queue = None,
+                                       progress:multiprocessing.Array = None,
+                                       process_i:int=None,
+                                       reduce_array:multiprocessing.Array = None,) -> dict[str, int]:
+
         """Return all valid transformations ids for this transformations vector in the given model.
         
         It executes the vector from the min_id number to the max_id number (included).
@@ -165,18 +170,40 @@ class TransformationsVector():
             queue.put(valid_transformed_numbers_trees)
         return valid_transformed_numbers_trees
 
-    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1) -> dict[str, int]:
+    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1,  n_min_job:int=-1,n_max_job:int=-1,n_bits_job:int=-1) -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
         queue = multiprocessing.Queue()
         processes = []
         n_bits = self.n_bits()
+        progress_array = multiprocessing.Array(ctypes.c_float,[0] * n_processes)
+        reduce_array = multiprocessing.Array(ctypes.c_longlong,[0] * n_processes);
+        min_max_array=[]
+        
         #n_fixed_bits = int(math.log(n_tasks, 2)) + int(math.log(n_processes, 2))
+        if (n_min_job>=0):
+            left_bits=n_bits_job
+            division = int((n_max_job-n_min_job)/n_processes)
+            min_id=n_min_job
+            for process_i in range(n_processes-1):
+                min_max_array.append([min_id, (process_i+1)*division-1,n_bits_job])
+                min_id+=division
+            min_max_array.append([min_id,n_max_job,n_bits_job])
+
+
         for process_i in range(n_processes):
-            min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i, n_tasks, current_task)
-            p = multiprocessing.Process(target=self._get_valid_transformations_ids, args=(fm, left_bits, min_id, max_id, queue))
+            if (n_min_job>=0):
+                min_id=min_max_array[process_i][0]
+                max_id=min_max_array[process_i][1]
+                left_bits=min_max_array[process_i][2]
+            else:
+                min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i, n_tasks, current_task)     
+            min_max_array.append([min_id,max_id,left_bits])
+            print(str(max_id) + " " + str(left_bits))
+            p = multiprocessing.Process(target=self._get_valid_transformations_ids, args=(fm, left_bits, min_id, max_id, queue,progress_array,process_i,reduce_array))
             p.start()
             processes.append(p)
+
         for p in processes:
             valid_ids = queue.get()
             valid_transformed_numbers_trees.update(valid_ids)

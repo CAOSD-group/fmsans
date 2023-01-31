@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: archivo actual",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/01main.py",
+            "console": "integratedTerminal",
+            "args": ["./fm_models/simples/berkeleydb_simple.uvl", "16",  "1", "0", "0", "70368744177663", "4"],
+            "justMyCode": true
+        }
+    ]
+}
