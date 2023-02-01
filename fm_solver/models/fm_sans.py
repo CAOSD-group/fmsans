@@ -83,9 +83,14 @@ class FMSans():
         for num in self.transformations_ids.values():
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, _ = self.transformations_vector.execute(pick_tree, binary_vector)
-            tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
-            analysis_result = FMFullAnalysis().execute(tree).get_result()
-            results.append(analysis_result)
+            if (tree is not None):
+                tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+                analysis_result = FMFullAnalysis().execute(tree).get_result()
+                results.append(analysis_result)
+            else:
+                if (num==38343105802126):
+                    a=1
+                a=1
         # Join all results
         return FMFullAnalysis.join_results(results)
 

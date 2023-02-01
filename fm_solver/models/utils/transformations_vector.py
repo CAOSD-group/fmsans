@@ -157,6 +157,8 @@ class TransformationsVector():
         pick_tree = pickle.dumps(tree, protocol=pickle.HIGHEST_PROTOCOL)
         # Calculate valid ids
         while num <= max_number:  # Be careful! max should be included or excluded?
+            if (num==38343105802126):
+                a=1
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=initial_bit)
             if tree is not None:
