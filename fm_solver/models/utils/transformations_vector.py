@@ -133,7 +133,7 @@ class TransformationsVector():
                                        queue: multiprocessing.Queue = None,
                                        progress:multiprocessing.Array = None,
                                        process_i:int=None,
-                                       reduce_array:multiprocessing.Array = None,) -> dict[str, int]:
+                                       reduce_array:multiprocessing.Array = None) -> dict[str, int]:
 
         """Return all valid transformations ids for this transformations vector in the given model.
         
