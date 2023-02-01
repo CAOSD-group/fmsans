@@ -87,10 +87,6 @@ class FMSans():
                 tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
                 analysis_result = FMFullAnalysis().execute(tree).get_result()
                 results.append(analysis_result)
-            else:
-                if (num==38343105802126):
-                    a=1
-                a=1
         # Join all results
         return FMFullAnalysis.join_results(results)
 

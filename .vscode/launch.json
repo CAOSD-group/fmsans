@@ -5,12 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: archivo actual",
+            "name": "main",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/01main.py",
             "console": "integratedTerminal",
-            "args": ["./fm_models/simples/berkeleydb_simple.uvl", "16",  "1", "0", "0", "70368744177663", "4"],
+            "args": ["./fm_models/simples/berkeleydb_simple.uvl", "32",  "4", "1", "0", "70368744177663", "4"],
+            "justMyCode": true
+        }
+        {
+            "name": "main2",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/0101main.py",
+            "console": "integratedTerminal",
+            "args": ["./fm_models/simples/berkeleydb_simple.uvl", "BerkeleyDb_32_3-4.csv","32"],
             "justMyCode": true
         }
     ]
