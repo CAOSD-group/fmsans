@@ -22,5 +22,15 @@
             "args": ["./fm_models/simples/berkeleydb_simple.uvl", "BerkeleyDb_32_3-4.csv","32"],
             "justMyCode": true
         }
+        ,
+        {
+            "name": "processTime",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/processTime.py",
+            "console": "integratedTerminal",
+            "args": ["Krieter", "3535418"],
+            "justMyCode": true
+        }
     ]
 }
