@@ -27,20 +27,19 @@ class FMToFMSans(ModelToModel):
     def get_destination_extension() -> str:
         return 'fmsans'
 
-    def __init__(self, source_model: FeatureModel, n_cores: int, n_tasks: int, current_task: int, n_min: int,n_max: int,n_bits: int) -> None:
+    def __init__(self, source_model: FeatureModel, n_cores: int, n_tasks: int, current_task: int, n_min: int,n_max: int) -> None:
         self.feature_model = source_model
         self.n_cores = n_cores
         self.n_tasks = n_tasks
         self.current_task = current_task
         self.n_min_job = n_min
         self.n_max_job = n_max
-        self.n_bits_job = n_bits
     
     def transform(self) -> FMSans:
-        return fm_to_fmsans(self.feature_model, self.n_cores, self.n_tasks, self.current_task, self.n_min_job,self.n_max_job,self.n_bits_job)
+        return fm_to_fmsans(self.feature_model, self.n_cores, self.n_tasks, self.current_task, self.n_min_job,self.n_max_job)
 
 
-def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1, n_tasks: int = 1, current_task: int = 0, n_min_job:int=-1,n_max_job:int=-1,n_bits_job:int=-1) -> FMSans:
+def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1, n_tasks: int = 1, current_task: int = 0, n_min_job:int=-1,n_max_job:int=-1) -> FMSans:
     fm = FM.from_feature_model(feature_model)
 
     if not fm.get_constraints():

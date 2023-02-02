@@ -24,7 +24,7 @@ FM_OUTPUT_FILENAME_POSTFIX = '_fmsans'
 get_min_max_ids_transformations_for_parallelization
 
 
-def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1,n_min: int = -1,n_max: int = -1,n_bits: int = -1):
+def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1,n_min: int = -1,n_max: int = -1):
     # Get feature model name
 
     # Load the feature model
@@ -33,7 +33,7 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     
     # Transform the FM to the fmsans model
     fm = FM.from_feature_model(feature_model)
-    fmsans_model = FMToFMSans(fm, n_cores=n_cores, n_tasks=n_tasks, current_task=current_task,n_min=n_min,n_max=n_max,n_bits=n_bits).transform()
+    fmsans_model = FMToFMSans(fm, n_cores=n_cores, n_tasks=n_tasks, current_task=current_task,n_min=n_min,n_max=n_max).transform()
     result = fmsans_model.get_analysis()
     n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
     print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
@@ -56,7 +56,6 @@ if __name__ == '__main__':
     parser.add_argument('current_task', type=int, default=-1, help='Current task.')
     parser.add_argument('n_min', type=int,  default=-1, help='Number min.')
     parser.add_argument('n_max', type=int, default=-1, help='Number max.')
-    parser.add_argument('n_bits', type=int, default=-1, help='Number max.')
     args = parser.parse_args()
 
-    main(args.feature_model, args.n_cores, args.n_tasks, args.current_task, args.n_min,args.n_max,args.n_bits)
+    main(args.feature_model, args.n_cores, args.n_tasks, args.current_task, args.n_min,args.n_max)
