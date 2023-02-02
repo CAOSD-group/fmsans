@@ -185,7 +185,7 @@ class TransformationsVector():
             if (internal_progress-last_internal_progress>0.01):
                 last_internal_progress=internal_progress
                 with stop_sync.get_lock():
-                    if (stop_sync.value):
+                    if stop_sync.value and internal_progress < 0.5:
                         reduce_array[process_i]=num
                         break #Salimos del bucle
         if queue is not None:
@@ -247,7 +247,7 @@ class TransformationsVector():
                 pass
 
             with stop_sync.get_lock():
-                        if (not stop_sync.value and TransformationsVector.count_json(str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json" )>n_tasks*0.9):
+                        if (not stop_sync.value and TransformationsVector.count_json(str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json" )>n_tasks*0.75):
                             file_new_jobs = open(str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv", "w")
                             stop_sync.value = True
                         elif(stop_sync.value):
