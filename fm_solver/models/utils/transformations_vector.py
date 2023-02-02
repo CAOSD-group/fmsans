@@ -183,7 +183,7 @@ class TransformationsVector():
                 #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
             if (num < max_number):
                 internal_progress = float((num-min_id)/(max_number-min_id))
-                if (internal_progress-last_internal_progress>0.001):
+                if (internal_progress-last_internal_progress>0.0001):
                     last_internal_progress=internal_progress
                     with stop_sync.get_lock():
                         if stop_sync.value:
