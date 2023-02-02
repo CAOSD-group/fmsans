@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/01main.py",
             "console": "integratedTerminal",
-            "args": ["./fm_models/simples/Krieter2020o_simple.uvl", "8",  "256", "1", "-1", "-1"],
+            "args": ["./fm_models/simples/Krieter2020o_simple.uvl", "8",  "256", "182", "-1", "-1"],
             "justMyCode": true
         },
         {

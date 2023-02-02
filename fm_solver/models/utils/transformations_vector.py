@@ -169,11 +169,11 @@ class TransformationsVector():
             return valid_transformed_numbers_trees
         pick_tree = pickle.dumps(tree, protocol=pickle.HIGHEST_PROTOCOL) """
         # Calculate valid ids
-        internal_progress = 0
-        last_internal_progress = 0
+        counter = 0
         while num <= max_number:  # Be careful! max should be included or excluded?
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=0)
+            counter +=1
             if tree is not None:
                 valid_transformed_numbers_trees[hash(tree)] = num
                 #print(f'ID (valid): {num} / {max_number} ({num/max_number}%), #Valids: {len(valid_transformed_numbers_trees)}')
@@ -181,14 +181,12 @@ class TransformationsVector():
             else:  # tree is None
                 num = TransformationsVector.get_next_number_prunning_binary_vector(binary_vector, null_bit)
                 #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
-            if (num < max_number):
-                internal_progress = float((num-min_id)/(max_number-min_id))
-                if (internal_progress-last_internal_progress>0.0001):
-                    last_internal_progress=internal_progress
-                    with stop_sync.get_lock():
-                        if stop_sync.value:
-                            reduce_array[process_i]=num
-                            break #Salimos del bucle
+            if (num < max_number) and counter >1000:
+                counter = 0
+                with stop_sync.get_lock():
+                    if stop_sync.value:
+                        reduce_array[process_i]=num
+                        break #Salimos del bucle
         if queue is not None:
             queue.put([process_i,valid_transformed_numbers_trees])
         return valid_transformed_numbers_trees
