@@ -238,6 +238,7 @@ class TransformationsVector():
 
         counter=n_processes
 
+        file_name = str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv"
         while (counter>0):
             try:
                 valid_ids = queue.get(timeout=5)
@@ -249,7 +250,7 @@ class TransformationsVector():
 
             with stop_sync.get_lock():
                 if (not stop_sync.value and TransformationsVector.count_json(str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json" )>n_tasks*0.75):
-                    file_new_jobs = open(str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv", "w")
+                    file_new_jobs = open(file_name, "w")
                     stop_sync.value = True
                 elif(stop_sync.value):
                     for idx, x in enumerate(reduce_array):
@@ -259,6 +260,10 @@ class TransformationsVector():
         with stop_sync.get_lock():
             if(stop_sync.value):
                 file_new_jobs.close()
+                #If file is empty, it is removed
+                if (os.stat(file_name).st_size == 0):
+                    os.remove(file_name)
+
 
         return valid_transformed_numbers_trees
 
