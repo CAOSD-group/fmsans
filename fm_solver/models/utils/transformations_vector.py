@@ -241,7 +241,7 @@ class TransformationsVector():
         file_name = str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv"
         while (counter>0):
             try:
-                valid_ids = queue.get(timeout=5)
+                valid_ids = queue.get(timeout=10)
                 valid_transformed_numbers_trees.update(valid_ids[1])
                 counter=counter-1
                            
