@@ -5,9 +5,9 @@ import csv
 
 def callBatch(fm,n_cores,n_task,min_id,max_id):
     
-    s="sbatch generateSlurm.sh --export=fm_model="+fm+",n_cores="+n_cores+"+,n_task="+n_task+",n_min="+min_id+",n_max=" + max_id
+    s="sbatch generateSlurm.sh --export=fm_model="+fm+",n_cores="+str(n_cores)+",n_task="+str(n_task)+",n_min="+str(min_id)+",n_max=" + str(max_id)
     print(s+"\n")
-    os.system()
+    os.system(s)
 
 
  
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     with open(args.division_file, newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
         for row in spamreader:
-            callBatch(row)
+            callBatch(args.feature_model,args.n_cores,args.n_task,row[0],row[1])
             print(', '.join(row))
 
 
