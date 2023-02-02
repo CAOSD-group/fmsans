@@ -186,7 +186,7 @@ class TransformationsVector():
                 if (internal_progress-last_internal_progress>0.01):
                     last_internal_progress=internal_progress
                     with stop_sync.get_lock():
-                        if stop_sync.value and internal_progress < 0.5:
+                        if stop_sync.value:
                             reduce_array[process_i]=num
                             break #Salimos del bucle
         if queue is not None:
