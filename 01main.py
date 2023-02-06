@@ -34,9 +34,9 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     # Transform the FM to the fmsans model
     fm = FM.from_feature_model(feature_model)
     fmsans_model = FMToFMSans(fm, n_cores=n_cores, n_tasks=n_tasks, current_task=current_task,n_min=n_min,n_max=n_max).transform()
-    result = fmsans_model.get_analysis()
-    n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
-    print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
+    #result = fmsans_model.get_analysis()
+    #n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
+    #print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
 
     # Serializing the FMSans model
     output_fmsans_filepath = f'{fm.root.name}_{n_cores}_{current_task}-{n_tasks}.json'

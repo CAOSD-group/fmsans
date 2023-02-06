@@ -205,8 +205,6 @@ class TransformationsVector():
         #n_fixed_bits = int(math.log(n_tasks, 2)) + int(math.log(n_processes, 2))
         if (n_min>=0):
             if (n_tasks>1):
-                #2199023255551
-                #4398046511101
                 task_division = int((n_max-n_min)/n_processes)
                 min_id_job = n_min+task_division*current_task
                 max_id_job = n_min+task_division*(current_task+1)-1
@@ -261,6 +259,7 @@ class TransformationsVector():
                 #If file is empty, it is removed
                 if (os.stat(file_name).st_size == 0):
                     os.remove(file_name)
+                
 
 
         return valid_transformed_numbers_trees
