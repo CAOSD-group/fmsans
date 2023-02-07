@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/01main.py",
             "console": "integratedTerminal",
-            "args": ["./fm_models/simples/Krieter2020o_simple.uvl", "8",  "256", "182", "-1", "-1"],
+            "args": ["./fm_models/simples/Krieter2020o_simple.uvl", "4",  "128", "4", "1623313513980050293808", "1770887431076116955135"],
             "justMyCode": true
         },
         {
@@ -19,7 +19,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/0101main.py",
             "console": "integratedTerminal",
-            "args": ["./fm_models/simples/berkeleydb_simple.uvl", "BerkeleyDb_32_3-4.csv","32"],
+            "args": ["R_4_2-128.csv","4"],
             "justMyCode": true
         }
         ,

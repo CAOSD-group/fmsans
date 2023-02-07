@@ -13,6 +13,9 @@ from flamapy.metamodels.fm_metamodel.models import Constraint
 from fm_solver.models.feature_model import FM
 from fm_solver.utils import fm_utils, constraints_utils
 
+from multiprocessing.sharedctypes import RawArray
+from ctypes import c_wchar
+
 
 class SimpleCTCTransformation():
     """It represents a transformation of a simple cross-tree constraint (requires or excludes),
@@ -146,7 +149,7 @@ class TransformationsVector():
                                        queue: multiprocessing.Queue = None,
                                        stop_sync:multiprocessing.Value = None,
                                        process_i:int=None,
-                                       reduce_array:multiprocessing.Array = None) -> list[int,dict[str, int]]:
+                                       reduce_arrayG:multiprocessing.sharedctypes.RawArray = None) -> list[int,dict[str, int]]:
 
         """Return all valid transformations ids for this transformations vector in the given model.
         
@@ -154,6 +157,8 @@ class TransformationsVector():
         For efficiency, it pre-calculated the intermediate model from 0 to the initial_bit 
         (default 0).
         """
+        global reduce_array
+        reduce_array = reduce_arrayG
         n_bits = self.n_bits()
         num = 0 if min_id is None else min_id
         max_number = 2**n_bits - 1 if max_id is None else max_id
@@ -170,6 +175,7 @@ class TransformationsVector():
         pick_tree = pickle.dumps(tree, protocol=pickle.HIGHEST_PROTOCOL) """
         # Calculate valid ids
         counter = 0
+        progress = 0
         while num <= max_number:  # Be careful! max should be included or excluded?
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=0)
@@ -183,9 +189,11 @@ class TransformationsVector():
                 #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
             if (num < max_number) and counter >1000:
                 counter = 0
+                progress = (num-min_id)/(max_number-min_id)
                 with stop_sync.get_lock():
-                    if stop_sync.value:
-                        reduce_array[process_i]=num
+                    if stop_sync.value and progress < 0.5:
+                        reduce_array[process_i].value=str(num)
+                        print("Progress " + str(progress))
                         break #Salimos del bucle
         if queue is not None:
             queue.put([process_i,valid_transformed_numbers_trees])
@@ -199,18 +207,30 @@ class TransformationsVector():
         n_bits = self.n_bits()
         stop_sync = multiprocessing.Value(ctypes.c_bool, lock=True)
         stop_sync.value = False
-        reduce_array = multiprocessing.Array(ctypes.c_longlong,[0] * n_processes)
+        #reduce_array = multiprocessing.Array(ctypes.c_ulonglong,[0] * n_processes)
+        reduce_array = [RawArray(c_wchar, n_bits*2) for _ in range(n_processes)]
+        for i in range(n_processes):
+            reduce_array[i].value="0"
         min_max_array=[]
         
         #n_fixed_bits = int(math.log(n_tasks, 2)) + int(math.log(n_processes, 2))
+        file_name = str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv"
+       
+        json_file_regex=str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json"
+              
         if (n_min>=0):
             if (n_tasks>1):
+                json_file_regex=str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +"--" + str(n_min) + "-" + str(n_max) +".json"
+        
                 task_division = int((n_max-n_min)/n_processes)
                 min_id_job = n_min+task_division*current_task
                 max_id_job = n_min+task_division*(current_task+1)-1
             else:
                 min_id_job = min_id
                 max_id_job = max_id
+
+            file_name = str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + " " + str(min_id_job) + " " + str(max_id_job) + ".csv"
+      
 
             division = int((max_id_job-min_id_job)/n_processes)
             min_id=min_id_job
@@ -219,6 +239,7 @@ class TransformationsVector():
                 min_max_array.append([min_id, min_id+division-1])
                 min_id+=division
             min_max_array.append([min_id,n_max])
+        
 
 
         for process_i in range(n_processes):
@@ -234,10 +255,9 @@ class TransformationsVector():
 
         counter=n_processes
 
-        file_name = str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv"
         while (counter>0):
             try:
-                valid_ids = queue.get(timeout=10)
+                valid_ids = queue.get(timeout=20)
                 valid_transformed_numbers_trees.update(valid_ids[1])
                 counter=counter-1
                            
@@ -245,14 +265,14 @@ class TransformationsVector():
                 pass
 
             with stop_sync.get_lock():
-                if (not stop_sync.value and TransformationsVector.count_json(str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json" )>n_tasks*0.75):
+                if (not stop_sync.value and TransformationsVector.count_json(json_file_regex )>n_tasks*0.9):
                     file_new_jobs = open(file_name, "w")
                     stop_sync.value = True
                 elif(stop_sync.value):
                     for idx, x in enumerate(reduce_array):
-                        if (x > 0):
-                            file_new_jobs.write(str(x)+";"+str(min_max_array[idx][1])+"\n")
-                            reduce_array[idx]=0
+                        if (int(x.value) > 0):
+                            file_new_jobs.write(str(x.value)+";"+str(min_max_array[idx][1])+"\n")
+                            reduce_array[idx].value="0"
         with stop_sync.get_lock():
             if(stop_sync.value):
                 file_new_jobs.close()

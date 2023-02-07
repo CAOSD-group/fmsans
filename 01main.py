@@ -39,7 +39,10 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     #print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
 
     # Serializing the FMSans model
-    output_fmsans_filepath = f'{fm.root.name}_{n_cores}_{current_task}-{n_tasks}.json'
+    if (n_min>0):
+        output_fmsans_filepath = f'{fm.root.name}_{n_cores}_{current_task}-{n_tasks}--{n_min}-{n_max}.json'
+    else:   
+        output_fmsans_filepath = f'{fm.root.name}_{n_cores}_{current_task}-{n_tasks}.json'
     FMSansWriter(output_fmsans_filepath, fmsans_model).transform()
 
     # fm_full = fmsans_model.get_feature_model()
