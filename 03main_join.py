@@ -24,12 +24,13 @@ def main(dirpath: str) -> None:
     print(f'Joining {len(filespaths)} models...')
     for i, filepath in enumerate(filespaths, 1):
         print(f'{i} ', end='', flush=True)
-        fmsans_model = FMSansReader(filepath).transform()
-        if fmsans_model.transformations_ids is not None:
-            if join_model is None:
-                join_model = fmsans_model
-                filename = utils.get_filename_from_filepath(filepath)
-            join_model.transformations_ids.update(fmsans_model.transformations_ids)
+        if (filepath[len(filepath)-4:len(filepath)]=="json"):
+            fmsans_model = FMSansReader(filepath).transform()
+            if fmsans_model.transformations_ids is not None:
+                if join_model is None:
+                    join_model = fmsans_model
+                    filename = utils.get_filename_from_filepath(filepath)
+                join_model.transformations_ids.update(fmsans_model.transformations_ids)
     print()
     print(f'#Subtrees: {len(join_model.transformations_ids)}')
 

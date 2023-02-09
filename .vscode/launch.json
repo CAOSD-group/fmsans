@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/01main.py",
             "console": "integratedTerminal",
-            "args": ["./fm_models/simples/Krieter2020o_simple.uvl", "4",  "128", "4", "1623313513980050293808", "1770887431076116955135"],
+            "args": ["./fm_models/simples/Krieter2020o_simple.uvl", "4",  "128", "4", ".","5","10"],
             "justMyCode": true
         },
         {
@@ -30,6 +30,25 @@
             "program": "${workspaceFolder}/processTime.py",
             "console": "integratedTerminal",
             "args": ["Krieter", "3535418"],
+            "justMyCode": true
+        },
+        {
+            "name": "processOutput",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/02processOutput.py",
+            "console": "integratedTerminal",
+            "args": ["4", "128"],
+            "justMyCode": true
+        }
+        ,
+        {
+            "name": "03join",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/03main_join.py",
+            "console": "integratedTerminal",
+            "args": ["./Krieter/"],
             "justMyCode": true
         }
     ]

@@ -8,6 +8,8 @@ import multiprocessing
 from typing import Any
 from collections.abc import Callable
 
+import time
+
 from flamapy.metamodels.fm_metamodel.models import Constraint
 
 from fm_solver.models.feature_model import FM
@@ -191,15 +193,15 @@ class TransformationsVector():
                 counter = 0
                 progress = (num-min_id)/(max_number-min_id)
                 with stop_sync.get_lock():
-                    if stop_sync.value and progress < 0.5:
+                    if stop_sync.value:
                         reduce_array[process_i].value=str(num)
-                        print("Progress " + str(progress))
-                        break #Salimos del bucle
+                        print("Process " + str(process_i) + " Progress " + str(progress))
+                        num=max_number+1
         if queue is not None:
             queue.put([process_i,valid_transformed_numbers_trees])
         return valid_transformed_numbers_trees
 
-    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1,  n_min:int=-1,n_max:int=-1) -> dict[str, int]:
+    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1,  n_min:int=-1,n_max:int=-1,min_time:int=-1,max_time:int=-1) -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
         queue = multiprocessing.Queue()
@@ -214,13 +216,13 @@ class TransformationsVector():
         min_max_array=[]
         
         #n_fixed_bits = int(math.log(n_tasks, 2)) + int(math.log(n_processes, 2))
-        file_name = str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv"
+        file_name =  "R_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv"
        
-        json_file_regex=str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json"
+        json_file_regex="R_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json"
               
         if (n_min>=0):
             if (n_tasks>1):
-                json_file_regex=str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +"--" + str(n_min) + "-" + str(n_max) +".json"
+                #json_file_regex=str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +"--" + str(n_min) + "-" + str(n_max) +".json"
         
                 task_division = int((n_max-n_min)/n_processes)
                 min_id_job = n_min+task_division*current_task
@@ -229,7 +231,7 @@ class TransformationsVector():
                 min_id_job = min_id
                 max_id_job = max_id
 
-            file_name = str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + " " + str(min_id_job) + " " + str(max_id_job) + ".csv"
+            #file_name = str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + " " + str(min_id_job) + " " + str(max_id_job) + ".csv"
       
 
             division = int((max_id_job-min_id_job)/n_processes)
@@ -241,7 +243,8 @@ class TransformationsVector():
             min_max_array.append([min_id,n_max])
         
 
-
+        #Time to decide if stop or continue
+        st = time.time() 
         for process_i in range(n_processes):
             if (n_min>=0):
                 min_id=min_max_array[process_i][0]
@@ -265,7 +268,9 @@ class TransformationsVector():
                 pass
 
             with stop_sync.get_lock():
-                if (not stop_sync.value and TransformationsVector.count_json(json_file_regex )>n_tasks*0.9):
+                et = time.time()
+                nJson = TransformationsVector.count_json(json_file_regex )
+                if (not stop_sync.value and (et-st > min_time) and (et-st<max_time or nJson>n_tasks*0.5)):
                     file_new_jobs = open(file_name, "w")
                     stop_sync.value = True
                 elif(stop_sync.value):
@@ -273,13 +278,8 @@ class TransformationsVector():
                         if (int(x.value) > 0):
                             file_new_jobs.write(str(x.value)+";"+str(min_max_array[idx][1])+"\n")
                             reduce_array[idx].value="0"
-        with stop_sync.get_lock():
-            if(stop_sync.value):
-                file_new_jobs.close()
-                #If file is empty, it is removed
-                if (os.stat(file_name).st_size == 0):
-                    os.remove(file_name)
-                
+                    if counter==0:
+                        file_new_jobs.close()          
 
 
         return valid_transformed_numbers_trees
