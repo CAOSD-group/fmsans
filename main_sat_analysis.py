@@ -32,6 +32,7 @@ SOLVER_NAMES = """
 CODES = ['Reading', 'Transformation', 'ProductsNumber_op', 'CoreFeatures_op', 'DeadFeatures_op']
 
 
+
 def main(fm_filepath: str, solver_name: str) -> None:
     # Get feature model name
     fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])

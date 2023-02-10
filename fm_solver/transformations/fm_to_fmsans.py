@@ -54,7 +54,7 @@ def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1, n_tasks: int = 1
     
     # Get valid transformations ids.
     n_bits = trans_vector.n_bits()
-    n_processes  = n_cores if n_bits > n_cores else 1
+    n_processes = n_cores if n_bits > n_cores else 1
     valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids(fm, n_processes, n_tasks, current_task)
     
     # Get FMSans instance

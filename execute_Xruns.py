@@ -23,7 +23,7 @@ def main(runs: int, script: str, arguments: list[str]) -> None:
     print(f'Executing {runs} runs: ')
     for i in range(1, runs + 1):
         print(f'{i} ', end='', flush=True)
-        process = subprocess.run(args=['python', script, *arguments], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        process = subprocess.run(args=['python', script, *arguments], stdout=subprocess.PIPE) #, stderr=subprocess.DEVNULL)
         result = process.stdout.decode(locale.getdefaultlocale()[1])
     
         # Parse result:

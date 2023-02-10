@@ -116,7 +116,6 @@ class FMSans():
         tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
         return op().execute(tree).get_result()
 
-
     def get_subtrees(self) -> list[FM]:
         if self.transformations_vector is None:
             return [self.fm]
