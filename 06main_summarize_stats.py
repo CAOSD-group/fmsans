@@ -29,25 +29,32 @@ def main(filepath: str, columns: list[int]):
 
     result = []
     header = list(data[0].keys())
+    new_header = []
     for i, fieldname in enumerate(header):
         if i not in columns:
             result.append(data[0][fieldname])
+            new_header.append(fieldname)
         else:
             values = [float(data[k][fieldname]) for k in range(len(data))]
             values_mean = statistics.mean(values)
             values_stdev = statistics.stdev(values)
             values_median = statistics.median(values)
+            
+            new_header.append(f'{fieldname}_mean')
+            new_header.append(f'{fieldname}_stdev')
+            new_header.append(f'{fieldname}_median')
             result.append(values_mean)
             result.append(values_stdev)
             result.append(values_median)
 
+
     # Write output
     output_file = os.path.join(path, f'{filename}{OUTPUTFILE_SUFIXNAME}.csv')
-    header.insert(0, 'FM')
-    header.insert(1, 'Runs')
+    new_header.insert(0, 'FM')
+    new_header.insert(1, 'Runs')
     result.insert(0, filename)
     result.insert(1, len(data))
-    print(','.join([str(v) for v in header]))
+    print(','.join([str(v) for v in new_header]))
     print(','.join([str(v) for v in result]))
     # with open(output_file, 'w', encoding='utf8') as file:
     #     file.write(header)

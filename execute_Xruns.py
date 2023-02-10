@@ -9,7 +9,7 @@ import locale
 
 
 PYTHON_SCRIPT_SUMMARIZE_STATS = '06main_summarize_stats.py'
-COLUMNS_VALUES = ['4', '5', '6', '7', '8', '9', '10', '11']
+COLUMNS_VALUES = [str(i) for i in range(4, 13+1)]
 
 
 def main(runs: int, script: str, arguments: list[str]) -> None:
