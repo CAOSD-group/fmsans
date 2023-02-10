@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Execute the script X times (runs).
+# A new .csv file is written with the result of all executions.
+# This scripts takes 3 inputs:
+# The FM to execute in .uvl format
+# The Solver name to use
+# The number of execution (runs)
+
+
 SCRIPT="main_sat_analysis.py"
 AUXFILE="aux.csv"
 

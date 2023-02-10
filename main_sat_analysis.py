@@ -4,9 +4,9 @@ import argparse
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
-from flamapy.metamodels.pysat_metamodel.operations import SATCoreFeatures
+from flamapy.metamodels.pysat_metamodel.operations import SATCoreFeatures, SATDeadFeatures
 
-from fm_solver.utils import timer, memory_profiler
+from fm_solver.utils import timer, memory_profiler, sizer
 
 
 SOLVER_NAMES = """
@@ -25,7 +25,7 @@ SOLVER_NAMES = """
             minisatgh   = ('mgh', 'msat-gh', 'minisat-gh')
 """
 
-CODES = ['Reading', 'Transformation', 'CoreFeatures_op']
+CODES = ['Reading', 'Transformation', 'CoreFeatures_op', 'DeadFeatures_op']
 
 
 def main(fm_filepath: str, solver_name: str) -> None:
@@ -36,20 +36,31 @@ def main(fm_filepath: str, solver_name: str) -> None:
     with memory_profiler.MemoryProfiler(name=CODES[0], logger=None), timer.Timer(name=CODES[0], logger=None):
         feature_model = UVLReader(fm_filepath).transform()
 
+    fm_memory = sizer.getsizeof(feature_model, logger=None)
+
     # Create the BDD from the FM
     with memory_profiler.MemoryProfiler(name=CODES[1], logger=None), timer.Timer(name=CODES[1], logger=None):
         sat_model = FmToPysat(feature_model).transform()
 
-    # Products numbers
+    satmodel_memory = sizer.getsizeof(sat_model, logger=None)
+
+    # Core features
     with memory_profiler.MemoryProfiler(name=CODES[2], logger=None), timer.Timer(name=CODES[2], logger=None):
         core_features = SATCoreFeatures(solver_name).execute(sat_model).get_result()
     print(f'Core features: {len(core_features)} {core_features}')
 
+    # Dead features
+    with memory_profiler.MemoryProfiler(name=CODES[3], logger=None), timer.Timer(name=CODES[3], logger=None):
+        dead_features = SATDeadFeatures(solver_name).execute(sat_model).get_result()
+    print(f'Dead features: {len(dead_features)} {dead_features}')
+
     # Print outputs
-    header = f"{','.join(c + '(s)' for c in CODES)},{','.join(c + '(B)' for c in CODES)},#Cores,Cores"
-    values = ','.join([str(timer.Timer.timers[c]) for c in CODES])
+    header = f"FM_size(B),SAT_size(B),{','.join(c + '(s)' for c in CODES)},{','.join(c + '(B)' for c in CODES)},#Cores,Cores,#Deads,Deads"
+    values = f'{fm_memory},{satmodel_memory},'
+    values += ','.join([str(timer.Timer.timers[c]) for c in CODES])
     values += ',' + ','.join([str(memory_profiler.MemoryProfiler.memory_profilers[c]) for c in CODES])
-    values += f',{len(core_features)},{core_features}'
+    values += f',{len(core_features)},"{core_features}"'
+    values += f',{len(dead_features)},"{dead_features}"'
     print(header)
     print(values)
 
