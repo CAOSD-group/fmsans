@@ -9,7 +9,7 @@ import locale
 
 
 PYTHON_SCRIPT_SUMMARIZE_STATS = '06main_summarize_stats.py'
-COLUMNS_VALUES = ['2', '3', '4', '5', '6', '7', '8', '9']
+COLUMNS_VALUES = ['4', '5', '6', '7', '8', '9', '10', '11']
 
 
 def main(runs: int, script: str, arguments: list[str]) -> None:
@@ -29,9 +29,9 @@ def main(runs: int, script: str, arguments: list[str]) -> None:
         # Parse result:
         result_split = result.split(os.linesep)
         header = result_split[-3]
-        header = f'Run,{header}'
+        #header = f'Run,{header}'
         res = result_split[-2]
-        res = f'{i},{res}'
+        #res = f'{i},{res}'
         if not results:
             results.append(header)
             results.append(res)

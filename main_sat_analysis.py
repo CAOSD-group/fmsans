@@ -55,8 +55,8 @@ def main(fm_filepath: str, solver_name: str) -> None:
     print(f'Dead features: {len(dead_features)} {dead_features}')
 
     # Print outputs
-    header = f"FM_size(B),SAT_size(B),{','.join(c + '(s)' for c in CODES)},{','.join(c + '(B)' for c in CODES)},#Cores,Cores,#Deads,Deads"
-    values = f'{fm_memory},{satmodel_memory},'
+    header = f"Features,Constraints,FM_size(B),SAT_size(B),{','.join(c + '(s)' for c in CODES)},{','.join(c + '(B)' for c in CODES)},#Cores,Cores,#Deads,Deads"
+    values = f'{len(feature_model.get_features())},{len(feature_model.get_constraints())},{fm_memory},{satmodel_memory},'
     values += ','.join([str(timer.Timer.timers[c]) for c in CODES])
     values += ',' + ','.join([str(memory_profiler.MemoryProfiler.memory_profilers[c]) for c in CODES])
     values += f',{len(core_features)},"{core_features}"'
