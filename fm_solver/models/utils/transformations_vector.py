@@ -7,16 +7,15 @@ import re
 import multiprocessing
 from typing import Any
 from collections.abc import Callable
-
 import time
+
+import decimal
+
 
 from flamapy.metamodels.fm_metamodel.models import Constraint
 
 from fm_solver.models.feature_model import FM
 from fm_solver.utils import fm_utils, constraints_utils
-
-from multiprocessing.sharedctypes import RawArray
-from ctypes import c_wchar
 
 
 class SimpleCTCTransformation():
@@ -149,9 +148,10 @@ class TransformationsVector():
                                        min_id: int = None,
                                        max_id: int = None,  # included
                                        queue: multiprocessing.Queue = None,
-                                       stop_sync:multiprocessing.Value = None,
+                                       lock:multiprocessing.Lock = None,
                                        process_i:int=None,
-                                       reduce_arrayG:multiprocessing.sharedctypes.RawArray = None) -> list[int,dict[str, int]]:
+                                       reduce_array:multiprocessing.Array = None,
+                                       progress_array:multiprocessing.Array = None) -> list[int,dict[str, int]]:
 
         """Return all valid transformations ids for this transformations vector in the given model.
         
@@ -159,8 +159,7 @@ class TransformationsVector():
         For efficiency, it pre-calculated the intermediate model from 0 to the initial_bit 
         (default 0).
         """
-        global reduce_array
-        reduce_array = reduce_arrayG
+
         n_bits = self.n_bits()
         num = 0 if min_id is None else min_id
         max_number = 2**n_bits - 1 if max_id is None else max_id
@@ -169,16 +168,11 @@ class TransformationsVector():
         # Pre-calculated intermediate tree for efficiency (execute the initial number until reach the initial bit)
         binary_vector = list(format(num, f'0{n_bits}b'))
         pick_tree = pickle.dumps(fm, protocol=pickle.HIGHEST_PROTOCOL)
-        """ tree, _ = self.execute(pick_tree, binary_vector, initial_bit=0, final_bit=initial_bit)
-        if tree is None:
-            if queue is not None:
-                queue.put(valid_transformed_numbers_trees)
-            return valid_transformed_numbers_trees
-        pick_tree = pickle.dumps(tree, protocol=pickle.HIGHEST_PROTOCOL) """
         # Calculate valid ids
         counter = 0
         progress = 0
-        while num <= max_number:  # Be careful! max should be included or excluded?
+
+        while num < max_number:  # Be careful! max should be included or excluded?
             binary_vector = list(format(num, f'0{n_bits}b'))
             tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=0)
             counter +=1
@@ -190,96 +184,117 @@ class TransformationsVector():
                 num = TransformationsVector.get_next_number_prunning_binary_vector(binary_vector, null_bit)
                 #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
             if (num < max_number) and counter >1000:
-                counter = 0
-                progress = (num-min_id)/(max_number-min_id)
-                with stop_sync.get_lock():
-                    if stop_sync.value:
-                        reduce_array[process_i].value=str(num)
-                        print("Process " + str(process_i) + " Progress " + str(progress))
-                        num=max_number+1
+                counter = 0 
+                lock.acquire()
+                progress_array[process_i] = decimal.Decimal(decimal.Decimal(num-min_id)/decimal.Decimal(max_number-min_id))
+                #print("Process " + str(process_i) + " " + str(progress_array[process_i]))
+                if (reduce_array[process_i]==1):
+                    aux = round(decimal.Decimal(num)+(decimal.Decimal(max_number)-decimal.Decimal(num))/2)
+                    max_number=aux
+                    reduce_array[process_i]=aux+1
+                    progress_array[process_i] = decimal.Decimal(decimal.Decimal(num-min_id)/decimal.Decimal(max_number-min_id))
+                    #print("Process " + str(process_i) + " Progress " + str(progress)) 
+                lock.release()
         if queue is not None:
             queue.put([process_i,valid_transformed_numbers_trees])
         return valid_transformed_numbers_trees
 
-    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1,  n_min:int=-1,n_max:int=-1,min_time:int=-1,max_time:int=-1) -> dict[str, int]:
+    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1) -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
         queue = multiprocessing.Queue()
         processes = []
         n_bits = self.n_bits()
-        stop_sync = multiprocessing.Value(ctypes.c_bool, lock=True)
-        stop_sync.value = False
-        #reduce_array = multiprocessing.Array(ctypes.c_ulonglong,[0] * n_processes)
-        reduce_array = [RawArray(c_wchar, n_bits*2) for _ in range(n_processes)]
-        for i in range(n_processes):
-            reduce_array[i].value="0"
-        min_max_array=[]
-        
-        #n_fixed_bits = int(math.log(n_tasks, 2)) + int(math.log(n_processes, 2))
-        file_name =  "R_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv"
-       
-        json_file_regex="R_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json"
-              
-        if (n_min>=0):
-            if (n_tasks>1):
-                #json_file_regex=str(fm.root.name)+ "_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +"--" + str(n_min) + "-" + str(n_max) +".json"
-        
-                task_division = int((n_max-n_min)/n_processes)
-                min_id_job = n_min+task_division*current_task
-                max_id_job = n_min+task_division*(current_task+1)-1
-            else:
-                min_id_job = min_id
-                max_id_job = max_id
 
-            #file_name = str(fm.root.name) + "_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + " " + str(min_id_job) + " " + str(max_id_job) + ".csv"
-      
-
-            division = int((max_id_job-min_id_job)/n_processes)
-            min_id=min_id_job
-            n_max=max_id_job
-            for process_i in range(n_processes-1):
-                min_max_array.append([min_id, min_id+division-1])
-                min_id+=division
-            min_max_array.append([min_id,n_max])
+        lock = multiprocessing.Lock()
         
+        reduce_array = multiprocessing.Array('Q', n_processes)
+
+
+        progress_array = multiprocessing.Array('d', n_processes)
+
+        
+        min_max=[]
 
         #Time to decide if stop or continue
-        st = time.time() 
         for process_i in range(n_processes):
-            if (n_min>=0):
-                min_id=min_max_array[process_i][0]
-                max_id=min_max_array[process_i][1]
-            else:
-                min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i, n_tasks, current_task)     
-            min_max_array.append([min_id,max_id])
-            p = multiprocessing.Process(target=self._get_valid_transformations_ids, args=(fm, min_id, max_id, queue,stop_sync,process_i,reduce_array))
+
+            min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i, n_tasks, current_task)
+            min_max.append([min_id,max_id])
+            p = multiprocessing.Process(target=self._get_valid_transformations_ids, args=(fm, min_id, max_id, queue,lock,process_i,reduce_array, progress_array))
             p.start()
             processes.append(p)
 
-        counter=n_processes
+        counter_launched=n_processes
+        free_slot = []
 
-        while (counter>0):
+        counter_to_be_divided=0
+
+        c=0
+        wait_get_queue = 10
+        while (counter_launched>0):
+            #print("Iteracion " + str(c))
+            #print("Slots free: ")
+            #print(free_slot)
+            #print("COunter launchee " + str(counter_launched) + " counter_to_be_divided " + str(counter_to_be_divided))
+
+            c+=1
             try:
-                valid_ids = queue.get(timeout=20)
+                valid_ids = queue.get(timeout=wait_get_queue)
                 valid_transformed_numbers_trees.update(valid_ids[1])
-                counter=counter-1
-                           
+                counter_launched-=1
+                #A process has been requested to be divided, but it does not divide itself.
+                if (reduce_array[valid_ids[0]]!=1):
+                    counter_to_be_divided+=1
+                   # print("Process " +  str(valid_ids[0]) + " has finished")
+                    
+                else:
+                    counter_to_be_divided+=2
+                    #print("Process " +  str(valid_ids[0]) + " has finished, BUT NOT DIVIDED")
+                free_slot.append(valid_ids[0])
+                
+                    
             except: 
                 pass
+            lock.acquire()
+            if (counter_to_be_divided>0):
+                wait_get_queue = 10
+        
+                min_progress =1
+                min_progress_id = -1
+                cont = 0
+                for i in progress_array:
+                    if ((i>0) and (i<min_progress) and reduce_array[cont] == 0):
+                        min_progress = i
+                        min_progress_id = cont  
+                    cont+=1
+                if (min_progress_id>=0):
+                    reduce_array[min_progress_id]=1
+                    #print("Process " + str(min_progress_id) + " has requested to stop")
+                    counter_to_be_divided-=1   
+            else:
+                wait_get_queue = 60     
+                #Si alguien tiene un valor mayor que cero, es porque ha sido parado, se debe inciar un nuevo hijo
+        
+            cont = 0
+            if(len(free_slot)>0):
+                for i in reduce_array:
+                    if (i>1) and len(free_slot)>0:
+                        min_id = i
+                        max_id = min_max[cont][1]
+                        newId = free_slot.pop(0)
+                        progress_array[newId] = 0
+                        reduce_array[cont]=0
+                        reduce_array[newId]=0
+                        #print("New process " + str(newId) +" from " + str(cont))
+                        p = multiprocessing.Process(target=self._get_valid_transformations_ids, args=(fm, min_id, max_id, queue,lock,newId,reduce_array, progress_array))
+                        counter_launched+=1 #se pone aqui para evitar que se divida hasta el infinito
+                        p.start()
+                        processes.append(p)
+                    cont+=1
+            lock.release()
 
-            with stop_sync.get_lock():
-                et = time.time()
-                nJson = TransformationsVector.count_json(json_file_regex )
-                if (not stop_sync.value and (et-st > min_time) and (et-st<max_time or nJson>n_tasks*0.5)):
-                    file_new_jobs = open(file_name, "w")
-                    stop_sync.value = True
-                elif(stop_sync.value):
-                    for idx, x in enumerate(reduce_array):
-                        if (int(x.value) > 0):
-                            file_new_jobs.write(str(x.value)+";"+str(min_max_array[idx][1])+"\n")
-                            reduce_array[idx].value="0"
-                    if counter==0:
-                        file_new_jobs.close()          
+                  
 
 
         return valid_transformed_numbers_trees

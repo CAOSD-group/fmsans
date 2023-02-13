@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/01main.py",
             "console": "integratedTerminal",
-            "args": ["./fm_models/simples/Krieter2020o_simple.uvl", "4",  "128", "4", ".","5","10"],
+            "args": ["./fm_models/simples/JHipster_simple.uvl", "4",  "4", "3"],
             "justMyCode": true
         },
         {
@@ -36,9 +36,10 @@
             "name": "processOutput",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/02processOutput.py",
+            "cwd": "${workspaceFolder}/GPL/",
+            "program": "./../02processOutput.py",
             "console": "integratedTerminal",
-            "args": ["4", "128"],
+            "args": ["4", "64"],
             "justMyCode": true
         }
         ,
