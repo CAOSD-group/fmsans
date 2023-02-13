@@ -11,7 +11,6 @@
 # FM Solver
 *FM Solver* is a solver and a set of utils for feature models that implement analysis operations without the need of a SAT, #SAT, or BDD solver.
 
-
 It relies on the concept of an *FMSans*. An *FMSans* is a feature model in which cross-tree constraints have been completely refactored into the feature diagram. Thus, all cross-tree constraints are eliminated from the feature model.
 First, complex constraints are refactored using the approach of [Knüppel et al.](https://doi.org/10.1145/3106237.3106252).
 Then, simple constraints (requires and excludes) are refactored using the approach of [van den Broek et al.](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=97c0f26a89db833e41113421c8c1e4633370cb82). 
