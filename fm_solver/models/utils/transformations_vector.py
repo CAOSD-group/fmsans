@@ -20,6 +20,9 @@ from flamapy.metamodels.fm_metamodel.models import Constraint
 from fm_solver.models.feature_model import FM
 from fm_solver.utils import fm_utils, constraints_utils
 
+from multiprocessing.sharedctypes import RawArray
+from ctypes import c_wchar
+
 
 class SimpleCTCTransformation():
     """It represents a transformation of a simple cross-tree constraint (requires or excludes),
@@ -153,7 +156,7 @@ class TransformationsVector():
                                        min_id: int = None,
                                        max_id: int = None,  # included
                                        queue: multiprocessing.Queue = None,
-                                       lock:multiprocessing.Lock = None,
+                                       stop_sync:multiprocessing.Value = None,
                                        process_i:int=None,
                                        min_time:int=None,
                                        max_time:int=None,
@@ -213,7 +216,7 @@ class TransformationsVector():
             queue.put([process_i,valid_transformed_numbers_trees])
         return valid_transformed_numbers_trees
 
-    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1) -> dict[str, int]:
+    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1,  n_min:int=-1,n_max:int=-1,min_time:int=-1,max_time:int=-1) -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
         queue = multiprocessing.Queue()
@@ -259,18 +262,7 @@ class TransformationsVector():
             p.start()
             processes.append(p)
 
-        counter_launched=n_processes
-        free_slot = []
-
-        counter_to_be_divided=0
-
-        c=0
-        wait_get_queue = 10
-        while (counter_launched>0):
-            #print("Iteracion " + str(c))
-            #print("Slots free: ")
-            #print(free_slot)
-            #print("COunter launchee " + str(counter_launched) + " counter_to_be_divided " + str(counter_to_be_divided))
+        counter=n_processes
 
         qWaitTime = 10
         file_new_jobs = open(file_name, "w")
@@ -278,18 +270,8 @@ class TransformationsVector():
             try:
                 valid_ids = queue.get(timeout=qWaitTime)
                 valid_transformed_numbers_trees.update(valid_ids[1])
-                counter_launched-=1
-                #A process has been requested to be divided, but it does not divide itself.
-                if (reduce_array[valid_ids[0]]!=1):
-                    counter_to_be_divided+=1
-                   # print("Process " +  str(valid_ids[0]) + " has finished")
-                    
-                else:
-                    counter_to_be_divided+=2
-                    #print("Process " +  str(valid_ids[0]) + " has finished, BUT NOT DIVIDED")
-                free_slot.append(valid_ids[0])
-                
-                    
+                counter=counter-1
+                           
             except: 
                 pass
 
