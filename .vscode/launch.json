@@ -5,21 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "main",
+            "name": "main0",
             "type": "python",
             "request": "launch",
+            "cwd": "${workspaceFolder}/GPL/",
             "program": "${workspaceFolder}/01main.py",
             "console": "integratedTerminal",
-            "args": ["./fm_models/simples/Krieter2020o_simple.uvl", "4",  "128", "4", ".","5","10"],
+            "args": ["../fm_models/simples/GPL_simple.uvl", "1",  "4", "1", "./","20","60"],
             "justMyCode": true
         },
         {
-            "name": "main2",
+            "name": "processoutput",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/0101main.py",
+            "program": "${workspaceFolder}/02processOutput.py",
+            "cwd": "${workspaceFolder}/GPL/",
             "console": "integratedTerminal",
-            "args": ["R_4_2-128.csv","4"],
+            "args": ["1","4","77371252455336267181195263"],
             "justMyCode": true
         }
         ,
@@ -33,12 +35,13 @@
             "justMyCode": true
         },
         {
-            "name": "processOutput",
+            "name": "processLOCALTime",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/02processOutput.py",
+            "cwd": "${workspaceFolder}/Ghazimi/",
+            "program": "${workspaceFolder}/processTimeLocal.py",
             "console": "integratedTerminal",
-            "args": ["4", "128"],
+            "args": ["OutputR_1_","512"],
             "justMyCode": true
         }
         ,

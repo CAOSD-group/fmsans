@@ -3,6 +3,7 @@ import argparse
 import multiprocessing
 
 import csv
+import decimal
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 
