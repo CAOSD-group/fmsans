@@ -9,7 +9,8 @@ from fm_solver.transformations import FMToFMSans, FMSansReader
 from fm_solver.operations.fmsans_op import (
     FMSansProductsNumber,
     FMSansCoreFeatures,
-    FMSansDeadFeatures
+    FMSansDeadFeatures,
+    FMSansFullAnalysis
 )
 
 from fm_solver.utils import timer, memory_profiler, sizer
@@ -45,9 +46,14 @@ def main(fm_filepath: str, n_cores: int) -> None:
 
     if feature_model is None:
         fm_memory = 0
-        
+        n_features = 0
+        n_constraints = 0
 
     fmsansmodel_memory = sizer.getsizeof(fmsans_model, logger=None)
+
+    # Full analysis
+    with memory_profiler.MemoryProfiler(name=CODES[2], logger=None), timer.Timer(name=CODES[2], logger=None):
+        result = FMSansFullAnalysis(n_cores).execute(fmsans_model).get_result()
 
     # Products numbers
     with memory_profiler.MemoryProfiler(name=CODES[2], logger=None), timer.Timer(name=CODES[2], logger=None):

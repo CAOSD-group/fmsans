@@ -19,7 +19,7 @@ TIME_STRICT_COMPLEX_CTCS = 'TIME_STRICT_COMPLEX_CTCS'
 
 
 def main(fm_filepath: str):
-     # Get feature model name
+    # Get feature model name
     path, filename = os.path.split(fm_filepath)
     filename = ''.join(filename.split('.')[:-1])
 
@@ -42,12 +42,13 @@ def main(fm_filepath: str):
     with timer.Timer(name=TIME_STRICT_COMPLEX_CTCS, logger=None):
         fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
 
-    # Serializing the feature model    
+    # Serializing the feature model
     output_fm_filepath = f'{filename}{FM_OUTPUT_FILENAME_POSTFIX}.uvl'
+    print(f'Serializing FM model in {output_fm_filepath} ...')
     UVLWriter(path=output_fm_filepath, source_model=fm).transform()
 
     total_time = timer.Timer.timers[TIME_PSEUDO_COMPLEX_CTCS] + timer.Timer.timers[TIME_STRICT_COMPLEX_CTCS]
-    print(f'Time: {total_time} s.')
+    print(f'Time (refactorings): {total_time} s.')
 
 
 if __name__ == '__main__':
@@ -56,4 +57,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     main(args.feature_model)
+
+    print(f'Tip: Use the 01main.py script to convert the result FM to FMSans.')
     
