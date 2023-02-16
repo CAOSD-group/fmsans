@@ -3,7 +3,9 @@ import argparse
 import multiprocessing
 import csv
 import re 
+import re 
 from datetime import datetime
+import decimal
 import decimal
 
 def rename_json(date_time,n_processes,n_tasks):
@@ -59,7 +61,7 @@ if __name__ == '__main__':
                 with open(file, newline='') as csvfile:
                     spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
                     for row in spamreader:
-                        divisions.append([int(row[0]),int(row[1]),int(row[1])-int(row[0])])          
+                        divisions.append([decimal.Decimal(row[0]),decimal.Decimal(row[1]),decimal.Decimal(row[1])-decimal.Decimal(row[0])])          
                     csvfile.close()
                 #rename file
                 old_name = file
