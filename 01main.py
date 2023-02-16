@@ -40,16 +40,14 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     with timer.Timer(name=TIME_TRANSFORMATION, logger=None):
         fmsans_model = FMToFMSans(fm, n_cores=n_cores, n_tasks=n_tasks, current_task=current_task).transform()
 
-    result = fmsans_model.get_analysis()
-    n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
-    print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
-
     # Serializing the FMSans model
     output_fmsans_filepath = f'{filename}_{n_cores}_{current_task}-{n_tasks}.json'
     print(f'Serializing FMSans model in {output_fmsans_filepath} ...')
     FMSansWriter(output_fmsans_filepath, fmsans_model).transform()
 
-    print(f'Time (transformation): {timer.Timer.timers[TIME_TRANSFORMATION]} s.')
+    total_time = timer.Timer.timers[TIME_TRANSFORMATION]
+    total_time = round(total_time, 4)
+    print(f'Time (transformation): {total_time} s.')
 
 
 if __name__ == '__main__':

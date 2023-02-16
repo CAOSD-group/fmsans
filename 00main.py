@@ -48,6 +48,7 @@ def main(fm_filepath: str):
     UVLWriter(path=output_fm_filepath, source_model=fm).transform()
 
     total_time = timer.Timer.timers[TIME_PSEUDO_COMPLEX_CTCS] + timer.Timer.timers[TIME_STRICT_COMPLEX_CTCS]
+    total_time = round(total_time, 4)
     print(f'Time (refactorings): {total_time} s.')
 
 
