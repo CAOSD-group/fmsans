@@ -10,13 +10,18 @@ from fm_solver.transformations.refactorings import (
     RefactoringStrictComplexConstraint
 )
 
+from fm_solver.utils import timer
+
 
 FM_OUTPUT_FILENAME_POSTFIX = '_simple'
+TIME_PSEUDO_COMPLEX_CTCS = 'TIME_PSEUDO_COMPLEX_CTCS'
+TIME_STRICT_COMPLEX_CTCS = 'TIME_STRICT_COMPLEX_CTCS'
 
 
 def main(fm_filepath: str):
-    # Get feature model name
-    fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
+     # Get feature model name
+    path, filename = os.path.split(fm_filepath)
+    filename = ''.join(filename.split('.')[:-1])
 
     # Load the feature model
     print(f'Reading FM model... {fm_filepath}')
@@ -29,14 +34,20 @@ def main(fm_filepath: str):
 
     # Refactor pseudo-complex constraints
     print(f'Refactoring pseudo-complex constraints...')
-    fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
+    with timer.Timer(name=TIME_PSEUDO_COMPLEX_CTCS, logger=None):
+        fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
+    
     # Refactor strict-complex constraints
     print(f'Refactoring strict-complex constraints...')
-    fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
+    with timer.Timer(name=TIME_STRICT_COMPLEX_CTCS, logger=None):
+        fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
 
     # Serializing the feature model    
-    output_fm_filepath = f'{fm_name}{FM_OUTPUT_FILENAME_POSTFIX}.uvl'
+    output_fm_filepath = f'{filename}{FM_OUTPUT_FILENAME_POSTFIX}.uvl'
     UVLWriter(path=output_fm_filepath, source_model=fm).transform()
+
+    total_time = timer.Timer.timers[TIME_PSEUDO_COMPLEX_CTCS] + timer.Timer.timers[TIME_STRICT_COMPLEX_CTCS]
+    print(f'Time: {total_time} s.')
 
 
 if __name__ == '__main__':
