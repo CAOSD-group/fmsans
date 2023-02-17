@@ -79,5 +79,3 @@ if __name__ == '__main__':
 
 
     main(args.feature_model, args.n_cores, args.n_tasks, args.current_task, n_min,n_max,args.t_min,args.t_max)
-
-    main(args.feature_model, args.n_cores, args.n_tasks, args.current_task)

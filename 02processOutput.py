@@ -53,15 +53,15 @@ if __name__ == '__main__':
     pattern = re.compile(csv_file_regex)
     now = datetime.now()
     date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
-    rename_json(date_time,args.n_cores,args.n_tasks)
-    rename_ouput(date_time,args.n_cores,args.n_tasks)
+    #rename_json(date_time,args.n_cores,args.n_tasks)
+    #rename_ouput(date_time,args.n_cores,args.n_tasks)
     for roots,dirs, files in os.walk("."):
         for file in files:
             if pattern.match(file):
                 with open(file, newline='') as csvfile:
                     spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
                     for row in spamreader:
-                        divisions.append([decimal.Decimal(row[0]),decimal.Decimal(row[1]),decimal.Decimal(row[1])-decimal.Decimal(row[0])])          
+                        divisions.append([int(row[0]),int(row[1]),int(row[1])-int(row[0])])          
                     csvfile.close()
                 #rename file
                 old_name = file
@@ -79,6 +79,7 @@ if __name__ == '__main__':
         cont+=1
     progression = decimal.Decimal(sumConfigToDo/args.n_max)
     print("To complete " + str(progression))
+    print("To complete " + str(sumConfigToDo))
 
 
     while (len(divisionCopy)<args.n_tasks):

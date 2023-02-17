@@ -209,8 +209,8 @@ class TransformationsVector():
                 with stop_sync.get_lock():
                     if ((et-st>min_time) and (stop_sync.value or (et-st>max_time))):
                         reduce_array[process_i].value=str(num)
-                        progress =decimal.Decimal((num-min_id)/(max_number-min_id))
-                        print("Process " + str(process_i) + " Progress " + str(progress))
+                        progress =decimal.Decimal(decimal.Decimal(num-min_id)/decimal.Decimal(max_number-min_id))
+                        print("Process " + str(process_i) + " Progress " + str(progress) + " time " + str(et-st) + " > " + str(min_time))
                         break
         if queue is not None:
             queue.put([process_i,valid_transformed_numbers_trees])
@@ -278,7 +278,7 @@ class TransformationsVector():
             with stop_sync.get_lock():
                 if (not stop_sync.value):
                     nJson = TransformationsVector.count_json(json_file_regex )
-                    if (nJson>n_tasks*0.5):
+                    if (nJson>n_tasks*0.94):
                         print("All processes should stop now!")
                         stop_sync.value = True
                         qWaitTime = 30
