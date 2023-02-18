@@ -15,6 +15,16 @@
             "justMyCode": true
         },
         {
+            "name": "COMPLETo",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/00alli1.py",
+            "cwd": "${workspaceFolder}/GPL/",
+            "console": "integratedTerminal",
+            "args": [],
+            "justMyCode": true
+        },
+        {
             "name": "processoutput",
             "type": "python",
             "request": "launch",

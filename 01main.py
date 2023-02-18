@@ -30,12 +30,12 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     # Get feature model name
 
     # Load the feature model
-    print(f'Reading FM model... {fm_filepath}')
+   # print(f'Reading FM model... {fm_filepath}')
     feature_model = UVLReader(fm_filepath).transform()
     
     # Transform the FM to the fmsans model
     fm = FM.from_feature_model(feature_model)
-    print("NCores " + str(n_cores)+"NTask " + str(n_tasks)+"CurrentTask " + str(current_task))
+    #print("NCores " + str(n_cores)+"NTask " + str(n_tasks)+"CurrentTask " + str(current_task))
     fmsans_model = FMToFMSans(fm, n_cores=n_cores, n_tasks=n_tasks, current_task=current_task,n_min=n_min,n_max=n_max,min_time=t_min,max_time=t_max).transform()
     #result = fmsans_model.get_analysis()
     #n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]

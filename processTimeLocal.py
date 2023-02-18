@@ -2,6 +2,7 @@ import os
 import argparse
 import re
 import numpy as np
+import sys
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process minimumtime')
     parser.add_argument('fixed_name', type=str, help='Name of the json files.')
@@ -22,10 +23,12 @@ if __name__ == '__main__':
                 
                 arrayTime.append(float(div[3].replace(',','.'))+float(div[5].replace(',','.')))
                             
-    print("Max value real")
-    print(np.max(arrayTime))
-    print("Average value real")
-    print(np.average(arrayTime))
-    print("Min value real")
-    print(np.min(arrayTime))
+                            
+    #print("Max value real")
+    print(np.max(arrayTime),end = '')
+    #print("Average value real")
+    #print(np.average(arrayTime))
+    #print("Min value real")
+    #print(np.min(arrayTime))
+    #sys.exit(np.max(arrayTime))
     
