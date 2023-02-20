@@ -3,17 +3,20 @@ import time
 import subprocess
 import re
 
-numberTasks = 128
-min_time = 180
-max_time = 300
+numberTasks = 8
+min_time = 120
+max_time = 240
 num_cpus=1
-sleep = 30
+sleep = 1
 sleepCounter=8
 #improve to check for more than only one
 ficheroCSV= " . "
-#maxConfiguration=77371252455336267181195263
-maxConfiguration=128978157015543273035239205301883937138390460458037480988271657477215308241387905145121400363197555638348240965150666181367760634644210336242807367788803607643649092773194600627131718182721299085210994362356247168981452219910049252646092992863046014767953755101986815
-model="uClibc_simple.uvl"
+#GPL maxConfiguration=77371252455336267181195263
+#uCLib maxConfiguration=128978157015543273035239205301883937138390460458037480988271657477215308241387905145121400363197555638348240965150666181367760634644210336242807367788803607643649092773194600627131718182721299085210994362356247168981452219910049252646092992863046014767953755101986815
+# Ghamizi maxConfiguration=1298074214633706907132624082305023
+# axTLS  maxConfiguration= 748288838313422294120286634350736906063837462003711
+maxConfiguration=75557863725914323419135
+model="Krieter2020o_simple.uvl"
 
 
 def count_file_by_extension(extension,n_cpu,n_tasks):
@@ -42,7 +45,9 @@ while (True):
     cont = 0 
     for i in range(numberTasks):
             fS= "./OutputR_" + str(num_cpus)+"_" + str(i) + "-" + str(numberTasks) + ".err"
-            comando= "/usr/bin/time -o " + fS  + " python ./../01main.py ./../fm_models/simples/" + model + " " + str(num_cpus) +" " + str(numberTasks) + " " + str(i) + ficheroCSV + str(min_time) + " " + str(max_time) + " &"
+            #comando= "/usr/bin/time -o " + fS  + " python ./../picasso01main.py ./../fm_models/simples/" + model + " " + str(num_cpus) +" " + str(numberTasks) + " " + str(i) + ficheroCSV + str(min_time) + " " + str(max_time) + " &"
+            
+            comando= "/usr/bin/time -o " + fS  + " python ./../picasso01main.py ./../fm_models/simples/" + model + "  " + str(numberTasks) + " " + str(i) + ficheroCSV + str(min_time) + " " + str(max_time) + " &"
             #print(comando)
             os.system(comando) 
         

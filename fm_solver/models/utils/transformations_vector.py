@@ -215,6 +215,58 @@ class TransformationsVector():
         if queue is not None:
             queue.put([process_i,valid_transformed_numbers_trees])
         return valid_transformed_numbers_trees
+    
+    def _picasso_get_valid_transformations_ids(self, 
+                                       fm: FM, 
+                                       n_tasks: int = 1,
+                                       current_task:int=0,
+                                       min_id: int = None,
+                                       max_id: int = None,  # included
+                                       min_time:int=None,
+                                       max_time:int=None) -> dict[str, int]:
+
+        """Return all valid transformations ids for this transformations vector in the given model.
+        
+        It executes the vector from the min_id number to the max_id number (included).
+        For efficiency, it pre-calculated the intermediate model from 0 to the initial_bit 
+        (default 0).
+        """
+        n_bits = self.n_bits()
+        num = 0 if min_id is None else min_id
+        max_number = 2**n_bits - 1 if max_id is None else max_id
+        valid_transformed_numbers_trees = {}
+        binary_vector = list(format(num, f'0{n_bits}b'))
+        pick_tree = pickle.dumps(fm, protocol=pickle.HIGHEST_PROTOCOL)
+
+        counter = 0
+        st = process_time()
+        json_file_regex="R_1_[0-9]+-" + str(n_tasks) +".json"
+        file_name =  "R_1_" + str(current_task) + "-" + str(n_tasks) + ".csv"
+        while num < max_number:  # Be careful! max should be included or excluded?
+            binary_vector = list(format(num, f'0{n_bits}b'))
+            tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=0)
+            counter +=1
+            if tree is not None:
+                valid_transformed_numbers_trees[hash(tree)] = num
+                #print(f'ID (valid): {num} / {max_number} ({num/max_number}%), #Valids: {len(valid_transformed_numbers_trees)}')
+                num += 1
+            else:  # tree is None
+                num = TransformationsVector.get_next_number_prunning_binary_vector(binary_vector, null_bit)
+                #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
+            if (num < max_number) and counter >1000:
+                et = process_time()
+                counter = 0
+                nJson = TransformationsVector.count_json(json_file_regex)
+                if ((et-st>min_time) and (nJson > 0.5 or (et-st>max_time))):
+                    file_new_jobs = open(file_name, "w")
+                    file_new_jobs.write(str(num)+";"+str(max_number)+"\n")
+                    file_new_jobs.close()
+
+                    progress =decimal.Decimal(decimal.Decimal(num-min_id)/decimal.Decimal(max_number-min_id))
+                    print("Process Progress " + str(progress) + " time " + str(et-st) + " > " + str(min_time))
+                    break
+        return valid_transformed_numbers_trees
+
 
     def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1,  n_min:int=-1,n_max:int=-1,min_time:int=-1,max_time:int=-1) -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
@@ -235,7 +287,7 @@ class TransformationsVector():
         #n_fixed_bits = int(math.log(n_tasks, 2)) + int(math.log(n_processes, 2))
         file_name =  "R_" + str(n_processes) + "_" + str(current_task) + "-" + str(n_tasks) + ".csv"
        
-        json_file_regex="R_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json"
+
         min_max_array=[]   
         if (n_min>=0):
             division = round((n_max-n_min)//n_processes)
@@ -277,7 +329,7 @@ class TransformationsVector():
 
             with stop_sync.get_lock():
                 if (not stop_sync.value):
-                    nJson = TransformationsVector.count_json(json_file_regex )
+                    
                     if (nJson>n_tasks*0.5):
                         #print("All processes should stop now!")
                         stop_sync.value = True
@@ -291,6 +343,23 @@ class TransformationsVector():
         if os.path.getsize(file_name) == 0:
             os.remove(file_name)
 
+
+        return valid_transformed_numbers_trees
+    
+    def get_valid_transformations_ids_picassso(self, fm: FM, n_tasks: int = 1, current_task: int = 1,  n_min:int=-1,n_max:int=-1,min_time:int=-1,max_time:int=-1) -> dict[str, int]:
+        """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
+        valid_transformed_numbers_trees = {}
+        n_bits = self.n_bits()
+        
+        min_id=n_min
+        max_id=n_max
+        if (n_min<0):
+            min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, 1, 0, n_tasks, current_task)     
+           
+
+        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, min_time,max_time)
+        valid_transformed_numbers_trees.update(valid_ids)
+            
 
         return valid_transformed_numbers_trees
 

@@ -9,9 +9,9 @@
             "type": "python",
             "request": "launch",
             "cwd": "${workspaceFolder}/GPL/",
-            "program": "${workspaceFolder}/01main.py",
+            "program": "${workspaceFolder}/picasso01main.py",
             "console": "integratedTerminal",
-            "args": ["../fm_models/simples/GPL_simple.uvl", "1",  "4", "1", "./","20","60"],
+            "args": ["../fm_models/simples/Krieter2020o_simple.uvl",  "1", "0", "./","20","60"],
             "justMyCode": true
         },
         {

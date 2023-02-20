@@ -15,7 +15,7 @@ if (os.path.isfile("./R_" + str(num_cpus)+"_"+str(numberTasks)+"_joined_0.csv"))
 cont = 0 
 for i in range(numberTasks):
         fS= "./OutputR_" + str(num_cpus)+"_" + str(i) + "-" + str(numberTasks) + ".err"
-        comando= "/usr/bin/time -o " + fS  + " python ./../01main.py ./../fm_models/simples/uClibc_simple.uvl " + str(num_cpus) +" " + str(numberTasks) + " " + str(i) + ficheroCSV + str(min_time) + " " + str(max_time) + " &"
+        comando= "/usr/bin/time -o " + fS  + " python ./../01main.py ./../fm_models/simples/GPL_simple.uvl " + str(num_cpus) +" " + str(numberTasks) + " " + str(i) + ficheroCSV + str(min_time) + " " + str(max_time) + " &"
         print(comando)
         os.system(comando) 
        
