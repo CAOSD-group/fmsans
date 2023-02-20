@@ -42,6 +42,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
     parser.add_argument('n_cores', type=int, default=multiprocessing.cpu_count(), help='Number of cores (processes) to execute (power of 2) (default = CPU count).')
     parser.add_argument('n_tasks', type=int,  default=-1, help='Number of tasks.')
+    parser.add_argument('new_tasks', type=int,  default=-1, help='Number of tasks.')
     parser.add_argument('n_max', type=int,  default=-1, help='Maximum configurations')
     args = parser.parse_args()
 
@@ -84,7 +85,7 @@ if __name__ == '__main__':
         myfile.write(str(progression) + "\n")
         myfile.close()
 
-    while (len(divisionCopy)<args.n_tasks):
+    while (len(divisionCopy)<args.new_tasks):
         first=divisionCopy.pop(0)
         middle = round((first[1]-first[0])//2+first[0])
         divisionCopy.append([first[0], middle, middle-first[0]])
@@ -92,23 +93,23 @@ if __name__ == '__main__':
         divisionCopy.sort(key=lambda x: x[2],reverse=True)
 
    
-    if (len(divisionCopy)>args.n_tasks):
+    if (len(divisionCopy)>args.new_tasks):
         #Dividir en dos tareas
         a=1
         cont = 0
         numberFiles = 1
         while (cont < len(divisionCopy)):
-            file_name = "R_" + str(args.n_cores) + "_" + str(args.n_tasks) +"_joined_"+ str(numberFiles) +".csv"
+            file_name = "R_" + str(args.n_cores) + "_" + str(args.new_tasks) +"_joined_"+ str(numberFiles) +".csv"
             if os.path.isfile("./"+file_name):
                 os.rename("./"+file_name, str(date_time)+file_name)
-            write2file(cont,args.n_tasks*numberFiles-1,file_name,divisionCopy);
-            cont += args.n_tasks
+            write2file(cont,args.new_tasks*numberFiles-1,file_name,divisionCopy);
+            cont += args.new_tasks
             numberFiles +=1
-    elif (len(divisionCopy)==args.n_tasks):
+    elif (len(divisionCopy)==args.new_tasks):
         #Escribir a fichero
-        file_name = "R_" + str(args.n_cores) + "_" + str(args.n_tasks) +"_joined_0.csv"
+        file_name = "R_" + str(args.n_cores) + "_" + str(args.new_tasks) +"_joined_0.csv"
         if os.path.isfile("./"+file_name):
             os.rename(file_name, str(date_time)+file_name)
-        write2file(0,args.n_tasks-1,"./"+file_name,divisionCopy);
+        write2file(0,args.new_tasks-1,"./"+file_name,divisionCopy);
     else:
         print("Error al dividir, salen " + str(len(divisionCopy) + "divisiones"))
