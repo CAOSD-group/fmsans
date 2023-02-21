@@ -11,7 +11,7 @@
             "cwd": "${workspaceFolder}/GPL/",
             "program": "${workspaceFolder}/picasso01main.py",
             "console": "integratedTerminal",
-            "args": ["../fm_models/simples/Krieter2020o_simple.uvl",  "1", "0", "./","20","60"],
+            "args": ["../fm_models/originals/Operating_Systems/KConfig/uClinux-distribution.uvl",  "1", "0", "./","20","60"],
             "justMyCode": true
         },
         {

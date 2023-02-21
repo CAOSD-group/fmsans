@@ -82,7 +82,7 @@ if __name__ == '__main__':
     print("To complete " + str(progression))
 
     with open("progresssion.csv", "a") as myfile:
-        myfile.write(str(progression) + "\n")
+        myfile.write(str(sumConfigToDo) + " " + str(progression) + "\n")
         myfile.close()
 
     while (len(divisionCopy)<args.new_tasks):

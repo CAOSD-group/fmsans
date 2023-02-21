@@ -11,6 +11,7 @@ from collections.abc import Callable
 from time import process_time
 import decimal
 import time
+import gc
 
 from ctypes import c_wchar
 from multiprocessing.sharedctypes import RawArray
@@ -242,9 +243,12 @@ class TransformationsVector():
         st = process_time()
         json_file_regex="R_1_[0-9]+-" + str(n_tasks) +".json"
         file_name =  "R_1_" + str(current_task) + "-" + str(n_tasks) + ".csv"
+        gc.disable()
         while num < max_number:  # Be careful! max should be included or excluded?
             binary_vector = list(format(num, f'0{n_bits}b'))
+            
             tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=0)
+            
             counter +=1
             if tree is not None:
                 valid_transformed_numbers_trees[hash(tree)] = num
@@ -253,11 +257,16 @@ class TransformationsVector():
             else:  # tree is None
                 num = TransformationsVector.get_next_number_prunning_binary_vector(binary_vector, null_bit)
                 #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
+            del tree
             if (num < max_number) and counter >1000:
+                gc.enable()
                 et = process_time()
                 counter = 0
-                nJson = TransformationsVector.count_json(json_file_regex)
-                if ((et-st>min_time) and (nJson > 0.5 or (et-st>max_time))):
+                gc.disable()
+                #nJson = TransformationsVector.count_json(json_file_regex)
+                #if ((et-st>min_time) and (nJson > 0.5 or (et-st>max_time))):
+                if (et-st>max_time):
+                 
                     file_new_jobs = open(file_name, "w")
                     file_new_jobs.write(str(num)+";"+str(max_number)+"\n")
                     file_new_jobs.close()
@@ -265,6 +274,7 @@ class TransformationsVector():
                     progress =decimal.Decimal(decimal.Decimal(num-min_id)/decimal.Decimal(max_number-min_id))
                     print("Process Progress " + str(progress) + " time " + str(et-st) + " > " + str(min_time))
                     break
+        
         return valid_transformed_numbers_trees
 
 
