@@ -137,18 +137,7 @@ class TransformationsVector():
         if bit < 0:
             num = 2**len(binary_vector)
         return num
-    
 
-    @staticmethod
-    def count_json(model_name):
-        pattern = re.compile(model_name)
-        json_file_count = 0 
-        for roots,dirs, files in os.walk("."):
-            for file in files:
-                if pattern.match(file):
-                    json_file_count += 1  
-            break
-        return json_file_count 
        
 
 
@@ -241,13 +230,19 @@ class TransformationsVector():
 
         counter = 0
         st = process_time()
-        json_file_regex="R_1_[0-9]+-" + str(n_tasks) +".json"
+        list_json = []
+        for i in range(n_tasks):
+            list_json.append("R_1_" + str(i) + "-" + str(n_tasks) +".json")
+        
+            
         file_name =  "R_1_" + str(current_task) + "-" + str(n_tasks) + ".csv"
-        gc.disable()
+        countMax=1000
         while num < max_number:  # Be careful! max should be included or excluded?
             binary_vector = list(format(num, f'0{n_bits}b'))
             
+            gc.disable()
             tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=0)
+            gc.enable()
             
             counter +=1
             if tree is not None:
@@ -257,16 +252,17 @@ class TransformationsVector():
             else:  # tree is None
                 num = TransformationsVector.get_next_number_prunning_binary_vector(binary_vector, null_bit)
                 #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
-            del tree
-            if (num < max_number) and counter >1000:
-                gc.enable()
+            
+            if (num < max_number) and counter >countMax:
+               
                 et = process_time()
                 counter = 0
-                gc.disable()
-                #nJson = TransformationsVector.count_json(json_file_regex)
-                #if ((et-st>min_time) and (nJson > 0.5 or (et-st>max_time))):
-                if (et-st>max_time):
-                 
+
+                
+                list_json = [x for x in list_json if not os.path.isfile("./"+x)]
+                
+                if ((et-st>min_time) and (len(list_json) < 0.5*n_tasks or (et-st>max_time))):
+                #if (et-st>max_time):
                     file_new_jobs = open(file_name, "w")
                     file_new_jobs.write(str(num)+";"+str(max_number)+"\n")
                     file_new_jobs.close()
