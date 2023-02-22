@@ -21,7 +21,10 @@ if __name__ == '__main__':
                 line=lines[0]
                 div=re.split(r' +', line)
                 
-                arrayTime.append(float(div[3].replace(',','.'))+float(div[5].replace(',','.')))
+                #arrayTime.append(float(div[3].replace(',','.'))+float(div[5].replace(',','.')))
+                arrayTime.append(float(div[0])+float(div[1]))
+
+                 
                             
                             
     #print("Max value real")

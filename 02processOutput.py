@@ -7,6 +7,7 @@ import re
 from datetime import datetime
 import decimal
 import decimal
+import math
 
 def rename_json(date_time,n_processes,n_tasks):
     json_file_regex="R_" + str(n_processes) + "_[0-9]+-" + str(n_tasks) +".json" 
@@ -34,9 +35,32 @@ def write2file(ini, end, fileName,data):
     file_new_jobs = open(fileName, "w")
     cont = 0
     for row in data:
-        file_new_jobs.write(str(int(cont))+";"+str(int(row[0]))+";"+str(int(row[1]))+";"+"\n")
+        file_new_jobs.write(str(int(cont))+";"+str(int(row[0]))+";"+str(int(row[1]))+";"+str(int(row[3]))+";\n")
         cont+=1
     file_new_jobs.close()
+
+def get_intervals(n_min,n_max) -> tuple[int, int, int,int]:
+    
+    and_min_max = bin(n_min^n_max)
+    and_min_max=and_min_max[2:]
+    s_min=bin(n_min)[2:]
+    s_max=bin(n_max)[2:]
+    n_bits_total = n_max.bit_length()
+    index = and_min_max.find('1') + n_bits_total - (n_min^n_max).bit_length()
+    and_min_max=s_min[0:index]
+    
+
+
+    firstIntervalLower = n_min
+    firstIntervalUpper = "0b" + and_min_max + "01" + bin(2**(n_bits_total-index-2)-1)[2:]
+    secondIntervalLower = "0b" + and_min_max + "10" + format(0, f'0{n_bits_total-index-2}b')
+    firstIntervalUpper = int(firstIntervalUpper,2)
+    secondIntervalLower = int(secondIntervalLower,2)
+    secondIntervalUpper = n_max
+
+
+    return (firstIntervalLower, firstIntervalUpper, secondIntervalLower,secondIntervalUpper)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
@@ -62,7 +86,8 @@ if __name__ == '__main__':
                 with open(file, newline='') as csvfile:
                     spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
                     for row in spamreader:
-                        divisions.append([int(row[0]),int(row[1]),int(row[1])-int(row[0])])          
+                        #current, min, dif, max
+                        divisions.append([int(row[0]),int(row[2]),int(row[1])-int(row[0]),int(row[1])])          
                     csvfile.close()
                 #rename file
                 old_name = file
@@ -87,9 +112,14 @@ if __name__ == '__main__':
 
     while (len(divisionCopy)<args.new_tasks):
         first=divisionCopy.pop(0)
-        middle = round((first[1]-first[0])//2+first[0])
-        divisionCopy.append([first[0], middle, middle-first[0]])
-        divisionCopy.append([middle+1, first[1], first[1]-(middle+1)])
+        currentNun=first[0]
+        firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(first[1],first[3])
+        
+        while(currentNun>firstIntervalUpper):
+            firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(secondIntervalLower,secondIntervalUpper)
+
+        divisionCopy.append([currentNun,firstIntervalLower,firstIntervalUpper-currentNun,firstIntervalUpper])
+        divisionCopy.append([secondIntervalLower,secondIntervalLower,secondIntervalUpper-secondIntervalLower,secondIntervalUpper])
         divisionCopy.sort(key=lambda x: x[2],reverse=True)
 
    

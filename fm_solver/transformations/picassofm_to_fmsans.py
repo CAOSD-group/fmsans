@@ -29,14 +29,15 @@ class PicassoFMToFMSans(FMToFMSans):
     def get_destination_extension() -> str:
         return 'fmsans'
 
-    def __init__(self, source_model: feature_model, n_tasks: int, current_task: int, n_min: int,n_max: int,min_time:int,max_time:int) -> None:
+    def __init__(self, source_model: feature_model, n_tasks: int, current_task: int, n_min: int,n_max: int,n_current:int,min_time:int,max_time:int) -> None:
          super().__init__(source_model, 1, n_tasks, current_task, n_min,n_max,min_time,max_time)
+         self.n_current=n_current
 
     def transform(self) -> FMSans:
-         return picasso_fm_to_fmsans(self.feature_model, self.n_tasks, self.current_task, self.n_min_job,self.n_max_job,self.min_time,self.max_time)
+         return picasso_fm_to_fmsans(self.feature_model, self.n_tasks, self.current_task, self.n_min_job,self.n_max_job,self.n_current,self.min_time,self.max_time)
 
 
-def picasso_fm_to_fmsans(feature_model: FeatureModel, n_tasks: int = 1, current_task: int = 0, n_min_job:int=-1,n_max_job:int=-1,min_time:int=-1,max_time:int=-1) -> FMSans:
+def picasso_fm_to_fmsans(feature_model: FeatureModel, n_tasks: int = 1, current_task: int = 0, n_min_job:int=-1,n_max_job:int=-1,n_current=-1,min_time:int=-1,max_time:int=-1) -> FMSans:
     fm = FM.from_feature_model(feature_model)
 
     if not fm.get_constraints():
@@ -51,7 +52,7 @@ def picasso_fm_to_fmsans(feature_model: FeatureModel, n_tasks: int = 1, current_
     # Get transformations vector
     trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
     
-    valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids_picassso(fm, n_tasks, current_task, n_min_job,n_max_job, min_time,max_time)
+    valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids_picassso(fm, n_tasks, current_task, n_min_job,n_max_job, n_current,min_time,max_time)
     
     # Get FMSans instance
     return FMSans(FM(fm.root), trans_vector, valid_transformed_numbers_trees)

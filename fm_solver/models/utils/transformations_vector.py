@@ -210,8 +210,9 @@ class TransformationsVector():
                                        fm: FM, 
                                        n_tasks: int = 1,
                                        current_task:int=0,
-                                       min_id: int = None,
+                                       min_id: int = 0,
                                        max_id: int = None,  # included
+                                       current_id:int = None,
                                        min_time:int=None,
                                        max_time:int=None) -> dict[str, int]:
 
@@ -222,7 +223,7 @@ class TransformationsVector():
         (default 0).
         """
         n_bits = self.n_bits()
-        num = 0 if min_id is None else min_id
+        num = current_id
         max_number = 2**n_bits - 1 if max_id is None else max_id
         valid_transformed_numbers_trees = {}
         binary_vector = list(format(num, f'0{n_bits}b'))
@@ -261,10 +262,10 @@ class TransformationsVector():
                 
                 list_json = [x for x in list_json if not os.path.isfile("./"+x)]
                 
-                if ((et-st>min_time) and (len(list_json) < 0.5*n_tasks or (et-st>max_time))):
+                if ((et-st>min_time) and (len(list_json) < n_tasks or (et-st>max_time))):
                 #if (et-st>max_time):
                     file_new_jobs = open(file_name, "w")
-                    file_new_jobs.write(str(num)+";"+str(max_number)+"\n")
+                    file_new_jobs.write(str(num)+";"+str(max_number)+";"+str(min_id)+"\n")
                     file_new_jobs.close()
 
                     progress =decimal.Decimal(decimal.Decimal(num-min_id)/decimal.Decimal(max_number-min_id))
@@ -352,7 +353,7 @@ class TransformationsVector():
 
         return valid_transformed_numbers_trees
     
-    def get_valid_transformations_ids_picassso(self, fm: FM, n_tasks: int = 1, current_task: int = 1,  n_min:int=-1,n_max:int=-1,min_time:int=-1,max_time:int=-1) -> dict[str, int]:
+    def get_valid_transformations_ids_picassso(self, fm: FM, n_tasks: int = 1, current_task: int = -1,  n_min:int=-1,n_max:int=-1,n_current=-1,min_time:int=-1,max_time:int=-1) -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
         n_bits = self.n_bits()
@@ -360,10 +361,11 @@ class TransformationsVector():
         min_id=n_min
         max_id=n_max
         if (n_min<0):
-            min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, 1, 0, n_tasks, current_task)     
+            min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, 1, 0, n_tasks, current_task)   
+            n_current =  min_id 
            
 
-        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, min_time,max_time)
+        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, n_current,min_time,max_time)
         valid_transformed_numbers_trees.update(valid_ids)
             
 

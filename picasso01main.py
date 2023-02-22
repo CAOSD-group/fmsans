@@ -26,7 +26,7 @@ FM_OUTPUT_FILENAME_POSTFIX = '_fmsans'
 get_min_max_ids_transformations_for_parallelization
 
 
-def main(fm_filepath: str, n_tasks: int = 1, current_task: int = 1,n_min: int = -1,n_max: int = -1,t_min:int=-1,t_max:int=-1):
+def main(fm_filepath: str, n_tasks: int = 1, current_task: int = 1,n_min: int = -1,n_max: int = -1,n_current: int = -1,t_min:int=-1,t_max:int=-1):
     # Get feature model name
 
     # Load the feature model
@@ -36,7 +36,7 @@ def main(fm_filepath: str, n_tasks: int = 1, current_task: int = 1,n_min: int = 
     # Transform the FM to the fmsans model
     fm = FM.from_feature_model(feature_model)
     #print("NCores " + str(n_cores)+"NTask " + str(n_tasks)+"CurrentTask " + str(current_task))
-    fmsans_model = PicassoFMToFMSans(fm, n_tasks=n_tasks, current_task=current_task,n_min=n_min,n_max=n_max,min_time=t_min,max_time=t_max).transform()
+    fmsans_model = PicassoFMToFMSans(fm, n_tasks=n_tasks, current_task=current_task,n_min=n_min,n_max=n_max,n_current=n_current,min_time=t_min,max_time=t_max).transform()
     #result = fmsans_model.get_analysis()
     #n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
     #print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
@@ -67,14 +67,16 @@ if __name__ == '__main__':
       #Explore by divisions if a file is provided.
     n_min = -1
     n_max = -1
+    n_current = -1
     if (len(args.fileDivision)>3):
         with open(args.fileDivision, newline='') as csvfile:
             spamreader = csv.reader(csvfile, delimiter=';')
             for row in spamreader:
                 if (int(row[0])==args.current_task):
-                    n_min=int(row[1])
-                    n_max=int(row[2])
+                    n_current=int(row[1])
+                    n_min=int(row[2])
+                    n_max=int(row[3])
                     break
 
 
-    main(args.feature_model, args.n_tasks, args.current_task, n_min,n_max,args.t_min,args.t_max)
+    main(args.feature_model, args.n_tasks, args.current_task, n_min,n_max,n_current,args.t_min,args.t_max)

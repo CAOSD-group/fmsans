@@ -11,7 +11,7 @@
             "cwd": "${workspaceFolder}/GPL/",
             "program": "${workspaceFolder}/picasso01main.py",
             "console": "integratedTerminal",
-            "args": ["../fm_models/simples/GPL_simple.uvl",  "8", "0", "./","20","60"],
+            "args": ["../fm_models/simples/GPL_simple.uvl",  "8", "4", "./R_1_8_joined_0.csv","20","60"],
             "justMyCode": true
         },
         {
@@ -31,7 +31,7 @@
             "program": "${workspaceFolder}/02processOutput.py",
             "cwd": "${workspaceFolder}/GPL/",
             "console": "integratedTerminal",
-            "args": ["1","4","77371252455336267181195263"],
+            "args": ["1","8","8","77371252455336267181195263"],
             "justMyCode": true
         }
         ,
@@ -41,17 +41,17 @@
             "request": "launch",
             "program": "${workspaceFolder}/processTime.py",
             "console": "integratedTerminal",
-            "args": ["Krieter", "3535418"],
+            "args": ["OutputR_1_" , "8"],
             "justMyCode": true
         },
         {
             "name": "processLOCALTime",
             "type": "python",
             "request": "launch",
-            "cwd": "${workspaceFolder}/Ghazimi/",
+            "cwd": "${workspaceFolder}/GPL/",
             "program": "${workspaceFolder}/processTimeLocal.py",
             "console": "integratedTerminal",
-            "args": ["OutputR_1_","512"],
+            "args": ["OutputR_1_","8"],
             "justMyCode": true
         }
         ,
