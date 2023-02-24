@@ -248,11 +248,11 @@ class TransformationsVector():
             counter +=1
             if tree is not None:
                 valid_transformed_numbers_trees[hash(tree)] = num
-                #print(f'ID (valid): {num} / {max_number} ({num/max_number}%), #Valids: {len(valid_transformed_numbers_trees)}')
+                print(f'ID (valid): {num} / {max_number} ({num/max_number}%), #Valids: {len(valid_transformed_numbers_trees)}')
                 num += 1
             else:  # tree is None
                 num = TransformationsVector.get_next_number_prunning_binary_vector(binary_vector, null_bit)
-                #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
+                print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
             
             if (num < max_number) and counter >countMax:
                
