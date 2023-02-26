@@ -5,13 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "ALLIONE",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/GPL/",
+            "program": "${workspaceFolder}/00alli1.py",
+            "console": "integratedTerminal",
+            "args": [],
+            "justMyCode": true
+        },
+        {
             "name": "main0",
             "type": "python",
             "request": "launch",
             "cwd": "${workspaceFolder}/GPL/",
-            "program": "${workspaceFolder}/picasso01main.py",
+            "program": "${workspaceFolder}/picassofiles01main.py",
             "console": "integratedTerminal",
-            "args": ["../fm_models/simples/GPL_simple.uvl",  "8", "4", "./R_1_8_joined_0.csv","20","60"],
+            "args": ["../fm_models/simples/GPL_simple.uvl",  "./R_1_8_divisions.csv", "65536", "1","1200"],
             "justMyCode": true
         },
         {
@@ -32,6 +42,16 @@
             "cwd": "${workspaceFolder}/GPL/",
             "console": "integratedTerminal",
             "args": ["1","8","8","77371252455336267181195263"],
+            "justMyCode": true
+        },
+        {
+            "name": "00INIT",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/00initProcess.py",
+            "cwd": "${workspaceFolder}/GPL/",
+            "console": "integratedTerminal",
+            "args": ["1048576","8","77371252455336267181195263"],
             "justMyCode": true
         }
         ,

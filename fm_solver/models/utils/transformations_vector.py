@@ -122,6 +122,19 @@ class TransformationsVector():
         return (tree, i-1)
 
     @staticmethod
+    def get_initial_bit(n_min,n_max):
+        and_min_max = bin(n_min^n_max)
+        and_min_max=and_min_max[2:]
+        s_min=bin(n_min)[2:]
+        s_max=bin(n_max)[2:]
+        n_bits_total = n_max.bit_length()
+        index = and_min_max.find('1') + n_bits_total - (n_min^n_max).bit_length()
+
+        index -=1
+        if (index <0):
+            index = 0
+        return index
+    @staticmethod
     def get_next_number_prunning_binary_vector(binary_vector: list[str], bit: int) -> int:
         """Given a binary vector and the bit that returns NIL (None or Null),
         it returns the next decimal number to be considered (i.e., the next binary vector)."""
@@ -213,8 +226,7 @@ class TransformationsVector():
                                        min_id: int = 0,
                                        max_id: int = None,  # included
                                        current_id:int = None,
-                                       min_time:int=None,
-                                       max_time:int=None) -> dict[str, int]:
+                                       max_time:float=None) -> dict[str, int]:
 
         """Return all valid transformations ids for this transformations vector in the given model.
         
@@ -229,47 +241,44 @@ class TransformationsVector():
         binary_vector = list(format(num, f'0{n_bits}b'))
         pick_tree = pickle.dumps(fm, protocol=pickle.HIGHEST_PROTOCOL)
 
+        initial_bit=TransformationsVector.get_initial_bit(min_id,max_id)
+
+        tree, _ = self.execute(pick_tree, binary_vector, initial_bit=0, final_bit=initial_bit)
+        if tree is None:
+            return valid_transformed_numbers_trees
+        pick_tree = pickle.dumps(tree, protocol=pickle.HIGHEST_PROTOCOL)
+
         counter = 0
         st = process_time()
-        list_json = []
-        for i in range(n_tasks):
-            list_json.append("R_1_" + str(i) + "-" + str(n_tasks) +".json")
         
             
         file_name =  "R_1_" + str(current_task) + "-" + str(n_tasks) + ".csv"
-        countMax=1000
+        countMax=100
         while num < max_number:  # Be careful! max should be included or excluded?
             binary_vector = list(format(num, f'0{n_bits}b'))
-            
-            gc.disable()
+
             tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=0)
-            gc.enable()
             
             counter +=1
             if tree is not None:
                 valid_transformed_numbers_trees[hash(tree)] = num
-                print(f'ID (valid): {num} / {max_number} ({num/max_number}%), #Valids: {len(valid_transformed_numbers_trees)}')
+                #print(f'ID (valid): {num} / {max_number} ({num/max_number}%), #Valids: {len(valid_transformed_numbers_trees)}')
                 num += 1
             else:  # tree is None
                 num = TransformationsVector.get_next_number_prunning_binary_vector(binary_vector, null_bit)
-                print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
+                #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
             
             if (num < max_number) and counter >countMax:
                
                 et = process_time()
                 counter = 0
-
-                
-                list_json = [x for x in list_json if not os.path.isfile("./"+x)]
-                
-                if ((et-st>min_time) and (len(list_json) < n_tasks or (et-st>max_time))):
-                #if (et-st>max_time):
+                if (et-st>max_time):
                     file_new_jobs = open(file_name, "w")
                     file_new_jobs.write(str(num)+";"+str(max_number)+";"+str(min_id)+"\n")
                     file_new_jobs.close()
 
                     progress =decimal.Decimal(decimal.Decimal(num-min_id)/decimal.Decimal(max_number-min_id))
-                    print("Process Progress " + str(progress) + " time " + str(et-st) + " > " + str(min_time))
+                    print("Process Progress " + str(progress) + " time " + str(et-st) + " > " + str(max_time))
                     break
         
         return valid_transformed_numbers_trees
@@ -353,22 +362,11 @@ class TransformationsVector():
 
         return valid_transformed_numbers_trees
     
-    def get_valid_transformations_ids_picassso(self, fm: FM, n_tasks: int = 1, current_task: int = -1,  n_min:int=-1,n_max:int=-1,n_current=-1,min_time:int=-1,max_time:int=-1) -> dict[str, int]:
+    def get_valid_transformations_ids_picassso(self, fm: FM, n_tasks: int = 1, current_task: int = -1,  min_id:int=-1,max_id:int=-1,n_current=-1,max_time:float=-1) -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
-        n_bits = self.n_bits()
-        
-        min_id=n_min
-        max_id=n_max
-        if (n_min<0):
-            min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, 1, 0, n_tasks, current_task)   
-            n_current =  min_id 
-           
-
-        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, n_current,min_time,max_time)
+        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, n_current,max_time)
         valid_transformed_numbers_trees.update(valid_ids)
-            
-
         return valid_transformed_numbers_trees
 
 
