@@ -25,26 +25,28 @@ FM_OUTPUT_FILENAME_POSTFIX = '_fmsans'
 
 get_min_max_ids_transformations_for_parallelization
 
-def main(fm_filepath: str, file_division: str, t_max:int=-1, n_task:int=-1,current_metaTask:int=-1):
+
+def main(fm_filepath: str, file_division: str, t_max: int = -1, n_task: int = -1, current_metaTask: int = -1):
     # Get feature model name
 
     # Load the feature model
    # print(f'Reading FM model... {fm_filepath}')
     feature_model = UVLReader(fm_filepath).transform()
-    
+
     # Transform the FM to the fmsans model
     fm = FM.from_feature_model(feature_model)
     #print("NCores " + str(n_cores)+"NTask " + str(n_tasks)+"CurrentTask " + str(current_task))
-    fmsans_model = PicassoFMToFMSans(fm, max_time=t_max, file_division=file_division,n_task=n_task).transform()
+    fmsans_model = PicassoFMToFMSans(
+        fm, max_time=t_max, file_division=file_division, n_task=n_task).transform()
     #result = fmsans_model.get_analysis()
     #n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
     #print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
 
     # Serializing the FMSans model
-    #if (n_min>0):
+    # if (n_min>0):
     #    output_fmsans_filepath = f'{fm.root.name}_{n_cores}_{current_task}-{n_tasks}--{n_min}-{n_max}.json'
-    #else:   
-    if (len(fmsans_model.transformations_ids)>0):
+    # else:
+    if (len(fmsans_model.transformations_ids) > 0):
         output_fmsans_filepath = f'R_1_{current_metaTask}-{n_task}.json'
         FMSansWriter(output_fmsans_filepath, fmsans_model).transform()
 
@@ -55,13 +57,21 @@ def main(fm_filepath: str, file_division: str, t_max:int=-1, n_task:int=-1,curre
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
-    parser.add_argument('feature_model', type=str, help='Input feature model in UVL format.')
-    parser.add_argument('file_division', type=str,  default="", help='File with divisions.')
-    parser.add_argument('n_task', type=int,  default="", help='File with divisions.')
-    parser.add_argument('current_metatask', type=int,  default="", help='File with divisions.')
+    parser = argparse.ArgumentParser(
+        description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
+    parser.add_argument('feature_model', type=str,
+                        help='Input feature model in UVL format.')
+    parser.add_argument('n_task', type=int,  default="",
+                        help='File with divisions.')
+    parser.add_argument('current_metatask', type=int,
+                        default="", help='File with divisions.')
+    parser.add_argument('number_metatask', type=int,
+                        default="", help='File with divisions.')
     parser.add_argument('t_max', type=int, default=-1, help='Number max.')
     args = parser.parse_args()
 
+    file_division = "R_" + str(args.current_metatask) + \
+        "_" + str(args.number_metatask) + "_divisions.csv"
 
-    main(args.feature_model, args.file_division,args.t_max,args.n_task,args.current_metatask)
+    main(args.feature_model, file_division, args.t_max,
+         args.n_task, args.current_metatask)

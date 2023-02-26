@@ -21,7 +21,13 @@
             "cwd": "${workspaceFolder}/GPL/",
             "program": "${workspaceFolder}/picassofiles01main.py",
             "console": "integratedTerminal",
-            "args": ["../fm_models/simples/GPL_simple.uvl",  "./R_1_8_divisions.csv", "65536", "1","1200"],
+            "args": [
+                "../fm_models/simples/GPL_simple.uvl",
+                "65536",
+                "1",
+                "256",
+                "1200"
+            ],
             "justMyCode": true
         },
         {
@@ -41,7 +47,12 @@
             "program": "${workspaceFolder}/02processOutput.py",
             "cwd": "${workspaceFolder}/GPL/",
             "console": "integratedTerminal",
-            "args": ["1","8","8","77371252455336267181195263"],
+            "args": [
+                "1",
+                "8",
+                "8",
+                "77371252455336267181195263"
+            ],
             "justMyCode": true
         },
         {
@@ -51,17 +62,23 @@
             "program": "${workspaceFolder}/00initProcess.py",
             "cwd": "${workspaceFolder}/GPL/",
             "console": "integratedTerminal",
-            "args": ["1048576","8","77371252455336267181195263"],
+            "args": [
+                "1048576",
+                "8",
+                "77371252455336267181195263"
+            ],
             "justMyCode": true
-        }
-        ,
+        },
         {
             "name": "processTime",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/processTime.py",
             "console": "integratedTerminal",
-            "args": ["OutputR_1_" , "8"],
+            "args": [
+                "OutputR_1_",
+                "8"
+            ],
             "justMyCode": true
         },
         {
@@ -71,17 +88,21 @@
             "cwd": "${workspaceFolder}/GPL/",
             "program": "${workspaceFolder}/processTimeLocal.py",
             "console": "integratedTerminal",
-            "args": ["OutputR_1_","8"],
+            "args": [
+                "OutputR_1_",
+                "8"
+            ],
             "justMyCode": true
-        }
-        ,
+        },
         {
             "name": "03join",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/03main_join.py",
             "console": "integratedTerminal",
-            "args": ["./Krieter/"],
+            "args": [
+                "./Krieter/"
+            ],
             "justMyCode": true
         }
     ]
