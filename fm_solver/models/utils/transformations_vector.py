@@ -274,7 +274,7 @@ class TransformationsVector():
                 counter = 0
                 if (et-st>max_time):
                     file_new_jobs = open(file_name, "w")
-                    file_new_jobs.write(str(num)+";"+str(max_number)+";"+str(min_id)+"\n")
+                    file_new_jobs.write(str(num)+";"+str(min_id)+";"+str(max_number)+";\n")
                     file_new_jobs.close()
 
                     progress =decimal.Decimal(decimal.Decimal(num-min_id)/decimal.Decimal(max_number-min_id))

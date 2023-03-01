@@ -23,9 +23,9 @@
             "console": "integratedTerminal",
             "args": [
                 "../fm_models/simples/GPL_simple.uvl",
-                "65536",
+                "8",
                 "1",
-                "256",
+                "8",
                 "1200"
             ],
             "justMyCode": true
@@ -63,9 +63,24 @@
             "cwd": "${workspaceFolder}/GPL/",
             "console": "integratedTerminal",
             "args": [
-                "1048576",
+                "256",
                 "8",
                 "77371252455336267181195263"
+            ],
+            "justMyCode": true
+        },
+        {
+            "name": "02CONTINUE",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/02processandgeneratecsvs.py",
+            "cwd": "${workspaceFolder}/GPL${cwd}/",
+            "console": "integratedTerminal",
+            "args": [
+                "256",
+                "8",
+                "77371252455336267181195263"
+
             ],
             "justMyCode": true
         },

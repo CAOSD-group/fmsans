@@ -61,12 +61,12 @@ if __name__ == '__main__':
         description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
     parser.add_argument('feature_model', type=str,
                         help='Input feature model in UVL format.')
-    parser.add_argument('n_task', type=int,  default="",
-                        help='File with divisions.')
+    parser.add_argument('n_divisions', type=int,  default="",
+                        help='Total number of divisions.')
     parser.add_argument('current_metatask', type=int,
-                        default="", help='File with divisions.')
+                        default="", help='Current id of file with divisions.')
     parser.add_argument('number_metatask', type=int,
-                        default="", help='File with divisions.')
+                        default="", help='Total files with divisions.')
     parser.add_argument('t_max', type=int, default=-1, help='Number max.')
     args = parser.parse_args()
 
@@ -74,4 +74,4 @@ if __name__ == '__main__':
         "_" + str(args.number_metatask) + "_divisions.csv"
 
     main(args.feature_model, file_division, args.t_max,
-         args.n_task, args.current_metatask)
+         args.n_divisions, args.current_metatask)

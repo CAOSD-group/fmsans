@@ -43,12 +43,12 @@ def get_intervals(n_min,n_max) -> tuple[int, int, int,int]:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
-    parser.add_argument('n_tasks', type=int,  default=-1, help='Number of tasks.')
-    parser.add_argument('n_files', type=int,  default=-1, help='Number of tasks.')
+    parser.add_argument('n_divisions', type=int,  default=-1, help='Number of divisions.')
+    parser.add_argument('n_files', type=int,  default=-1, help='Number of files to create.')
     parser.add_argument('n_max', type=int,  default=-1, help='Maximum configurations')
     args = parser.parse_args()
 
-    if (args.n_tasks%args.n_files >0):
+    if (args.n_divisions%args.n_files >0):
         print("Dede ser divisible el numero de tareqs y el numero de ficheros")
         exit(-1)
 
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     #id_task,current, min, dif, max
     divisions.append([0,0,args.n_max,args.n_max])          
 
-    while (len(divisions)<args.n_tasks):
+    while (len(divisions)<args.n_divisions):
         first=divisions.pop(0)
         currentNun=first[0]
         firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(first[1],first[3])
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     now = datetime.now()
     date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
     cont = 0
-    division_size = args.n_tasks//args.n_files
+    division_size = args.n_divisions//args.n_files
     while (cont < args.n_files ):
         file_name = "R_" + str(cont) + "_" + str(args.n_files) +"_divisions.csv"
         if os.path.isfile("./"+file_name):
