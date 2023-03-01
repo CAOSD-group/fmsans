@@ -1,14 +1,16 @@
 import os
+import sys
 import argparse
 import multiprocessing
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 
-from fm_solver.transformations import FMToFMSans
+from fm_solver.transformations import FMToFMSans, FMSansReader
 from fm_solver.operations.fmsans_op import (
     FMSansProductsNumber,
     FMSansCoreFeatures,
-    FMSansDeadFeatures
+    FMSansDeadFeatures,
+    FMSansFullAnalysis
 )
 
 from fm_solver.utils import timer, memory_profiler, sizer
@@ -17,26 +19,41 @@ from fm_solver.utils import timer, memory_profiler, sizer
 CODES = ['Reading', 'Transformation', 'ProductsNumber_op', 'CoreFeatures_op', 'DeadFeatures_op']
 
 
-def main(fm_filepath: str) -> None:
+def main(fm_filepath: str, n_cores: int) -> None:
     # Get feature model name
     fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
 
-    n_cores = multiprocessing.cpu_count()
-
     # Load the feature model
-    with memory_profiler.MemoryProfiler(name=CODES[0], logger=None), timer.Timer(name=CODES[0], logger=None):
-        feature_model = UVLReader(fm_filepath).transform()
+    feature_model = None
+    if fm_filepath.endswith('.uvl'):
+        # Load the UVL model
+        with memory_profiler.MemoryProfiler(name=CODES[0], logger=None), timer.Timer(name=CODES[0], logger=None):
+            feature_model = UVLReader(fm_filepath).transform()
 
-    fm_memory = sizer.getsizeof(feature_model, logger=None)
-    n_features = len(feature_model.get_features())
-    n_constraints = len(feature_model.get_constraints())
+        fm_memory = sizer.getsizeof(feature_model, logger=None)
+        n_features = len(feature_model.get_features())
+        n_constraints = len(feature_model.get_constraints())
 
-    # Create the BDD from the FM
-    with memory_profiler.MemoryProfiler(name=CODES[1], logger=None), timer.Timer(name=CODES[1], logger=None):
-        fmsans_model = FMToFMSans(source_model=feature_model, n_cores=n_cores).transform()
+        # Create the FMSans from the FM (this may take a while)
+        with memory_profiler.MemoryProfiler(name=CODES[1], logger=None), timer.Timer(name=CODES[1], logger=None):
+            fmsans_model = FMToFMSans(source_model=feature_model, n_cores=n_cores).transform()
 
-    print(fmsans_model)
+    elif fm_filepath.endswith('.json'):
+        with memory_profiler.MemoryProfiler(name=CODES[0], logger=None), timer.Timer(name=CODES[0], logger=None):
+            fmsans_model = FMSansReader(fm_filepath).transform()
+    else:
+        sys.exit(f'Error, incorrect file format for {fm_filepath}')
+
+    if feature_model is None:
+        fm_memory = 0
+        n_features = 0
+        n_constraints = 0
+
     fmsansmodel_memory = sizer.getsizeof(fmsans_model, logger=None)
+
+    # Full analysis
+    with memory_profiler.MemoryProfiler(name=CODES[2], logger=None), timer.Timer(name=CODES[2], logger=None):
+        result = FMSansFullAnalysis(n_cores).execute(fmsans_model).get_result()
 
     # Products numbers
     with memory_profiler.MemoryProfiler(name=CODES[2], logger=None), timer.Timer(name=CODES[2], logger=None):
@@ -66,9 +83,10 @@ def main(fm_filepath: str) -> None:
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Analyze an FM using the BDD Solver.')
-    parser.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, required=True, help='Input feature model in UVL format (.uvl).')
+    parser = argparse.ArgumentParser(description='Analyze an FM using the FMSans Solver.')
+    parser.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, required=True, help='Input feature model in UVL format (.uvl) or FMSans format (.json).')
+    parser.add_argument('-c', '--cores', dest='n_cores', type=int, required=False, default=multiprocessing.cpu_count(), help='Number of cores (processes) to execute (power of 2) (default = CPU count).')
     args = parser.parse_args()
 
-    main(args.feature_model)
+    main(args.feature_model, args.n_cores)
     

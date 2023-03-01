@@ -74,20 +74,25 @@ class FMSans():
         result_fm = fm_utils.get_model_from_subtrees(result_fm, subtrees)
         return result_fm
 
-    def get_analysis(self) -> dict[str, Any]:
+    def get_analysis(self, n_processes: int = 1) -> dict[str, Any]:
         if self.transformations_vector is None:
             return FMFullAnalysis().execute(self.fm).get_result()
         n_bits = self.transformations_vector.n_bits()
-        results: list[dict[str, Any]] = []
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
-        for num in self.transformations_ids.values():
-            binary_vector = list(format(num, f'0{n_bits}b'))
-            tree, _ = self.transformations_vector.execute(pick_tree, binary_vector)
-            tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
-            analysis_result = FMFullAnalysis().execute(tree).get_result()
-            results.append(analysis_result)
-        # Join all results
-        return FMFullAnalysis.join_results(results)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysis) for num in self.transformations_ids.values()]
+            results_subtrees = pool.starmap_async(self._execute_paralell, items)
+            result_analysis = FMFullAnalysis.join_results(results_subtrees.get())
+        return result_analysis
+
+        # for num in self.transformations_ids.values():
+        #     binary_vector = list(format(num, f'0{n_bits}b'))
+        #     tree, _ = self.transformations_vector.execute(pick_tree, binary_vector)
+        #     tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        #     analysis_result = FMFullAnalysis().execute(tree).get_result()
+        #     results.append(analysis_result)
+        # # Join all results
+        # return FMFullAnalysis.join_results(results)
 
     def get_core_features(self, n_processes: int = 1) -> dict[str, Any]:
         if self.transformations_vector is None:
@@ -96,7 +101,7 @@ class FMSans():
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
         with multiprocessing.Pool(n_processes) as pool:
             items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMCoreFeatures) for num in self.transformations_ids.values()]
-            analysis_result = pool.starmap_async(self.execute_paralell, items)
+            analysis_result = pool.starmap_async(self._execute_paralell, items)
             result = set.intersection(*analysis_result.get())
         return result
 
@@ -107,27 +112,31 @@ class FMSans():
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
         with multiprocessing.Pool(n_processes) as pool:
             items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMConfigurationsNumber) for num in self.transformations_ids.values()]
-            analysis_result = pool.starmap_async(self.execute_paralell, items)
+            analysis_result = pool.starmap_async(self._execute_paralell, items)
             result = FMConfigurationsNumber.join_results(analysis_result.get())
         return result
 
-    def execute_paralell(self, fm: bytes, binary_vector: list[str], op: FMOperation) -> Any:
+    def _execute_paralell(self, fm: bytes, binary_vector: list[str], op: FMOperation) -> Any:
         tree, _ = self.transformations_vector.execute(fm, binary_vector)
         tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
         return op().execute(tree).get_result()
 
-    def get_subtrees(self) -> list[FM]:
+    def _subtrees_execute_paralell(self, fm: bytes, binary_vector: list[str]) -> FM:
+        tree, _ = self.transformations_vector.execute(fm, binary_vector)
+        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        return tree
+
+    def get_subtrees(self, n_processes: int = 1) -> list[FM]:
         if self.transformations_vector is None:
             return [self.fm]
-        subtrees = set()
         n_bits = self.transformations_vector.n_bits()
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
-        for num in self.transformations_ids.values():
-            binary_vector = list(format(num, f'0{n_bits}b'))
-            tree, _ = self.transformations_vector.execute(pick_tree, binary_vector)
-            tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
-            subtrees.add(tree)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b'))) for num in self.transformations_ids.values()]
+            results_subtrees = pool.starmap_async(self._subtrees_execute_paralell, items)
+            subtrees = results_subtrees.get()
         return subtrees
+
 
 # def fmsans_stats(fm: FMSans) -> str:
 #     features_without_implications = 0 if fm.subtree_without_constraints_implications is None else len(fm.subtree_without_constraints_implications.get_features())

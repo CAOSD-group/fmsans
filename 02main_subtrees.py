@@ -16,7 +16,7 @@ from flamapy.metamodels.pysat_metamodel.operations import SATCoreFeatures
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 
 
-TIME_ANALYSIS = 'TIME_ANALYSIS'
+TIME_SUBTREES = 'TIME_SUBTREES'
 
 
 def main(fm_filepath: str, n_cores: int) -> None:
@@ -29,19 +29,20 @@ def main(fm_filepath: str, n_cores: int) -> None:
     fmsans_model = FMSansReader(fm_filepath).transform()
 
     # Perform full analysis of FMSans
-    print(f'Analyzing FMSans model with {len(fmsans_model.transformations_ids)} subtrees...')
-    with timer.Timer(name=TIME_ANALYSIS, logger=None):
-        result = fmsans_model.get_analysis(n_cores)
+    print(f'Getting subtrees of FMSans model with {len(fmsans_model.transformations_ids)} subtrees...')
+    with timer.Timer(name=TIME_SUBTREES, logger=None):
+        subtrees = fmsans_model.get_subtrees(n_cores)
 
-    n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
-    core_features = result[FMFullAnalysis.CORE_FEATURES]
-    print(f'#Configurations: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
-    print(f'#Core features: {len(core_features)} {[f.name for f in core_features]}')
-
-    total_time = timer.Timer.timers[TIME_ANALYSIS]
+    print(f'#Subtrees: {len(subtrees)}')
+    
+    total_time = timer.Timer.timers[TIME_SUBTREES]
     total_time = round(total_time, 4)
-    print(f'Time (analysis): {total_time} s.')
+    print(f'Time (subtrees): {total_time} s.')
 
+    subtrees_size = sizer.getsizeof(subtrees, logger=None)
+    subtrees_size_mb = round(subtrees_size / 1e6, 2)
+    print(f'Memory (subtrees): {subtrees_size} bytes ({subtrees_size_mb} MB).')
+    
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Analyze an FM using the FMSans Solver.')
