@@ -30,7 +30,7 @@ def main(dir: str):
                 fm = FM.from_feature_model(feature_model)
                 n_ctcs = len(fm.get_constraints())
                 if n_ctcs > 10:
-                    print(f'FM {i}: {fm_filepath}. #Constraints: {n_ctcs}')
+                    print(f'FM {i}: {fm_filepath}. #Constraints: {n_ctcs} ({sum(constraints_utils.is_simple_constraint(ctc) for ctc in fm.get_constraints())})')
         except Exception as e:
             print(e)
             print(f'Error in model: {fm_filepath}')

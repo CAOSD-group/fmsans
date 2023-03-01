@@ -12,7 +12,7 @@ def apply_refactoring(fm: FM, refactoring: FMRefactoring) -> FM:
     """It applies a given refactoring to all instances in the feature model."""
     instances = refactoring.get_instances(fm)
     for i, instance in enumerate(instances, 1):
-        #print(f'{refactoring.get_name()}: {i}/{len(instances)} ({i/len(instances)*100}%). CTC: {instance}')
+        print(f'{refactoring.get_name()}: {i}/{len(instances)} ({i/len(instances)*100}%). CTC: {instance}')
         fm = refactoring.transform(fm, instance)
     return fm
 
