@@ -9,14 +9,15 @@ import locale
 
 
 PYTHON_SCRIPT_SUMMARIZE_STATS = '06main_summarize_stats.py'
-COLUMNS_VALUES = [str(i) for i in range(4, 13+1)]
+#COLUMNS_VALUES = [str(i) for i in range(4, 13+1)]
+COLUMNS_VALUES = ['4']
 
 
 def main(runs: int, script: str, arguments: list[str]) -> None:
     # Get path and filename
     filepath = arguments[1]
     path, filename = os.path.split(filepath)
-    filename = filename.split('.')[0]
+    filename = '.'.join(filename.split('.')[:-1])
 
 
     results = []

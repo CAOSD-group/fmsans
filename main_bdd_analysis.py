@@ -13,7 +13,7 @@ from flamapy.metamodels.bdd_metamodel.operations import (
 from fm_solver.utils import timer, memory_profiler, sizer
 
 
-CODES = ['Reading', 'Transformation', 'ProductsNumber_op', 'CoreFeatures_op', 'DeadFeatures_op']
+CODES = ['Reading', 'Transformation', 'ProductsNumber_op']
 
 
 def main(fm_filepath: str) -> None:
@@ -38,14 +38,14 @@ def main(fm_filepath: str) -> None:
     print(f'#Configs: {n_configs}')
 
     # Core features
-    with memory_profiler.MemoryProfiler(name=CODES[3], logger=None), timer.Timer(name=CODES[3], logger=None):
-        core_features = BDDCoreFeatures().execute(bdd_model).get_result()
-    print(f'Core features: {len(core_features)} {core_features}')
+    # with memory_profiler.MemoryProfiler(name=CODES[3], logger=None), timer.Timer(name=CODES[3], logger=None):
+    #     core_features = BDDCoreFeatures().execute(bdd_model).get_result()
+    # print(f'Core features: {len(core_features)} {core_features}')
 
-    # Dead features
-    with memory_profiler.MemoryProfiler(name=CODES[4], logger=None), timer.Timer(name=CODES[4], logger=None):
-        dead_features = BDDDeadFeatures().execute(bdd_model).get_result()
-    print(f'Dead features: {len(dead_features)} {dead_features}')
+    # # Dead features
+    # with memory_profiler.MemoryProfiler(name=CODES[4], logger=None), timer.Timer(name=CODES[4], logger=None):
+    #     dead_features = BDDDeadFeatures().execute(bdd_model).get_result()
+    # print(f'Dead features: {len(dead_features)} {dead_features}')
 
     # Print outputs
     header = f"Features,Constraints,FM_size(B),BDD_size(B),{','.join(c + '(s)' for c in CODES)},{','.join(c + '(B)' for c in CODES)},#Configs,#Cores,Cores,#Deads,Deads"
@@ -53,8 +53,8 @@ def main(fm_filepath: str) -> None:
     values += ','.join([str(timer.Timer.timers[c]) for c in CODES])
     values += ',' + ','.join([str(memory_profiler.MemoryProfiler.memory_profilers[c]) for c in CODES])
     values += f',{n_configs}'
-    values += f',{len(core_features)},"{core_features}"'
-    values += f',{len(dead_features)},"{dead_features}"'
+    #values += f',{len(core_features)},"{core_features}"'
+    #values += f',{len(dead_features)},"{dead_features}"'
     print(header)
     print(values)
 

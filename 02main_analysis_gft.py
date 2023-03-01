@@ -35,8 +35,9 @@ def main(fm_filepath: str, n_cores: int) -> None:
 
     # Perform full analysis of FMSans
     print(f'Analyzing FMSans model with {len(fmsans_model.transformations_ids)} subtrees...')
+    generalized_feature_tree = fmsans_model.get_feature_model(n_cores)
     with timer.Timer(name=TIME_ANALYSIS, logger=None):
-        result = fmsans_model.get_analysis(n_cores)
+        result = FMFullAnalysis().execute(generalized_feature_tree).get_result()
 
     n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
     core_features = result[FMFullAnalysis.CORE_FEATURES]

@@ -20,7 +20,7 @@ def read_csvfile(filepath: str):
 def main(filepath: str, columns: list[int]):
     # Get path and filename
     path, filename = os.path.split(filepath)
-    filename = filename.split('.')[0]
+    filename = '.'.join(filename.split('.')[:-1])
     
     # Read data
     data = read_csvfile(filepath)

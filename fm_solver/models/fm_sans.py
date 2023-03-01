@@ -7,7 +7,19 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel
 from fm_solver.models.utils import TransformationsVector
 from fm_solver.models.feature_model import FM
 from fm_solver.utils import fm_utils
-from fm_solver.operations import FMFullAnalysis, FMCoreFeatures, FMOperation, FMConfigurationsNumber
+from fm_solver.operations import (
+    FMFullAnalysis, 
+    FMCoreFeatures, 
+    FMOperation, 
+    FMConfigurationsNumber,
+    FMFullAnalysisBDD
+)
+
+from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
+from flamapy.metamodels.bdd_metamodel.operations import (
+    BDDProductsNumber,
+    BDDCoreFeatures
+)
 
 
 class FMSans():
@@ -57,18 +69,12 @@ class FMSans():
         self.transformations_vector = transformations_vector  
         self.transformations_ids = transformations_ids  
     
-    def get_feature_model(self) -> FeatureModel:
+    def get_feature_model(self, n_processes: int = 1) -> FeatureModel:
         """Returns the complete feature model without cross-tree constraints."""
         if self.transformations_vector is None:
             return self.fm
-        subtrees = set()
-        n_bits = self.transformations_vector.n_bits()
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
-        for num in self.transformations_ids.values():
-            binary_vector = list(format(num, f'0{n_bits}b'))
-            tree, _ = self.transformations_vector.execute(pick_tree, binary_vector)
-            tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
-            subtrees.add(tree)
+        subtrees = self.get_subtrees(n_processes)
         # Join all subtrees
         result_fm = pickle.loads(pick_tree)
         result_fm = fm_utils.get_model_from_subtrees(result_fm, subtrees)
@@ -83,6 +89,18 @@ class FMSans():
             items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysis) for num in self.transformations_ids.values()]
             results_subtrees = pool.starmap_async(self._execute_paralell, items)
             result_analysis = FMFullAnalysis.join_results(results_subtrees.get())
+        return result_analysis
+
+    def get_analysis_bdd(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            bdd_model = FmToBDD(self.fm).transform()
+            return FMFullAnalysisBDD().execute(bdd_model).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysisBDD, num) for num in self.transformations_ids.values()]
+            results_subtrees = pool.starmap_async(self._execute_paralell_bdd, items)
+            result_analysis = FMFullAnalysisBDD.join_results(results_subtrees.get())
         return result_analysis
 
         # for num in self.transformations_ids.values():
@@ -105,6 +123,18 @@ class FMSans():
             result = set.intersection(*analysis_result.get())
         return result
 
+    def get_core_features_bdd(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            bdd_model = FmToBDD(self.fm).transform()
+            return BDDCoreFeatures().execute(bdd_model).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), BDDCoreFeatures) for num in self.transformations_ids.values()]
+            analysis_result = pool.starmap_async(self._execute_paralell_bdd, items)
+            result = set.intersection(*analysis_result.get())
+        return result
+
     def get_number_of_configurations(self, n_processes: int = 1) -> dict[str, Any]:
         if self.transformations_vector is None:
             return FMConfigurationsNumber().execute(self.fm).get_result()
@@ -116,10 +146,28 @@ class FMSans():
             result = FMConfigurationsNumber.join_results(analysis_result.get())
         return result
 
+    def get_number_of_configurations_bdd(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            bdd_model = FmToBDD(self.fm).transform()
+            return BDDProductsNumber().execute(bdd_model).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), BDDProductsNumber, num) for num in self.transformations_ids.values()]
+            analysis_result = pool.starmap_async(self._execute_paralell_bdd, items)
+            result = FMConfigurationsNumber.join_results(analysis_result.get())
+        return result
+
     def _execute_paralell(self, fm: bytes, binary_vector: list[str], op: FMOperation) -> Any:
         tree, _ = self.transformations_vector.execute(fm, binary_vector)
         tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
         return op().execute(tree).get_result()
+
+    def _execute_paralell_bdd(self, fm: bytes, binary_vector: list[str], op: FMOperation, num: int) -> Any:
+        tree, _ = self.transformations_vector.execute(fm, binary_vector)
+        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        bdd_model = FmToBDD(tree, f'{tree.root.name}{num}').transform()
+        return op().execute(bdd_model).get_result()
 
     def _subtrees_execute_paralell(self, fm: bytes, binary_vector: list[str]) -> FM:
         tree, _ = self.transformations_vector.execute(fm, binary_vector)

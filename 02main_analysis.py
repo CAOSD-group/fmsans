@@ -1,3 +1,7 @@
+"""
+Example of execution for X runs:
+python execute_Xruns.py -r 1 -s 02main_analysis.py -a "-fm fm_models/fmsans/GPL_simple_16_512.json -c 1"
+"""
 import os
 import sys
 import math
@@ -6,6 +10,7 @@ import time
 import multiprocessing
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
+from flamapy.metamodels.fm_metamodel.models import Feature
 
 from fm_solver.transformations import FMToFMSans, FMSansWriter, FMSansReader
 from fm_solver.utils import utils, fm_utils, logging_utils, timer, sizer
@@ -22,7 +27,7 @@ TIME_ANALYSIS = 'TIME_ANALYSIS'
 def main(fm_filepath: str, n_cores: int) -> None:
     # Get feature model name
     path, filename = os.path.split(fm_filepath)
-    filename = ''.join(filename.split('.')[:-1])
+    filename = '.'.join(filename.split('.')[:-1])
 
     # Load the feature model (FMSans)
     print(f'Reading FMSans model... {fm_filepath}')
@@ -36,11 +41,18 @@ def main(fm_filepath: str, n_cores: int) -> None:
     n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
     core_features = result[FMFullAnalysis.CORE_FEATURES]
     print(f'#Configurations: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
-    print(f'#Core features: {len(core_features)} {[f.name for f in core_features]}')
+    if core_features and isinstance(list(core_features)[0], Feature):
+        core_features = [f.name for f in core_features]
+    print(f'#Core features: {len(core_features)} {[f for f in core_features]}')
 
     total_time = timer.Timer.timers[TIME_ANALYSIS]
     total_time = round(total_time, 4)
     print(f'Time (analysis): {total_time} s.')
+
+    # Output
+    n_constraints = 0 if fmsans_model.transformations_vector is None else fmsans_model.transformations_vector.n_bits()
+    print('Cores,Features,Constraints,Trees,Time(s)')
+    print(f'{n_cores},{len(fmsans_model.fm.get_features())},{n_constraints},{len(fmsans_model.transformations_ids)},{total_time}')
 
 
 if __name__ == '__main__':
