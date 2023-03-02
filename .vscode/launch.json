@@ -60,12 +60,12 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/00initProcess.py",
-            "cwd": "${workspaceFolder}/GPL/",
+            "cwd": "${workspaceFolder}/Krieter/",
             "console": "integratedTerminal",
             "args": [
-                "256",
-                "8",
-                "77371252455336267181195263"
+                "32768",
+                "128",
+                "61390764277305387778047"
             ],
             "justMyCode": true
         },
