@@ -18,15 +18,16 @@
             "name": "main0",
             "type": "python",
             "request": "launch",
-            "cwd": "${workspaceFolder}/GPL/",
+            "cwd": "${workspaceFolder}/Krieter/",
             "program": "${workspaceFolder}/picassofiles01main.py",
             "console": "integratedTerminal",
             "args": [
-                "../fm_models/simples/GPL_simple.uvl",
+                "../fm_models/simples/Krieter2020o_simple.uvl",
                 "8",
-                "1",
-                "8",
-                "1200"
+                "7",
+                "./",
+                "60",
+                "120"
             ],
             "justMyCode": true
         },
@@ -60,12 +61,12 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/00initProcess.py",
-            "cwd": "${workspaceFolder}/Krieter/",
+            "cwd": "${workspaceFolder}/Horcas/",
             "console": "integratedTerminal",
             "args": [
                 "32768",
-                "128",
-                "61390764277305387778047"
+                "8",
+                "2305843009213693952"
             ],
             "justMyCode": true
         },
@@ -74,7 +75,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/02processandgeneratecsvs.py",
-            "cwd": "${workspaceFolder}/GPL${cwd}/",
+            "cwd": "${workspaceFolder}/GPL/",
             "console": "integratedTerminal",
             "args": [
                 "256",
@@ -110,13 +111,20 @@
             "justMyCode": true
         },
         {
-            "name": "03join",
+            "name": "01main",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/03main_join.py",
+            "program": "${workspaceFolder}/01main.py",
+            "cwd": "${workspaceFolder}/Krieter/",
             "console": "integratedTerminal",
             "args": [
-                "./Krieter/"
+                "../fm_models/simples/Krieter2020o_simple.uvl",
+                "1",
+                "1",
+                "0",
+                "./",
+                "120",
+                "180"
             ],
             "justMyCode": true
         }

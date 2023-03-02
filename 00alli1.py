@@ -3,9 +3,9 @@ import time
 import subprocess
 import re
 
-numberDivisions = 8
+numberDivisions = 32768
 numberJobs = 8
-max_time = 3600
+max_time = 600
 sleep = 1
 sleepCounter=8
 #improve to check for more than only one
@@ -18,19 +18,19 @@ sleepCounter=8
 #maxConfiguration=188501787658138776526316391973679239907820382867140805681144220780050698265428977917842924316820804490882044531700026161400423140624345724347059987430217219443542346615871751089083876220596224387399635909565487009065232689887930358404389913798458461035797425091600762263250923357187307004059038598692050448905404415
 #model="fm_models/originals/Operating_Systems/KConfig/uClinux-distribution.uvl"
 
-maxConfiguration = 61390764277305387778047
+maxConfiguration = 2305843009213693952
 
 
 
 #model="fm_models/simples/uClibc_simple.uvl"
 #model="fm_models/simples/GPL_simple.uvl"
-model="fm_models/simples/Krieter2020o_simple.uvl"
+model="fm_models/simples/Horcas2022b_simple.uvl"
 
 
 cont = 0 
 for i in range(numberJobs):
         fS= "./OutputR_1_" + str(i) + "-" + str(numberDivisions) + ".err"
-        comando= "/usr/bin/time -o " + fS  + " python ./../picassofiles01main.py ./../" + model + " " + str(numberDivisions) + " " + str(i) + " " + str(numberJobs ) + " " + str(max_time) + " &"
+        comando= "/usr/bin/time -o " + fS  + " python ./../picassofiles01main.py ./../" + model + " " + str(numberDivisions) + " " + str(i) + " " + str(numberJobs) + " " + str(max_time) + " &"
 
         #comando= "/usr/bin/time -o " + fS  + " -f \"%U %S\" python ./../picasso01main.py ./../" + model + "  " + str(numberTasks) + " " + str(i) + ficheroCSV + str(min_time) + " " + str(max_time) + " &"
         #print(comando)
