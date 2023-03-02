@@ -41,6 +41,7 @@ def main(dirpath: str) -> None:
     fm_name = '_'.join(parts_name[:-2])
     output_fmsans_filepath = f'{fm_name}_{n_cores}_{n_tasks}.json'
     FMSansWriter(output_fmsans_filepath, join_model).transform()
+    print(f'Model saved in {output_fmsans_filepath}')
 
     print(f'Analyzing model...')
     # Get number of configurations

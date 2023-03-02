@@ -271,6 +271,7 @@ def get_unique_features(model: FeatureModel) -> list[Feature]:
 def fm_stats(fm: FeatureModel) -> str:
     lines = []
     n_features = len(fm.get_features())
+    n_unique_features = len(set(fm.get_features()))
     n_abstract_features = sum(f.is_abstract for f in fm.get_features())
     n_concrete_features = n_features - n_abstract_features
     n_auxiliary_features = sum(is_auxiliary_feature(f) for f in fm.get_features())
@@ -287,6 +288,7 @@ def fm_stats(fm: FeatureModel) -> str:
     lines.append(f'    #Concrete features: {n_concrete_features}')
     lines.append(f'    #Abstract features: {n_abstract_features}')
     lines.append(f'    #Auxiliary features:{n_auxiliary_features}')
+    lines.append(f'    #Unique features:   {n_unique_features}')
     lines.append(f'  #Constraints:         {n_ctcs}')
     lines.append(f'    #Simple CTCs:       {n_ctcs_simple}')
     lines.append(f'      #Requires:        {n_requires_ctcs}')

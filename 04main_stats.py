@@ -15,6 +15,7 @@ from fm_solver.operations import FMConfigurationsNumber
 
 sys.setrecursionlimit(10000)
 
+
 def main(fm_filepath: str):
     # Load the feature model
     print(f'Reading FM model... {fm_filepath}')
@@ -24,11 +25,14 @@ def main(fm_filepath: str):
     print(f'Bulding FM model...')
     fm = FM.from_feature_model(feature_model)
     print(f'Getting stats...')
-    stats = fm_utils.fm_stats(fm)
+    stats = fm_utils.fm_stats(feature_model)
     print(stats)
 
-    bdd_model = FmToBDD(fm).transform()
-    n_configs = BDDProductsNumber().execute(bdd_model).get_result()
+    if fm.get_constraints():
+        bdd_model = FmToBDD(fm).transform()
+        n_configs = BDDProductsNumber().execute(bdd_model).get_result()
+    else:
+        n_configs = FMConfigurationsNumber().execute(fm).get_result()    
     print(f'  #Configs:             {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
     
 
@@ -39,31 +43,40 @@ def main_fmsans(fm_filepath: str):
 
     # Get stats
     print(f'Bulding FM model...')
-    fm = fmsans_model.get_feature_model()
+    fm = fmsans_model.get_feature_model(8)
     print(f'Getting stats...')
     stats = fm_utils.fm_stats(fm)
     print(stats)
 
-    subtrees = fmsans_model.get_subtrees()
-    features_subtrees = [len(st.get_features()) for st in subtrees]
-    n_unique_features = len(fm_utils.get_unique_features(fm))
-    n_subtrees = len(subtrees)  # 1 if fmsans_model.transformations_ids is None else len(fmsans_model.transformations_ids)
+    # subtrees = fmsans_model.get_subtrees(8)
+    # features_subtrees = [len(st.get_features()) for st in subtrees]
+    # n_unique_features = len(fm_utils.get_unique_features(fm))
+    # n_subtrees = len(subtrees)  # 1 if fmsans_model.transformations_ids is None else len(fmsans_model.transformations_ids)
     n_configs = FMConfigurationsNumber().execute(fm).get_result()
-    n_configs_subtrees = fmsans_model.get_number_of_configurations(8)
-    min_features_subtrees = min(features_subtrees)
-    max_features_subtrees = max(features_subtrees)
-    median_features_subtrees = round(statistics.median(features_subtrees), 2)
-    mean_features_subtrees = round(statistics.mean(features_subtrees), 2)
-    stdev_features_subtrees = round(statistics.stdev(features_subtrees), 2)
-    print(f'  #Subtrees:            {n_subtrees}')
-    print(f'    #Unique features:   {n_unique_features}')
-    print(f'    #Min features:      {min_features_subtrees}')
-    print(f'    #Max features:      {max_features_subtrees}')
-    print(f'    #Median features:   {median_features_subtrees}')
-    print(f'    #Mean features:     {mean_features_subtrees}')
-    print(f'    #Stdev features:    {stdev_features_subtrees}')
+    # n_configs_subtrees = fmsans_model.get_number_of_configurations(8)
+    # min_features_subtrees = min(features_subtrees)
+    # max_features_subtrees = max(features_subtrees)
+    # median_features_subtrees = round(statistics.median(features_subtrees), 2)
+    # mean_features_subtrees = round(statistics.mean(features_subtrees), 2)
+    # stdev_features_subtrees = round(statistics.stdev(features_subtrees), 2)
+    # print(f'  #Subtrees:            {n_subtrees}')
+    # print(f'    #Unique features:   {n_unique_features}')
+    # print(f'    #Min features:      {min_features_subtrees}')
+    # print(f'    #Max features:      {max_features_subtrees}')
+    # print(f'    #Median features:   {median_features_subtrees}')
+    # print(f'    #Mean features:     {mean_features_subtrees}')
+    # print(f'    #Stdev features:    {stdev_features_subtrees}')
+    # print(f'  #Configs:             {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
+    # print(f'  #Configs (subtrees):  {n_configs_subtrees} ({utils.int_to_scientific_notation(n_configs_subtrees)})')
+    print(f'  #Subtrees:            {len(fmsans_model.transformations_ids)}')
+    # print(f'    #Unique features:   {n_unique_features}')
+    # print(f'    #Min features:      {min_features_subtrees}')
+    # print(f'    #Max features:      {max_features_subtrees}')
+    # print(f'    #Median features:   {median_features_subtrees}')
+    # print(f'    #Mean features:     {mean_features_subtrees}')
+    # print(f'    #Stdev features:    {stdev_features_subtrees}')
     print(f'  #Configs:             {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
-    print(f'  #Configs (subtrees):  {n_configs_subtrees} ({utils.int_to_scientific_notation(n_configs_subtrees)})')
+    # print(f'  #Configs (subtrees):  {n_configs_subtrees} ({utils.int_to_scientific_notation(n_configs_subtrees)})')
 
 
 if __name__ == '__main__':
