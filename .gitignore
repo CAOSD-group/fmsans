@@ -130,14 +130,6 @@ dmypy.json
 .pyre/
 *.json
 *.err
-GPL copia/
-GPL copia/*.csv
-GPL_1CPU_1TASK/*.csv
-uClib_TOTAL/*.csv
-uClib/*.csv
-GPL_1CPU_1TASK/
-uClib_TOTAL/
-uClib/
 Pizza.sxfm
 fm_solver/models/utils/transformations_vector copy 2.py
 fm_solver/models/utils/transformations_vector copy.py
