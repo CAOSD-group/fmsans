@@ -23,6 +23,8 @@ maxConfiguration= 748288838313422294120286634350736906063837462003711
 #maxConfiguration = 2305843009213693952
 
 
+#Krieter maxConfiguration = 2305843009213693952
+
 
 #model="fm_models/simples/uClibc_simple.uvl"
 #model="fm_models/simples/GPL_simple.uvl"
