@@ -15,7 +15,7 @@
 #SBATCH --mem=1gb
 
 # The time the job will be running:
-#SBATCH --time=14:00:00
+#SBATCH --time=16:00:00
 
 # To use GPUs you have to request them:
 ##SBATCH --gres=gpu:1
@@ -35,11 +35,11 @@
 #SBATCH --output=OutputR_1_%a-64.out
 
 # Leave one comment in following line to make an array job. Then N jobs will be launched. In each one SLURM_ARRAY_TASK_ID will take one value from 1 to 100
-#SBATCH --array=0-63
+#SBATCH --array=0-127
 # the program to execute with its parameters:
 source $HOME/venv/bin/activate
 cd $HOME/fm_solver/uClib
 #time python $HOME/fm_solver/01main.py $HOME/fm_solver/fm_models/simples/uClibc_simple.uvl 1 128 ${SLURM_ARRAY_TASK_ID} $HOME/fm_solver/uClib/R_1_128_joined_0.csv 3600 35700
-time python $HOME/fm_solver/picassofiles01main.py $HOME/fm_solver/fm_models/simples/uClibc_simple.uvl 1048576 ${SLURM_ARRAY_TASK_ID} 64 50100
+time python $HOME/fm_solver/picassofiles01main.py $HOME/fm_solver/fm_models/simples/uClibc_simple.uvl 65536 ${SLURM_ARRAY_TASK_ID} 128 57000
 deactivate
 
