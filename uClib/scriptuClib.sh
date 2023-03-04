@@ -15,7 +15,7 @@
 #SBATCH --mem=1gb
 
 # The time the job will be running:
-#SBATCH --time=16:00:00
+#SBATCH --time=13:00:00
 
 # To use GPUs you have to request them:
 ##SBATCH --gres=gpu:1
@@ -40,6 +40,6 @@
 source $HOME/venv/bin/activate
 cd $HOME/fm_solver/uClib
 #time python $HOME/fm_solver/01main.py $HOME/fm_solver/fm_models/simples/uClibc_simple.uvl 1 128 ${SLURM_ARRAY_TASK_ID} $HOME/fm_solver/uClib/R_1_128_joined_0.csv 3600 35700
-time python $HOME/fm_solver/picassofiles01main.py $HOME/fm_solver/fm_models/simples/uClibc_simple.uvl 65536 ${SLURM_ARRAY_TASK_ID} 128 57000
+time python $HOME/fm_solver/picassofiles01main.py $HOME/fm_solver/fm_models/simples/uClibc_simple.uvl 65536 ${SLURM_ARRAY_TASK_ID} 128 46200
 deactivate
 
