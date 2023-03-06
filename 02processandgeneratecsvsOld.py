@@ -54,7 +54,7 @@ def get_intervals(n_min,n_max) -> tuple[int, int, int,int]:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
-    parser.add_argument('n_divisions', type=int,  default=-1, help='Number of divisions.')
+    parser.add_argument('n_tasks', type=int,  default=-1, help='Number of tasks.')
     parser.add_argument('n_files', type=int,  default=-1, help='Number of files to divide.')
     parser.add_argument('n_max', type=int,  default=-1, help='Maximum number of configuraiton.')
     args = parser.parse_args()
@@ -70,9 +70,7 @@ if __name__ == '__main__':
     now = datetime.now()
     date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
 
-
     #First diviions, we need to take out the index
-    divisionsGeneral=[]
     csv_file_regex="R_[0-9]+_[0-9]+_divisions.csv"
     pattern = re.compile(csv_file_regex)
    
@@ -84,7 +82,7 @@ if __name__ == '__main__':
                     for row in spamreader:
                         #id, current, min, max
                         #current min,max
-                        divisionsGeneral.append([int(row[1]),int(row[2]),int(row[3])-int(row[2]),int(row[3])])          
+                        divisions.append([int(row[1]),int(row[2]),int(row[3])-int(row[2]),int(row[3])])          
                     csvfile.close()
 
                 if os.path.getsize(file) == 0:
@@ -95,8 +93,6 @@ if __name__ == '__main__':
                     os.rename(old_name, new_name)
 
         break
-
-
 
     #Seconds the new divisions.
 
@@ -123,13 +119,10 @@ if __name__ == '__main__':
 
         break
 
-    progress1 = [sum(i) for i in zip(*divisions)]
-    progress2 = [sum(i) for i in zip(*divisionsGeneral)]
-    print(str((progress1[2]+progress2[2])/args.n_max))
-
-    maxIter = args.n_divisions-len(divisionsGeneral)
+    progress = [sum(i) for i in zip(*divisions)]
+    print(str(progress[2]/args.n_max))
     
-    while (len(divisions)<maxIter//2):
+    while (len(divisions)<args.n_tasks):
         first=divisions.pop(0)
         currentNun=first[0]
         firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(first[1],first[3])
@@ -141,22 +134,8 @@ if __name__ == '__main__':
         divisions.append([secondIntervalLower,secondIntervalLower,secondIntervalUpper-secondIntervalLower,secondIntervalUpper])
         divisions.sort(key=lambda x: x[2],reverse=True)
 
-    divisions+=divisionsGeneral
-    while (len(divisions)<args.n_divisions):
-        first=divisions.pop(0)
-        currentNun=first[0]
-        firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(first[1],first[3])
-        
-        while(currentNun>firstIntervalUpper):
-            firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(secondIntervalLower,secondIntervalUpper)
-
-        divisions.append([currentNun,firstIntervalLower,firstIntervalUpper-currentNun,firstIntervalUpper])
-        divisions.append([secondIntervalLower,secondIntervalLower,secondIntervalUpper-secondIntervalLower,secondIntervalUpper])
-        divisions.sort(key=lambda x: x[2],reverse=True)
    
     random.shuffle(divisions)
-
-    print(" Divisions size: " + str(len(divisions)))
     #Escribimos a ficheros
     now = datetime.now()
     date_time = now.strftime("%Y-%m-%d-%H-%M-%S")

@@ -61,12 +61,12 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/00initProcess.py",
-            "cwd": "${workspaceFolder}/axTLS/",
+            "cwd": "${workspaceFolder}/GPL/",
             "console": "integratedTerminal",
             "args": [
-                "32768",
+                "8192",
                 "8",
-                "748288838313422294120286634350736906063837462003711"
+                "77371252455336267181195263"
             ],
             "justMyCode": true
         },
@@ -78,7 +78,7 @@
             "cwd": "${workspaceFolder}/GPL/",
             "console": "integratedTerminal",
             "args": [
-                "256",
+                "8192",
                 "8",
                 "77371252455336267181195263"
 
