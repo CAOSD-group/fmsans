@@ -1,0 +1,5677 @@
+features
+	root 
+		mandatory
+			USER_RAMIMAGE_RAMFS64_alt {abstract}
+				alternative
+					USER_RAMIMAGE_NONE 
+					USER_RAMIMAGE_RAMFS64 
+					USER_RAMIMAGE_RAMFS128 
+					USER_RAMIMAGE_RAMFS256 
+					USER_RAMIMAGE_RAMFS512 
+					USER_RAMIMAGE_RAMFS1024 
+					USER_RAMIMAGE_RAMFS2048 
+					USER_RAMIMAGE_RAMFS8192 
+		mandatory
+			USER_MICROWIN_MWPF_TRUECOLOR888_alt {abstract}
+				alternative
+					USER_MICROWIN_MWPF_PALETTE 
+					USER_MICROWIN_MWPF_TRUECOLOR0888 
+					USER_MICROWIN_MWPF_TRUECOLOR888 
+					USER_MICROWIN_MWPF_TRUECOLOR565 
+					USER_MICROWIN_MWPF_TRUECOLOR555 
+					USER_MICROWIN_MWPF_TRUECOLOR332 
+		mandatory
+			USER_NWSH_SH_alt {abstract}
+				alternative
+					USER_SASH_SH 
+					USER_SH_SH 
+					USER_NWSH_SH 
+					USER_BASH_BASH 
+					USER_MSH_SH 
+					USER_OTHER_SH 
+		mandatory
+			USER_PPPD_PPPOE_RETRIES 
+		mandatory
+			DISTVERSION 
+		optional
+			USER_NETPERF_NETPERF 
+		optional
+			USER_NET_TOOLS_RARP 
+		optional
+			USER_MICROWIN_CLEOVGA 
+		optional
+			USER_NETFLASH_NETFLASH 
+				optional
+					USER_NETFLASH_DECOMPRESS 
+						optional
+							USER_NETFLASH_AUTODECOMPRESS 
+				optional
+					USER_NETFLASH_WITH_FILE 
+				optional
+					USER_NETFLASH_WITH_CGI 
+				optional
+					USER_NETFLASH_WITH_FTP 
+				optional
+					USER_NETFLASH_HMACMD5 
+						mandatory
+							USER_NETFLASH_HMACMD5_KEY 
+				optional
+					USER_NETFLASH_SHA256 
+				optional
+					USER_NETFLASH_VERSION 
+						optional
+							USER_NETFLASH_VERSION_ALLOW_CURRENT 
+						optional
+							USER_NETFLASH_VERSION_ALLOW_OLDER 
+				optional
+					USER_NETFLASH_CRYPTO_V2 
+				optional
+					USER_RECOVER_BIOS 
+				optional
+					USER_NETFLASH_CRYPTO 
+		optional
+			USER_NESSUS 
+		optional
+			USER_PPTPD_PPTPD 
+		optional
+			USER_MICROWIN_ERASEMOVE 
+		optional
+			USER_MICROWIN_HAVE_XPM_SUPPORT 
+		optional
+			USER_SASH_SHUTDOWN 
+		optional
+			USER_FILEUTILS_CMP 
+		optional
+			USER_MICROWIN_BIN_MTERM 
+		optional
+			USER_MICROWIN_MICROWIN 
+		optional
+			USER_SQUID_SQUID 
+		optional
+			USER_MYSQL 
+				optional
+					USER_MYSQL_CLIB 
+		optional
+			MCF_QSPI 
+				optional
+					USER_QSPITEST_RX 
+				optional
+					USER_QSPITEST_TEST 
+		optional
+			USER_SSLWRAP_SSLWRAP 
+		optional
+			USER_FTP_FTP_FTP 
+		optional
+			USER_GAMES_ADVENT4 
+		optional
+			USER_TRUSTEDSOURCE 
+		optional
+			USER_USBHUBCTRL_USBHUBCTRL 
+		optional
+			USER_SHUTILS_UNAME 
+		optional
+			USER_DOSFSTOOLS_DOSFSLABEL 
+		optional
+			USER_LOGROTATE_LOGROTATE 
+		optional
+			USER_GETTYD_GETTYD 
+		optional
+			USER_TINYLOGIN_TRIVIAL_HELP 
+		optional
+			USER_SENDIP_SENDIP 
+		optional
+			USER_CLAMAV_CLAMSMTP 
+		optional
+			USER_PPTP_CLIENT_PPTP_CALLMGR 
+		optional
+			USER_VERSION_VERSION 
+		optional
+			USER_CRYPTO_TOOLS_CMACTEST 
+		optional
+			USER_HASERL_HASERL 
+		optional
+			USER_MICROWIN_UCTSMOUSE 
+		optional
+			USER_FILEUTILS_CHOWN 
+		optional
+			USER_MICROWIN_BIN_NXEV 
+		optional
+			USER_KISMET 
+		optional
+			USER_CRAMFS_CRAMFSCK 
+				optional
+					USER_CRAMFS_TEST 
+		optional
+			USER_PPPD_PPPD_PPPD 
+				optional
+					USER_PPPD_WITH_PPPOA 
+				optional
+					USER_PPPD_WITH_PPPOE 
+				optional
+					USER_PPPD_WITH_PAM 
+				optional
+					USER_PPPD_WITH_RADIUS 
+				optional
+					USER_PPPD_WITH_IPV6 
+				optional
+					USER_PPPD_WITH_DYNAMIC_PLUGINS 
+				optional
+					USER_PPPD_WITH_MPPE 
+				optional
+					USER_PPPD_WITH_TACACS 
+		optional
+			USER_MICROWIN_HAVE_JPEG_SUPPORT 
+		optional
+			USER_TINYLOGIN_SHADOWPASSWDS 
+		optional
+			USER_IPREDIR_IPREDIR 
+		optional
+			USER_PROCPS_KILL 
+		optional
+			USER_FILEUTILS_RM 
+		optional
+			USER_CAL_CAL 
+		optional
+			USER_DROPBEAR_DROPBEAR 
+		optional
+			USER_RECOVER_RECOVER 
+				mandatory
+					USER_RECOVER_ETHERNET_INTERFACE 
+		optional
+			USER_FLASHW_FLASHW 
+		optional
+			USER_UDEV 
+		optional
+			USER_CAMSERV 
+		optional
+			USER_RADAUTH_RADAUTH 
+		optional
+			USER_MICROWIN_CLEOKBD 
+		optional
+			USER_BOOTTOOLS_SETBENV 
+		optional
+			USER_TINYLOGIN_TINYLOGIN 
+		optional
+			USER_FILEUTILS_L 
+		optional
+			USER_NET_TOOLS_IFCONFIG 
+		optional
+			USER_RADVD_RADVD 
+		optional
+			USER_GAMES_DUNGEON 
+		optional
+			LIB_LIBKRB5 
+		optional
+			USER_CGIHTML 
+		optional
+			USER_P7ZIP_7ZA 
+		optional
+			USER_PLAY_TONE 
+		optional
+			USER_MICROWIN_BIN_SLIDER 
+		optional
+			USER_BRCFG_BRCFG 
+		optional
+			USER_TCPWRAP_TCPD 
+				optional
+					USER_TCPWRAP_FINGER 
+				optional
+					USER_TCPWRAP_TCPDCHK 
+				optional
+					USER_TCPWRAP_TCPDMATCH 
+				optional
+					USER_TCPWRAP_MISCD 
+				optional
+					USER_TCPWRAP_TRYFROM 
+		optional
+			USER_LCD_LCD 
+		optional
+			USER_IPROUTE2 
+				optional
+					USER_IPROUTE2_IP_IP 
+				optional
+					USER_IPROUTE2_TC_TC 
+				optional
+					USER_IPROUTE2_IP_IFCFG 
+				optional
+					USER_IPROUTE2_IP_ROUTEF 
+				optional
+					USER_IPROUTE2_IP_RTMON 
+				optional
+					USER_IPROUTE2_IP_ROUTEL 
+				optional
+					USER_IPROUTE2_IP_GENL 
+				optional
+					USER_IPROUTE2_IP_RTACCT 
+		optional
+			USER_REISERFSPROGS_REISERFSCK 
+		optional
+			USER_ULOGD2_ULOGD 
+		optional
+			USER_SASH_REBOOT 
+				optional
+					USER_SASH_REBOOT_SNAPGEAR 
+		optional
+			USER_LPR 
+		optional
+			USER_SSH_SSH_KEYSIGN 
+		optional
+			LIB_LIBLDAP 
+		optional
+			USER_TRIPWIRE_SIGGEN 
+		optional
+			USER_RDATE_RDATE 
+		optional
+			USER_PROCPS_PS 
+		optional
+			USER_SSH_SFTP 
+		optional
+			USER_PLAY_PLAY 
+		optional
+			USER_MICROWIN_NOKBD 
+		optional
+			USER_HTTPD_HTTPD 
+		optional
+			USER_MICROWIN_BIN_NXLSCLIENTS 
+		optional
+			USER_MICROWIN_HAVE_HZK_SUPPORT 
+		optional
+			USER_AT_ATRUN 
+		optional
+			USER_UNZOO_UNZOO 
+		optional
+			USER_PROCPS_PGREP 
+		optional
+			USER_OPENSSL_APPS 
+		optional
+			USER_MICROWIN_VGALIB 
+		optional
+			USER_MICROWIN_CLEOMOUSE 
+		optional
+			USER_TRACEROUTE_TRACEROUTE 
+		optional
+			USER_MICROWIN_BIN_VNC 
+		optional
+			USER_LOGIN_LOGIN 
+		optional
+			LIB_LIBNL 
+				optional
+					LIB_LIBNL_COMPONENTS 
+						optional
+							LIB_LIBNL_NETFILTER 
+								optional
+									LIB_LIBNL_NETFILTER_QUEUE 
+								optional
+									LIB_LIBNL_NETFILTER_LOG 
+								optional
+									LIB_LIBNL_NETFILTER_CT 
+						optional
+							LIB_LIBNL_FIB 
+						optional
+							LIB_LIBNL_GENERIC 
+						optional
+							LIB_LIBNL_RTNL 
+								optional
+									LIB_LIBNL_ROUTE_NEIGH 
+								optional
+									LIB_LIBNL_ROUTE_LINK 
+								optional
+									LIB_LIBNL_ROUTE_RULE 
+								optional
+									LIB_LIBNL_ROUTE_ADDR 
+								optional
+									LIB_LIBNL_ROUTE_ROUTE 
+								optional
+									LIB_LIBNL_ROUTE_TC 
+		optional
+			USER_ETHATTACH_ETHATTACH 
+		optional
+			USER_MICROWIN_HAVE_FILEIO 
+		optional
+			USER_DHCP_ISC_RELAY_DHCRELAY 
+		optional
+			USER_PROCPS_W 
+		optional
+			USER_E2FSPROGS_MISC_DUMPE2FS 
+		optional
+			LIB_LIBATM 
+		optional
+			USER_SHADOW_UTILS 
+				optional
+					USER_SHADOW_NEWUSERS 
+				optional
+					USER_SHADOW_GROUPDEL 
+				optional
+					USER_SHADOW_LOGOUTD 
+				optional
+					USER_SHADOW_PWUNCONV 
+				optional
+					USER_SHADOW_GROUPMOD 
+				optional
+					USER_SHADOW_CHFN 
+				optional
+					USER_SHADOW_USERDEL 
+				optional
+					USER_SHADOW_PAM 
+				optional
+					USER_SHADOW_ID 
+				optional
+					USER_SHADOW_PASSWD 
+				optional
+					USER_SHADOW_GRPCONV 
+				optional
+					USER_SHADOW_SHAREDLIB 
+				optional
+					USER_SHADOW_LOGIN 
+				optional
+					USER_SHADOW_USERMOD 
+				optional
+					USER_SHADOW_CHSH 
+				optional
+					USER_SHADOW_CHAGE 
+				optional
+					USER_SHADOW_GROUPS 
+				optional
+					USER_SHADOW_EXPIRY 
+				optional
+					USER_SHADOW_CHPASSWD 
+				optional
+					USER_SHADOW_NEWGRP 
+				optional
+					USER_SHADOW_PWCK 
+				optional
+					USER_SHADOW_GRPCK 
+				optional
+					USER_SHADOW_VIPW 
+				optional
+					USER_SHADOW_FAILLOG 
+				optional
+					USER_SHADOW_USERADD 
+				optional
+					USER_SHADOW_SU 
+				optional
+					USER_SHADOW_GROUPADD 
+				optional
+					USER_SHADOW_GPASSWD 
+				optional
+					USER_SHADOW_NOLOGIN 
+				optional
+					USER_SHADOW_SULOGIN 
+				optional
+					USER_SHADOW_PWCONV 
+				optional
+					USER_SHADOW_LASTLOG 
+				optional
+					USER_SHADOW_GRPUNCONV 
+		optional
+			USER_MICROWIN_BIN_MTEST 
+		optional
+			USER_MICROWIN_DE2TSMOUSE 
+		optional
+			LIB_LIBCRYPT_OLD 
+		optional
+			USER_LIRC 
+				optional
+					USER_LIRC_IRRECORD 
+				optional
+					USER_LIRC_IRW 
+				optional
+					USER_LIRC_LIRCMD 
+				optional
+					USER_LIRC_IREXEC 
+				optional
+					USER_LIRC_LIRCD 
+				optional
+					USER_LIRC_MODE2 
+		optional
+			USER_PPPD_WITH_MINCONN 
+		optional
+			USER_IPERF_IPERF 
+		optional
+			USER_FILEUTILS_MORE 
+		optional
+			USER_LOGIN_PASSWD 
+		optional
+			USER_IPSENTINEL_IPSENTINEL 
+		optional
+			USER_MICROWIN_GRAYPALETTE 
+		optional
+			USER_REISERFSPROGS 
+		optional
+			USER_RSYNC_RSYNC 
+		optional
+			USER_READPROFILE_READPROFILE 
+		optional
+			USER_TINYTCL_TCLSH 
+		optional
+			USER_KENDIN_CONFIG 
+		optional
+			USER_MICROWIN_IPAQMOUSE 
+		optional
+			USER_SHUTILS_PWD 
+		optional
+			USER_SYSUTILS_HOSTNAME 
+		optional
+			USER_TCSH_TCSH 
+		optional
+			USER_MICROWIN_BIN_LANDMINE 
+		optional
+			LIB_LIBXML2 
+		optional
+			USER_OGGPLAY_EXAMPLE 
+		optional
+			USER_STP_STP 
+		optional
+			USER_TINYLOGIN_DELGROUP 
+		optional
+			USER_SETHDLC_SETHDLC 
+		optional
+			USER_TINYLOGIN_SULOGIN 
+		optional
+			USER_PROCPS_FREE 
+		optional
+			LIB_LIBPCAP 
+		optional
+			USER_TINYLOGIN_ADDGROUP 
+		optional
+			USER_LRZSZ_LRZSZ 
+				optional
+					USER_LRZSZ_LRZ 
+				optional
+					USER_LRZSZ_LSZ 
+		optional
+			USER_AT_ATD 
+		optional
+			LIB_POPT 
+		optional
+			LIB_ZLIB 
+		optional
+			USER_MAWK_AWK 
+		optional
+			USER_MUSICBOX_MUSICBOX 
+		optional
+			USER_NETSNMP_SNMPD 
+				optional
+					USER_NETSNMP_MIBS 
+						optional
+							USER_NETSNMP_MIBLOADING 
+				optional
+					USER_NETSNMP_OVRDEFAULTS 
+						mandatory
+							USER_NETSNMP_DEFVERSION 
+						mandatory
+							USER_NETSNMP_DEFPERSISDIR 
+						mandatory
+							USER_NETSNMP_DEFENTERPRISEOID 
+						mandatory
+							USER_NETSNMP_DEFLOGFILE 
+						mandatory
+							USER_NETSNMP_DEFSYSCONTACT 
+						mandatory
+							USER_NETSNMP_DEFSYSLOCATION 
+				optional
+					USER_NETSNMP_NOV1 
+				optional
+					USER_NETSNMP_NOV2C 
+				optional
+					USER_NETSNMP_APPS 
+						optional
+							USER_NETSNMP_APPS_DELTA 
+						optional
+							USER_NETSNMP_APPS_NETSTAT 
+						optional
+							USER_NETSNMP_APPS_TRAP 
+						optional
+							USER_NETSNMP_APPS_VACM 
+						optional
+							USER_NETSNMP_APPS_WALK 
+						optional
+							USER_NETSNMP_APPS_BULKWALK 
+						optional
+							USER_NETSNMP_APPS_BULKGET 
+						optional
+							USER_NETSNMP_APPS_TRAPD 
+						optional
+							USER_NETSNMP_APPS_TEST 
+						optional
+							USER_NETSNMP_APPS_TRANSLATE 
+						optional
+							USER_NETSNMP_APPS_TABLE 
+						optional
+							USER_NETSNMP_APPS_DF 
+						optional
+							USER_NETSNMP_APPS_GETNEXT 
+						optional
+							USER_NETSNMP_APPS_GET 
+						optional
+							USER_NETSNMP_APPS_USM 
+						optional
+							USER_NETSNMP_APPS_SET 
+						optional
+							USER_NETSNMP_APPS_STATUS 
+				optional
+					USER_NETSNMP_ADDMIBS 
+						mandatory
+							USER_NETSNMP_ADDITIONALMIBS 
+				optional
+					USER_NETSNMP_BUILDSTATIC 
+				optional
+					USER_NETSNMP_IPV6 
+				optional
+					USER_NETSNMP_MANUALS 
+				optional
+					USER_NETSNMP_SNMPD_MINI 
+				optional
+					USER_NETSNMP_OPENSSL 
+				optional
+					USER_NETSNMP_SCRIPTS 
+				optional
+					USER_NETSNMP_NOTRANSPORTS 
+						mandatory
+							USER_NETSNMP_EXTRANSPORTS 
+		optional
+			USER_SYSUTILS_PS 
+		optional
+			USER_FLTHDR_FLTHDR 
+		optional
+			USER_VIXIECRON_CRONTAB 
+		optional
+			USER_IFATTACH_IFATTACH 
+		optional
+			USER_TINYLOGIN_SU 
+		optional
+			USER_FILEUTILS_MKFIFO 
+		optional
+			USER_FERRET_FERRET 
+		optional
+			USER_SQUASHFS_MKSQUASHFS7Z 
+		optional
+			USER_MICROWIN_BIN_NPANEL 
+		optional
+			USER_SIPROXD_SIPROXD 
+		optional
+			LIB_ADNS 
+		optional
+			USER_NESSUS_CORE 
+		optional
+			USER_UNZIP_UNZIP 
+				optional
+					USER_UNZIP_FUNZIP 
+		optional
+			USER_PPPD_WITH_PASSWORDFD 
+		optional
+			USER_TINYLOGIN_SHA1_PASSWORDS 
+		optional
+			USER_SMBMOUNT_SMBUMOUNT 
+		optional
+			USER_FILEUTILS_CHMOD 
+		optional
+			USER_LHA_LHA 
+		optional
+			USER_VPLAY_VPLAY 
+		optional
+			USER_MICROWIN_SCANKBD 
+		optional
+			USER_PPTPD_PPTPCTRL 
+		optional
+			USER_MICROWIN_GPMMOUSE 
+		optional
+			USER_E2FSPROGS_MISC_MKLOST_FOUND 
+		optional
+			USER_NET_TOOLS_NAMEIF 
+		optional
+			USER_LUA 
+				optional
+					USER_LUA_LUAROCKS 
+						optional
+							USER_LUA_COSMO 
+						optional
+							USER_LUA_WSAPI 
+						optional
+							USER_LUA_WSAPI_XAVANTE 
+						optional
+							USER_LUA_LUASQL_SQLITE3 
+						optional
+							USER_LUA_ORBIT 
+						optional
+							USER_LUA_XAVANTE 
+		optional
+			USER_FNORD_404_REDIR 
+		optional
+			USER_BR2684CTL_BR2684CTL 
+		optional
+			USER_SYSUTILS_FREE 
+		optional
+			USER_CONNTRACK_CONNTRACK 
+		optional
+			USER_TELNET_TELNET 
+		optional
+			USER_MICROWIN_NOMOUSE 
+		optional
+			USER_NESSUS_NASL 
+		optional
+			USER_NULL_NULL 
+		optional
+			USER_BPALOGIN_BPALOGIN 
+		optional
+			USER_TINYLOGIN_PASSWD 
+		optional
+			LIB_CYRUSSASL 
+		optional
+			USER_SYSUTILS_DF 
+		optional
+			USER_MICROWIN_HAVE_PNG_SUPPORT 
+		optional
+			USER_MICROWIN_OBJFRAMEWORK 
+		optional
+			USER_IPSET_IPSET 
+		optional
+			USER_MICROWIN_BIN_NXTERM 
+		optional
+			USER_OGGPLAY_OGGPLAY 
+		optional
+			USER_ONLY_ROOT 
+		optional
+			USER_SGUTOOL_SGUTOOL 
+		optional
+			USER_MARADNS_MARADNS 
+		optional
+			LIB_OSIP2 
+		optional
+			USER_NTPCLIENT_NTPCLIENT 
+		optional
+			USER_DDNS3_CLIENT_DDNS3 
+		optional
+			USER_PPPD_WITH_PASSPROMPT 
+		optional
+			USER_GDB_GDBSERVER 
+		optional
+			USER_EZIPUPDATE_EZIPUPDATE 
+		optional
+			USER_MICROWIN_BIN_LAUNCHER 
+		optional
+			LIB_LIBPNG 
+		optional
+			USER_OLD_PASSWORDS 
+		optional
+			USER_RSYSLOGD_RSYSLOGD 
+		optional
+			USER_MICROWIN_BIN_NXVIEW 
+		optional
+			USER_CKSUM_CKSUM 
+		optional
+			USER_NOOOM_NOOOM 
+				mandatory
+					USER_NOOOM_BINARIES 
+		optional
+			LIB_NETFILTER_LOG 
+		optional
+			USER_SHUTILS_LOGNAME 
+		optional
+			USER_RECOVER_PRESERVE_CONFIG_FS 
+		optional
+			LIB_LIBCCMALLOC 
+		optional
+			USER_NET_TOOLS_MII_TOOL_FEC 
+		optional
+			USER_WGET 
+		optional
+			USER_BUSYBOX_BUSYBOX 
+				mandatory
+					USER_BUSYBOX_INSTALL_APPLET_SYMLINKS_alt {abstract}
+						alternative
+							USER_BUSYBOX_INSTALL_APPLET_SYMLINKS 
+							USER_BUSYBOX_INSTALL_APPLET_HARDLINKS 
+							USER_BUSYBOX_INSTALL_APPLET_SCRIPT_WRAPPERS 
+							USER_BUSYBOX_INSTALL_APPLET_DONT 
+				mandatory
+					USER_BUSYBOX_INSTALL_SH_APPLET_HARDLINK_alt {abstract}
+						alternative
+							USER_BUSYBOX_INSTALL_SH_APPLET_SYMLINK 
+							USER_BUSYBOX_INSTALL_SH_APPLET_HARDLINK 
+							USER_BUSYBOX_INSTALL_SH_APPLET_SCRIPT_WRAPPER 
+				mandatory
+					USER_BUSYBOX_DMALLOC_alt {abstract}
+						alternative
+							USER_BUSYBOX_NO_DEBUG_LIB 
+							USER_BUSYBOX_DMALLOC 
+							USER_BUSYBOX_EFENCE 
+				mandatory
+					USER_BUSYBOX_BUSYBOX_EXEC_PATH 
+				mandatory
+					USER_BUSYBOX_FEATURE_BUFFERS_USE_MALLOC_alt {abstract}
+						alternative
+							USER_BUSYBOX_FEATURE_BUFFERS_USE_MALLOC 
+							USER_BUSYBOX_FEATURE_BUFFERS_GO_ON_STACK 
+							USER_BUSYBOX_FEATURE_BUFFERS_GO_IN_BSS 
+				mandatory
+					USER_BUSYBOX_FEATURE_COPYBUF_KB 
+				mandatory
+					USER_BUSYBOX_FEATURE_SH_IS_NONE_alt {abstract}
+						alternative
+							USER_BUSYBOX_FEATURE_SH_IS_ASH 
+							USER_BUSYBOX_FEATURE_SH_IS_HUSH 
+							USER_BUSYBOX_FEATURE_SH_IS_MSH 
+							USER_BUSYBOX_FEATURE_SH_IS_NONE 
+				mandatory
+					USER_BUSYBOX_PASSWORD_MINLEN 
+				mandatory
+					USER_BUSYBOX_MD5_SIZE_VS_SPEED 
+				mandatory
+					USER_BUSYBOX_PREFIX 
+				optional
+					USER_BUSYBOX_IPCRM 
+				optional
+					USER_BUSYBOX_WATCH 
+				optional
+					USER_BUSYBOX_IPADDR 
+				optional
+					USER_BUSYBOX_AR 
+						optional
+							USER_BUSYBOX_FEATURE_AR_LONG_FILENAMES 
+				optional
+					USER_BUSYBOX_GUNZIP 
+						optional
+							USER_BUSYBOX_FEATURE_GUNZIP_UNCOMPRESS 
+				optional
+					USER_BUSYBOX_VCONFIG 
+				optional
+					USER_BUSYBOX_CP 
+				optional
+					USER_BUSYBOX_PS 
+						optional
+							USER_BUSYBOX_FEATURE_PS_TIME 
+								optional
+									USER_BUSYBOX_FEATURE_PS_UNUSUAL_SYSTEMS 
+						optional
+							USER_BUSYBOX_FEATURE_PS_WIDE 
+				optional
+					USER_BUSYBOX_SV 
+				optional
+					USER_BUSYBOX_DIRNAME 
+				optional
+					USER_BUSYBOX_MESG 
+				optional
+					USER_BUSYBOX_CRONTAB 
+				optional
+					USER_BUSYBOX_CHAT 
+						optional
+							USER_BUSYBOX_FEATURE_CHAT_VAR_ABORT_LEN 
+						optional
+							USER_BUSYBOX_FEATURE_CHAT_TTY_HIFI 
+						optional
+							USER_BUSYBOX_FEATURE_CHAT_IMPLICIT_CR 
+						optional
+							USER_BUSYBOX_FEATURE_CHAT_NOFAIL 
+						optional
+							USER_BUSYBOX_FEATURE_CHAT_SWALLOW_OPTS 
+						optional
+							USER_BUSYBOX_FEATURE_CHAT_CLR_ABORT 
+						optional
+							USER_BUSYBOX_FEATURE_CHAT_SEND_ESCAPES 
+				optional
+					USER_BUSYBOX_RM 
+				optional
+					USER_BUSYBOX_FEATURE_IPV6 
+						optional
+							USER_BUSYBOX_FEATURE_PREFER_IPV4_ADDRESS 
+				optional
+					USER_BUSYBOX_TEE 
+						optional
+							USER_BUSYBOX_FEATURE_TEE_USE_BLOCK_IO 
+				optional
+					USER_BUSYBOX_SETENFORCE 
+				optional
+					USER_BUSYBOX_KBD_MODE 
+				optional
+					USER_BUSYBOX_NMETER 
+				optional
+					USER_BUSYBOX_DIFF 
+						optional
+							USER_BUSYBOX_FEATURE_DIFF_BINARY 
+						optional
+							USER_BUSYBOX_FEATURE_DIFF_MINIMAL 
+						optional
+							USER_BUSYBOX_FEATURE_DIFF_DIR 
+				optional
+					USER_BUSYBOX_TOP 
+						optional
+							USER_BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE 
+								optional
+									USER_BUSYBOX_FEATURE_TOP_DECIMALS 
+								optional
+									USER_BUSYBOX_FEATURE_TOP_CPU_GLOBAL_PERCENTS 
+						optional
+							USER_BUSYBOX_FEATURE_TOPMEM 
+				optional
+					USER_BUSYBOX_USE_BB_PWD_GRP 
+				optional
+					USER_BUSYBOX_MODPROBE 
+						optional
+							USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS 
+						optional
+							USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS 
+				optional
+					USER_BUSYBOX_FEATURE_INSTALLER 
+				optional
+					USER_BUSYBOX_FAKEIDENTD 
+				optional
+					USER_BUSYBOX_UMOUNT 
+						optional
+							USER_BUSYBOX_FEATURE_UMOUNT_ALL 
+						optional
+							USER_BUSYBOX_FEATURE_MTAB_SUPPORT 
+						optional
+							USER_BUSYBOX_FEATURE_MOUNT_LOOP 
+				optional
+					USER_BUSYBOX_WHO 
+				optional
+					USER_BUSYBOX_NOHUP 
+				optional
+					USER_BUSYBOX_FIND 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_DELETE 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_MTIME 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_NEWER 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_PRINT0 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_XDEV 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_PATH 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_INUM 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_PERM 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_CONTEXT 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_TYPE 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_DEPTH 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_REGEX 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_NOT 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_USER 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_PAREN 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_SIZE 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_PRUNE 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_EXEC 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_MMIN 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_GROUP 
+						optional
+							USER_BUSYBOX_FEATURE_FIND_MAXDEPTH 
+				optional
+					USER_BUSYBOX_MKFS_MINIX 
+						optional
+							USER_BUSYBOX_FEATURE_MINIX2 
+				optional
+					USER_BUSYBOX_ADDGROUP 
+						optional
+							USER_BUSYBOX_FEATURE_ADDUSER_TO_GROUP 
+				optional
+					USER_BUSYBOX_FEATURE_TAR_FROM 
+				optional
+					USER_BUSYBOX_TFTP 
+				optional
+					USER_BUSYBOX_RMMOD 
+				optional
+					USER_BUSYBOX_FBSET 
+						optional
+							USER_BUSYBOX_FEATURE_FBSET_FANCY 
+						optional
+							USER_BUSYBOX_FEATURE_FBSET_READMODE 
+				optional
+					USER_BUSYBOX_DPKG_DEB 
+						optional
+							USER_BUSYBOX_FEATURE_DPKG_DEB_EXTRACT_ONLY 
+				optional
+					USER_BUSYBOX_RMDIR 
+						optional
+							USER_BUSYBOX_FEATURE_RMDIR_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_FEATURE_2_6_MODULES 
+				optional
+					USER_BUSYBOX_HUSH 
+						optional
+							USER_BUSYBOX_HUSH_IF 
+						optional
+							USER_BUSYBOX_HUSH_INTERACTIVE 
+								optional
+									USER_BUSYBOX_HUSH_JOB 
+						optional
+							USER_BUSYBOX_HUSH_HELP 
+						optional
+							USER_BUSYBOX_HUSH_TICK 
+						optional
+							USER_BUSYBOX_HUSH_LOOPS 
+				optional
+					USER_BUSYBOX_CHVT 
+				optional
+					USER_BUSYBOX_LOGGER 
+				optional
+					USER_BUSYBOX_DNSD 
+				optional
+					USER_BUSYBOX_CHRT 
+				optional
+					USER_BUSYBOX_CHROOT 
+				optional
+					USER_BUSYBOX_GETSEBOOL 
+				optional
+					USER_BUSYBOX_INSMOD 
+						optional
+							USER_BUSYBOX_FEATURE_INSMOD_KSYMOOPS_SYMBOLS 
+						optional
+							USER_BUSYBOX_FEATURE_INSMOD_LOAD_MAP 
+								optional
+									USER_BUSYBOX_FEATURE_INSMOD_LOAD_MAP_FULL 
+						optional
+							USER_BUSYBOX_FEATURE_INSMOD_LOADINKMEM 
+						optional
+							USER_BUSYBOX_FEATURE_INSMOD_VERSION_CHECKING 
+				optional
+					USER_BUSYBOX_FREE 
+				optional
+					USER_BUSYBOX_ROUTE 
+				optional
+					USER_BUSYBOX_FEATURE_PIDFILE 
+				optional
+					USER_BUSYBOX_SVLOGD 
+				optional
+					USER_BUSYBOX_LPQ 
+				optional
+					USER_BUSYBOX_IPCS 
+				optional
+					USER_BUSYBOX_FOLD 
+				optional
+					USER_BUSYBOX_MORE 
+						optional
+							USER_BUSYBOX_FEATURE_USE_TERMIOS 
+				optional
+					USER_BUSYBOX_TOUCH 
+				optional
+					USER_BUSYBOX_PIDOF 
+						optional
+							USER_BUSYBOX_FEATURE_PIDOF_OMIT 
+						optional
+							USER_BUSYBOX_FEATURE_PIDOF_SINGLE 
+				optional
+					USER_BUSYBOX_HAVE_DOT_CONFIG 
+				optional
+					USER_BUSYBOX_NOMMU 
+				optional
+					USER_BUSYBOX_RUN_PARTS 
+						optional
+							USER_BUSYBOX_FEATURE_RUN_PARTS_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_SHA1SUM 
+				optional
+					USER_BUSYBOX_IPTUNNEL 
+				optional
+					USER_BUSYBOX_TELNETD 
+						optional
+							USER_BUSYBOX_FEATURE_TELNETD_STANDALONE 
+				optional
+					USER_BUSYBOX_CROND 
+						optional
+							USER_BUSYBOX_DEBUG_CROND_OPTION 
+						optional
+							USER_BUSYBOX_FEATURE_CROND_CALL_SENDMAIL 
+				optional
+					USER_BUSYBOX_IPROUTE 
+				optional
+					USER_BUSYBOX_YES 
+				optional
+					USER_BUSYBOX_FEATURE_DEVFS 
+				optional
+					USER_BUSYBOX_FEATURE_TAR_UNAME_GNAME 
+				optional
+					USER_BUSYBOX_GREP 
+						optional
+							USER_BUSYBOX_FEATURE_GREP_FGREP_ALIAS 
+						optional
+							USER_BUSYBOX_FEATURE_GREP_CONTEXT 
+						optional
+							USER_BUSYBOX_FEATURE_GREP_EGREP_ALIAS 
+				optional
+					USER_BUSYBOX_DATE 
+						optional
+							USER_BUSYBOX_FEATURE_DATE_ISOFMT 
+				optional
+					USER_BUSYBOX_UNCOMPRESS 
+				optional
+					USER_BUSYBOX_FSCK 
+				optional
+					USER_BUSYBOX_BRCTL 
+						optional
+							USER_BUSYBOX_FEATURE_BRCTL_FANCY 
+				optional
+					USER_BUSYBOX_VI 
+						mandatory
+							USER_BUSYBOX_FEATURE_VI_MAX_LEN 
+						optional
+							USER_BUSYBOX_FEATURE_VI_COLON 
+						optional
+							USER_BUSYBOX_FEATURE_VI_READONLY 
+						optional
+							USER_BUSYBOX_FEATURE_VI_8BIT 
+						optional
+							USER_BUSYBOX_FEATURE_VI_YANKMARK 
+						optional
+							USER_BUSYBOX_FEATURE_VI_WIN_RESIZE 
+						optional
+							USER_BUSYBOX_FEATURE_VI_SET 
+						optional
+							USER_BUSYBOX_FEATURE_VI_SETOPTS 
+						optional
+							USER_BUSYBOX_FEATURE_VI_DOT_CMD 
+						optional
+							USER_BUSYBOX_FEATURE_VI_USE_SIGNALS 
+						optional
+							USER_BUSYBOX_FEATURE_VI_OPTIMIZE_CURSOR 
+						optional
+							USER_BUSYBOX_FEATURE_VI_SEARCH 
+						optional
+							USER_BUSYBOX_FEATURE_ALLOW_EXEC 
+				optional
+					USER_BUSYBOX_FEATURE_PREFER_APPLETS 
+				optional
+					USER_BUSYBOX_SU 
+						optional
+							USER_BUSYBOX_FEATURE_SU_SYSLOG 
+						optional
+							USER_BUSYBOX_FEATURE_SU_CHECKS_SHELLS 
+				optional
+					USER_BUSYBOX_ENV 
+						optional
+							USER_BUSYBOX_FEATURE_ENV_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_SOFTLIMIT 
+				optional
+					USER_BUSYBOX_ENVUIDGID 
+				optional
+					USER_BUSYBOX_FEATURE_TAR_OLDGNU_COMPATIBILITY 
+				optional
+					USER_BUSYBOX_UUENCODE 
+				optional
+					USER_BUSYBOX_KLOGD 
+				optional
+					USER_BUSYBOX_MOUNTPOINT 
+				optional
+					USER_BUSYBOX_LS 
+						optional
+							USER_BUSYBOX_FEATURE_LS_USERNAME 
+						optional
+							USER_BUSYBOX_FEATURE_LS_RECURSIVE 
+						optional
+							USER_BUSYBOX_FEATURE_LS_TIMESTAMPS 
+						optional
+							USER_BUSYBOX_FEATURE_LS_FOLLOWLINKS 
+						optional
+							USER_BUSYBOX_FEATURE_LS_FILETYPES 
+						optional
+							USER_BUSYBOX_FEATURE_LS_SORTFILES 
+						optional
+							USER_BUSYBOX_FEATURE_LS_COLOR 
+								optional
+									USER_BUSYBOX_FEATURE_LS_COLOR_IS_DEFAULT 
+				optional
+					USER_BUSYBOX_RTCWAKE 
+				optional
+					USER_BUSYBOX_APP_UDHCPC 
+						mandatory
+							USER_BUSYBOX_UDHCPC_SLACK_FOR_BUGGY_SERVERS 
+						mandatory
+							USER_BUSYBOX_DHCPC_DEFAULT_SCRIPT 
+						optional
+							USER_BUSYBOX_FEATURE_UDHCP_PORT 
+						optional
+							USER_BUSYBOX_FEATURE_UDHCP_DEBUG 
+						optional
+							USER_BUSYBOX_FEATURE_UDHCPC_ARPING 
+						optional
+							USER_BUSYBOX_FEATURE_RFC3397 
+				optional
+					USER_BUSYBOX_WC 
+						optional
+							USER_BUSYBOX_FEATURE_WC_LARGE 
+				optional
+					USER_BUSYBOX_LOGNAME 
+				optional
+					USER_BUSYBOX_CAT 
+				optional
+					USER_BUSYBOX_SULOGIN 
+				optional
+					USER_BUSYBOX_GETOPT 
+				optional
+					USER_BUSYBOX_INIT 
+						optional
+							USER_BUSYBOX_FEATURE_USE_INITTAB 
+								optional
+									USER_BUSYBOX_FEATURE_KILL_REMOVED 
+										mandatory
+											USER_BUSYBOX_FEATURE_KILL_DELAY 
+						optional
+							USER_BUSYBOX_FEATURE_EXTRA_QUIET 
+						optional
+							USER_BUSYBOX_FEATURE_INIT_COREDUMPS 
+						optional
+							USER_BUSYBOX_FEATURE_INIT_SCTTY 
+						optional
+							USER_BUSYBOX_DEBUG_INIT 
+						optional
+							USER_BUSYBOX_FEATURE_INITRD 
+						optional
+							USER_BUSYBOX_FEATURE_INIT_SYSLOG 
+				optional
+					USER_BUSYBOX_UNEXPAND 
+						optional
+							USER_BUSYBOX_FEATURE_UNEXPAND_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_ASH 
+						optional
+							USER_BUSYBOX_ASH_RANDOM_SUPPORT 
+						optional
+							USER_BUSYBOX_ASH_JOB_CONTROL 
+						optional
+							USER_BUSYBOX_ASH_READ_NCHARS 
+						optional
+							USER_BUSYBOX_ASH_BUILTIN_TEST 
+						optional
+							USER_BUSYBOX_ASH_EXPAND_PRMT 
+						optional
+							USER_BUSYBOX_ASH_CMDCMD 
+						optional
+							USER_BUSYBOX_ASH_ALIAS 
+						optional
+							USER_BUSYBOX_ASH_MATH_SUPPORT 
+								optional
+									USER_BUSYBOX_ASH_MATH_SUPPORT_64 
+						optional
+							USER_BUSYBOX_ASH_OPTIMIZE_FOR_SIZE 
+						optional
+							USER_BUSYBOX_ASH_READ_TIMEOUT 
+						optional
+							USER_BUSYBOX_ASH_GETOPTS 
+						optional
+							USER_BUSYBOX_ASH_MAIL 
+						optional
+							USER_BUSYBOX_ASH_BUILTIN_ECHO 
+				optional
+					USER_BUSYBOX_TR 
+						optional
+							USER_BUSYBOX_FEATURE_TR_EQUIV 
+						optional
+							USER_BUSYBOX_FEATURE_TR_CLASSES 
+				optional
+					USER_BUSYBOX_DELGROUP 
+						optional
+							USER_BUSYBOX_FEATURE_DEL_USER_FROM_GROUP 
+				optional
+					USER_BUSYBOX_UUDECODE 
+				optional
+					USER_BUSYBOX_PGREP 
+				optional
+					USER_BUSYBOX_MT 
+				optional
+					USER_BUSYBOX_DEBUG_TFTP 
+				optional
+					USER_BUSYBOX_CHOWN 
+				optional
+					USER_BUSYBOX_FEATURE_SUID 
+						optional
+							USER_BUSYBOX_FEATURE_SUID_CONFIG 
+								optional
+									USER_BUSYBOX_FEATURE_SUID_CONFIG_QUIET 
+				optional
+					USER_BUSYBOX_FEATURE_HUMAN_READABLE 
+				optional
+					USER_BUSYBOX_IPCALC 
+						optional
+							USER_BUSYBOX_FEATURE_IPCALC_LONG_OPTIONS 
+						optional
+							USER_BUSYBOX_FEATURE_IPCALC_FANCY 
+				optional
+					USER_BUSYBOX_TTY 
+				optional
+					USER_BUSYBOX_UDPSVD 
+				optional
+					USER_BUSYBOX_LOCALE_SUPPORT 
+				optional
+					USER_BUSYBOX_MICROCOM 
+				optional
+					USER_BUSYBOX_VLOCK 
+				optional
+					USER_BUSYBOX_NAMEIF 
+						optional
+							USER_BUSYBOX_FEATURE_NAMEIF_EXTENDED 
+				optional
+					USER_BUSYBOX_LPR 
+				optional
+					USER_BUSYBOX_FEATURE_SYSLOG 
+				optional
+					USER_BUSYBOX_TCPSVD 
+				optional
+					USER_BUSYBOX_RX 
+				optional
+					USER_BUSYBOX_SELINUXENABLED 
+				optional
+					USER_BUSYBOX_FUSER 
+				optional
+					USER_BUSYBOX_IP 
+						optional
+							USER_BUSYBOX_FEATURE_IP_TUNNEL 
+						optional
+							USER_BUSYBOX_FEATURE_IP_ROUTE 
+						optional
+							USER_BUSYBOX_FEATURE_IP_ADDRESS 
+						optional
+							USER_BUSYBOX_FEATURE_IP_RARE_PROTOCOLS 
+						optional
+							USER_BUSYBOX_FEATURE_IP_RULE 
+						optional
+							USER_BUSYBOX_FEATURE_IP_LINK 
+						optional
+							USER_BUSYBOX_FEATURE_IP_SHORT_FORMS 
+				optional
+					USER_BUSYBOX_SUM 
+				optional
+					USER_BUSYBOX_LN 
+				optional
+					USER_BUSYBOX_ADJTIMEX 
+				optional
+					USER_BUSYBOX_PRINTF 
+				optional
+					USER_BUSYBOX_DOS2UNIX 
+						optional
+							USER_BUSYBOX_UNIX2DOS 
+				optional
+					USER_BUSYBOX_TRUE 
+				optional
+					USER_BUSYBOX_READPROFILE 
+				optional
+					USER_BUSYBOX_INSTALL 
+						optional
+							USER_BUSYBOX_FEATURE_INSTALL_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_DEBUG 
+				optional
+					USER_BUSYBOX_SETKEYCODES 
+				optional
+					USER_BUSYBOX_SYSLOGD 
+						optional
+							USER_BUSYBOX_FEATURE_IPC_SYSLOG 
+								mandatory
+									USER_BUSYBOX_FEATURE_IPC_SYSLOG_BUFFER_SIZE 
+								optional
+									USER_BUSYBOX_LOGREAD 
+										optional
+											USER_BUSYBOX_FEATURE_LOGREAD_REDUCED_LOCKING 
+						optional
+							USER_BUSYBOX_FEATURE_ROTATE_LOGFILE 
+						optional
+							USER_BUSYBOX_FEATURE_REMOTE_LOG 
+						optional
+							USER_BUSYBOX_FEATURE_SYSLOGD_DUP 
+				optional
+					USER_BUSYBOX_DEALLOCVT 
+				optional
+					USER_BUSYBOX_WHOAMI 
+				optional
+					USER_BUSYBOX_CATV 
+				optional
+					USER_BUSYBOX_HEAD 
+						optional
+							USER_BUSYBOX_FEATURE_FANCY_HEAD 
+				optional
+					USER_BUSYBOX_MKSWAP 
+						optional
+							USER_BUSYBOX_FEATURE_MKSWAP_V0 
+				optional
+					USER_BUSYBOX_DMESG 
+						optional
+							USER_BUSYBOX_FEATURE_DMESG_PRETTY 
+				optional
+					USER_BUSYBOX_TFTPD 
+						optional
+							USER_BUSYBOX_FEATURE_TFTP_GET 
+						optional
+							USER_BUSYBOX_FEATURE_TFTP_BLOCKSIZE 
+						optional
+							USER_BUSYBOX_FEATURE_TFTP_PUT 
+				optional
+					USER_BUSYBOX_FALSE 
+				optional
+					USER_BUSYBOX_WATCHDOGD 
+				optional
+					USER_BUSYBOX_FEATURE_QUERY_MODULE_INTERFACE 
+				optional
+					USER_BUSYBOX_LOAD_POLICY 
+				optional
+					USER_BUSYBOX_ARP 
+				optional
+					USER_BUSYBOX_LSMOD 
+						optional
+							USER_BUSYBOX_FEATURE_LSMOD_PRETTY_2_6_OUTPUT 
+				optional
+					USER_BUSYBOX_SYNC 
+				optional
+					USER_BUSYBOX_FTPGET 
+				optional
+					USER_BUSYBOX_FINDFS 
+				optional
+					USER_BUSYBOX_TTYSIZE 
+				optional
+					USER_BUSYBOX_HD 
+				optional
+					USER_BUSYBOX_RESET 
+				optional
+					USER_BUSYBOX_TAIL 
+						optional
+							USER_BUSYBOX_FEATURE_FANCY_TAIL 
+				optional
+					USER_BUSYBOX_RPM 
+						optional
+							USER_BUSYBOX_FEATURE_RPM_BZ2 
+				optional
+					USER_BUSYBOX_HTTPD 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_CGI 
+								optional
+									USER_BUSYBOX_FEATURE_HTTPD_SET_REMOTE_PORT_TO_ENV 
+								optional
+									USER_BUSYBOX_FEATURE_HTTPD_CONFIG_WITH_SCRIPT_INTERPR 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_ERROR_PAGES 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_RELOAD_CONFIG_SIGHUP 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_ENCODE_URL_STR 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_BASIC_AUTH 
+								optional
+									USER_BUSYBOX_FEATURE_HTTPD_AUTH_MD5 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_PROXY 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_SETUID 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_RANGES 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_USE_SENDFILE 
+						optional
+							USER_BUSYBOX_FEATURE_HTTPD_CONFIG_WITH_MIME_TYPES 
+				optional
+					USER_BUSYBOX_VERBOSE_RESOLUTION_ERRORS 
+				optional
+					USER_BUSYBOX_FTPPUT 
+						optional
+							USER_BUSYBOX_FEATURE_FTPGETPUT_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_FEATURE_DEB_TAR_LZMA 
+				optional
+					USER_BUSYBOX_FDFLUSH 
+				optional
+					USER_BUSYBOX_TEST 
+						optional
+							USER_BUSYBOX_FEATURE_TEST_64 
+				optional
+					USER_BUSYBOX_EXPAND 
+						optional
+							USER_BUSYBOX_FEATURE_EXPAND_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_DELUSER 
+				optional
+					USER_BUSYBOX_SETSID 
+				optional
+					USER_BUSYBOX_REALPATH 
+				optional
+					USER_BUSYBOX_DD 
+						optional
+							USER_BUSYBOX_FEATURE_DD_SIGNAL_HANDLING 
+						optional
+							USER_BUSYBOX_FEATURE_DD_IBS_OBS 
+				optional
+					USER_BUSYBOX_RUNSVDIR 
+				optional
+					USER_BUSYBOX_DEVFSD 
+						optional
+							USER_BUSYBOX_DEVFSD_MODLOAD 
+						optional
+							USER_BUSYBOX_DEVFSD_FG_NP 
+						optional
+							USER_BUSYBOX_DEVFSD_VERBOSE 
+				optional
+					USER_BUSYBOX_MSH 
+						optional
+							USER_BUSYBOX_FEATURE_SH_EXTRA_QUIET 
+						optional
+							USER_BUSYBOX_FEATURE_SH_STANDALONE 
+				optional
+					USER_BUSYBOX_FDISK 
+						optional
+							USER_BUSYBOX_FEATURE_FDISK_WRITABLE 
+								optional
+									USER_BUSYBOX_FEATURE_SUN_LABEL 
+								optional
+									USER_BUSYBOX_FEATURE_OSF_LABEL 
+								optional
+									USER_BUSYBOX_FEATURE_SGI_LABEL 
+								optional
+									USER_BUSYBOX_FEATURE_FDISK_ADVANCED 
+								optional
+									USER_BUSYBOX_FEATURE_AIX_LABEL 
+						optional
+							USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS 
+				optional
+					USER_BUSYBOX_ARPING 
+				optional
+					USER_BUSYBOX_TIME 
+				optional
+					USER_BUSYBOX_NSLOOKUP 
+				optional
+					USER_BUSYBOX_ETHER_WAKE 
+				optional
+					USER_BUSYBOX_TASKSET 
+						optional
+							USER_BUSYBOX_FEATURE_TASKSET_FANCY 
+				optional
+					USER_BUSYBOX_CHCON 
+						optional
+							USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_ENVDIR 
+				optional
+					USER_BUSYBOX_FEATURE_MD5_SHA1_SUM_CHECK 
+				optional
+					USER_BUSYBOX_SORT 
+						optional
+							USER_BUSYBOX_FEATURE_SORT_BIG 
+				optional
+					USER_BUSYBOX_IFUPDOWN 
+						mandatory
+							USER_BUSYBOX_IFUPDOWN_IFSTATE_PATH 
+						optional
+							USER_BUSYBOX_FEATURE_IFUPDOWN_IPV4 
+						optional
+							USER_BUSYBOX_FEATURE_IFUPDOWN_MAPPING 
+						optional
+							USER_BUSYBOX_FEATURE_IFUPDOWN_IPV6 
+						optional
+							USER_BUSYBOX_FEATURE_IFUPDOWN_IP 
+								optional
+									USER_BUSYBOX_FEATURE_IFUPDOWN_IP_BUILTIN 
+								optional
+									USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN 
+						optional
+							USER_BUSYBOX_FEATURE_IFUPDOWN_EXTERNAL_DHCP 
+				optional
+					USER_BUSYBOX_FEATURE_VERBOSE_CP_MESSAGE 
+				optional
+					USER_BUSYBOX_LOSETUP 
+				optional
+					USER_BUSYBOX_KILL 
+						optional
+							USER_BUSYBOX_KILLALL5 
+						optional
+							USER_BUSYBOX_KILLALL 
+				optional
+					USER_BUSYBOX_RUNLEVEL 
+				optional
+					USER_BUSYBOX_LOADKMAP 
+				optional
+					USER_BUSYBOX_TAR 
+						optional
+							USER_BUSYBOX_FEATURE_TAR_COMPRESS 
+						optional
+							USER_BUSYBOX_FEATURE_TAR_GZIP 
+						optional
+							USER_BUSYBOX_FEATURE_TAR_BZIP2 
+						optional
+							USER_BUSYBOX_FEATURE_TAR_CREATE 
+						optional
+							USER_BUSYBOX_FEATURE_TAR_LZMA 
+				optional
+					USER_BUSYBOX_MAKEDEVS 
+						mandatory
+							USER_BUSYBOX_FEATURE_MAKEDEVS_LEAF_alt {abstract}
+								alternative
+									USER_BUSYBOX_FEATURE_MAKEDEVS_LEAF 
+									USER_BUSYBOX_FEATURE_MAKEDEVS_TABLE 
+				optional
+					USER_BUSYBOX_MDEV 
+						optional
+							USER_BUSYBOX_FEATURE_MDEV_CONF 
+								optional
+									USER_BUSYBOX_FEATURE_MDEV_EXEC 
+								optional
+									USER_BUSYBOX_FEATURE_MDEV_RENAME 
+						optional
+							USER_BUSYBOX_FEATURE_MDEV_LOAD_FIRMWARE 
+				optional
+					USER_BUSYBOX_FEATURE_EDITING 
+						mandatory
+							USER_BUSYBOX_FEATURE_EDITING_MAX_LEN 
+						mandatory
+							USER_BUSYBOX_FEATURE_EDITING_HISTORY 
+						optional
+							USER_BUSYBOX_FEATURE_EDITING_SAVEHISTORY 
+						optional
+							USER_BUSYBOX_FEATURE_TAB_COMPLETION 
+								optional
+									USER_BUSYBOX_FEATURE_USERNAME_COMPLETION 
+						optional
+							USER_BUSYBOX_FEATURE_EDITING_VI 
+						optional
+							USER_BUSYBOX_FEATURE_EDITING_FANCY_PROMPT 
+				optional
+					USER_BUSYBOX_BUILD_LIBBUSYBOX 
+						optional
+							USER_BUSYBOX_FEATURE_SHARED_BUSYBOX 
+						optional
+							USER_BUSYBOX_FEATURE_INDIVIDUAL 
+				optional
+					USER_BUSYBOX_ID 
+				optional
+					USER_BUSYBOX_LASH 
+				optional
+					USER_BUSYBOX_HEXDUMP 
+						optional
+							USER_BUSYBOX_FEATURE_HEXDUMP_REVERSE 
+				optional
+					USER_BUSYBOX_BB_SYSCTL 
+				optional
+					USER_BUSYBOX_PASSWD 
+						optional
+							USER_BUSYBOX_FEATURE_PASSWD_WEAK_CHECK 
+				optional
+					USER_BUSYBOX_NITPICK 
+				optional
+					USER_BUSYBOX_ZCIP 
+				optional
+					USER_BUSYBOX_IPLINK 
+				optional
+					USER_BUSYBOX_PWD 
+				optional
+					USER_BUSYBOX_CRYPTPW 
+				optional
+					USER_BUSYBOX_STRINGS 
+				optional
+					USER_BUSYBOX_FEATURE_CHECK_NAMES 
+				optional
+					USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE 
+				optional
+					USER_BUSYBOX_DESKTOP 
+				optional
+					USER_BUSYBOX_PING 
+						optional
+							USER_BUSYBOX_FEATURE_FANCY_PING 
+						optional
+							USER_BUSYBOX_PING6 
+				optional
+					USER_BUSYBOX_HOSTID 
+				optional
+					USER_BUSYBOX_LOGIN 
+						optional
+							USER_BUSYBOX_FEATURE_NOLOGIN 
+						optional
+							USER_BUSYBOX_LOGIN_SCRIPTS 
+						optional
+							USER_BUSYBOX_FEATURE_SECURETTY 
+						optional
+							USER_BUSYBOX_PAM 
+				optional
+					USER_BUSYBOX_INETD 
+						optional
+							USER_BUSYBOX_FEATURE_INETD_SUPPORT_BUILTIN_TIME 
+						optional
+							USER_BUSYBOX_FEATURE_INETD_RPC 
+						optional
+							USER_BUSYBOX_FEATURE_INETD_SUPPORT_BUILTIN_DISCARD 
+						optional
+							USER_BUSYBOX_FEATURE_INETD_SUPPORT_BUILTIN_DAYTIME 
+						optional
+							USER_BUSYBOX_FEATURE_INETD_SUPPORT_BUILTIN_ECHO 
+						optional
+							USER_BUSYBOX_FEATURE_INETD_SUPPORT_BUILTIN_CHARGEN 
+				optional
+					USER_BUSYBOX_SETLOGCONS 
+				optional
+					USER_BUSYBOX_WHICH 
+				optional
+					USER_BUSYBOX_OPENVT 
+				optional
+					USER_BUSYBOX_EJECT 
+						optional
+							USER_BUSYBOX_FEATURE_EJECT_SCSI 
+				optional
+					USER_BUSYBOX_FEATURE_CLEAN_UP 
+				optional
+					USER_BUSYBOX_INCLUDE_SUSv2 
+				optional
+					USER_BUSYBOX_LESS 
+						mandatory
+							USER_BUSYBOX_FEATURE_LESS_MAXLINES 
+						optional
+							USER_BUSYBOX_FEATURE_LESS_BRACKETS 
+						optional
+							USER_BUSYBOX_FEATURE_LESS_FLAGCS 
+						optional
+							USER_BUSYBOX_FEATURE_LESS_FLAGS 
+						optional
+							USER_BUSYBOX_FEATURE_LESS_MARKS 
+						optional
+							USER_BUSYBOX_FEATURE_LESS_REGEXP 
+				optional
+					USER_BUSYBOX_INSTALL_NO_USR 
+				optional
+					USER_BUSYBOX_LFS 
+				optional
+					USER_BUSYBOX_BASENAME 
+				optional
+					USER_BUSYBOX_FEATURE_DEVPTS 
+				optional
+					USER_BUSYBOX_FETCHMAIL 
+				optional
+					USER_BUSYBOX_HOSTNAME 
+				optional
+					USER_BUSYBOX_ADDUSER 
+						optional
+							USER_BUSYBOX_FEATURE_ADDUSER_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_FEATURE_HAVE_RPC 
+				optional
+					USER_BUSYBOX_LENGTH 
+				optional
+					USER_BUSYBOX_HDPARM 
+						optional
+							USER_BUSYBOX_FEATURE_HDPARM_HDIO_SCAN_HWIF 
+						optional
+							USER_BUSYBOX_FEATURE_HDPARM_GET_IDENTITY 
+						optional
+							USER_BUSYBOX_FEATURE_HDPARM_HDIO_GETSET_DMA 
+						optional
+							USER_BUSYBOX_FEATURE_HDPARM_HDIO_UNREGISTER_HWIF 
+						optional
+							USER_BUSYBOX_FEATURE_HDPARM_HDIO_TRISTATE_HWIF 
+						optional
+							USER_BUSYBOX_FEATURE_HDPARM_HDIO_DRIVE_RESET 
+				optional
+					USER_BUSYBOX_SEQ 
+				optional
+					USER_BUSYBOX_FEATURE_PRESERVE_HARDLINKS 
+				optional
+					USER_BUSYBOX_DPKG 
+				optional
+					USER_BUSYBOX_UNIQ 
+				optional
+					USER_BUSYBOX_APP_UDHCPD 
+						mandatory
+							USER_BUSYBOX_DHCPD_LEASES_FILE 
+						optional
+							USER_BUSYBOX_APP_DHCPRELAY 
+						optional
+							USER_BUSYBOX_FEATURE_UDHCPD_WRITE_LEASES_EARLY 
+						optional
+							USER_BUSYBOX_APP_DUMPLEASES 
+				optional
+					USER_BUSYBOX_READAHEAD 
+				optional
+					USER_BUSYBOX_SETFILES 
+						optional
+							USER_BUSYBOX_FEATURE_SETFILES_CHECK_OPTION 
+				optional
+					USER_BUSYBOX_UPTIME 
+				optional
+					USER_BUSYBOX_UNAME 
+				optional
+					USER_BUSYBOX_CAL 
+				optional
+					USER_BUSYBOX_UNZIP 
+				optional
+					USER_BUSYBOX_SWAPONOFF 
+				optional
+					USER_BUSYBOX_SESTATUS 
+				optional
+					USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS 
+				optional
+					USER_BUSYBOX_BUNZIP2 
+				optional
+					USER_BUSYBOX_FEATURE_VERBOSE_USAGE 
+				optional
+					USER_BUSYBOX_SETARCH 
+				optional
+					USER_BUSYBOX_SETSEBOOL 
+				optional
+					USER_BUSYBOX_FEATURE_DEB_TAR_GZ 
+				optional
+					USER_BUSYBOX_CHATTR 
+				optional
+					USER_BUSYBOX_RESTORECON 
+				optional
+					USER_BUSYBOX_SCRIPT 
+				optional
+					USER_BUSYBOX_SETUIDGID 
+				optional
+					USER_BUSYBOX_TAC 
+				optional
+					USER_BUSYBOX_LPD 
+				optional
+					USER_BUSYBOX_MV 
+						optional
+							USER_BUSYBOX_FEATURE_MV_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_SLEEP 
+						optional
+							USER_BUSYBOX_FEATURE_FANCY_SLEEP 
+				optional
+					USER_BUSYBOX_FEATURE_UNARCHIVE_TAPE 
+				optional
+					USER_BUSYBOX_FEATURE_TAR_OLDSUN_COMPATIBILITY 
+				optional
+					USER_BUSYBOX_CHGRP 
+				optional
+					USER_BUSYBOX_FDFORMAT 
+				optional
+					USER_BUSYBOX_SLATTACH 
+				optional
+					USER_BUSYBOX_SED 
+				optional
+					USER_BUSYBOX_MATCHPATHCON 
+				optional
+					USER_BUSYBOX_FREERAMDISK 
+				optional
+					USER_BUSYBOX_READLINK 
+						optional
+							USER_BUSYBOX_FEATURE_READLINK_FOLLOW 
+				optional
+					USER_BUSYBOX_FSCK_MINIX 
+				optional
+					USER_BUSYBOX_IFCONFIG 
+						optional
+							USER_BUSYBOX_FEATURE_IFCONFIG_HW 
+						optional
+							USER_BUSYBOX_FEATURE_IFCONFIG_MEMSTART_IOADDR_IRQ 
+						optional
+							USER_BUSYBOX_FEATURE_IFCONFIG_SLIP 
+						optional
+							USER_BUSYBOX_FEATURE_IFCONFIG_STATUS 
+						optional
+							USER_BUSYBOX_FEATURE_IFCONFIG_BROADCAST_PLUS 
+				optional
+					USER_BUSYBOX_ECHO 
+						optional
+							USER_BUSYBOX_FEATURE_FANCY_ECHO 
+				optional
+					USER_BUSYBOX_STATIC 
+				optional
+					USER_BUSYBOX_GETTY 
+						optional
+							USER_BUSYBOX_FEATURE_WTMP 
+						optional
+							USER_BUSYBOX_FEATURE_UTMP 
+				optional
+					USER_BUSYBOX_SHOW_USAGE 
+				optional
+					USER_BUSYBOX_CLEAR 
+				optional
+					USER_BUSYBOX_SELINUX 
+				optional
+					USER_BUSYBOX_CPIO 
+				optional
+					USER_BUSYBOX_CHPST 
+				optional
+					USER_BUSYBOX_GETENFORCE 
+				optional
+					USER_BUSYBOX_DC 
+				optional
+					USER_BUSYBOX_MKFIFO 
+				optional
+					USER_BUSYBOX_EXPR 
+						optional
+							USER_BUSYBOX_EXPR_MATH_SUPPORT_64 
+				optional
+					USER_BUSYBOX_RENICE 
+				optional
+					USER_BUSYBOX_RESIZE 
+						optional
+							USER_BUSYBOX_FEATURE_RESIZE_PRINT 
+				optional
+					USER_BUSYBOX_ED 
+				optional
+					USER_BUSYBOX_MONOTONIC_SYSCALL 
+				optional
+					USER_BUSYBOX_MOUNT 
+						optional
+							USER_BUSYBOX_FEATURE_MOUNT_VERBOSE 
+						optional
+							USER_BUSYBOX_FEATURE_MOUNT_FSTAB 
+						optional
+							USER_BUSYBOX_FEATURE_MOUNT_CIFS 
+						optional
+							USER_BUSYBOX_FEATURE_MOUNT_NFS 
+						optional
+							USER_BUSYBOX_FEATURE_MOUNT_FAKE 
+						optional
+							USER_BUSYBOX_FEATURE_MOUNT_LABEL 
+						optional
+							USER_BUSYBOX_FEATURE_MOUNT_HELPERS 
+						optional
+							USER_BUSYBOX_FEATURE_MOUNT_FLAGS 
+				optional
+					USER_BUSYBOX_IFENSLAVE 
+				optional
+					USER_BUSYBOX_MKTEMP 
+				optional
+					USER_BUSYBOX_SPLIT 
+						optional
+							USER_BUSYBOX_FEATURE_SPLIT_FANCY 
+				optional
+					USER_BUSYBOX_TRACEROUTE 
+						optional
+							USER_BUSYBOX_FEATURE_TRACEROUTE_USE_ICMP 
+						optional
+							USER_BUSYBOX_FEATURE_TRACEROUTE_SOURCE_ROUTE 
+						optional
+							USER_BUSYBOX_FEATURE_TRACEROUTE_VERBOSE 
+				optional
+					USER_BUSYBOX_IOCTL_HEX2STR_ERROR 
+				optional
+					USER_BUSYBOX_GZIP 
+				optional
+					USER_BUSYBOX_VOLUMEID 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_LINUXSWAP 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_EXT 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_REISERFS 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_UDF 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_LINUXRAID 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_JFS 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_ISO9660 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_LUKS 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_SYSV 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_OCFS2 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_ROMFS 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_FAT 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_CRAMFS 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_NTFS 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_XFS 
+						optional
+							USER_BUSYBOX_FEATURE_VOLUMEID_HFS 
+				optional
+					USER_BUSYBOX_START_STOP_DAEMON 
+						optional
+							USER_BUSYBOX_FEATURE_START_STOP_DAEMON_FANCY 
+						optional
+							USER_BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_USLEEP 
+				optional
+					USER_BUSYBOX_UNLZMA 
+						optional
+							USER_BUSYBOX_FEATURE_LZMA_FAST 
+				optional
+					USER_BUSYBOX_STTY 
+				optional
+					USER_BUSYBOX_OD 
+				optional
+					USER_BUSYBOX_MKNOD 
+				optional
+					USER_BUSYBOX_HWCLOCK 
+						optional
+							USER_BUSYBOX_FEATURE_HWCLOCK_ADJTIME_FHS 
+						optional
+							USER_BUSYBOX_FEATURE_HWCLOCK_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_FEATURE_SHADOWPASSWDS 
+						optional
+							USER_BUSYBOX_USE_BB_SHADOW 
+				optional
+					USER_BUSYBOX_RUNSV 
+				optional
+					USER_BUSYBOX_DUMPKMAP 
+				optional
+					USER_BUSYBOX_CUT 
+				optional
+					USER_BUSYBOX_PIVOT_ROOT 
+				optional
+					USER_BUSYBOX_NETSTAT 
+						optional
+							USER_BUSYBOX_FEATURE_NETSTAT_WIDE 
+				optional
+					USER_BUSYBOX_FEATURE_TAR_AUTODETECT 
+				optional
+					USER_BUSYBOX_AWK 
+						optional
+							USER_BUSYBOX_FEATURE_AWK_MATH 
+				optional
+					USER_BUSYBOX_WERROR 
+				optional
+					USER_BUSYBOX_PATCH 
+				optional
+					USER_BUSYBOX_FEATURE_FAST_TOP 
+				optional
+					USER_BUSYBOX_LAST 
+				optional
+					USER_BUSYBOX_CTTYHACK 
+				optional
+					USER_BUSYBOX_WGET 
+						optional
+							USER_BUSYBOX_FEATURE_WGET_LONG_OPTIONS 
+						optional
+							USER_BUSYBOX_FEATURE_WGET_STATUSBAR 
+						optional
+							USER_BUSYBOX_FEATURE_WGET_AUTHENTICATION 
+				optional
+					USER_BUSYBOX_MKDIR 
+						optional
+							USER_BUSYBOX_FEATURE_MKDIR_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_COMM 
+				optional
+					USER_BUSYBOX_SENDMAIL 
+				optional
+					USER_BUSYBOX_SETCONSOLE 
+						optional
+							USER_BUSYBOX_FEATURE_SETCONSOLE_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_FEATURE_2_4_MODULES 
+				optional
+					USER_BUSYBOX_NICE 
+				optional
+					USER_BUSYBOX_CMP 
+				optional
+					USER_BUSYBOX_HALT 
+				optional
+					USER_BUSYBOX_PIPE_PROGRESS 
+				optional
+					USER_BUSYBOX_PKILL 
+				optional
+					USER_BUSYBOX_CKSUM 
+				optional
+					USER_BUSYBOX_PRINTENV 
+				optional
+					USER_BUSYBOX_FEATURE_TAR_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_PSCAN 
+				optional
+					USER_BUSYBOX_NC 
+						optional
+							USER_BUSYBOX_NC_EXTRA 
+						optional
+							USER_BUSYBOX_NC_SERVER 
+				optional
+					USER_BUSYBOX_FEATURE_ETC_NETWORKS 
+				optional
+					USER_BUSYBOX_CHMOD 
+				optional
+					USER_BUSYBOX_MD5SUM 
+				optional
+					USER_BUSYBOX_STAT 
+						optional
+							USER_BUSYBOX_FEATURE_STAT_FORMAT 
+				optional
+					USER_BUSYBOX_GETOPT_LONG 
+				optional
+					USER_BUSYBOX_FEATURE_COMPRESS_USAGE 
+				optional
+					FEATURE_RUN_PARTS_FANCY 
+				optional
+					USER_BUSYBOX_SWITCH_ROOT 
+				optional
+					USER_BUSYBOX_RDATE 
+				optional
+					USER_BUSYBOX_BBCONFIG 
+				optional
+					USER_BUSYBOX_RUNCON 
+						optional
+							USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS 
+				optional
+					USER_BUSYBOX_FEATURE_AUTOWIDTH 
+				optional
+					USER_BUSYBOX_FEATURE_DEB_TAR_BZ2 
+				optional
+					USER_BUSYBOX_LOADFONT 
+				optional
+					USER_BUSYBOX_CHPASSWD 
+				optional
+					USER_BUSYBOX_IPRULE 
+				optional
+					USER_BUSYBOX_DU 
+						optional
+							USER_BUSYBOX_FEATURE_DU_DEFAULT_BLOCKSIZE_1K 
+				optional
+					USER_BUSYBOX_XARGS 
+						optional
+							USER_BUSYBOX_FEATURE_XARGS_SUPPORT_TERMOPT 
+						optional
+							USER_BUSYBOX_FEATURE_XARGS_SUPPORT_ZERO_TERM 
+						optional
+							USER_BUSYBOX_FEATURE_XARGS_SUPPORT_QUOTES 
+						optional
+							USER_BUSYBOX_FEATURE_XARGS_SUPPORT_CONFIRMATION 
+				optional
+					USER_BUSYBOX_RAIDAUTORUN 
+				optional
+					USER_BUSYBOX_TELNET 
+						optional
+							USER_BUSYBOX_FEATURE_TELNET_AUTOLOGIN 
+						optional
+							USER_BUSYBOX_FEATURE_TELNET_TTYPE 
+				optional
+					USER_BUSYBOX_BZIP2 
+				optional
+					USER_BUSYBOX_LSATTR 
+				optional
+					USER_BUSYBOX_RPM2CPIO 
+				optional
+					USER_BUSYBOX_DF 
+						optional
+							USER_BUSYBOX_FEATURE_DF_INODE 
+		optional
+			LIB_LIBLZMA 
+		optional
+			USER_SQUASHFS_MKSQUASHFS 
+		optional
+			USER_SSH_SFTP_SERVER 
+		optional
+			USER_STTY_STTY 
+		optional
+			USER_NET_TOOLS_SLATTACH 
+		optional
+			USER_DHCPCD_DHCPCD 
+				optional
+					USER_DHCPCD_LLIP 
+		optional
+			USER_PPTP_CLIENT_PPTP 
+		optional
+			USER_TINYLOGIN_DELUSER 
+		optional
+			USER_LANG_A60 
+				optional
+					USER_LANG_A60_EGS 
+				optional
+					USER_LANG_A60_TEST 
+		optional
+			USER_INIT_INIT 
+		optional
+			USER_SETMAC_SETMAC 
+		optional
+			USER_GDB_HOST 
+		optional
+			USER_BZIP2_BZIP2 
+		optional
+			USER_DHCPD_DHCPD 
+		optional
+			USER_FILEUTILS_MV 
+		optional
+			USER_BRCTL_BRCTL 
+		optional
+			USER_DEBUG_DEBUG 
+		optional
+			USER_PROCPS_PWDX 
+		optional
+			USER_HTTPTUNNEL_CLIENT 
+		optional
+			USER_MOUNT_UMOUNT 
+		optional
+			USER_PYTHON 
+		optional
+			USER_MICROWIN_HAVE_BMP_SUPPORT 
+		optional
+			USER_SHUTILS_PRINTENV 
+		optional
+			LIB_NFNETLINK 
+		optional
+			USER_E2FSPROGS_MISC_BADBLOCKS 
+		optional
+			LIB_LIBEFENCE 
+		optional
+			USER_FROB_LED_FROB_LED 
+		optional
+			USER_FILEUTILS_TOUCH 
+		optional
+			USER_DIALD_DIALD 
+		optional
+			USER_RECOVER_STATIC_TFTP 
+		optional
+			USER_IPCHAINS_IPCHAINS 
+		optional
+			USER_VPNLED_VPNLED 
+		optional
+			USER_SHUTILS_DIRNAME 
+		optional
+			USER_RRDTOOL_RRDTOOL 
+		optional
+			USER_FILEUTILS_MKNOD 
+		optional
+			USER_PROCPS_SYSCTL 
+		optional
+			USER_MICROWIN_HAVE_SHAREDMEM_SUPPORT 
+		optional
+			LIB_UC_LIBC_TIMEZONE 
+				optional
+					LIB_UC_LIBC_TZ_FROM_FILE 
+		optional
+			USER_INIT_EXPAND 
+				optional
+					USER_INIT_EXPAND_NOZEROES 
+		optional
+			USER_MINIUPNPD 
+		optional
+			USER_W3CAM_VIDCAT 
+		optional
+			USER_PERL_PERL 
+		optional
+			USER_NBENCH_NBENCH 
+		optional
+			USER_MICROWIN_HAVE_GIF_SUPPORT 
+		optional
+			USER_MICROWIN_FRAMEBUFFER 
+		optional
+			USER_SMTP_SMTPCLIENT 
+		optional
+			USER_SMBMOUNT_SMBMOUNT 
+		optional
+			LIB_LIBBZ2 
+		optional
+			USER_L2TPD_L2TPD 
+		optional
+			USER_E2FSPROGS_MISC_UUIDGEN 
+		optional
+			USER_RTC_M41T11 
+		optional
+			USER_ARJ_ARJ 
+		optional
+			USER_E2FSPROGS_MISC_CHATTR 
+		optional
+			USER_OPROFILE 
+		optional
+			USER_DEBUG 
+		optional
+			USER_FILEUTILS_SYNC 
+		optional
+			USER_SSH_SSH 
+		optional
+			USER_PROCPS_SNICE 
+		optional
+			LIB_LIBLZO 
+		optional
+			USER_MICROWIN_HARRIERMOUSE 
+		optional
+			USER_DEMO_MORSE 
+		optional
+			USER_OPENVPN_OPENVPN 
+		optional
+			USER_SHUTILS_WHOAMI 
+		optional
+			USER_RECOVER_USE_STATIC_SERVER 
+				mandatory
+					USER_RECOVER_STATIC_SERVER 
+		optional
+			USER_FILEUTILS_CP 
+		optional
+			USER_FNORD_PAM 
+		optional
+			USER_DEMO_BUTTON 
+		optional
+			USER_FAKEIDENTD_IDENTD 
+		optional
+			USER_MICROWIN_HAVE_PNM_SUPPORT 
+		optional
+			USER_MICROWIN_BIN_NTETRIS 
+		optional
+			USER_MICROWIN_BIN_MOVE 
+		optional
+			USER_TINYLOGIN_GETTY 
+		optional
+			USER_AT_AT 
+		optional
+			USER_ULOGD_ULOGD 
+		optional
+			USER_NESSUS_PLUGINS 
+		optional
+			USER_MICROWIN_PSIONMOUSE 
+		optional
+			USER_CRAMFS_MKCRAMFS 
+		optional
+			USER_NETSTAT_NAT_NETSTAT_NAT 
+		optional
+			USER_PPTP_PPTP 
+		optional
+			USER_RP_PPPOE_PPPOE 
+				optional
+					USER_RP_PPPOE_PPPOE_SERVER 
+		optional
+			LIB_NCURSES 
+		optional
+			USER_PROCPS_VMSTAT 
+		optional
+			USER_DISCARD_DISCARD 
+				optional
+					USER_DISCARD_NO_INSTALL 
+		optional
+			USER_PROCPS_PKILL 
+		optional
+			USER_DOSFSTOOLS_DOSFSCK 
+		optional
+			USER_ROOTLOADER_ROOTLOADER 
+		optional
+			LIB_LIBSSL 
+		optional
+			LIB_LIBPAM 
+				optional
+					USER_PAM_SMB 
+				optional
+					USER_PAM_RADIUS 
+				optional
+					USER_PAM_KRB5 
+				optional
+					USER_PAM_LDAP 
+				optional
+					USER_PAM_TACACS 
+		optional
+			LIB_LIBIDN 
+		optional
+			USER_CAN_EXAMPLES 
+		optional
+			USER_SAMBA 
+				optional
+					USER_SAMBA_SMBUMOUNT 
+				optional
+					USER_SAMBA_NMBD 
+				optional
+					USER_SAMBA_SMBMOUNT 
+				optional
+					USER_SAMBA_SMBD 
+				optional
+					USER_SAMBA_SHARED 
+				optional
+					USER_SAMBA_UMOUNT_CIFS 
+				optional
+					USER_SAMBA_MOUNT_CIFS 
+		optional
+			USER_LEDCON_LEDCON 
+		optional
+			USER_NET_TOOLS_MII_TOOL 
+		optional
+			USER_MP3PLAY_MP3PLAY 
+				optional
+					USER_MP3PLAY_SWAP_WD 
+		optional
+			USER_BOOTTOOLS_MD5SUM 
+		optional
+			USER_VCONFIG_VCONFIG 
+		optional
+			USER_SSCEP 
+		optional
+			USER_REISERFSPROGS_DEBUGRESIERFS 
+		optional
+			USER_BOOTTOOLS_HIMEMLOADER 
+		optional
+			USER_FILEUTILS_DD 
+		optional
+			USER_HWCLOCK_HWCLOCK 
+		optional
+			USER_CAN_HORCH 
+		optional
+			USER_RTC_DS1302 
+		optional
+			USER_SHUTILS_FALSE 
+		optional
+			USER_MICROWIN_VERBOSE 
+		optional
+			POOR_ENTROPY 
+		optional
+			USER_IPFWADM_IPFWADM 
+		optional
+			USER_PCIUTILS_LSPCI 
+		optional
+			USER_FILEUTILS_GREP 
+		optional
+			USER_BOA_SRC_BOA 
+				optional
+					USER_BOA_WITH_SSL 
+				optional
+					USER_BOA_EMERG 
+				optional
+					USER_BOA_LOGGING 
+		optional
+			USER_MICROWIN_BIN_NXKBD 
+		optional
+			USER_BOOTTOOLS_PRINTBENV 
+		optional
+			USER_QUAGGA_ZEBRA_ZEBRA 
+				optional
+					USER_QUAGGA_RIPNGD_RIPNGD 
+				optional
+					USER_QUAGGA_OSPF6D_OSPF6D 
+				optional
+					USER_QUAGGA_RIPD_RIPD 
+				optional
+					USER_QUAGGA_BGPD_BGPD 
+				optional
+					USER_QUAGGA_OSPFD_OSPFD 
+				optional
+					USER_QUAGGA_WATCHQUAGGA_WATCHQUAGGA 
+		optional
+			USER_SYSUTILS_REBOOT 
+		optional
+			USER_MICROWIN_VTSWITCH 
+		optional
+			USER_FILEUTILS_LN 
+		optional
+			USER_RSYSLOG_RSYSLOGD 
+		optional
+			USER_MICROWIN_HAVE_GB2312_SUPPORT 
+		optional
+			LIB_LIBNET 
+		optional
+			USER_VIXIECRON_CRON 
+		optional
+			USER_SHUTILS_TRUE 
+		optional
+			USER_INETD_INETD 
+		optional
+			USER_PYTHON_PYTHON 
+		optional
+			USER_GAMES_RUBIK 
+		optional
+			USER_DHCP_ISC_CLIENT_DHCLIENT 
+		optional
+			USER_JAMVM_JAMVM 
+		optional
+			USER_ZEBRA_ZEBRA_ZEBRA 
+				optional
+					USER_ZEBRA_OSPFD_OSPFD 
+				optional
+					USER_ZEBRA_RIPD_RIPD 
+				optional
+					USER_ZEBRA_BGPD_BGPD 
+		optional
+			USER_SPEEDTOUCH_MODEM_RUN 
+		optional
+			USER_SHUTILS_YES 
+		optional
+			LIB_ARES 
+		optional
+			USER_MICROWIN_PORTRAIT_MODE 
+		optional
+			USER_POTRACE_POTRACE 
+		optional
+			USER_MICROWIN_SHAREDLIBS 
+		optional
+			LIB_LIBPCRE 
+		optional
+			USER_PROCPS_TLOAD 
+		optional
+			LIB_LIBBSC 
+		optional
+			USER_PROFTPD_PROFTPD 
+		optional
+			USER_MGETTY_MGETTY 
+		optional
+			USER_SHUTILS_WHICH 
+		optional
+			USER_LSOF_LSOF 
+		optional
+			USER_FCONFIG_FCONFIG 
+		optional
+			USER_GREP_GREP 
+		optional
+			USER_CRYPTO_TOOLS_CRYPTOTEST 
+		optional
+			USER_PPPD_WITH_WINBIND 
+		optional
+			USER_MICROWIN 
+		optional
+			USER_MOUNT_MOUNT 
+		optional
+			USER_FILEUTILS_MKDIR 
+		optional
+			USER_KEXEC_KEXEC 
+		optional
+			USER_REISERFSPROGS_MKREISERFS 
+		optional
+			USER_TRIPWIRE_TRIPWIRE 
+		optional
+			USER_SNORT_SNORT 
+		optional
+			USER_BIND_BIND 
+		optional
+			LIB_BOOST 
+		optional
+			USER_DEMO_LATCH 
+		optional
+			USER_MICROWIN_BIN_NANOWM 
+		optional
+			USER_DE2TSCAL_DE2TSCAL 
+		optional
+			USER_MICROWIN_NWIDGET 
+		optional
+			USER_TELNETD_TELNETD 
+				optional
+					USER_TELNETD_DOES_NOT_USE_OPENPTY 
+		optional
+			USER_DHCPCD_NEW_DHCPCD 
+		optional
+			USER_CTORRENT_CTORRENT 
+		optional
+			USER_MICROWIN_NANOX 
+		optional
+			USER_STRACE_STRACE 
+		optional
+			USER_SSH_SCP 
+		optional
+			USER_LOATTACH_LOATTACH 
+		optional
+			USER_SHUTILS_ECHO 
+		optional
+			USER_E2FSPROGS_E2FSCK_E2FSCK 
+		optional
+			LIB_LIBFFI 
+		optional
+			USER_ETHTOOL_ETHTOOL 
+		optional
+			LIB_PWLIB 
+		optional
+			USER_NETPIPE_NETPIPE 
+		optional
+			USER_SYSUTILS_SHUTDOWN 
+		optional
+			USER_TFTP_TFTP 
+		optional
+			USER_VPLAY_VREC 
+		optional
+			USER_DISCARD_INETD_ECHO 
+				optional
+					USER_DISCARD_ECHO_NO_INSTALL 
+		optional
+			USER_E2FSPROGS_MISC_MKE2FS 
+		optional
+			USER_NETFLASH_CRYPTO_OPTIONAL 
+		optional
+			USER_PROCPS_SLABTOP 
+		optional
+			USER_DEMO_R2100 
+		optional
+			USER_WIRELESS_TOOLS 
+				optional
+					USER_WIRELESS_TOOLS_IWLIST 
+				optional
+					USER_WIRELESS_TOOLS_IWGETID 
+				optional
+					USER_WIRELESS_TOOLS_IWPRIV 
+				optional
+					USER_WIRELESS_TOOLS_IWCONFIG 
+				optional
+					USER_WIRELESS_TOOLS_IWSPY 
+		optional
+			USER_FREERADIUS 
+		optional
+			USER_MICROWIN_HAVE_T1LIB_SUPPORT 
+		optional
+			USER_MATH_TEST 
+		optional
+			USER_FILEUTILS_RMDIR 
+		optional
+			LIB_STLPORT 
+				optional
+					LIB_STLPORT_SHARED 
+		optional
+			USER_USBISO_USBISO 
+		optional
+			USER_AGETTY_AGETTY 
+		optional
+			LIB_LIBGMP 
+		optional
+			USER_APPWEB_APPWEB 
+				optional
+					USER_APPWEB_SSL 
+				optional
+					USER_APPWEB_CGI 
+				optional
+					USER_APPWEB_MULTITHREAD 
+				optional
+					USER_APPWEB_DYNAMIC 
+		optional
+			USER_IPUTILS_IPUTILS 
+				optional
+					USER_IPUTILS_RARPD 
+				optional
+					USER_IPUTILS_CLOCKDIFF 
+				optional
+					USER_IPUTILS_TRACEROUTE6 
+				optional
+					USER_IPUTILS_TRACEPATH6 
+				optional
+					USER_IPUTILS_PING6 
+				optional
+					USER_IPUTILS_TFTPD 
+				optional
+					USER_IPUTILS_RDISC 
+				optional
+					USER_IPUTILS_TRACEPATH 
+				optional
+					USER_IPUTILS_ARPING 
+				optional
+					USER_IPUTILS_PING 
+		optional
+			USER_NET_TOOLS_PLIPCONFIG 
+		optional
+			LIB_EXPAT 
+		optional
+			USER_GNUGK_GNUGK 
+		optional
+			USER_JQUERY_UI 
+		optional
+			USER_XL2TPD_XL2TPD 
+		optional
+			USER_NTPD_NTPDATE 
+		optional
+			USER_PROCPS_TOP 
+		optional
+			USER_MICROWIN_DEBUG 
+		optional
+			USER_CGI_GENERIC 
+		optional
+			USER_MICROWIN_NANOXDEMO 
+		optional
+			LIB_BFD 
+		optional
+			USER_BOOTTOOLS_RESET 
+		optional
+			USER_MICROWIN_TTYKBD 
+		optional
+			USER_SSH_ONLY_RSA_V2_KEYGEN 
+		optional
+			USER_SSH_SSHKEYGEN 
+		optional
+			USER_INIT_CONSOLE_SH 
+		optional
+			USER_GDB_TARGET 
+		optional
+			USER_CRON_CRON 
+		optional
+			USER_THTTPD_THTTPD 
+				optional
+					READ_TIMEOUT 
+		optional
+			USER_DHRYSTONE_DHRYSTONE 
+		optional
+			LIB_NETFILTER_CONNTRACK 
+		optional
+			USER_FTPD_FTPD 
+		optional
+			USER_MICROWIN_MICROWINDEMO 
+		optional
+			USER_FROX_FROX 
+		optional
+			USER_POP3PROXY_POP3PROXY 
+		optional
+			USER_CLOCK_CLOCK 
+		optional
+			USER_MICROWIN_BIN_NTEST 
+		optional
+			USER_SYSUTILS_KILL 
+		optional
+			USER_CRYPTO_TOOLS_CRYPTOKEYTEST 
+		optional
+			LIB_LIBG 
+		optional
+			USER_NESSUS_LIBRARIES 
+		optional
+			LIB_LIBSYSFS 
+		optional
+			USER_REISERFSPROGS_UNPACK 
+		optional
+			USER_GAMES_TAMA 
+		optional
+			USER_INIT_CONF 
+		optional
+			USER_MICROWIN_BIN_NANO_X 
+		optional
+			USER_PCMCIA_CS 
+		optional
+			USER_MTDUTILS 
+				optional
+					USER_MTDUTILS_FTL_CHECK 
+				optional
+					USER_MTDUTILS_MKFSJFFS2 
+				optional
+					USER_MTDUTILS_NANDWRITE 
+				optional
+					USER_MTDUTILS_NANDDUMP 
+				optional
+					USER_MTDUTILS_NFTLDUMP 
+				optional
+					USER_MTDUTILS_ERASE 
+				optional
+					USER_MTDUTILS_UNLOCK 
+				optional
+					USER_MTDUTILS_DOC_LOADIPL 
+				optional
+					USER_MTDUTILS_LOCK 
+				optional
+					USER_MTDUTILS_MKFSJFFS 
+				optional
+					USER_MTDUTILS_NFTL_FORMAT 
+				optional
+					USER_MTDUTILS_NANDTEST 
+				optional
+					USER_MTDUTILS_FTL_FORMAT 
+				optional
+					USER_MTDUTILS_ERASEALL 
+				optional
+					USER_MTDUTILS_DOC_LOADBIOS 
+		optional
+			USER_TCPDUMP_TCPDUMP 
+		optional
+			USER_IPMASQADM_IPMASQADM 
+		optional
+			LIB_LIBUPNP 
+		optional
+			USER_CHAT_CHAT 
+				optional
+					USER_CHAT_CHAT_NETWORK 
+		optional
+			USER_HD_HD 
+		optional
+			USER_NET_TOOLS_NETSTAT 
+		optional
+			USER_DOSFSTOOLS_MKDOSFS 
+		optional
+			USER_USBCBI_USBCBI 
+		optional
+			USER_SSH_SSHD 
+		optional
+			USER_LILO_LILO 
+		optional
+			USER_EXPAT_EXAMPLES 
+		optional
+			USER_MICROWIN_BIN_NXCLOCK 
+		optional
+			USER_SNORT_BARNYARD 
+		optional
+			USER_DHCP_ISC_SERVER_DHCPD 
+		optional
+			USER_PCIUTILS_SETPCI 
+		optional
+			USER_NTPD_NTPQ 
+		optional
+			LIB_LIBJUDY 
+				optional
+					LIB_LIBJUDY_TESTS 
+		optional
+			USER_FREESWAN 
+				optional
+					USER_FREESWAN_KLIPS_KLIPSDEBUG 
+				optional
+					USER_FREESWAN_PLUTO_PLUTO 
+				optional
+					USER_IPSEC_KEEPALIVE 
+				optional
+					USER_FSWCERT_FSWCERT 
+				optional
+					USER_FREESWAN_KLIPS_EROUTE 
+				optional
+					USER_FREESWAN_KLIPS_TNCFG 
+				optional
+					USER_FREESWAN_PLUTO_WHACK 
+				optional
+					USER_FREESWAN_KLIPS_SPIGRP 
+				optional
+					USER_FREESWAN_UTILS_RSASIGKEY 
+				optional
+					USER_FREESWAN_KLIPS_SPI 
+				optional
+					USER_FREESWAN_UTILS_RANBITS 
+		optional
+			USER_MICROWIN_HWVGA 
+		optional
+			USER_E2FSPROGS_MISC_E2LABEL 
+		optional
+			USER_ETHERWAKE 
+		optional
+			LIB_LIBOPENH323 
+		optional
+			USER_NETPERF_NETSERVER 
+		optional
+			USER_PALMBOT_PALMBOT 
+		optional
+			USER_LEVEE_VI 
+		optional
+			LIB_BITVECTOR 
+		optional
+			USER_TINYPROXY_TINYPROXY 
+		optional
+			USER_MICROWIN_TPHELIO 
+		optional
+			USER_NTPCLIENT_ADJTIMEX 
+		optional
+			USER_REISERFSPROGS_RESIZE_REISERFS 
+		optional
+			USER_TINYLOGIN_MD5_PASSWORDS 
+		optional
+			LIB_LIBIBERTY 
+		optional
+			USER_NET_TOOLS_ARP 
+		optional
+			USER_FILEUTILS_LS 
+		optional
+			USER_E2FSPROGS_MISC_FSCK 
+		optional
+			USER_DNSMASQ_DNSMASQ 
+				optional
+					USER_DNSMASQ2_DNSMASQ2 
+						optional
+							USER_DNSMASQ2_RESOLVE_AS_SERVER 
+		optional
+			USER_MICROWIN_BIN_MUSERFD 
+		optional
+			USER_SASH_PS 
+		optional
+			USER_FILEUTILS_CHGRP 
+		optional
+			USER_SETSERIAL_SETSERIAL 
+		optional
+			USER_IPTABLES_IPTABLES 
+				optional
+					USER_LAYER7_PROTOCOLS 
+		optional
+			USER_TINYLOGIN_LOGIN 
+				optional
+					USER_TINYLOGIN_SECURETTY 
+		optional
+			USER_SHUTILS_DATE 
+		optional
+			USER_LINUXIGD_LINUXIGD 
+				optional
+					USER_LINUXIGD_DEFAULT 
+		optional
+			USER_GDBSERVER_GDBSERVER 
+		optional
+			USER_W3CAM_W3CAMD 
+		optional
+			USER_TCL_LIBTCL 
+		optional
+			USER_LEDCMD_LEDCMD 
+		optional
+			USER_MICROWIN_ADSMOUSE 
+		optional
+			USER_HTTPTUNNEL_SERVER 
+		optional
+			LIB_LIBCURL 
+		optional
+			USER_MICROWIN_SERMOUSE 
+		optional
+			USER_CXXTEST_CXXTEST 
+		optional
+			USER_WHETSTONE_WHETSTONE 
+		optional
+			USER_IPPORTFW_IPPORTFW 
+		optional
+			USER_MINI_HTTPD_MINI_HTTPD 
+				optional
+					USER_MINI_HTTPD_WITH_SSL 
+		optional
+			USER_NET_TOOLS_ROUTE 
+		optional
+			USER_MARADNS_ZONESERVER 
+		optional
+			USER_E2FSPROGS_MISC_TUNE2FS 
+		optional
+			USER_ROUTED_ROUTED 
+		optional
+			USER_FNORD_HTTPD 
+				optional
+					USER_FNORD_NOAUTH 
+		optional
+			USER_TIMEPEG_TPT 
+		optional
+			USER_FDISK_SFDISK 
+		optional
+			USER_MICROWIN_FBREVERSE 
+		optional
+			USER_MICROWIN_OPTIMIZE 
+		optional
+			USER_PPPD_NO_AT_REDIRECTION 
+		optional
+			USER_MICROWIN_BIN_WORLD 
+		optional
+			USER_PROCPS_PMAP 
+		optional
+			USER_MICROWIN_HAVE_BIG5_SUPPORT 
+		optional
+			USER_OPENSWAN 
+				optional
+					USER_OPENSWAN_KLIPS_SPI 
+				optional
+					USER_OPENSWAN_PLUTO_WHACK 
+				optional
+					USER_OPENSWAN_UTILS_RANBITS 
+				optional
+					IPSEC_CONNECTION_LIMIT_BOOL 
+						mandatory
+							IPSEC_CONNECTION_LIMIT 
+				optional
+					USER_OPENSWAN_PLUTO_PLUTO 
+				optional
+					USER_OPENSWAN_KLIPS_TNCFG 
+				optional
+					USER_OPENSWAN_KLIPS_KLIPSDEBUG 
+				optional
+					USER_OPENSWAN_KLIPS_SPIGRP 
+				optional
+					USER_OPENSWAN_KLIPS_EROUTE 
+				optional
+					USER_OPENSWAN_PROGRAMS_LWDNSQ 
+				optional
+					USER_OPENSWAN_UTILS_RSASIGKEY 
+		optional
+			USER_CLAMAV_CLAMAV 
+				optional
+					USER_CLAMAV_CLAMDSCAN 
+				optional
+					USER_CLAMAV_SIGTOOL 
+				optional
+					USER_CLAMAV_TESTS 
+				optional
+					USER_CLAMAV_CLAMSCAN 
+				optional
+					USER_CLAMAV_CLAMD 
+				optional
+					USER_CLAMAV_FRESHCLAM 
+						optional
+							USER_CLAMAV_NODB 
+		optional
+			USER_NMAP_NMAP 
+		optional
+			USER_INIT_RUN_FIREWALL 
+		optional
+			USER_SASH_HISTORY 
+		optional
+			USER_VPLAY_MIXER 
+		optional
+			USER_CPU_CPU 
+		optional
+			LIB_LIBNETOLD 
+		optional
+			USER_TINYLOGIN_ADDUSER 
+		optional
+			USER_KLAXON_KLAXON 
+				optional
+					USER_KLAXON_ECHO 
+				optional
+					USER_KLAXON_CHARGEN 
+				optional
+					USER_KLAXON_DISCARD 
+				optional
+					USER_KLAXON_FTP 
+				optional
+					USER_KLAXON_HTTP 
+				optional
+					USER_KLAXON_SNMP 
+				optional
+					USER_KLAXON_TFTP 
+				optional
+					USER_KLAXON_TELNET 
+				optional
+					USER_KLAXON_SMTP 
+				optional
+					USER_KLAXON_SSH 
+				optional
+					USER_KLAXON_RFC931 
+		optional
+			USER_FDISK_FDISK 
+		optional
+			USER_HDPARM_HDPARM 
+		optional
+			USER_MICROWIN_LINK_APP_INTO_SERVER 
+		optional
+			USER_ELVISTINY_VI 
+		optional
+			USER_MSNTP_MSNTP 
+		optional
+			USER_PING_PING 
+		optional
+			USER_ASTERISK 
+				optional
+					USER_ASTERISK_MYSQL 
+		optional
+			USER_MICROWIN_HAVEMSFONTS 
+		optional
+			USER_SHUTILS_BASENAME 
+		optional
+			USER_LANBYPASS_LANBYPASS 
+		optional
+			USER_JPEGVIEW_JPEGVIEW 
+		optional
+			USER_THREADDEMOS_THREADDEMOS 
+		optional
+			USER_NET_TOOLS_HOSTNAME 
+		optional
+			USER_IPTABLES_IP6TABLES 
+		optional
+			USER_SNMPD_SNMPD 
+		optional
+			USER_WATCHDOGD 
+		optional
+			LIB_LIBJPEG 
+		optional
+			LIB_TINYTCL 
+				optional
+					LIB_TINYTCL_STATIC 
+		optional
+			LIB_FLEX 
+		optional
+			USER_NETCAT_NETCAT 
+		optional
+			USER_MICROWIN_X11 
+		optional
+			USER_HOSTAP_HOSTAP 
+				optional
+					USER_HOSTAP_CS 
+				optional
+					USER_HOSTAP_HOSTAPD 
+				optional
+					USER_HOSTAP_PCI 
+		optional
+			USER_BOOTTOOLS_LOADER 
+		optional
+			USER_TIP_TIP 
+		optional
+			USER_HPING_HPING 
+		optional
+			LIB_TERMCAP 
+		optional
+			USER_GDB_GDBREPLAY 
+		optional
+			USER_PLUG_PLUG 
+		optional
+			USER_GDBSERVER_GDBREPLAY 
+		optional
+			USER_LOAD_LOAD 
+		optional
+			LIB_CLASSPATH 
+		optional
+			USER_PLAYRT_PLAYRT 
+		optional
+			USER_EXPECT_EXPECT 
+		optional
+			LIB_DEBUG 
+		optional
+			USER_NTPD_NTPD 
+				optional
+					USER_NTPD_NTPDC 
+		optional
+			USER_PROCPS_UPTIME 
+		optional
+			USER_STUNNEL_STUNNEL 
+		optional
+			USER_MICROWIN_NOFONTSORCLIPPING 
+		optional
+			USER_IPROUTE2_IP_RTPR 
+		optional
+			USER_FLATFSD_FLATFSD 
+				mandatory
+					USER_FLATFSD_DISKLIKE_alt {abstract}
+						alternative
+							USER_FLATFSD_AUTO 
+							USER_FLATFSD_USE_FLASH_FS 
+							USER_FLATFSD_DISKLIKE 
+							USER_FLATFSD_CONFIG_BLOBS 
+				optional
+					USER_FLATFSD_EXTERNAL_INIT 
+				optional
+					USER_FLATFSD_COMPRESSED 
+				optional
+					USER_FLATFSD_ENCRYPTED 
+				optional
+					USER_FLATFSD_HAS_RTC 
+		optional
+			USER_MICROWIN_NANOWM 
+		optional
+			USER_MICROWIN_BIN_NTERM 
+		optional
+			USER_TFTPD_TFTPD 
+				optional
+					USER_TFTPD_TFTPD_LOW_SEC 
+		optional
+			USER_LRPSTAT_LRPSTAT 
+		optional
+			USER_LISSA_LISSA 
+		optional
+			USER_LM_SENSORS 
+				optional
+					USER_LM_SENSORS_SENSORS 
+		optional
+			USER_MICROWIN_BIN_MTEST2 
+		optional
+			USER_WLAN_NG 
+				optional
+					USER_WLAN_NG_PCI 
+				optional
+					USER_WLAN_NG_WLAND 
+				optional
+					USER_WLAN_NG_PLX 
+				optional
+					USER_WLAN_NG_PCMCIA 
+				optional
+					USER_WLAN_NG_USB 
+				optional
+					USER_WLAN_NG_WLANCTL 
+				optional
+					USER_WLAN_NG_WLANCFG 
+		optional
+			USER_MICROWIN_UPDATEREGIONS 
+		optional
+			USER_E2FSPROGS_MISC_LSATTR 
+		optional
+			USER_MICROWIN_TPMOUSE 
+		optional
+			USER_CAL_DATE 
+		optional
+			USER_TCPBLAST_TCPBLAST 
+		optional
+			USER_FILEUTILS_CAT 
+		optional
+			USER_MICROWIN_PIPEKBD 
+		optional
+			USER_SLATTACH_SLATTACH 
+		optional
+			USER_EBTABLES_EBTABLES 
+		optional
+			USER_UNRAR_UNRAR 
+		optional
+			USER_SER_SER 
+				optional
+					USER_SER_RTPPROXY 
+		optional
+			USER_MAIL_MAIL_IP 
+		optional
+			USER_MICROWIN_HAVE_FREETYPE_SUPPORT 
+		optional
+			USER_PORTMAP_PORTMAP 
+				optional
+					USER_PORTMAP_PMAP_SET 
+				optional
+					USER_PORTMAP_PMAP_DUMP 
+		optional
+			USER_PROCPS_WATCH 
+		optional
+			USER_MICROWIN_FBVGA 
+		mandatory
+			OR_FEATURE {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_INSTALLER1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SH_STANDALONE1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_PREFER_APPLETS1 {abstract, aux}
+					USER_BUSYBOX_INSTALL_APPLET_DONT1 {abstract, aux}
+		mandatory
+			OR_FEATURE1 {abstract, aux}
+				or
+					LIB_STLPORT1 {abstract, aux}
+					USER_ASTERISK1 {abstract, aux}
+					LIB_STLPORT_SHARED1 {abstract, aux}
+		mandatory
+			OR_FEATURE2 {abstract, aux}
+				or
+					LIB_STLPORT2 {abstract, aux}
+					LIB_STLPORT_SHARED2 {abstract, aux}
+					USER_ASTERISK2 {abstract, aux}
+		mandatory
+			OR_FEATURE3 {abstract, aux}
+				or
+					USER_SASH_SH1 {abstract, aux}
+					USER_SASH_PS1 {abstract, aux}
+		mandatory
+			OR_FEATURE4 {abstract, aux}
+				or
+					USER_SASH_SH2 {abstract, aux}
+					USER_SASH_PS2 {abstract, aux}
+		mandatory
+			OR_FEATURE5 {abstract, aux}
+				or
+					USER_PPPD_WITH_PPPOE1 {abstract, aux}
+					USER_PPPD_PPPOE_RETRIES1 {abstract, aux}
+		mandatory
+			OR_FEATURE6 {abstract, aux}
+				or
+					USER_PPPD_WITH_PPPOE2 {abstract, aux}
+					USER_PPPD_PPPOE_RETRIES2 {abstract, aux}
+		mandatory
+			OR_FEATURE7 {abstract, aux}
+				or
+					USER_MYSQL1 {abstract, aux}
+					USER_ASTERISK_MYSQL1 {abstract, aux}
+					USER_ASTERISK3 {abstract, aux}
+					USER_MYSQL_CLIB1 {abstract, aux}
+		mandatory
+			OR_FEATURE8 {abstract, aux}
+				or
+					USER_MYSQL2 {abstract, aux}
+					USER_MYSQL_CLIB2 {abstract, aux}
+					USER_ASTERISK_MYSQL2 {abstract, aux}
+		mandatory
+			OR_FEATURE9 {abstract, aux}
+				or
+					USER_MYSQL3 {abstract, aux}
+					USER_MYSQL_CLIB3 {abstract, aux}
+					USER_ASTERISK4 {abstract, aux}
+		mandatory
+			OR_FEATURE10 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX1 {abstract, aux}
+					USER_BUSYBOX_SHOW_USAGE1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_COMPRESS_USAGE1 {abstract, aux}
+		mandatory
+			OR_FEATURE11 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX2 {abstract, aux}
+					USER_BUSYBOX_FEATURE_COMPRESS_USAGE2 {abstract, aux}
+		mandatory
+			OR_FEATURE12 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_COMPRESS_USAGE3 {abstract, aux}
+					USER_BUSYBOX_SHOW_USAGE2 {abstract, aux}
+		mandatory
+			OR_FEATURE13 {abstract, aux}
+				or
+					USER_BUSYBOX_SHOW_USAGE3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_COMPRESS_USAGE4 {abstract, aux}
+		mandatory
+			OR_FEATURE14 {abstract, aux}
+				or
+					USER_BUSYBOX_SHOW_USAGE4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_COMPRESS_USAGE5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX5 {abstract, aux}
+		mandatory
+			OR_FEATURE15 {abstract, aux}
+				or
+					USER_BUSYBOX_SHOW_USAGE5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_COMPRESS_USAGE6 {abstract, aux}
+		mandatory
+			OR_FEATURE16 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX6 {abstract, aux}
+					USER_BUSYBOX_STATIC1 {abstract, aux}
+					USER_BUSYBOX_BUILD_LIBBUSYBOX1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL1 {abstract, aux}
+		mandatory
+			OR_FEATURE17 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL2 {abstract, aux}
+		mandatory
+			OR_FEATURE18 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL3 {abstract, aux}
+					USER_BUSYBOX_STATIC2 {abstract, aux}
+		mandatory
+			OR_FEATURE19 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX9 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL4 {abstract, aux}
+					USER_BUSYBOX_BUILD_LIBBUSYBOX2 {abstract, aux}
+		mandatory
+			OR_FEATURE20 {abstract, aux}
+				or
+					USER_BUSYBOX_STATIC3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX10 {abstract, aux}
+					USER_BUSYBOX_BUILD_LIBBUSYBOX3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL5 {abstract, aux}
+		mandatory
+			OR_FEATURE21 {abstract, aux}
+				or
+					USER_BUSYBOX_STATIC4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL6 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX11 {abstract, aux}
+		mandatory
+			OR_FEATURE22 {abstract, aux}
+				or
+					USER_BUSYBOX_STATIC5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL7 {abstract, aux}
+		mandatory
+			OR_FEATURE23 {abstract, aux}
+				or
+					USER_BUSYBOX_STATIC6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL8 {abstract, aux}
+					USER_BUSYBOX_BUILD_LIBBUSYBOX4 {abstract, aux}
+		mandatory
+			OR_FEATURE24 {abstract, aux}
+				or
+					USER_BUSYBOX_BUILD_LIBBUSYBOX5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX12 {abstract, aux}
+					USER_BUSYBOX_STATIC7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL9 {abstract, aux}
+		mandatory
+			OR_FEATURE25 {abstract, aux}
+				or
+					USER_BUSYBOX_BUILD_LIBBUSYBOX6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL10 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX13 {abstract, aux}
+		mandatory
+			OR_FEATURE26 {abstract, aux}
+				or
+					USER_BUSYBOX_BUILD_LIBBUSYBOX7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL11 {abstract, aux}
+					USER_BUSYBOX_STATIC8 {abstract, aux}
+		mandatory
+			OR_FEATURE27 {abstract, aux}
+				or
+					USER_BUSYBOX_BUILD_LIBBUSYBOX8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INDIVIDUAL12 {abstract, aux}
+		mandatory
+			OR_FEATURE28 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX14 {abstract, aux}
+					USER_BUSYBOX_STATIC9 {abstract, aux}
+					USER_BUSYBOX_BUILD_LIBBUSYBOX9 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX1 {abstract, aux}
+		mandatory
+			OR_FEATURE29 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX15 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX2 {abstract, aux}
+		mandatory
+			OR_FEATURE30 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX16 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX3 {abstract, aux}
+					USER_BUSYBOX_STATIC10 {abstract, aux}
+		mandatory
+			OR_FEATURE31 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX17 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX4 {abstract, aux}
+					USER_BUSYBOX_BUILD_LIBBUSYBOX10 {abstract, aux}
+		mandatory
+			OR_FEATURE32 {abstract, aux}
+				or
+					USER_BUSYBOX_STATIC11 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX18 {abstract, aux}
+					USER_BUSYBOX_BUILD_LIBBUSYBOX11 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX5 {abstract, aux}
+		mandatory
+			OR_FEATURE33 {abstract, aux}
+				or
+					USER_BUSYBOX_STATIC12 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX6 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX19 {abstract, aux}
+		mandatory
+			OR_FEATURE34 {abstract, aux}
+				or
+					USER_BUSYBOX_STATIC13 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX7 {abstract, aux}
+		mandatory
+			OR_FEATURE35 {abstract, aux}
+				or
+					USER_BUSYBOX_STATIC14 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX8 {abstract, aux}
+					USER_BUSYBOX_BUILD_LIBBUSYBOX12 {abstract, aux}
+		mandatory
+			OR_FEATURE36 {abstract, aux}
+				or
+					USER_BUSYBOX_BUILD_LIBBUSYBOX13 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX20 {abstract, aux}
+					USER_BUSYBOX_STATIC15 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX9 {abstract, aux}
+		mandatory
+			OR_FEATURE37 {abstract, aux}
+				or
+					USER_BUSYBOX_BUILD_LIBBUSYBOX14 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX10 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX21 {abstract, aux}
+		mandatory
+			OR_FEATURE38 {abstract, aux}
+				or
+					USER_BUSYBOX_BUILD_LIBBUSYBOX15 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX11 {abstract, aux}
+					USER_BUSYBOX_STATIC16 {abstract, aux}
+		mandatory
+			OR_FEATURE39 {abstract, aux}
+				or
+					USER_BUSYBOX_BUILD_LIBBUSYBOX16 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHARED_BUSYBOX12 {abstract, aux}
+		mandatory
+			OR_FEATURE40 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_TAR_GZIP1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_TAR_BZIP21 {abstract, aux}
+					USER_BUSYBOX_FEATURE_TAR_AUTODETECT1 {abstract, aux}
+		mandatory
+			OR_FEATURE41 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX22 {abstract, aux}
+					USER_BUSYBOX_TAR1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS1 {abstract, aux}
+		mandatory
+			OR_FEATURE42 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX23 {abstract, aux}
+					USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS2 {abstract, aux}
+		mandatory
+			OR_FEATURE43 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX24 {abstract, aux}
+					USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS3 {abstract, aux}
+					USER_BUSYBOX_TAR2 {abstract, aux}
+		mandatory
+			OR_FEATURE44 {abstract, aux}
+				or
+					USER_BUSYBOX_TAR3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX25 {abstract, aux}
+					USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS4 {abstract, aux}
+		mandatory
+			OR_FEATURE45 {abstract, aux}
+				or
+					USER_BUSYBOX_TAR4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX26 {abstract, aux}
+		mandatory
+			OR_FEATURE46 {abstract, aux}
+				or
+					USER_BUSYBOX_TAR5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS6 {abstract, aux}
+		mandatory
+			OR_FEATURE47 {abstract, aux}
+				or
+					USER_BUSYBOX_CPIO1 {abstract, aux}
+					USER_BUSYBOX_TAR6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_UNARCHIVE_TAPE1 {abstract, aux}
+		mandatory
+			OR_FEATURE48 {abstract, aux}
+				or
+					USER_BUSYBOX_DPKG1 {abstract, aux}
+					USER_BUSYBOX_DPKG_DEB1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_DEB_TAR_BZ21 {abstract, aux}
+		mandatory
+			OR_FEATURE49 {abstract, aux}
+				or
+					USER_BUSYBOX_DPKG2 {abstract, aux}
+					USER_BUSYBOX_DPKG_DEB2 {abstract, aux}
+					USER_BUSYBOX_FEATURE_DEB_TAR_LZMA1 {abstract, aux}
+		mandatory
+			OR_FEATURE50 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX27 {abstract, aux}
+					USER_BUSYBOX_DOS2UNIX1 {abstract, aux}
+					USER_BUSYBOX_UNIX2DOS1 {abstract, aux}
+		mandatory
+			OR_FEATURE51 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX28 {abstract, aux}
+					USER_BUSYBOX_LS1 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR1 {abstract, aux}
+		mandatory
+			OR_FEATURE52 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX29 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR2 {abstract, aux}
+		mandatory
+			OR_FEATURE53 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX30 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR3 {abstract, aux}
+					USER_BUSYBOX_LS2 {abstract, aux}
+		mandatory
+			OR_FEATURE54 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX31 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR4 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG2 {abstract, aux}
+		mandatory
+			OR_FEATURE55 {abstract, aux}
+				or
+					USER_BUSYBOX_LS3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX32 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR5 {abstract, aux}
+		mandatory
+			OR_FEATURE56 {abstract, aux}
+				or
+					USER_BUSYBOX_LS4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR6 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX33 {abstract, aux}
+		mandatory
+			OR_FEATURE57 {abstract, aux}
+				or
+					USER_BUSYBOX_LS5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR7 {abstract, aux}
+		mandatory
+			OR_FEATURE58 {abstract, aux}
+				or
+					USER_BUSYBOX_LS6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR8 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG4 {abstract, aux}
+		mandatory
+			OR_FEATURE59 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX34 {abstract, aux}
+					USER_BUSYBOX_LS7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR9 {abstract, aux}
+		mandatory
+			OR_FEATURE60 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR10 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX35 {abstract, aux}
+		mandatory
+			OR_FEATURE61 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR11 {abstract, aux}
+					USER_BUSYBOX_LS8 {abstract, aux}
+		mandatory
+			OR_FEATURE62 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_LS_COLOR12 {abstract, aux}
+		mandatory
+			OR_FEATURE63 {abstract, aux}
+				or
+					USER_BUSYBOX_CP1 {abstract, aux}
+					USER_BUSYBOX_MV1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_PRESERVE_HARDLINKS1 {abstract, aux}
+		mandatory
+			OR_FEATURE64 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX36 {abstract, aux}
+					USER_BUSYBOX_LS9 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH1 {abstract, aux}
+		mandatory
+			OR_FEATURE65 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX37 {abstract, aux}
+					USER_BUSYBOX_MORE1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH2 {abstract, aux}
+		mandatory
+			OR_FEATURE66 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX38 {abstract, aux}
+					USER_BUSYBOX_TELNET1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH3 {abstract, aux}
+		mandatory
+			OR_FEATURE67 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX39 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH4 {abstract, aux}
+		mandatory
+			OR_FEATURE68 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX40 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH5 {abstract, aux}
+					USER_BUSYBOX_LS10 {abstract, aux}
+					USER_BUSYBOX_MORE2 {abstract, aux}
+					USER_BUSYBOX_TELNET2 {abstract, aux}
+		mandatory
+			OR_FEATURE69 {abstract, aux}
+				or
+					USER_BUSYBOX_LS11 {abstract, aux}
+					USER_BUSYBOX_MORE3 {abstract, aux}
+					USER_BUSYBOX_TELNET3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX41 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH6 {abstract, aux}
+		mandatory
+			OR_FEATURE70 {abstract, aux}
+				or
+					USER_BUSYBOX_LS12 {abstract, aux}
+					USER_BUSYBOX_MORE4 {abstract, aux}
+					USER_BUSYBOX_TELNET4 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX42 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH7 {abstract, aux}
+		mandatory
+			OR_FEATURE71 {abstract, aux}
+				or
+					USER_BUSYBOX_LS13 {abstract, aux}
+					USER_BUSYBOX_MORE5 {abstract, aux}
+					USER_BUSYBOX_TELNET5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX43 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH8 {abstract, aux}
+		mandatory
+			OR_FEATURE72 {abstract, aux}
+				or
+					USER_BUSYBOX_LS14 {abstract, aux}
+					USER_BUSYBOX_MORE6 {abstract, aux}
+					USER_BUSYBOX_TELNET6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH9 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX44 {abstract, aux}
+		mandatory
+			OR_FEATURE73 {abstract, aux}
+				or
+					USER_BUSYBOX_LS15 {abstract, aux}
+					USER_BUSYBOX_MORE7 {abstract, aux}
+					USER_BUSYBOX_TELNET7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_AUTOWIDTH10 {abstract, aux}
+		mandatory
+			OR_FEATURE74 {abstract, aux}
+				or
+					USER_BUSYBOX_DF1 {abstract, aux}
+					USER_BUSYBOX_DU1 {abstract, aux}
+					USER_BUSYBOX_LS16 {abstract, aux}
+					USER_BUSYBOX_FEATURE_HUMAN_READABLE1 {abstract, aux}
+		mandatory
+			OR_FEATURE75 {abstract, aux}
+				or
+					USER_BUSYBOX_MD5SUM1 {abstract, aux}
+					USER_BUSYBOX_SHA1SUM1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MD5_SHA1_SUM_CHECK1 {abstract, aux}
+		mandatory
+			OR_FEATURE76 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX45 {abstract, aux}
+					USER_BUSYBOX_INIT1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_KILL_DELAY1 {abstract, aux}
+		mandatory
+			OR_FEATURE77 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX46 {abstract, aux}
+					USER_BUSYBOX_FEATURE_KILL_DELAY2 {abstract, aux}
+		mandatory
+			OR_FEATURE78 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX47 {abstract, aux}
+					USER_BUSYBOX_FEATURE_KILL_DELAY3 {abstract, aux}
+					USER_BUSYBOX_INIT2 {abstract, aux}
+		mandatory
+			OR_FEATURE79 {abstract, aux}
+				or
+					USER_BUSYBOX_INIT3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX48 {abstract, aux}
+					USER_BUSYBOX_FEATURE_KILL_DELAY4 {abstract, aux}
+		mandatory
+			OR_FEATURE80 {abstract, aux}
+				or
+					USER_BUSYBOX_INIT4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_KILL_DELAY5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX49 {abstract, aux}
+		mandatory
+			OR_FEATURE81 {abstract, aux}
+				or
+					USER_BUSYBOX_INIT5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_KILL_DELAY6 {abstract, aux}
+		mandatory
+			OR_FEATURE82 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_KILL_REMOVED1 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX50 {abstract, aux}
+					USER_BUSYBOX_INIT6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_KILL_DELAY7 {abstract, aux}
+		mandatory
+			OR_FEATURE83 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_KILL_REMOVED2 {abstract, aux}
+					USER_BUSYBOX_FEATURE_KILL_DELAY8 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX51 {abstract, aux}
+		mandatory
+			OR_FEATURE84 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_KILL_REMOVED3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_KILL_DELAY9 {abstract, aux}
+					USER_BUSYBOX_INIT7 {abstract, aux}
+		mandatory
+			OR_FEATURE85 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX52 {abstract, aux}
+					USER_BUSYBOX_USE_BB_PWD_GRP1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHADOWPASSWDS1 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW1 {abstract, aux}
+		mandatory
+			OR_FEATURE86 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX53 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW2 {abstract, aux}
+		mandatory
+			OR_FEATURE87 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX54 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW3 {abstract, aux}
+					USER_BUSYBOX_USE_BB_PWD_GRP2 {abstract, aux}
+		mandatory
+			OR_FEATURE88 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX55 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHADOWPASSWDS2 {abstract, aux}
+		mandatory
+			OR_FEATURE89 {abstract, aux}
+				or
+					USER_BUSYBOX_USE_BB_PWD_GRP3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX56 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHADOWPASSWDS3 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW5 {abstract, aux}
+		mandatory
+			OR_FEATURE90 {abstract, aux}
+				or
+					USER_BUSYBOX_USE_BB_PWD_GRP4 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW6 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX57 {abstract, aux}
+		mandatory
+			OR_FEATURE91 {abstract, aux}
+				or
+					USER_BUSYBOX_USE_BB_PWD_GRP5 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW7 {abstract, aux}
+		mandatory
+			OR_FEATURE92 {abstract, aux}
+				or
+					USER_BUSYBOX_USE_BB_PWD_GRP6 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SHADOWPASSWDS4 {abstract, aux}
+		mandatory
+			OR_FEATURE93 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_SHADOWPASSWDS5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX58 {abstract, aux}
+					USER_BUSYBOX_USE_BB_PWD_GRP7 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW9 {abstract, aux}
+		mandatory
+			OR_FEATURE94 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_SHADOWPASSWDS6 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW10 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX59 {abstract, aux}
+		mandatory
+			OR_FEATURE95 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_SHADOWPASSWDS7 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW11 {abstract, aux}
+					USER_BUSYBOX_USE_BB_PWD_GRP8 {abstract, aux}
+		mandatory
+			OR_FEATURE96 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_SHADOWPASSWDS8 {abstract, aux}
+					USER_BUSYBOX_USE_BB_SHADOW12 {abstract, aux}
+		mandatory
+			OR_FEATURE97 {abstract, aux}
+				or
+					USER_BUSYBOX_ADDUSER1 {abstract, aux}
+					USER_BUSYBOX_ADDGROUP1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHECK_NAMES1 {abstract, aux}
+		mandatory
+			OR_FEATURE98 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_2_4_MODULES1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_INSMOD_LOAD_MAP1 {abstract, aux}
+		mandatory
+			OR_FEATURE99 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX60 {abstract, aux}
+					USER_BUSYBOX_MODPROBE1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS1 {abstract, aux}
+		mandatory
+			OR_FEATURE100 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX61 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS2 {abstract, aux}
+		mandatory
+			OR_FEATURE101 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX62 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS3 {abstract, aux}
+					USER_BUSYBOX_MODPROBE2 {abstract, aux}
+		mandatory
+			OR_FEATURE102 {abstract, aux}
+				or
+					USER_BUSYBOX_MODPROBE3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX63 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS4 {abstract, aux}
+		mandatory
+			OR_FEATURE103 {abstract, aux}
+				or
+					USER_BUSYBOX_MODPROBE4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX64 {abstract, aux}
+		mandatory
+			OR_FEATURE104 {abstract, aux}
+				or
+					USER_BUSYBOX_MODPROBE5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS6 {abstract, aux}
+		mandatory
+			OR_FEATURE105 {abstract, aux}
+				or
+					USER_BUSYBOX_NITPICK1 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX65 {abstract, aux}
+					USER_BUSYBOX_MODPROBE6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS7 {abstract, aux}
+		mandatory
+			OR_FEATURE106 {abstract, aux}
+				or
+					USER_BUSYBOX_NITPICK2 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS8 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX66 {abstract, aux}
+		mandatory
+			OR_FEATURE107 {abstract, aux}
+				or
+					USER_BUSYBOX_NITPICK3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS9 {abstract, aux}
+					USER_BUSYBOX_MODPROBE7 {abstract, aux}
+		mandatory
+			OR_FEATURE108 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX67 {abstract, aux}
+					USER_BUSYBOX_MODPROBE8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES2 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS1 {abstract, aux}
+		mandatory
+			OR_FEATURE109 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX68 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS2 {abstract, aux}
+		mandatory
+			OR_FEATURE110 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX69 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS3 {abstract, aux}
+					USER_BUSYBOX_MODPROBE9 {abstract, aux}
+		mandatory
+			OR_FEATURE111 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX70 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES3 {abstract, aux}
+		mandatory
+			OR_FEATURE112 {abstract, aux}
+				or
+					USER_BUSYBOX_MODPROBE10 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX71 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS5 {abstract, aux}
+		mandatory
+			OR_FEATURE113 {abstract, aux}
+				or
+					USER_BUSYBOX_MODPROBE11 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS6 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX72 {abstract, aux}
+		mandatory
+			OR_FEATURE114 {abstract, aux}
+				or
+					USER_BUSYBOX_MODPROBE12 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS7 {abstract, aux}
+		mandatory
+			OR_FEATURE115 {abstract, aux}
+				or
+					USER_BUSYBOX_MODPROBE13 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES5 {abstract, aux}
+		mandatory
+			OR_FEATURE116 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_2_6_MODULES6 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX73 {abstract, aux}
+					USER_BUSYBOX_MODPROBE14 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS9 {abstract, aux}
+		mandatory
+			OR_FEATURE117 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_2_6_MODULES7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS10 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX74 {abstract, aux}
+		mandatory
+			OR_FEATURE118 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_2_6_MODULES8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS11 {abstract, aux}
+					USER_BUSYBOX_MODPROBE15 {abstract, aux}
+		mandatory
+			OR_FEATURE119 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_2_6_MODULES9 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS12 {abstract, aux}
+		mandatory
+			OR_FEATURE120 {abstract, aux}
+				or
+					USER_BUSYBOX_NITPICK4 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX75 {abstract, aux}
+					USER_BUSYBOX_MODPROBE16 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES10 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS13 {abstract, aux}
+		mandatory
+			OR_FEATURE121 {abstract, aux}
+				or
+					USER_BUSYBOX_NITPICK5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS14 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX76 {abstract, aux}
+		mandatory
+			OR_FEATURE122 {abstract, aux}
+				or
+					USER_BUSYBOX_NITPICK6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS15 {abstract, aux}
+					USER_BUSYBOX_MODPROBE17 {abstract, aux}
+		mandatory
+			OR_FEATURE123 {abstract, aux}
+				or
+					USER_BUSYBOX_NITPICK7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS16 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES11 {abstract, aux}
+		mandatory
+			OR_FEATURE124 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX77 {abstract, aux}
+					USER_BUSYBOX_INSMOD1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE1 {abstract, aux}
+		mandatory
+			OR_FEATURE125 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX78 {abstract, aux}
+					USER_BUSYBOX_LSMOD1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE2 {abstract, aux}
+		mandatory
+			OR_FEATURE126 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX79 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE3 {abstract, aux}
+		mandatory
+			OR_FEATURE127 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX80 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE4 {abstract, aux}
+					USER_BUSYBOX_INSMOD2 {abstract, aux}
+					USER_BUSYBOX_LSMOD2 {abstract, aux}
+		mandatory
+			OR_FEATURE128 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD3 {abstract, aux}
+					USER_BUSYBOX_LSMOD3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX81 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE5 {abstract, aux}
+		mandatory
+			OR_FEATURE129 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD4 {abstract, aux}
+					USER_BUSYBOX_LSMOD4 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX82 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE6 {abstract, aux}
+		mandatory
+			OR_FEATURE130 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD5 {abstract, aux}
+					USER_BUSYBOX_LSMOD5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE7 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX83 {abstract, aux}
+		mandatory
+			OR_FEATURE131 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD6 {abstract, aux}
+					USER_BUSYBOX_LSMOD6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE8 {abstract, aux}
+		mandatory
+			OR_FEATURE132 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX84 {abstract, aux}
+					USER_BUSYBOX_INSMOD7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES2 {abstract, aux}
+		mandatory
+			OR_FEATURE133 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX85 {abstract, aux}
+					USER_BUSYBOX_RMMOD1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES3 {abstract, aux}
+		mandatory
+			OR_FEATURE134 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX86 {abstract, aux}
+					USER_BUSYBOX_MODPROBE18 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES4 {abstract, aux}
+		mandatory
+			OR_FEATURE135 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX87 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES5 {abstract, aux}
+		mandatory
+			OR_FEATURE136 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX88 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES6 {abstract, aux}
+					USER_BUSYBOX_INSMOD8 {abstract, aux}
+					USER_BUSYBOX_RMMOD2 {abstract, aux}
+					USER_BUSYBOX_MODPROBE19 {abstract, aux}
+		mandatory
+			OR_FEATURE137 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD9 {abstract, aux}
+					USER_BUSYBOX_RMMOD3 {abstract, aux}
+					USER_BUSYBOX_MODPROBE20 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX89 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES7 {abstract, aux}
+		mandatory
+			OR_FEATURE138 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD10 {abstract, aux}
+					USER_BUSYBOX_RMMOD4 {abstract, aux}
+					USER_BUSYBOX_MODPROBE21 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX90 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES8 {abstract, aux}
+		mandatory
+			OR_FEATURE139 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD11 {abstract, aux}
+					USER_BUSYBOX_RMMOD5 {abstract, aux}
+					USER_BUSYBOX_MODPROBE22 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX91 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES9 {abstract, aux}
+		mandatory
+			OR_FEATURE140 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD12 {abstract, aux}
+					USER_BUSYBOX_RMMOD6 {abstract, aux}
+					USER_BUSYBOX_MODPROBE23 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES10 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX92 {abstract, aux}
+		mandatory
+			OR_FEATURE141 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD13 {abstract, aux}
+					USER_BUSYBOX_RMMOD7 {abstract, aux}
+					USER_BUSYBOX_MODPROBE24 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES11 {abstract, aux}
+		mandatory
+			OR_FEATURE142 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX93 {abstract, aux}
+					USER_BUSYBOX_INSMOD14 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES12 {abstract, aux}
+		mandatory
+			OR_FEATURE143 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX94 {abstract, aux}
+					USER_BUSYBOX_RMMOD8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES13 {abstract, aux}
+		mandatory
+			OR_FEATURE144 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX95 {abstract, aux}
+					USER_BUSYBOX_MODPROBE25 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES14 {abstract, aux}
+		mandatory
+			OR_FEATURE145 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX96 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES15 {abstract, aux}
+		mandatory
+			OR_FEATURE146 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX97 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES16 {abstract, aux}
+					USER_BUSYBOX_INSMOD15 {abstract, aux}
+					USER_BUSYBOX_RMMOD9 {abstract, aux}
+					USER_BUSYBOX_MODPROBE26 {abstract, aux}
+		mandatory
+			OR_FEATURE147 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD16 {abstract, aux}
+					USER_BUSYBOX_RMMOD10 {abstract, aux}
+					USER_BUSYBOX_MODPROBE27 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX98 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES17 {abstract, aux}
+		mandatory
+			OR_FEATURE148 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD17 {abstract, aux}
+					USER_BUSYBOX_RMMOD11 {abstract, aux}
+					USER_BUSYBOX_MODPROBE28 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX99 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES18 {abstract, aux}
+		mandatory
+			OR_FEATURE149 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD18 {abstract, aux}
+					USER_BUSYBOX_RMMOD12 {abstract, aux}
+					USER_BUSYBOX_MODPROBE29 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX100 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES19 {abstract, aux}
+		mandatory
+			OR_FEATURE150 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD19 {abstract, aux}
+					USER_BUSYBOX_RMMOD13 {abstract, aux}
+					USER_BUSYBOX_MODPROBE30 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES20 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX101 {abstract, aux}
+		mandatory
+			OR_FEATURE151 {abstract, aux}
+				or
+					USER_BUSYBOX_INSMOD20 {abstract, aux}
+					USER_BUSYBOX_RMMOD14 {abstract, aux}
+					USER_BUSYBOX_MODPROBE31 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES21 {abstract, aux}
+		mandatory
+			OR_FEATURE152 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX102 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_4_MODULES12 {abstract, aux}
+					USER_BUSYBOX_FEATURE_2_6_MODULES22 {abstract, aux}
+					USER_BUSYBOX_FEATURE_QUERY_MODULE_INTERFACE1 {abstract, aux}
+		mandatory
+			OR_FEATURE153 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX103 {abstract, aux}
+					USER_BUSYBOX_LFS1 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS1 {abstract, aux}
+		mandatory
+			OR_FEATURE154 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX104 {abstract, aux}
+					USER_BUSYBOX_FDISK1 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS2 {abstract, aux}
+		mandatory
+			OR_FEATURE155 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX105 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS3 {abstract, aux}
+					USER_BUSYBOX_LFS2 {abstract, aux}
+		mandatory
+			OR_FEATURE156 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX106 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS4 {abstract, aux}
+					USER_BUSYBOX_LFS3 {abstract, aux}
+					USER_BUSYBOX_FDISK2 {abstract, aux}
+		mandatory
+			OR_FEATURE157 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX107 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS5 {abstract, aux}
+		mandatory
+			OR_FEATURE158 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX108 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS6 {abstract, aux}
+					USER_BUSYBOX_FDISK3 {abstract, aux}
+		mandatory
+			OR_FEATURE159 {abstract, aux}
+				or
+					USER_BUSYBOX_FDISK4 {abstract, aux}
+					USER_BUSYBOX_LFS4 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX109 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS7 {abstract, aux}
+		mandatory
+			OR_FEATURE160 {abstract, aux}
+				or
+					USER_BUSYBOX_FDISK5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX110 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS8 {abstract, aux}
+		mandatory
+			OR_FEATURE161 {abstract, aux}
+				or
+					USER_BUSYBOX_FDISK6 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS9 {abstract, aux}
+					USER_BUSYBOX_LFS5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX111 {abstract, aux}
+		mandatory
+			OR_FEATURE162 {abstract, aux}
+				or
+					USER_BUSYBOX_FDISK7 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS10 {abstract, aux}
+					USER_BUSYBOX_LFS6 {abstract, aux}
+		mandatory
+			OR_FEATURE163 {abstract, aux}
+				or
+					USER_BUSYBOX_FDISK8 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS11 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX112 {abstract, aux}
+		mandatory
+			OR_FEATURE164 {abstract, aux}
+				or
+					USER_BUSYBOX_FDISK9 {abstract, aux}
+					USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS12 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX113 {abstract, aux}
+		mandatory
+			OR_FEATURE165 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX114 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MTAB_SUPPORT1 {abstract, aux}
+					USER_BUSYBOX_MOUNT1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE1 {abstract, aux}
+		mandatory
+			OR_FEATURE166 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX115 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MTAB_SUPPORT2 {abstract, aux}
+					USER_BUSYBOX_UMOUNT1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE2 {abstract, aux}
+		mandatory
+			OR_FEATURE167 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX116 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MTAB_SUPPORT3 {abstract, aux}
+		mandatory
+			OR_FEATURE168 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX117 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE4 {abstract, aux}
+		mandatory
+			OR_FEATURE169 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX118 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE5 {abstract, aux}
+					USER_BUSYBOX_MOUNT2 {abstract, aux}
+					USER_BUSYBOX_UMOUNT2 {abstract, aux}
+		mandatory
+			OR_FEATURE170 {abstract, aux}
+				or
+					USER_BUSYBOX_MOUNT3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MTAB_SUPPORT4 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX119 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE6 {abstract, aux}
+		mandatory
+			OR_FEATURE171 {abstract, aux}
+				or
+					USER_BUSYBOX_MOUNT4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MTAB_SUPPORT5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX120 {abstract, aux}
+					USER_BUSYBOX_UMOUNT3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE7 {abstract, aux}
+		mandatory
+			OR_FEATURE172 {abstract, aux}
+				or
+					USER_BUSYBOX_MOUNT5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MTAB_SUPPORT6 {abstract, aux}
+		mandatory
+			OR_FEATURE173 {abstract, aux}
+				or
+					USER_BUSYBOX_MOUNT6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE9 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX121 {abstract, aux}
+		mandatory
+			OR_FEATURE174 {abstract, aux}
+				or
+					USER_BUSYBOX_MOUNT7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_MOUNT_FAKE10 {abstract, aux}
+					USER_BUSYBOX_UMOUNT4 {abstract, aux}
+		mandatory
+			OR_FEATURE175 {abstract, aux}
+				or
+					USER_BUSYBOX_FTPGET1 {abstract, aux}
+					USER_BUSYBOX_FTPPUT1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_FTPGETPUT_LONG_OPTIONS1 {abstract, aux}
+		mandatory
+			OR_FEATURE176 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX122 {abstract, aux}
+					USER_BUSYBOX_IFUPDOWN1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IP1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN1 {abstract, aux}
+		mandatory
+			OR_FEATURE177 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX123 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN2 {abstract, aux}
+		mandatory
+			OR_FEATURE178 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX124 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN3 {abstract, aux}
+					USER_BUSYBOX_IFUPDOWN2 {abstract, aux}
+		mandatory
+			OR_FEATURE179 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX125 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IP2 {abstract, aux}
+		mandatory
+			OR_FEATURE180 {abstract, aux}
+				or
+					USER_BUSYBOX_IFUPDOWN3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX126 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IP3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN5 {abstract, aux}
+		mandatory
+			OR_FEATURE181 {abstract, aux}
+				or
+					USER_BUSYBOX_IFUPDOWN4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN6 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX127 {abstract, aux}
+		mandatory
+			OR_FEATURE182 {abstract, aux}
+				or
+					USER_BUSYBOX_IFUPDOWN5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN7 {abstract, aux}
+		mandatory
+			OR_FEATURE183 {abstract, aux}
+				or
+					USER_BUSYBOX_IFUPDOWN6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IP4 {abstract, aux}
+		mandatory
+			OR_FEATURE184 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IP5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX128 {abstract, aux}
+					USER_BUSYBOX_IFUPDOWN7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN9 {abstract, aux}
+		mandatory
+			OR_FEATURE185 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IP6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN10 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX129 {abstract, aux}
+		mandatory
+			OR_FEATURE186 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IP7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN11 {abstract, aux}
+					USER_BUSYBOX_IFUPDOWN8 {abstract, aux}
+		mandatory
+			OR_FEATURE187 {abstract, aux}
+				or
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IP8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN12 {abstract, aux}
+		mandatory
+			OR_FEATURE188 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX130 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_SHORT_FORMS1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_ADDRESS1 {abstract, aux}
+					USER_BUSYBOX_IPADDR1 {abstract, aux}
+		mandatory
+			OR_FEATURE189 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX131 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_SHORT_FORMS2 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_LINK1 {abstract, aux}
+					USER_BUSYBOX_IPLINK1 {abstract, aux}
+		mandatory
+			OR_FEATURE190 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX132 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_SHORT_FORMS3 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_ROUTE1 {abstract, aux}
+					USER_BUSYBOX_IPROUTE1 {abstract, aux}
+		mandatory
+			OR_FEATURE191 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX133 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_SHORT_FORMS4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_TUNNEL1 {abstract, aux}
+					USER_BUSYBOX_IPTUNNEL1 {abstract, aux}
+		mandatory
+			OR_FEATURE192 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX134 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_SHORT_FORMS5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_IP_RULE1 {abstract, aux}
+					USER_BUSYBOX_IPRULE1 {abstract, aux}
+		mandatory
+			OR_FEATURE193 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX135 {abstract, aux}
+					USER_SASH_REBOOT_SNAPGEAR1 {abstract, aux}
+					USER_SASH_REBOOT1 {abstract, aux}
+					USER_BUSYBOX_KILLALL1 {abstract, aux}
+		mandatory
+			OR_FEATURE194 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX136 {abstract, aux}
+					USER_BUSYBOX_KILLALL2 {abstract, aux}
+					USER_SASH_REBOOT_SNAPGEAR2 {abstract, aux}
+		mandatory
+			OR_FEATURE195 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX137 {abstract, aux}
+					USER_BUSYBOX_KILLALL3 {abstract, aux}
+		mandatory
+			OR_FEATURE196 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX138 {abstract, aux}
+					USER_BUSYBOX_KILLALL4 {abstract, aux}
+					USER_SASH_REBOOT2 {abstract, aux}
+		mandatory
+			OR_FEATURE197 {abstract, aux}
+				or
+					USER_BUSYBOX_KILL1 {abstract, aux}
+					USER_SASH_REBOOT_SNAPGEAR3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX139 {abstract, aux}
+					USER_SASH_REBOOT3 {abstract, aux}
+					USER_BUSYBOX_KILLALL6 {abstract, aux}
+		mandatory
+			OR_FEATURE198 {abstract, aux}
+				or
+					USER_BUSYBOX_KILL2 {abstract, aux}
+					USER_BUSYBOX_KILLALL7 {abstract, aux}
+					USER_SASH_REBOOT_SNAPGEAR4 {abstract, aux}
+		mandatory
+			OR_FEATURE199 {abstract, aux}
+				or
+					USER_BUSYBOX_KILL3 {abstract, aux}
+					USER_BUSYBOX_KILLALL8 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX140 {abstract, aux}
+		mandatory
+			OR_FEATURE200 {abstract, aux}
+				or
+					USER_BUSYBOX_KILL4 {abstract, aux}
+					USER_BUSYBOX_KILLALL9 {abstract, aux}
+					USER_SASH_REBOOT4 {abstract, aux}
+		mandatory
+			OR_FEATURE201 {abstract, aux}
+				or
+					USER_BUSYBOX_MSH1 {abstract, aux}
+					USER_BUSYBOX_LASH1 {abstract, aux}
+					USER_BUSYBOX_HUSH1 {abstract, aux}
+					USER_BUSYBOX_ASH1 {abstract, aux}
+					USER_BUSYBOX_FEATURE_SH_STANDALONE2 {abstract, aux}
+		mandatory
+			OR_FEATURE202 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX141 {abstract, aux}
+					USER_BUSYBOX_SELINUX1 {abstract, aux}
+					USER_BUSYBOX_CHCON1 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG9 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS1 {abstract, aux}
+		mandatory
+			OR_FEATURE203 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX142 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS2 {abstract, aux}
+		mandatory
+			OR_FEATURE204 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX143 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS3 {abstract, aux}
+					USER_BUSYBOX_SELINUX2 {abstract, aux}
+		mandatory
+			OR_FEATURE205 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX144 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS4 {abstract, aux}
+					USER_BUSYBOX_CHCON2 {abstract, aux}
+		mandatory
+			OR_FEATURE206 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX145 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS5 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG10 {abstract, aux}
+		mandatory
+			OR_FEATURE207 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX3 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX146 {abstract, aux}
+					USER_BUSYBOX_CHCON3 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG11 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS6 {abstract, aux}
+		mandatory
+			OR_FEATURE208 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX4 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS7 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX147 {abstract, aux}
+		mandatory
+			OR_FEATURE209 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX5 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS8 {abstract, aux}
+		mandatory
+			OR_FEATURE210 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS9 {abstract, aux}
+					USER_BUSYBOX_CHCON4 {abstract, aux}
+		mandatory
+			OR_FEATURE211 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS10 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG12 {abstract, aux}
+		mandatory
+			OR_FEATURE212 {abstract, aux}
+				or
+					USER_BUSYBOX_CHCON5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX148 {abstract, aux}
+					USER_BUSYBOX_SELINUX8 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG13 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS11 {abstract, aux}
+		mandatory
+			OR_FEATURE213 {abstract, aux}
+				or
+					USER_BUSYBOX_CHCON6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS12 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX149 {abstract, aux}
+		mandatory
+			OR_FEATURE214 {abstract, aux}
+				or
+					USER_BUSYBOX_CHCON7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS13 {abstract, aux}
+					USER_BUSYBOX_SELINUX9 {abstract, aux}
+		mandatory
+			OR_FEATURE215 {abstract, aux}
+				or
+					USER_BUSYBOX_CHCON8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS14 {abstract, aux}
+		mandatory
+			OR_FEATURE216 {abstract, aux}
+				or
+					USER_BUSYBOX_CHCON9 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS15 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG14 {abstract, aux}
+		mandatory
+			OR_FEATURE217 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG15 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX150 {abstract, aux}
+					USER_BUSYBOX_SELINUX10 {abstract, aux}
+					USER_BUSYBOX_CHCON10 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS16 {abstract, aux}
+		mandatory
+			OR_FEATURE218 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG16 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS17 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX151 {abstract, aux}
+		mandatory
+			OR_FEATURE219 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG17 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS18 {abstract, aux}
+					USER_BUSYBOX_SELINUX11 {abstract, aux}
+		mandatory
+			OR_FEATURE220 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG18 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS19 {abstract, aux}
+					USER_BUSYBOX_CHCON11 {abstract, aux}
+		mandatory
+			OR_FEATURE221 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG19 {abstract, aux}
+					USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS20 {abstract, aux}
+		mandatory
+			OR_FEATURE222 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX152 {abstract, aux}
+					USER_BUSYBOX_SELINUX12 {abstract, aux}
+					USER_BUSYBOX_RUNCON1 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG20 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS1 {abstract, aux}
+		mandatory
+			OR_FEATURE223 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX153 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS2 {abstract, aux}
+		mandatory
+			OR_FEATURE224 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX154 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS3 {abstract, aux}
+					USER_BUSYBOX_SELINUX13 {abstract, aux}
+		mandatory
+			OR_FEATURE225 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX155 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS4 {abstract, aux}
+					USER_BUSYBOX_RUNCON2 {abstract, aux}
+		mandatory
+			OR_FEATURE226 {abstract, aux}
+				or
+					USER_BUSYBOX_BUSYBOX156 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS5 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG21 {abstract, aux}
+		mandatory
+			OR_FEATURE227 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX14 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX157 {abstract, aux}
+					USER_BUSYBOX_RUNCON3 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG22 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS6 {abstract, aux}
+		mandatory
+			OR_FEATURE228 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX15 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS7 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX158 {abstract, aux}
+		mandatory
+			OR_FEATURE229 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX16 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS8 {abstract, aux}
+		mandatory
+			OR_FEATURE230 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX17 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS9 {abstract, aux}
+					USER_BUSYBOX_RUNCON4 {abstract, aux}
+		mandatory
+			OR_FEATURE231 {abstract, aux}
+				or
+					USER_BUSYBOX_SELINUX18 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS10 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG23 {abstract, aux}
+		mandatory
+			OR_FEATURE232 {abstract, aux}
+				or
+					USER_BUSYBOX_RUNCON5 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX159 {abstract, aux}
+					USER_BUSYBOX_SELINUX19 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG24 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS11 {abstract, aux}
+		mandatory
+			OR_FEATURE233 {abstract, aux}
+				or
+					USER_BUSYBOX_RUNCON6 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS12 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX160 {abstract, aux}
+		mandatory
+			OR_FEATURE234 {abstract, aux}
+				or
+					USER_BUSYBOX_RUNCON7 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS13 {abstract, aux}
+					USER_BUSYBOX_SELINUX20 {abstract, aux}
+		mandatory
+			OR_FEATURE235 {abstract, aux}
+				or
+					USER_BUSYBOX_RUNCON8 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS14 {abstract, aux}
+		mandatory
+			OR_FEATURE236 {abstract, aux}
+				or
+					USER_BUSYBOX_RUNCON9 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS15 {abstract, aux}
+					USER_BUSYBOX_GETOPT_LONG25 {abstract, aux}
+		mandatory
+			OR_FEATURE237 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG26 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX161 {abstract, aux}
+					USER_BUSYBOX_SELINUX21 {abstract, aux}
+					USER_BUSYBOX_RUNCON10 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS16 {abstract, aux}
+		mandatory
+			OR_FEATURE238 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG27 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS17 {abstract, aux}
+					USER_BUSYBOX_BUSYBOX162 {abstract, aux}
+		mandatory
+			OR_FEATURE239 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG28 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS18 {abstract, aux}
+					USER_BUSYBOX_SELINUX22 {abstract, aux}
+		mandatory
+			OR_FEATURE240 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG29 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS19 {abstract, aux}
+					USER_BUSYBOX_RUNCON11 {abstract, aux}
+		mandatory
+			OR_FEATURE241 {abstract, aux}
+				or
+					USER_BUSYBOX_GETOPT_LONG30 {abstract, aux}
+					USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS20 {abstract, aux}
+constraints
+	USER_SASH_SH | !USER_SASH_HISTORY
+	USER_NETFLASH_CRYPTO | !USER_NETFLASH_CRYPTO_OPTIONAL
+	!USER_RECOVER_STATIC_TFTP | !USER_RECOVER_USE_STATIC_SERVER
+	USER_RECOVER_RECOVER | !USER_RECOVER_PRESERVE_CONFIG_FS
+	!USER_FNORD_NOAUTH | !USER_FNORD_PAM
+	USER_FNORD_HTTPD | !USER_FNORD_404_REDIR
+	USER_INETD_INETD | !USER_DROPBEAR_DROPBEAR
+	USER_SSH_SSH | !USER_SSH_SCP
+	USER_SSH_SSH | !USER_SSH_SFTP
+	USER_SSH_SSH | !USER_SSH_SFTP_SERVER
+	USER_SSH_SSH | !USER_SSH_SSH_KEYSIGN
+	USER_SSH_SSH | !USER_SSH_ONLY_RSA_V2_KEYGEN
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_ADDUSER
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_ADDGROUP
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_DELUSER
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_DELGROUP
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_LOGIN
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_SU
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_SULOGIN
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_PASSWD
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_GETTY
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_SHADOWPASSWDS
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_MD5_PASSWORDS
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_SHA1_PASSWORDS
+	USER_TINYLOGIN_TINYLOGIN | !USER_TINYLOGIN_TRIVIAL_HELP
+	USER_MICROWIN | !USER_MICROWIN_OPTIMIZE
+	USER_MICROWIN | !USER_MICROWIN_DEBUG
+	USER_MICROWIN | !USER_MICROWIN_VERBOSE
+	USER_MICROWIN | !USER_MICROWIN_MICROWIN
+	USER_MICROWIN | !USER_MICROWIN_NANOX
+	USER_MICROWIN | !USER_MICROWIN_SHAREDLIBS
+	USER_MICROWIN | !USER_MICROWIN_NWIDGET
+	USER_MICROWIN | !USER_MICROWIN_OBJFRAMEWORK
+	USER_MICROWIN | !USER_MICROWIN_MICROWINDEMO
+	USER_MICROWIN | !USER_MICROWIN_NANOXDEMO
+	USER_MICROWIN | !USER_MICROWIN_NANOWM
+	USER_MICROWIN | !USER_MICROWIN_LINK_APP_INTO_SERVER
+	USER_MICROWIN | !USER_MICROWIN_HAVE_FILEIO
+	USER_MICROWIN | !USER_MICROWIN_HAVE_BMP_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_GIF_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_PNM_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_XPM_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_JPEG_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_PNG_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_T1LIB_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_FREETYPE_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_SHAREDMEM_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_HZK_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_BIG5_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVE_GB2312_SUPPORT
+	USER_MICROWIN | !USER_MICROWIN_HAVEMSFONTS
+	USER_MICROWIN | !USER_MICROWIN_NOFONTSORCLIPPING
+	USER_MICROWIN | !USER_MICROWIN_ERASEMOVE
+	USER_MICROWIN | !USER_MICROWIN_UPDATEREGIONS
+	USER_MICROWIN | !USER_MICROWIN_GRAYPALETTE
+	USER_MICROWIN | !USER_MICROWIN_X11
+	USER_MICROWIN | !USER_MICROWIN_FRAMEBUFFER
+	USER_MICROWIN | !USER_MICROWIN_FBVGA
+	USER_MICROWIN | !USER_MICROWIN_VTSWITCH
+	USER_MICROWIN | !USER_MICROWIN_PORTRAIT_MODE
+	USER_MICROWIN | !USER_MICROWIN_FBREVERSE
+	USER_MICROWIN | !USER_MICROWIN_VGALIB
+	USER_MICROWIN | !USER_MICROWIN_HWVGA
+	USER_MICROWIN | !USER_MICROWIN_CLEOVGA
+	USER_MICROWIN | !USER_MICROWIN_GPMMOUSE
+	USER_MICROWIN | !USER_MICROWIN_SERMOUSE
+	USER_MICROWIN | !USER_MICROWIN_TPMOUSE
+	USER_MICROWIN | !USER_MICROWIN_TPHELIO
+	USER_MICROWIN | !USER_MICROWIN_ADSMOUSE
+	USER_MICROWIN | !USER_MICROWIN_IPAQMOUSE
+	USER_MICROWIN | !USER_MICROWIN_HARRIERMOUSE
+	USER_MICROWIN | !USER_MICROWIN_PSIONMOUSE
+	USER_MICROWIN | !USER_MICROWIN_UCTSMOUSE
+	USER_MICROWIN | !USER_MICROWIN_DE2TSMOUSE
+	USER_MICROWIN | !USER_MICROWIN_CLEOMOUSE
+	USER_MICROWIN | !USER_MICROWIN_NOMOUSE
+	USER_MICROWIN | !USER_MICROWIN_TTYKBD
+	USER_MICROWIN | !USER_MICROWIN_SCANKBD
+	USER_MICROWIN | !USER_MICROWIN_PIPEKBD
+	USER_MICROWIN | !USER_MICROWIN_CLEOKBD
+	USER_MICROWIN | !USER_MICROWIN_NOKBD
+	USER_MICROWIN | !USER_MICROWIN_BIN_LANDMINE
+	USER_MICROWIN | !USER_MICROWIN_BIN_LAUNCHER
+	USER_MICROWIN | !USER_MICROWIN_BIN_MOVE
+	USER_MICROWIN | !USER_MICROWIN_BIN_MTERM
+	USER_MICROWIN | !USER_MICROWIN_BIN_MTEST
+	USER_MICROWIN | !USER_MICROWIN_BIN_MTEST2
+	USER_MICROWIN | !USER_MICROWIN_BIN_MUSERFD
+	USER_MICROWIN | !USER_MICROWIN_BIN_NANO_X
+	USER_MICROWIN | !USER_MICROWIN_BIN_NANOWM
+	USER_MICROWIN | !USER_MICROWIN_BIN_NPANEL
+	USER_MICROWIN | !USER_MICROWIN_BIN_NTERM
+	USER_MICROWIN | !USER_MICROWIN_BIN_NTEST
+	USER_MICROWIN | !USER_MICROWIN_BIN_NTETRIS
+	USER_MICROWIN | !USER_MICROWIN_BIN_NXCLOCK
+	USER_MICROWIN | !USER_MICROWIN_BIN_NXEV
+	USER_MICROWIN | !USER_MICROWIN_BIN_NXKBD
+	USER_MICROWIN | !USER_MICROWIN_BIN_NXLSCLIENTS
+	USER_MICROWIN | !USER_MICROWIN_BIN_NXTERM
+	USER_MICROWIN | !USER_MICROWIN_BIN_NXVIEW
+	USER_MICROWIN | !USER_MICROWIN_BIN_SLIDER
+	USER_MICROWIN | !USER_MICROWIN_BIN_VNC
+	USER_MICROWIN | !USER_MICROWIN_BIN_WORLD
+	USER_BUSYBOX_BUSYBOX | !USER_SASH_REBOOT_SNAPGEAR
+	USER_SASH_REBOOT | !USER_SASH_REBOOT_SNAPGEAR
+	USER_NETFLASH_NETFLASH | !USER_NETFLASH_SHA256
+	!USER_NETFLASH_CRYPTO_V2 | !USER_NETFLASH_SHA256
+	USER_BUSYBOX_TR | !USER_IPROUTE2_IP_RTPR
+	USER_BASH_BASH | !USER_IPROUTE2_IP_RTPR
+	!USER_NESSUS | USER_NESSUS_CORE
+	!USER_NESSUS_CORE | USER_NESSUS
+	!USER_NESSUS | USER_NESSUS_PLUGINS
+	!USER_NESSUS_PLUGINS | USER_NESSUS
+	!USER_NESSUS_NASL | USER_NESSUS_LIBRARIES
+	!USER_NESSUS_LIBRARIES | USER_NESSUS_NASL
+	!USER_EXPECT_EXPECT | USER_TCL_LIBTCL
+	!USER_TCL_LIBTCL | USER_EXPECT_EXPECT
+	!USER_BUSYBOX_BUSYBOX | USER_BUSYBOX_HAVE_DOT_CONFIG
+	!USER_BUSYBOX_HAVE_DOT_CONFIG | USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_CLEAN_UP
+	USER_BUSYBOX_NITPICK | !USER_BUSYBOX_FEATURE_CLEAN_UP
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_BUILD_LIBBUSYBOX
+	!USER_BUSYBOX_FEATURE_PREFER_APPLETS | !USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_EDITING_SAVEHISTORY
+	USER_BUSYBOX_ASH | !USER_BUSYBOX_FEATURE_EDITING_SAVEHISTORY
+	USER_BUSYBOX_FEATURE_EDITING | !USER_BUSYBOX_FEATURE_EDITING_SAVEHISTORY
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_TAR_AUTODETECT
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_TAR_FROM
+	USER_BUSYBOX_TAR | !USER_BUSYBOX_FEATURE_TAR_FROM
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_TAR_OLDGNU_COMPATIBILITY
+	USER_BUSYBOX_TAR | !USER_BUSYBOX_FEATURE_TAR_OLDGNU_COMPATIBILITY
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_TAR_OLDSUN_COMPATIBILITY
+	USER_BUSYBOX_TAR | !USER_BUSYBOX_FEATURE_TAR_OLDSUN_COMPATIBILITY
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_TAR_LONG_OPTIONS
+	USER_BUSYBOX_TAR | !USER_BUSYBOX_FEATURE_TAR_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_TAR_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_TAR_UNAME_GNAME
+	USER_BUSYBOX_TAR | !USER_BUSYBOX_FEATURE_TAR_UNAME_GNAME
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_UNARCHIVE_TAPE
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_DEB_TAR_BZ2
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_DEB_TAR_LZMA
+	!USER_BUSYBOX_UNIX2DOS | USER_BUSYBOX_BUSYBOX
+	!USER_BUSYBOX_UNIX2DOS | USER_BUSYBOX_DOS2UNIX
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_ENV_LONG_OPTIONS
+	USER_BUSYBOX_ENV | !USER_BUSYBOX_FEATURE_ENV_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_ENV_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_EXPAND_LONG_OPTIONS
+	USER_BUSYBOX_EXPAND | !USER_BUSYBOX_FEATURE_EXPAND_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_EXPAND_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_INSTALL_LONG_OPTIONS
+	USER_BUSYBOX_INSTALL | !USER_BUSYBOX_FEATURE_INSTALL_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_INSTALL_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_MKDIR_LONG_OPTIONS
+	USER_BUSYBOX_MKDIR | !USER_BUSYBOX_FEATURE_MKDIR_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_MKDIR_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_MV_LONG_OPTIONS
+	USER_BUSYBOX_MV | !USER_BUSYBOX_FEATURE_MV_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_MV_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_RMDIR_LONG_OPTIONS
+	USER_BUSYBOX_RMDIR | !USER_BUSYBOX_FEATURE_RMDIR_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_RMDIR_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_UNEXPAND_LONG_OPTIONS
+	USER_BUSYBOX_UNEXPAND | !USER_BUSYBOX_FEATURE_UNEXPAND_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_UNEXPAND_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_PRESERVE_HARDLINKS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_HUMAN_READABLE
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_MD5_SHA1_SUM_CHECK
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_SETCONSOLE_LONG_OPTIONS
+	USER_BUSYBOX_SETCONSOLE | !USER_BUSYBOX_FEATURE_SETCONSOLE_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_SETCONSOLE_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_RUN_PARTS_LONG_OPTIONS
+	USER_BUSYBOX_RUN_PARTS | !USER_BUSYBOX_FEATURE_RUN_PARTS_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_RUN_PARTS_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS
+	USER_BUSYBOX_START_STOP_DAEMON | !USER_BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_FIND_DELETE
+	USER_BUSYBOX_FIND | !USER_BUSYBOX_FEATURE_FIND_DELETE
+	USER_BUSYBOX_FEATURE_FIND_DEPTH | !USER_BUSYBOX_FEATURE_FIND_DELETE
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_FIND_CONTEXT
+	USER_BUSYBOX_FIND | !USER_BUSYBOX_FEATURE_FIND_CONTEXT
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_FEATURE_FIND_CONTEXT
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_CHECK_NAMES
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_ADDUSER_LONG_OPTIONS
+	USER_BUSYBOX_ADDUSER | !USER_BUSYBOX_FEATURE_ADDUSER_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_ADDUSER_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_INSMOD_VERSION_CHECKING
+	USER_BUSYBOX_INSMOD | !USER_BUSYBOX_FEATURE_INSMOD_VERSION_CHECKING
+	USER_BUSYBOX_FEATURE_2_4_MODULES | !USER_BUSYBOX_FEATURE_INSMOD_VERSION_CHECKING
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_INSMOD_KSYMOOPS_SYMBOLS
+	USER_BUSYBOX_INSMOD | !USER_BUSYBOX_FEATURE_INSMOD_KSYMOOPS_SYMBOLS
+	USER_BUSYBOX_FEATURE_2_4_MODULES | !USER_BUSYBOX_FEATURE_INSMOD_KSYMOOPS_SYMBOLS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_INSMOD_LOADINKMEM
+	USER_BUSYBOX_INSMOD | !USER_BUSYBOX_FEATURE_INSMOD_LOADINKMEM
+	USER_BUSYBOX_FEATURE_2_4_MODULES | !USER_BUSYBOX_FEATURE_INSMOD_LOADINKMEM
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_INSMOD_LOAD_MAP
+	USER_BUSYBOX_INSMOD | !USER_BUSYBOX_FEATURE_INSMOD_LOAD_MAP
+	!USER_BUSYBOX_FEATURE_QUERY_MODULE_INTERFACE | USER_BUSYBOX_BUSYBOX
+	!USER_BUSYBOX_FEATURE_QUERY_MODULE_INTERFACE | USER_BUSYBOX_FEATURE_2_4_MODULES
+	!USER_BUSYBOX_FEATURE_QUERY_MODULE_INTERFACE | !USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_HWCLOCK_LONG_OPTIONS
+	USER_BUSYBOX_HWCLOCK | !USER_BUSYBOX_FEATURE_HWCLOCK_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_HWCLOCK_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_READAHEAD
+	USER_BUSYBOX_LFS | !USER_BUSYBOX_READAHEAD
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_FTPGETPUT_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_FTPGETPUT_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_IFUPDOWN_IPV6
+	USER_BUSYBOX_IFUPDOWN | !USER_BUSYBOX_FEATURE_IFUPDOWN_IPV6
+	USER_BUSYBOX_FEATURE_IPV6 | !USER_BUSYBOX_FEATURE_IFUPDOWN_IPV6
+	!USER_BUSYBOX_IPADDR | USER_BUSYBOX_BUSYBOX
+	!USER_BUSYBOX_IPADDR | USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	!USER_BUSYBOX_IPADDR | USER_BUSYBOX_FEATURE_IP_ADDRESS
+	!USER_BUSYBOX_IPLINK | USER_BUSYBOX_BUSYBOX
+	!USER_BUSYBOX_IPLINK | USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	!USER_BUSYBOX_IPLINK | USER_BUSYBOX_FEATURE_IP_LINK
+	!USER_BUSYBOX_IPROUTE | USER_BUSYBOX_BUSYBOX
+	!USER_BUSYBOX_IPROUTE | USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	!USER_BUSYBOX_IPROUTE | USER_BUSYBOX_FEATURE_IP_ROUTE
+	!USER_BUSYBOX_IPTUNNEL | USER_BUSYBOX_BUSYBOX
+	!USER_BUSYBOX_IPTUNNEL | USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	!USER_BUSYBOX_IPTUNNEL | USER_BUSYBOX_FEATURE_IP_TUNNEL
+	!USER_BUSYBOX_IPRULE | USER_BUSYBOX_BUSYBOX
+	!USER_BUSYBOX_IPRULE | USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	!USER_BUSYBOX_IPRULE | USER_BUSYBOX_FEATURE_IP_RULE
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_IPCALC_LONG_OPTIONS
+	USER_BUSYBOX_IPCALC | !USER_BUSYBOX_FEATURE_IPCALC_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_IPCALC_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_PING6
+	USER_BUSYBOX_FEATURE_IPV6 | !USER_BUSYBOX_PING6
+	USER_BUSYBOX_PING | !USER_BUSYBOX_PING6
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_DEBUG_TFTP
+	USER_BUSYBOX_TFTP | !USER_BUSYBOX_DEBUG_TFTP
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_WGET_LONG_OPTIONS
+	USER_BUSYBOX_WGET | !USER_BUSYBOX_FEATURE_WGET_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG | !USER_BUSYBOX_FEATURE_WGET_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_PS_TIME
+	USER_BUSYBOX_PS | !USER_BUSYBOX_FEATURE_PS_TIME
+	USER_BUSYBOX_DESKTOP | !USER_BUSYBOX_FEATURE_PS_TIME
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_FEATURE_SH_STANDALONE
+	USER_BUSYBOX_FEATURE_PREFER_APPLETS | !USER_BUSYBOX_FEATURE_SH_STANDALONE
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_CHCON
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_CHCON
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_GETENFORCE
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_GETENFORCE
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_GETSEBOOL
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_GETSEBOOL
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_LOAD_POLICY
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_LOAD_POLICY
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_MATCHPATHCON
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_MATCHPATHCON
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_RESTORECON
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_RESTORECON
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_SELINUXENABLED
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_SELINUXENABLED
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_SETENFORCE
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_SETENFORCE
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_SETFILES
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_SETFILES
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_SETSEBOOL
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_SETSEBOOL
+	USER_BUSYBOX_BUSYBOX | !USER_BUSYBOX_SESTATUS
+	USER_BUSYBOX_SELINUX | !USER_BUSYBOX_SESTATUS
+	USER_BUSYBOX_FEATURE_INSTALLER1 => USER_BUSYBOX_FEATURE_INSTALLER
+	USER_BUSYBOX_FEATURE_SH_STANDALONE1 => USER_BUSYBOX_FEATURE_SH_STANDALONE
+	USER_BUSYBOX_FEATURE_PREFER_APPLETS1 => USER_BUSYBOX_FEATURE_PREFER_APPLETS
+	USER_BUSYBOX_INSTALL_APPLET_DONT1 => ! USER_BUSYBOX_INSTALL_APPLET_DONT
+	LIB_STLPORT1 => LIB_STLPORT
+	USER_ASTERISK1 => ! USER_ASTERISK
+	LIB_STLPORT_SHARED1 => LIB_STLPORT_SHARED
+	LIB_STLPORT2 => LIB_STLPORT
+	LIB_STLPORT_SHARED2 => ! LIB_STLPORT_SHARED
+	USER_ASTERISK2 => USER_ASTERISK
+	USER_SASH_SH1 => ! USER_SASH_SH
+	USER_SASH_PS1 => USER_SASH_PS
+	USER_SASH_SH2 => USER_SASH_SH
+	USER_SASH_PS2 => ! USER_SASH_PS
+	USER_PPPD_WITH_PPPOE1 => ! USER_PPPD_WITH_PPPOE
+	USER_PPPD_PPPOE_RETRIES1 => USER_PPPD_PPPOE_RETRIES
+	USER_PPPD_WITH_PPPOE2 => USER_PPPD_WITH_PPPOE
+	USER_PPPD_PPPOE_RETRIES2 => ! USER_PPPD_PPPOE_RETRIES
+	USER_MYSQL1 => USER_MYSQL
+	USER_ASTERISK_MYSQL1 => ! USER_ASTERISK_MYSQL
+	USER_ASTERISK3 => ! USER_ASTERISK
+	USER_MYSQL_CLIB1 => USER_MYSQL_CLIB
+	USER_MYSQL2 => USER_MYSQL
+	USER_MYSQL_CLIB2 => ! USER_MYSQL_CLIB
+	USER_ASTERISK_MYSQL2 => USER_ASTERISK_MYSQL
+	USER_MYSQL3 => USER_MYSQL
+	USER_MYSQL_CLIB3 => ! USER_MYSQL_CLIB
+	USER_ASTERISK4 => USER_ASTERISK
+	USER_BUSYBOX_BUSYBOX1 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SHOW_USAGE1 => ! USER_BUSYBOX_SHOW_USAGE
+	USER_BUSYBOX_FEATURE_COMPRESS_USAGE1 => USER_BUSYBOX_FEATURE_COMPRESS_USAGE
+	USER_BUSYBOX_BUSYBOX2 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_COMPRESS_USAGE2 => ! USER_BUSYBOX_FEATURE_COMPRESS_USAGE
+	USER_BUSYBOX_BUSYBOX3 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_COMPRESS_USAGE3 => ! USER_BUSYBOX_FEATURE_COMPRESS_USAGE
+	USER_BUSYBOX_SHOW_USAGE2 => USER_BUSYBOX_SHOW_USAGE
+	USER_BUSYBOX_SHOW_USAGE3 => ! USER_BUSYBOX_SHOW_USAGE
+	USER_BUSYBOX_BUSYBOX4 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_COMPRESS_USAGE4 => USER_BUSYBOX_FEATURE_COMPRESS_USAGE
+	USER_BUSYBOX_SHOW_USAGE4 => USER_BUSYBOX_SHOW_USAGE
+	USER_BUSYBOX_FEATURE_COMPRESS_USAGE5 => ! USER_BUSYBOX_FEATURE_COMPRESS_USAGE
+	USER_BUSYBOX_BUSYBOX5 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SHOW_USAGE5 => USER_BUSYBOX_SHOW_USAGE
+	USER_BUSYBOX_FEATURE_COMPRESS_USAGE6 => ! USER_BUSYBOX_FEATURE_COMPRESS_USAGE
+	USER_BUSYBOX_BUSYBOX6 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_STATIC1 => USER_BUSYBOX_STATIC
+	USER_BUSYBOX_BUILD_LIBBUSYBOX1 => ! USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_INDIVIDUAL1 => USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_BUSYBOX7 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_INDIVIDUAL2 => ! USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_BUSYBOX8 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_INDIVIDUAL3 => ! USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_STATIC2 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_BUSYBOX9 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_INDIVIDUAL4 => ! USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_BUILD_LIBBUSYBOX2 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_STATIC3 => USER_BUSYBOX_STATIC
+	USER_BUSYBOX_BUSYBOX10 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_BUILD_LIBBUSYBOX3 => ! USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_INDIVIDUAL5 => USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_STATIC4 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_FEATURE_INDIVIDUAL6 => ! USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_BUSYBOX11 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_STATIC5 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_FEATURE_INDIVIDUAL7 => ! USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_STATIC6 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_FEATURE_INDIVIDUAL8 => ! USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_BUILD_LIBBUSYBOX4 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_BUILD_LIBBUSYBOX5 => ! USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_BUSYBOX12 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_STATIC7 => USER_BUSYBOX_STATIC
+	USER_BUSYBOX_FEATURE_INDIVIDUAL9 => USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_BUILD_LIBBUSYBOX6 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_INDIVIDUAL10 => ! USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_BUSYBOX13 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_BUILD_LIBBUSYBOX7 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_INDIVIDUAL11 => ! USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_STATIC8 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_BUILD_LIBBUSYBOX8 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_INDIVIDUAL12 => ! USER_BUSYBOX_FEATURE_INDIVIDUAL
+	USER_BUSYBOX_BUSYBOX14 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_STATIC9 => USER_BUSYBOX_STATIC
+	USER_BUSYBOX_BUILD_LIBBUSYBOX9 => ! USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX1 => USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_BUSYBOX15 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX2 => ! USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_BUSYBOX16 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX3 => ! USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_STATIC10 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_BUSYBOX17 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX4 => ! USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_BUILD_LIBBUSYBOX10 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_STATIC11 => USER_BUSYBOX_STATIC
+	USER_BUSYBOX_BUSYBOX18 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_BUILD_LIBBUSYBOX11 => ! USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX5 => USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_STATIC12 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX6 => ! USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_BUSYBOX19 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_STATIC13 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX7 => ! USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_STATIC14 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX8 => ! USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_BUILD_LIBBUSYBOX12 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_BUILD_LIBBUSYBOX13 => ! USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_BUSYBOX20 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_STATIC15 => USER_BUSYBOX_STATIC
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX9 => USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_BUILD_LIBBUSYBOX14 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX10 => ! USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_BUSYBOX21 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_BUILD_LIBBUSYBOX15 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX11 => ! USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_STATIC16 => ! USER_BUSYBOX_STATIC
+	USER_BUSYBOX_BUILD_LIBBUSYBOX16 => USER_BUSYBOX_BUILD_LIBBUSYBOX
+	USER_BUSYBOX_FEATURE_SHARED_BUSYBOX12 => ! USER_BUSYBOX_FEATURE_SHARED_BUSYBOX
+	USER_BUSYBOX_FEATURE_TAR_GZIP1 => USER_BUSYBOX_FEATURE_TAR_GZIP
+	USER_BUSYBOX_FEATURE_TAR_BZIP21 => USER_BUSYBOX_FEATURE_TAR_BZIP2
+	USER_BUSYBOX_FEATURE_TAR_AUTODETECT1 => ! USER_BUSYBOX_FEATURE_TAR_AUTODETECT
+	USER_BUSYBOX_BUSYBOX22 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_TAR1 => ! USER_BUSYBOX_TAR
+	USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS1 => USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS
+	USER_BUSYBOX_BUSYBOX23 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS2 => ! USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS
+	USER_BUSYBOX_BUSYBOX24 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS3 => ! USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS
+	USER_BUSYBOX_TAR2 => USER_BUSYBOX_TAR
+	USER_BUSYBOX_TAR3 => ! USER_BUSYBOX_TAR
+	USER_BUSYBOX_BUSYBOX25 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS4 => USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS
+	USER_BUSYBOX_TAR4 => USER_BUSYBOX_TAR
+	USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS5 => ! USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS
+	USER_BUSYBOX_BUSYBOX26 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_TAR5 => USER_BUSYBOX_TAR
+	USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS6 => ! USER_BUSYBOX_FEATURE_TAR_GNU_EXTENSIONS
+	USER_BUSYBOX_CPIO1 => USER_BUSYBOX_CPIO
+	USER_BUSYBOX_TAR6 => USER_BUSYBOX_TAR
+	USER_BUSYBOX_FEATURE_UNARCHIVE_TAPE1 => ! USER_BUSYBOX_FEATURE_UNARCHIVE_TAPE
+	USER_BUSYBOX_DPKG1 => USER_BUSYBOX_DPKG
+	USER_BUSYBOX_DPKG_DEB1 => USER_BUSYBOX_DPKG_DEB
+	USER_BUSYBOX_FEATURE_DEB_TAR_BZ21 => ! USER_BUSYBOX_FEATURE_DEB_TAR_BZ2
+	USER_BUSYBOX_DPKG2 => USER_BUSYBOX_DPKG
+	USER_BUSYBOX_DPKG_DEB2 => USER_BUSYBOX_DPKG_DEB
+	USER_BUSYBOX_FEATURE_DEB_TAR_LZMA1 => ! USER_BUSYBOX_FEATURE_DEB_TAR_LZMA
+	USER_BUSYBOX_BUSYBOX27 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_DOS2UNIX1 => ! USER_BUSYBOX_DOS2UNIX
+	USER_BUSYBOX_UNIX2DOS1 => USER_BUSYBOX_UNIX2DOS
+	USER_BUSYBOX_BUSYBOX28 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_LS1 => ! USER_BUSYBOX_LS
+	USER_BUSYBOX_GETOPT_LONG1 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_LS_COLOR1 => USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_BUSYBOX29 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_LS_COLOR2 => ! USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_BUSYBOX30 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_LS_COLOR3 => ! USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_LS2 => USER_BUSYBOX_LS
+	USER_BUSYBOX_BUSYBOX31 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_LS_COLOR4 => ! USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_GETOPT_LONG2 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_LS3 => ! USER_BUSYBOX_LS
+	USER_BUSYBOX_BUSYBOX32 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_GETOPT_LONG3 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_LS_COLOR5 => USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_LS4 => USER_BUSYBOX_LS
+	USER_BUSYBOX_FEATURE_LS_COLOR6 => ! USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_BUSYBOX33 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_LS5 => USER_BUSYBOX_LS
+	USER_BUSYBOX_FEATURE_LS_COLOR7 => ! USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_LS6 => USER_BUSYBOX_LS
+	USER_BUSYBOX_FEATURE_LS_COLOR8 => ! USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_GETOPT_LONG4 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_GETOPT_LONG5 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_BUSYBOX34 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_LS7 => ! USER_BUSYBOX_LS
+	USER_BUSYBOX_FEATURE_LS_COLOR9 => USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_GETOPT_LONG6 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_LS_COLOR10 => ! USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_BUSYBOX35 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_GETOPT_LONG7 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_LS_COLOR11 => ! USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_LS8 => USER_BUSYBOX_LS
+	USER_BUSYBOX_GETOPT_LONG8 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_LS_COLOR12 => ! USER_BUSYBOX_FEATURE_LS_COLOR
+	USER_BUSYBOX_CP1 => USER_BUSYBOX_CP
+	USER_BUSYBOX_MV1 => USER_BUSYBOX_MV
+	USER_BUSYBOX_FEATURE_PRESERVE_HARDLINKS1 => ! USER_BUSYBOX_FEATURE_PRESERVE_HARDLINKS
+	USER_BUSYBOX_BUSYBOX36 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_LS9 => ! USER_BUSYBOX_LS
+	USER_BUSYBOX_FEATURE_AUTOWIDTH1 => USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_BUSYBOX37 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MORE1 => ! USER_BUSYBOX_MORE
+	USER_BUSYBOX_FEATURE_AUTOWIDTH2 => USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_BUSYBOX38 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_TELNET1 => ! USER_BUSYBOX_TELNET
+	USER_BUSYBOX_FEATURE_AUTOWIDTH3 => USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_BUSYBOX39 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_AUTOWIDTH4 => ! USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_BUSYBOX40 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_AUTOWIDTH5 => ! USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_LS10 => USER_BUSYBOX_LS
+	USER_BUSYBOX_MORE2 => USER_BUSYBOX_MORE
+	USER_BUSYBOX_TELNET2 => USER_BUSYBOX_TELNET
+	USER_BUSYBOX_LS11 => ! USER_BUSYBOX_LS
+	USER_BUSYBOX_MORE3 => USER_BUSYBOX_MORE
+	USER_BUSYBOX_TELNET3 => USER_BUSYBOX_TELNET
+	USER_BUSYBOX_BUSYBOX41 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_AUTOWIDTH6 => USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_LS12 => USER_BUSYBOX_LS
+	USER_BUSYBOX_MORE4 => ! USER_BUSYBOX_MORE
+	USER_BUSYBOX_TELNET4 => USER_BUSYBOX_TELNET
+	USER_BUSYBOX_BUSYBOX42 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_AUTOWIDTH7 => USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_LS13 => USER_BUSYBOX_LS
+	USER_BUSYBOX_MORE5 => USER_BUSYBOX_MORE
+	USER_BUSYBOX_TELNET5 => ! USER_BUSYBOX_TELNET
+	USER_BUSYBOX_BUSYBOX43 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_AUTOWIDTH8 => USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_LS14 => USER_BUSYBOX_LS
+	USER_BUSYBOX_MORE6 => USER_BUSYBOX_MORE
+	USER_BUSYBOX_TELNET6 => USER_BUSYBOX_TELNET
+	USER_BUSYBOX_FEATURE_AUTOWIDTH9 => ! USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_BUSYBOX44 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_LS15 => USER_BUSYBOX_LS
+	USER_BUSYBOX_MORE7 => USER_BUSYBOX_MORE
+	USER_BUSYBOX_TELNET7 => USER_BUSYBOX_TELNET
+	USER_BUSYBOX_FEATURE_AUTOWIDTH10 => ! USER_BUSYBOX_FEATURE_AUTOWIDTH
+	USER_BUSYBOX_DF1 => USER_BUSYBOX_DF
+	USER_BUSYBOX_DU1 => USER_BUSYBOX_DU
+	USER_BUSYBOX_LS16 => USER_BUSYBOX_LS
+	USER_BUSYBOX_FEATURE_HUMAN_READABLE1 => ! USER_BUSYBOX_FEATURE_HUMAN_READABLE
+	USER_BUSYBOX_MD5SUM1 => USER_BUSYBOX_MD5SUM
+	USER_BUSYBOX_SHA1SUM1 => USER_BUSYBOX_SHA1SUM
+	USER_BUSYBOX_FEATURE_MD5_SHA1_SUM_CHECK1 => ! USER_BUSYBOX_FEATURE_MD5_SHA1_SUM_CHECK
+	USER_BUSYBOX_BUSYBOX45 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_INIT1 => ! USER_BUSYBOX_INIT
+	USER_BUSYBOX_FEATURE_KILL_DELAY1 => USER_BUSYBOX_FEATURE_KILL_DELAY
+	USER_BUSYBOX_BUSYBOX46 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_KILL_DELAY2 => ! USER_BUSYBOX_FEATURE_KILL_DELAY
+	USER_BUSYBOX_BUSYBOX47 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_KILL_DELAY3 => ! USER_BUSYBOX_FEATURE_KILL_DELAY
+	USER_BUSYBOX_INIT2 => USER_BUSYBOX_INIT
+	USER_BUSYBOX_INIT3 => ! USER_BUSYBOX_INIT
+	USER_BUSYBOX_BUSYBOX48 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_KILL_DELAY4 => USER_BUSYBOX_FEATURE_KILL_DELAY
+	USER_BUSYBOX_INIT4 => USER_BUSYBOX_INIT
+	USER_BUSYBOX_FEATURE_KILL_DELAY5 => ! USER_BUSYBOX_FEATURE_KILL_DELAY
+	USER_BUSYBOX_BUSYBOX49 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_INIT5 => USER_BUSYBOX_INIT
+	USER_BUSYBOX_FEATURE_KILL_DELAY6 => ! USER_BUSYBOX_FEATURE_KILL_DELAY
+	USER_BUSYBOX_FEATURE_KILL_REMOVED1 => USER_BUSYBOX_FEATURE_KILL_REMOVED
+	USER_BUSYBOX_BUSYBOX50 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_INIT6 => ! USER_BUSYBOX_INIT
+	USER_BUSYBOX_FEATURE_KILL_DELAY7 => USER_BUSYBOX_FEATURE_KILL_DELAY
+	USER_BUSYBOX_FEATURE_KILL_REMOVED2 => USER_BUSYBOX_FEATURE_KILL_REMOVED
+	USER_BUSYBOX_FEATURE_KILL_DELAY8 => ! USER_BUSYBOX_FEATURE_KILL_DELAY
+	USER_BUSYBOX_BUSYBOX51 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_KILL_REMOVED3 => USER_BUSYBOX_FEATURE_KILL_REMOVED
+	USER_BUSYBOX_FEATURE_KILL_DELAY9 => ! USER_BUSYBOX_FEATURE_KILL_DELAY
+	USER_BUSYBOX_INIT7 => USER_BUSYBOX_INIT
+	USER_BUSYBOX_BUSYBOX52 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_USE_BB_PWD_GRP1 => ! USER_BUSYBOX_USE_BB_PWD_GRP
+	USER_BUSYBOX_FEATURE_SHADOWPASSWDS1 => ! USER_BUSYBOX_FEATURE_SHADOWPASSWDS
+	USER_BUSYBOX_USE_BB_SHADOW1 => USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_BUSYBOX53 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_USE_BB_SHADOW2 => ! USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_BUSYBOX54 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_USE_BB_SHADOW3 => ! USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_USE_BB_PWD_GRP2 => USER_BUSYBOX_USE_BB_PWD_GRP
+	USER_BUSYBOX_BUSYBOX55 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_USE_BB_SHADOW4 => ! USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_FEATURE_SHADOWPASSWDS2 => USER_BUSYBOX_FEATURE_SHADOWPASSWDS
+	USER_BUSYBOX_USE_BB_PWD_GRP3 => ! USER_BUSYBOX_USE_BB_PWD_GRP
+	USER_BUSYBOX_BUSYBOX56 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_SHADOWPASSWDS3 => ! USER_BUSYBOX_FEATURE_SHADOWPASSWDS
+	USER_BUSYBOX_USE_BB_SHADOW5 => USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_USE_BB_PWD_GRP4 => USER_BUSYBOX_USE_BB_PWD_GRP
+	USER_BUSYBOX_USE_BB_SHADOW6 => ! USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_BUSYBOX57 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_USE_BB_PWD_GRP5 => USER_BUSYBOX_USE_BB_PWD_GRP
+	USER_BUSYBOX_USE_BB_SHADOW7 => ! USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_USE_BB_PWD_GRP6 => USER_BUSYBOX_USE_BB_PWD_GRP
+	USER_BUSYBOX_USE_BB_SHADOW8 => ! USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_FEATURE_SHADOWPASSWDS4 => USER_BUSYBOX_FEATURE_SHADOWPASSWDS
+	USER_BUSYBOX_FEATURE_SHADOWPASSWDS5 => ! USER_BUSYBOX_FEATURE_SHADOWPASSWDS
+	USER_BUSYBOX_BUSYBOX58 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_USE_BB_PWD_GRP7 => ! USER_BUSYBOX_USE_BB_PWD_GRP
+	USER_BUSYBOX_USE_BB_SHADOW9 => USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_FEATURE_SHADOWPASSWDS6 => USER_BUSYBOX_FEATURE_SHADOWPASSWDS
+	USER_BUSYBOX_USE_BB_SHADOW10 => ! USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_BUSYBOX59 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_SHADOWPASSWDS7 => USER_BUSYBOX_FEATURE_SHADOWPASSWDS
+	USER_BUSYBOX_USE_BB_SHADOW11 => ! USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_USE_BB_PWD_GRP8 => USER_BUSYBOX_USE_BB_PWD_GRP
+	USER_BUSYBOX_FEATURE_SHADOWPASSWDS8 => USER_BUSYBOX_FEATURE_SHADOWPASSWDS
+	USER_BUSYBOX_USE_BB_SHADOW12 => ! USER_BUSYBOX_USE_BB_SHADOW
+	USER_BUSYBOX_ADDUSER1 => USER_BUSYBOX_ADDUSER
+	USER_BUSYBOX_ADDGROUP1 => USER_BUSYBOX_ADDGROUP
+	USER_BUSYBOX_FEATURE_CHECK_NAMES1 => ! USER_BUSYBOX_FEATURE_CHECK_NAMES
+	USER_BUSYBOX_FEATURE_2_4_MODULES1 => USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_FEATURE_2_6_MODULES1 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_FEATURE_INSMOD_LOAD_MAP1 => ! USER_BUSYBOX_FEATURE_INSMOD_LOAD_MAP
+	USER_BUSYBOX_BUSYBOX60 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MODPROBE1 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS1 => USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS
+	USER_BUSYBOX_BUSYBOX61 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS2 => ! USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS
+	USER_BUSYBOX_BUSYBOX62 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS3 => ! USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS
+	USER_BUSYBOX_MODPROBE2 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_MODPROBE3 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX63 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS4 => USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS
+	USER_BUSYBOX_MODPROBE4 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS5 => ! USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS
+	USER_BUSYBOX_BUSYBOX64 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MODPROBE5 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS6 => ! USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS
+	USER_BUSYBOX_NITPICK1 => USER_BUSYBOX_NITPICK
+	USER_BUSYBOX_BUSYBOX65 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MODPROBE6 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS7 => USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS
+	USER_BUSYBOX_NITPICK2 => USER_BUSYBOX_NITPICK
+	USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS8 => ! USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS
+	USER_BUSYBOX_BUSYBOX66 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_NITPICK3 => USER_BUSYBOX_NITPICK
+	USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS9 => ! USER_BUSYBOX_FEATURE_MODPROBE_MULTIPLE_OPTIONS
+	USER_BUSYBOX_MODPROBE7 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX67 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MODPROBE8 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_2_6_MODULES2 => ! USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS1 => USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_BUSYBOX68 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS2 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_BUSYBOX69 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS3 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_MODPROBE9 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX70 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS4 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_FEATURE_2_6_MODULES3 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_MODPROBE10 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX71 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_6_MODULES4 => ! USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS5 => USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_MODPROBE11 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS6 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_BUSYBOX72 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MODPROBE12 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS7 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_MODPROBE13 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS8 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_FEATURE_2_6_MODULES5 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_FEATURE_2_6_MODULES6 => ! USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_BUSYBOX73 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MODPROBE14 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS9 => USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_FEATURE_2_6_MODULES7 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS10 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_BUSYBOX74 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_6_MODULES8 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS11 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_MODPROBE15 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_2_6_MODULES9 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS12 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_NITPICK4 => USER_BUSYBOX_NITPICK
+	USER_BUSYBOX_BUSYBOX75 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MODPROBE16 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_2_6_MODULES10 => ! USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS13 => USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_NITPICK5 => USER_BUSYBOX_NITPICK
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS14 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_BUSYBOX76 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_NITPICK6 => USER_BUSYBOX_NITPICK
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS15 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_MODPROBE17 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_NITPICK7 => USER_BUSYBOX_NITPICK
+	USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS16 => ! USER_BUSYBOX_FEATURE_MODPROBE_FANCY_ALIAS
+	USER_BUSYBOX_FEATURE_2_6_MODULES11 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_BUSYBOX77 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_INSMOD1 => ! USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE1 => USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE
+	USER_BUSYBOX_BUSYBOX78 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_LSMOD1 => ! USER_BUSYBOX_LSMOD
+	USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE2 => USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE
+	USER_BUSYBOX_BUSYBOX79 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE3 => ! USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE
+	USER_BUSYBOX_BUSYBOX80 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE4 => ! USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE
+	USER_BUSYBOX_INSMOD2 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_LSMOD2 => USER_BUSYBOX_LSMOD
+	USER_BUSYBOX_INSMOD3 => ! USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_LSMOD3 => USER_BUSYBOX_LSMOD
+	USER_BUSYBOX_BUSYBOX81 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE5 => USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE
+	USER_BUSYBOX_INSMOD4 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_LSMOD4 => ! USER_BUSYBOX_LSMOD
+	USER_BUSYBOX_BUSYBOX82 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE6 => USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE
+	USER_BUSYBOX_INSMOD5 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_LSMOD5 => USER_BUSYBOX_LSMOD
+	USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE7 => ! USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE
+	USER_BUSYBOX_BUSYBOX83 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_INSMOD6 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_LSMOD6 => USER_BUSYBOX_LSMOD
+	USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE8 => ! USER_BUSYBOX_FEATURE_CHECK_TAINTED_MODULE
+	USER_BUSYBOX_BUSYBOX84 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_INSMOD7 => ! USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_FEATURE_2_4_MODULES2 => USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_BUSYBOX85 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_RMMOD1 => ! USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_FEATURE_2_4_MODULES3 => USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_BUSYBOX86 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MODPROBE18 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_2_4_MODULES4 => USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_BUSYBOX87 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_4_MODULES5 => ! USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_BUSYBOX88 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_4_MODULES6 => ! USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_INSMOD8 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD2 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE19 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_INSMOD9 => ! USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD3 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE20 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX89 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_4_MODULES7 => USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_INSMOD10 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD4 => ! USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE21 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX90 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_4_MODULES8 => USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_INSMOD11 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD5 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE22 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX91 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_4_MODULES9 => USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_INSMOD12 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD6 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE23 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_2_4_MODULES10 => ! USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_BUSYBOX92 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_INSMOD13 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD7 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE24 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_2_4_MODULES11 => ! USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_BUSYBOX93 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_INSMOD14 => ! USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_FEATURE_2_6_MODULES12 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_BUSYBOX94 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_RMMOD8 => ! USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_FEATURE_2_6_MODULES13 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_BUSYBOX95 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MODPROBE25 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_2_6_MODULES14 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_BUSYBOX96 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_6_MODULES15 => ! USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_BUSYBOX97 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_6_MODULES16 => ! USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_INSMOD15 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD9 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE26 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_INSMOD16 => ! USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD10 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE27 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX98 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_6_MODULES17 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_INSMOD17 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD11 => ! USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE28 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX99 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_6_MODULES18 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_INSMOD18 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD12 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE29 => ! USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_BUSYBOX100 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_6_MODULES19 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_INSMOD19 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD13 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE30 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_2_6_MODULES20 => ! USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_BUSYBOX101 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_INSMOD20 => USER_BUSYBOX_INSMOD
+	USER_BUSYBOX_RMMOD14 => USER_BUSYBOX_RMMOD
+	USER_BUSYBOX_MODPROBE31 => USER_BUSYBOX_MODPROBE
+	USER_BUSYBOX_FEATURE_2_6_MODULES21 => ! USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_BUSYBOX102 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_2_4_MODULES12 => ! USER_BUSYBOX_FEATURE_2_4_MODULES
+	USER_BUSYBOX_FEATURE_2_6_MODULES22 => USER_BUSYBOX_FEATURE_2_6_MODULES
+	USER_BUSYBOX_FEATURE_QUERY_MODULE_INTERFACE1 => USER_BUSYBOX_FEATURE_QUERY_MODULE_INTERFACE
+	USER_BUSYBOX_BUSYBOX103 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_LFS1 => ! USER_BUSYBOX_LFS
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS1 => USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_BUSYBOX104 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FDISK1 => ! USER_BUSYBOX_FDISK
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS2 => USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_BUSYBOX105 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS3 => ! USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_LFS2 => USER_BUSYBOX_LFS
+	USER_BUSYBOX_BUSYBOX106 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS4 => ! USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_LFS3 => USER_BUSYBOX_LFS
+	USER_BUSYBOX_FDISK2 => USER_BUSYBOX_FDISK
+	USER_BUSYBOX_BUSYBOX107 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS5 => ! USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_BUSYBOX108 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS6 => ! USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_FDISK3 => USER_BUSYBOX_FDISK
+	USER_BUSYBOX_FDISK4 => USER_BUSYBOX_FDISK
+	USER_BUSYBOX_LFS4 => ! USER_BUSYBOX_LFS
+	USER_BUSYBOX_BUSYBOX109 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS7 => USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_FDISK5 => ! USER_BUSYBOX_FDISK
+	USER_BUSYBOX_BUSYBOX110 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS8 => USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_FDISK6 => USER_BUSYBOX_FDISK
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS9 => ! USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_LFS5 => USER_BUSYBOX_LFS
+	USER_BUSYBOX_BUSYBOX111 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FDISK7 => USER_BUSYBOX_FDISK
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS10 => ! USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_LFS6 => USER_BUSYBOX_LFS
+	USER_BUSYBOX_FDISK8 => USER_BUSYBOX_FDISK
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS11 => ! USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_BUSYBOX112 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FDISK9 => USER_BUSYBOX_FDISK
+	USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS12 => ! USER_BUSYBOX_FDISK_SUPPORT_LARGE_DISKS
+	USER_BUSYBOX_BUSYBOX113 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_BUSYBOX114 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MTAB_SUPPORT1 => ! USER_BUSYBOX_FEATURE_MTAB_SUPPORT
+	USER_BUSYBOX_MOUNT1 => ! USER_BUSYBOX_MOUNT
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE1 => USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_BUSYBOX115 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MTAB_SUPPORT2 => ! USER_BUSYBOX_FEATURE_MTAB_SUPPORT
+	USER_BUSYBOX_UMOUNT1 => ! USER_BUSYBOX_UMOUNT
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE2 => USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_BUSYBOX116 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE3 => ! USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_FEATURE_MTAB_SUPPORT3 => USER_BUSYBOX_FEATURE_MTAB_SUPPORT
+	USER_BUSYBOX_BUSYBOX117 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE4 => ! USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_BUSYBOX118 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE5 => ! USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_MOUNT2 => USER_BUSYBOX_MOUNT
+	USER_BUSYBOX_UMOUNT2 => USER_BUSYBOX_UMOUNT
+	USER_BUSYBOX_MOUNT3 => ! USER_BUSYBOX_MOUNT
+	USER_BUSYBOX_FEATURE_MTAB_SUPPORT4 => ! USER_BUSYBOX_FEATURE_MTAB_SUPPORT
+	USER_BUSYBOX_BUSYBOX119 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE6 => USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_MOUNT4 => USER_BUSYBOX_MOUNT
+	USER_BUSYBOX_FEATURE_MTAB_SUPPORT5 => ! USER_BUSYBOX_FEATURE_MTAB_SUPPORT
+	USER_BUSYBOX_BUSYBOX120 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_UMOUNT3 => ! USER_BUSYBOX_UMOUNT
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE7 => USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_MOUNT5 => USER_BUSYBOX_MOUNT
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE8 => ! USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_FEATURE_MTAB_SUPPORT6 => USER_BUSYBOX_FEATURE_MTAB_SUPPORT
+	USER_BUSYBOX_MOUNT6 => USER_BUSYBOX_MOUNT
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE9 => ! USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_BUSYBOX121 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_MOUNT7 => USER_BUSYBOX_MOUNT
+	USER_BUSYBOX_FEATURE_MOUNT_FAKE10 => ! USER_BUSYBOX_FEATURE_MOUNT_FAKE
+	USER_BUSYBOX_UMOUNT4 => USER_BUSYBOX_UMOUNT
+	USER_BUSYBOX_FTPGET1 => USER_BUSYBOX_FTPGET
+	USER_BUSYBOX_FTPPUT1 => USER_BUSYBOX_FTPPUT
+	USER_BUSYBOX_FEATURE_FTPGETPUT_LONG_OPTIONS1 => ! USER_BUSYBOX_FEATURE_FTPGETPUT_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX122 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_IFUPDOWN1 => ! USER_BUSYBOX_IFUPDOWN
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IP1 => USER_BUSYBOX_FEATURE_IFUPDOWN_IP
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN1 => USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_BUSYBOX123 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN2 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_BUSYBOX124 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN3 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_IFUPDOWN2 => USER_BUSYBOX_IFUPDOWN
+	USER_BUSYBOX_BUSYBOX125 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN4 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IP2 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IP
+	USER_BUSYBOX_IFUPDOWN3 => ! USER_BUSYBOX_IFUPDOWN
+	USER_BUSYBOX_BUSYBOX126 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IP3 => USER_BUSYBOX_FEATURE_IFUPDOWN_IP
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN5 => USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_IFUPDOWN4 => USER_BUSYBOX_IFUPDOWN
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN6 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_BUSYBOX127 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_IFUPDOWN5 => USER_BUSYBOX_IFUPDOWN
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN7 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_IFUPDOWN6 => USER_BUSYBOX_IFUPDOWN
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN8 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IP4 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IP
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IP5 => USER_BUSYBOX_FEATURE_IFUPDOWN_IP
+	USER_BUSYBOX_BUSYBOX128 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_IFUPDOWN7 => ! USER_BUSYBOX_IFUPDOWN
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN9 => USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IP6 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IP
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN10 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_BUSYBOX129 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IP7 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IP
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN11 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_IFUPDOWN8 => USER_BUSYBOX_IFUPDOWN
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IP8 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IP
+	USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN12 => ! USER_BUSYBOX_FEATURE_IFUPDOWN_IFCONFIG_BUILTIN
+	USER_BUSYBOX_BUSYBOX130 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IP_SHORT_FORMS1 => ! USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	USER_BUSYBOX_FEATURE_IP_ADDRESS1 => ! USER_BUSYBOX_FEATURE_IP_ADDRESS
+	USER_BUSYBOX_IPADDR1 => USER_BUSYBOX_IPADDR
+	USER_BUSYBOX_BUSYBOX131 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IP_SHORT_FORMS2 => ! USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	USER_BUSYBOX_FEATURE_IP_LINK1 => ! USER_BUSYBOX_FEATURE_IP_LINK
+	USER_BUSYBOX_IPLINK1 => USER_BUSYBOX_IPLINK
+	USER_BUSYBOX_BUSYBOX132 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IP_SHORT_FORMS3 => ! USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	USER_BUSYBOX_FEATURE_IP_ROUTE1 => ! USER_BUSYBOX_FEATURE_IP_ROUTE
+	USER_BUSYBOX_IPROUTE1 => USER_BUSYBOX_IPROUTE
+	USER_BUSYBOX_BUSYBOX133 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IP_SHORT_FORMS4 => ! USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	USER_BUSYBOX_FEATURE_IP_TUNNEL1 => ! USER_BUSYBOX_FEATURE_IP_TUNNEL
+	USER_BUSYBOX_IPTUNNEL1 => USER_BUSYBOX_IPTUNNEL
+	USER_BUSYBOX_BUSYBOX134 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_IP_SHORT_FORMS5 => ! USER_BUSYBOX_FEATURE_IP_SHORT_FORMS
+	USER_BUSYBOX_FEATURE_IP_RULE1 => ! USER_BUSYBOX_FEATURE_IP_RULE
+	USER_BUSYBOX_IPRULE1 => USER_BUSYBOX_IPRULE
+	USER_BUSYBOX_BUSYBOX135 => ! USER_BUSYBOX_BUSYBOX
+	USER_SASH_REBOOT_SNAPGEAR1 => ! USER_SASH_REBOOT_SNAPGEAR
+	USER_SASH_REBOOT1 => ! USER_SASH_REBOOT
+	USER_BUSYBOX_KILLALL1 => USER_BUSYBOX_KILLALL
+	USER_BUSYBOX_BUSYBOX136 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_KILLALL2 => ! USER_BUSYBOX_KILLALL
+	USER_SASH_REBOOT_SNAPGEAR2 => USER_SASH_REBOOT_SNAPGEAR
+	USER_BUSYBOX_BUSYBOX137 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_KILLALL3 => ! USER_BUSYBOX_KILLALL
+	USER_BUSYBOX_BUSYBOX138 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_KILLALL4 => ! USER_BUSYBOX_KILLALL
+	USER_SASH_REBOOT2 => USER_SASH_REBOOT
+	USER_BUSYBOX_KILL1 => USER_BUSYBOX_KILL
+	USER_SASH_REBOOT_SNAPGEAR3 => ! USER_SASH_REBOOT_SNAPGEAR
+	USER_BUSYBOX_BUSYBOX139 => ! USER_BUSYBOX_BUSYBOX
+	USER_SASH_REBOOT3 => ! USER_SASH_REBOOT
+	USER_BUSYBOX_KILLALL6 => USER_BUSYBOX_KILLALL
+	USER_BUSYBOX_KILL2 => USER_BUSYBOX_KILL
+	USER_BUSYBOX_KILLALL7 => ! USER_BUSYBOX_KILLALL
+	USER_SASH_REBOOT_SNAPGEAR4 => USER_SASH_REBOOT_SNAPGEAR
+	USER_BUSYBOX_KILL3 => USER_BUSYBOX_KILL
+	USER_BUSYBOX_KILLALL8 => ! USER_BUSYBOX_KILLALL
+	USER_BUSYBOX_BUSYBOX140 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_KILL4 => USER_BUSYBOX_KILL
+	USER_BUSYBOX_KILLALL9 => ! USER_BUSYBOX_KILLALL
+	USER_SASH_REBOOT4 => USER_SASH_REBOOT
+	USER_BUSYBOX_MSH1 => USER_BUSYBOX_MSH
+	USER_BUSYBOX_LASH1 => USER_BUSYBOX_LASH
+	USER_BUSYBOX_HUSH1 => USER_BUSYBOX_HUSH
+	USER_BUSYBOX_ASH1 => USER_BUSYBOX_ASH
+	USER_BUSYBOX_FEATURE_SH_STANDALONE2 => ! USER_BUSYBOX_FEATURE_SH_STANDALONE
+	USER_BUSYBOX_BUSYBOX141 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SELINUX1 => ! USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_CHCON1 => ! USER_BUSYBOX_CHCON
+	USER_BUSYBOX_GETOPT_LONG9 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS1 => USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX142 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS2 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX143 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS3 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX2 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_BUSYBOX144 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS4 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_CHCON2 => USER_BUSYBOX_CHCON
+	USER_BUSYBOX_BUSYBOX145 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS5 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG10 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_SELINUX3 => ! USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_BUSYBOX146 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_CHCON3 => ! USER_BUSYBOX_CHCON
+	USER_BUSYBOX_GETOPT_LONG11 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS6 => USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX4 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS7 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX147 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SELINUX5 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS8 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX6 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS9 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_CHCON4 => USER_BUSYBOX_CHCON
+	USER_BUSYBOX_SELINUX7 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS10 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG12 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_CHCON5 => ! USER_BUSYBOX_CHCON
+	USER_BUSYBOX_BUSYBOX148 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SELINUX8 => ! USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_GETOPT_LONG13 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS11 => USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_CHCON6 => USER_BUSYBOX_CHCON
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS12 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX149 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_CHCON7 => USER_BUSYBOX_CHCON
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS13 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX9 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_CHCON8 => USER_BUSYBOX_CHCON
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS14 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_CHCON9 => USER_BUSYBOX_CHCON
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS15 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG14 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_GETOPT_LONG15 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_BUSYBOX150 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SELINUX10 => ! USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_CHCON10 => ! USER_BUSYBOX_CHCON
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS16 => USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG16 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS17 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX151 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_GETOPT_LONG17 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS18 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX11 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_GETOPT_LONG18 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS19 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_CHCON11 => USER_BUSYBOX_CHCON
+	USER_BUSYBOX_GETOPT_LONG19 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS20 => ! USER_BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX152 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SELINUX12 => ! USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_RUNCON1 => ! USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_GETOPT_LONG20 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS1 => USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX153 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS2 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX154 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS3 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX13 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_BUSYBOX155 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS4 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_RUNCON2 => USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_BUSYBOX156 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS5 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG21 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_SELINUX14 => ! USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_BUSYBOX157 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_RUNCON3 => ! USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_GETOPT_LONG22 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS6 => USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX15 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS7 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX158 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SELINUX16 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS8 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX17 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS9 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_RUNCON4 => USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_SELINUX18 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS10 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG23 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_RUNCON5 => ! USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_BUSYBOX159 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SELINUX19 => ! USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_GETOPT_LONG24 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS11 => USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_RUNCON6 => USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS12 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX160 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_RUNCON7 => USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS13 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX20 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_RUNCON8 => USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS14 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_RUNCON9 => USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS15 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG25 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_GETOPT_LONG26 => ! USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_BUSYBOX161 => ! USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_SELINUX21 => ! USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_RUNCON10 => ! USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS16 => USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_GETOPT_LONG27 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS17 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_BUSYBOX162 => USER_BUSYBOX_BUSYBOX
+	USER_BUSYBOX_GETOPT_LONG28 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS18 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_SELINUX22 => USER_BUSYBOX_SELINUX
+	USER_BUSYBOX_GETOPT_LONG29 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS19 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
+	USER_BUSYBOX_RUNCON11 => USER_BUSYBOX_RUNCON
+	USER_BUSYBOX_GETOPT_LONG30 => USER_BUSYBOX_GETOPT_LONG
+	USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS20 => ! USER_BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
