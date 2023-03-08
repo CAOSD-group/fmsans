@@ -126,6 +126,7 @@ if __name__ == '__main__':
     progress1 = [sum(i) for i in zip(*divisions)]
     progress2 = [sum(i) for i in zip(*divisionsGeneral)]
     print(str((progress1[2]+progress2[2])/args.n_max))
+    print(str(args.n_max-progress1[2]+progress2[2]))
 
     maxIter = args.n_divisions-len(divisionsGeneral)
     
