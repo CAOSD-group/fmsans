@@ -225,8 +225,9 @@ def remove_leaf_abstract_auxiliary_features(model: FM) -> FM:
             if not parent.is_group():
                 rel = next((r for r in parent.get_relations() if feature in r.children), None)
                 parent.get_relations().remove(rel)
-                for f in rel.children:
-                    model._delete_feature_branch(f)
+                model._delete_feature_branch(feature)
+                #for f in rel.children:
+                #    model._delete_feature_branch(f)
             # If parent is group we eliminate the feature from the group relation
             else:
                 rel = parent.get_relations()[0]
