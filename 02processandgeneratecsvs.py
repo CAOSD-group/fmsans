@@ -129,6 +129,8 @@ if __name__ == '__main__':
     print(str(args.n_max-progress1[2]+progress2[2]))
 
     maxIter = args.n_divisions-len(divisionsGeneral)
+
+    divisions.sort(key=lambda x: x[2],reverse=True)
     
     while (len(divisions)<maxIter//2):
         first=divisions.pop(0)
@@ -140,9 +142,10 @@ if __name__ == '__main__':
 
         divisions.append([currentNun,firstIntervalLower,firstIntervalUpper-currentNun,firstIntervalUpper])
         divisions.append([secondIntervalLower,secondIntervalLower,secondIntervalUpper-secondIntervalLower,secondIntervalUpper])
-        divisions.sort(key=lambda x: x[2],reverse=True)
+    print(" Divisions size: " + str(len(divisions)))
 
     divisions+=divisionsGeneral
+    divisions.sort(key=lambda x: x[2],reverse=True)
     while (len(divisions)<args.n_divisions):
         first=divisions.pop(0)
         currentNun=first[0]
@@ -153,7 +156,8 @@ if __name__ == '__main__':
 
         divisions.append([currentNun,firstIntervalLower,firstIntervalUpper-currentNun,firstIntervalUpper])
         divisions.append([secondIntervalLower,secondIntervalLower,secondIntervalUpper-secondIntervalLower,secondIntervalUpper])
-        divisions.sort(key=lambda x: x[2],reverse=True)
+   
+        
    
     random.shuffle(divisions)
 
