@@ -368,6 +368,13 @@ class TransformationsVector():
         valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, n_current,max_time)
         valid_transformed_numbers_trees.update(valid_ids)
         return valid_transformed_numbers_trees
+    
+    def get_valid_transformations_ids_celery(self, fm: FM, n_tasks: int = 1, current_task: int = -1,  min_id:int=-1,max_id:int=-1,n_current=-1,max_time:float=-1) -> dict[str, int]:
+        """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
+        valid_transformed_numbers_trees = {}
+        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, n_current,max_time)
+        valid_transformed_numbers_trees.update(valid_ids)
+        return valid_transformed_numbers_trees
 
 
 def get_min_max_ids_transformations_for_parallelization(n_bits: int, 
