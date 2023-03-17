@@ -32,7 +32,7 @@ class Timer(ContextDecorator):
         if self._start_time is not None:
             raise TimerError(f"Timer is running. Use .stop() to stop it.")
 
-        self._start_time = time.process_time_ns()
+        self._start_time = time.time()
 
     def stop(self) -> float:
         """Stop the timer, and report the elapsed time."""
@@ -40,8 +40,8 @@ class Timer(ContextDecorator):
             raise TimerError(f"Timer is not running. Use .start() to start it.")
 
         # Calculate elapsed time
-        end_time = time.process_time_ns()
-        elapsed_time_sec = (end_time - self._start_time) * 1e-9
+        end_time = time.time()
+        elapsed_time_sec = (end_time - self._start_time) # * 1e-9
         elapsed_time_min = None
         elapsed_time_hour = None
         if elapsed_time_sec > 60:
@@ -58,7 +58,7 @@ class Timer(ContextDecorator):
         if self.logger:
             self.logger(msg)
         if self.name:
-            self.timers[self.name] += elapsed_time_sec
+            self.timers[self.name] = elapsed_time_sec
 
         return elapsed_time_sec
 

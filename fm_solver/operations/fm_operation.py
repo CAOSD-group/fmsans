@@ -27,6 +27,6 @@ class FMOperation(Operation):
 
     @staticmethod
     @abstractmethod
-    def join_results(subtrees_results: list[Any]) -> Any:
+    def join_results(subtrees_results: list[Any], fm: FM = None) -> Any:
         """Join the result of the operation applied several exclusive subtrees."""
         pass

@@ -4,13 +4,15 @@ from fm_solver.models.feature_model import FM
 from fm_solver.operations import FMOperation
 from fm_solver.operations import (
     FMConfigurationsNumber,
-    FMCoreFeatures
+    FMCoreFeatures,
+    FMDeadFeatures
 )
 
 from flamapy.metamodels.bdd_metamodel.models import BDDModel
 from flamapy.metamodels.bdd_metamodel.operations import (
     BDDProductsNumber,
-    BDDCoreFeatures
+    BDDCoreFeatures,
+    BDDDeadFeatures
 )
 
 
@@ -19,6 +21,7 @@ class FMFullAnalysisBDD(FMOperation):
 
     CONFIGURATIONS_NUMBER = '#Configurations'
     CORE_FEATURES = 'Core features'
+    DEAD_FEATURES = 'Dead features'
 
     @staticmethod
     def get_name() -> str:
@@ -43,10 +46,12 @@ class FMFullAnalysisBDD(FMOperation):
     def join_results(subtrees_results: list[dict[str, Any]]) -> dict[str, Any]:
         if not subtrees_results:
             return {FMFullAnalysisBDD.CONFIGURATIONS_NUMBER: 0, 
-                    FMFullAnalysisBDD.CORE_FEATURES: set()}
+                    FMFullAnalysisBDD.CORE_FEATURES: set(),
+                    FMFullAnalysisBDD.DEAD_FEATURES: set()}
         result = {}
         result[FMFullAnalysisBDD.CONFIGURATIONS_NUMBER] = FMConfigurationsNumber.join_results([r[FMFullAnalysisBDD.CONFIGURATIONS_NUMBER] for r in subtrees_results])
         result[FMFullAnalysisBDD.CORE_FEATURES] = FMCoreFeatures.join_results([r[FMFullAnalysisBDD.CORE_FEATURES] for r in subtrees_results])
+        result[FMFullAnalysisBDD.DEAD_FEATURES] = FMDeadFeatures.join_results([r[FMFullAnalysisBDD.DEAD_FEATURES] for r in subtrees_results])
         return result
 
 
@@ -62,5 +67,9 @@ def get_full_analysis(feature_model: BDDModel) -> dict[str, Any]:
     # Core features
     core_features = BDDCoreFeatures().execute(feature_model).get_result()
     result[FMFullAnalysisBDD.CORE_FEATURES] = set(core_features)
+
+    # Dead features
+    dead_features = BDDDeadFeatures().execute(feature_model).get_result()
+    result[FMFullAnalysisBDD.DEAD_FEATURES] = set(dead_features)
 
     return result

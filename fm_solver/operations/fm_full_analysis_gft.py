@@ -5,11 +5,11 @@ from fm_solver.operations import FMOperation
 from fm_solver.operations import (
     FMConfigurationsNumber,
     FMCoreFeatures,
-    FMDeadFeatures
+    FMDeadFeaturesGFT
 )
 
 
-class FMFullAnalysis(FMOperation):
+class FMFullAnalysisGFT(FMOperation):
     """Meta operation that returns the result of several other operations."""
 
     CONFIGURATIONS_NUMBER = '#Configurations'
@@ -27,7 +27,7 @@ class FMFullAnalysis(FMOperation):
     def get_result(self) -> dict[str, Any]:
         return self.result
 
-    def execute(self, model: FM) -> 'FMFullAnalysis':
+    def execute(self, model: FM) -> 'FMFullAnalysisGFT':
         self.feature_model = model
         self.result = get_full_analysis(model)
         return self
@@ -38,14 +38,14 @@ class FMFullAnalysis(FMOperation):
     @staticmethod
     def join_results(subtrees_results: list[dict[str, Any]], fm: FM) -> dict[str, Any]:
         if not subtrees_results:
-            return {FMFullAnalysis.CONFIGURATIONS_NUMBER: 0, 
-                    FMFullAnalysis.CORE_FEATURES: set(),
-                    FMFullAnalysis.DEAD_FEATURES: set()}
+            return {FMFullAnalysisGFT.CONFIGURATIONS_NUMBER: 0, 
+                    FMFullAnalysisGFT.CORE_FEATURES: set(),
+                    FMFullAnalysisGFT.DEAD_FEATURES: set()}
                     
         result = {}
-        result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = FMConfigurationsNumber.join_results([r[FMFullAnalysis.CONFIGURATIONS_NUMBER] for r in subtrees_results])
-        result[FMFullAnalysis.CORE_FEATURES] = FMCoreFeatures.join_results([r[FMFullAnalysis.CORE_FEATURES] for r in subtrees_results])
-        result[FMFullAnalysis.DEAD_FEATURES] = FMDeadFeatures.join_results([r[FMFullAnalysis.DEAD_FEATURES] for r in subtrees_results], fm)
+        result[FMFullAnalysisGFT.CONFIGURATIONS_NUMBER] = FMConfigurationsNumber.join_results([r[FMFullAnalysisGFT.CONFIGURATIONS_NUMBER] for r in subtrees_results])
+        result[FMFullAnalysisGFT.CORE_FEATURES] = FMCoreFeatures.join_results([r[FMFullAnalysisGFT.CORE_FEATURES] for r in subtrees_results])
+        result[FMFullAnalysisGFT.DEAD_FEATURES] = FMDeadFeaturesGFT.join_results([r[FMFullAnalysisGFT.DEAD_FEATURES] for r in subtrees_results], fm)
         return result
 
 
@@ -56,14 +56,14 @@ def get_full_analysis(feature_model: FM) -> dict[str, Any]:
     result = {}
     # Number of configurations
     n_configurations = FMConfigurationsNumber().execute(feature_model).get_result()
-    result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = n_configurations
+    result[FMFullAnalysisGFT.CONFIGURATIONS_NUMBER] = n_configurations
 
     # Core features
     core_features = FMCoreFeatures().execute(feature_model).get_result()
-    result[FMFullAnalysis.CORE_FEATURES] = core_features
+    result[FMFullAnalysisGFT.CORE_FEATURES] = core_features
 
     # Dead features
-    dead_features = FMDeadFeatures().execute(feature_model).get_result()
-    result[FMFullAnalysis.DEAD_FEATURES] = dead_features
+    dead_features = FMDeadFeaturesGFT().execute(feature_model).get_result()
+    result[FMFullAnalysisGFT.DEAD_FEATURES] = dead_features
 
     return result
