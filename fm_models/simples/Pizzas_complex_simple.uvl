@@ -27,6 +27,6 @@ features
 constraints
 	!Neapolitan | !Salami
 	!Neapolitan | !Ham
-	CheesyCrust1 excludes CheesyCrust
-	Sicilian1 excludes Sicilian
-	Big1 requires Big
+	CheesyCrust1 => ! CheesyCrust
+	Sicilian1 => ! Sicilian
+	Big1 => Big

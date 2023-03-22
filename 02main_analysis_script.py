@@ -2,33 +2,32 @@ import os
 import sys
 import math
 import argparse
-import time
 import multiprocessing
 import statistics
 import signal
 
-from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
-
-from fm_solver.transformations import FMToFMSans, FMSansWriter, FMSansReader
-from fm_solver.utils import utils, fm_utils, logging_utils, timer, sizer
-from fm_solver.models.feature_model import FM
-from fm_solver.models import fm_sans as fm_sans_utils
-from fm_solver.operations import FMConfigurationsNumber
-from flamapy.metamodels.pysat_metamodel.operations import SATProductsNumber
+from flamapy.metamodels.fm_metamodel.models import Feature
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
-from flamapy.metamodels.bdd_metamodel.operations import BDDProductsNumber
-from fm_solver.operations.fmsans_op import FMSansProductsNumber, FMSansProductsNumberSAT, FMSansProductsNumberBDD
 
+from fm_solver.transformations import FMSansReader
+from fm_solver.utils import utils,timer
+from fm_solver.operations.fmsans_op import FMSansFullAnalysis, FMSansFullAnalysisSAT, FMSansFullAnalysisBDD
+from fm_solver.operations import (
+    FMConfigurationsNumber, FMCoreFeatures, FMDeadFeatures,
+    FMFullAnalysis, FMFullAnalysisGFT, FMFullAnalysisSAT, FMFullAnalysisBDD
+)
 
 OUTPUTFILE_RESULTS_STATS = 'analysis_script_results.csv'
 TIME_ANALYSIS = 'TIME_ANALYSIS'
-TIME_OUT = 600  # 10 minutes
+TIME_OUT = 60  # seconds
 TOOLS = ['sat', 'bdd', 'gft', 'fmsans', 'fmsans_sat', 'fmsans_bdd', 'fmsans_gft']
 timeout = False
 
 
 def timeout_handler(signum, frame):
+    """Use a system signal to check out time outs."""
     timeout = True
     print("Time out!")
 signal.signal(signal.SIGALRM, timeout_handler)
@@ -44,13 +43,6 @@ def get_fm_filepath_models(dir: str) -> list[str]:
     return models
 
 
-def perform_analysis(op, model):
-    signal.alarm(TIME_OUT)
-    with timer.Timer(name=TIME_ANALYSIS, logger=None):
-        result = op().execute(model).get_result()
-    signal.alarm(0)
-    return result
-
 def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
     # Get feature model name
     path, filename = os.path.split(fm_filepath)
@@ -60,38 +52,78 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
     output_file = os.path.join(path, f'{filename}_{tool}.csv')
 
     # Load the feature model
-    print(f'Reading feature model... {fm_filepath}')
+    print(f'Reading feature model from {fm_filepath}')
+    fm = None
+    fmsans = None
+    sat_model = None
+    bdd_model = None
+    gft_model = None
     if tool.startswith('fmsans'):
+        print(f'  Reading FMSans model (.json)...')
+        timeout = False
+        signal.alarm(TIME_OUT)
         fmsans = FMSansReader(fm_filepath).transform()
-        fm = None
-        sat_model = None
-        bdd_model = None
+        signal.alarm(0)
+        if timeout:  
+            return None
+        
+        if tool == 'fmsans_gft':
+            print(f'    Obtaining GFT model (steps 3 and 6)...')
+            timeout = False
+            signal.alarm(TIME_OUT)
+            gft_model = fmsans.get_feature_model(n_cores)
+            signal.alarm(0)
+            if timeout:  
+                return None
     else:
+        print(f'  Reading FM model (.uvl)...')
+        timeout = False
+        signal.alarm(TIME_OUT)
         fm = UVLReader(fm_filepath).transform()
-        sat_model = FmToPysat(fm).transform()
-        bdd_model = FmToBDD(fm).transform()
-        fmsans = None
-
+        signal.alarm(0)
+        if timeout:  
+            return None
+        
+        if tool == 'sat':
+            print(f'    Transforming feature model to SAT...')
+            timeout = False
+            signal.alarm(TIME_OUT)
+            sat_model = FmToPysat(fm).transform()
+            signal.alarm(0)
+            if timeout:  
+                return None
+        elif tool == 'bdd':
+            print(f'    Transforming feature model to BDD...')
+            timeout = False
+            signal.alarm(TIME_OUT)
+            bdd_model = FmToBDD(fm).transform() if tool == 'bdd' else None
+            signal.alarm(0)
+            if timeout:
+                return None
+        
     # Perform analysis
-    print(f'Analyzing feature model...')
+    print(f'Analyzing model...')
     stats_results = []
     with open(output_file, 'w', encoding='utf8') as file:
         file.write(f'Run, Time(s){os.linesep}')
+        print(f'Run: ', end='', flush=True)
         for i in range(1, runs + 1):
             print(f'{i} ', end='', flush=True)
             timeout = False
 
-            op_model_dict = {'sat': (SATProductsNumber, sat_model),
-                             'bdd': (BDDProductsNumber, bdd_model),
-                             'gft': (FMConfigurationsNumber, fm),
-                             'fmsans': (FMSansProductsNumber, fmsans),
-                             'fmsans_sat': (FMSansProductsNumberSAT, fmsans),
-                             'fmsans_bdd': (FMSansProductsNumberBDD, fmsans),
-                             'fmsans_gft': (FMConfigurationsNumber, fmsans.get_feature_model(n_cores) if tool == 'fmsans_gft' else None)}
+            op_model_dict = {'sat': (FMFullAnalysisSAT(), sat_model),
+                             'bdd': (FMFullAnalysisBDD(), bdd_model),
+                             'gft': (FMFullAnalysis(), fm),
+                             'fmsans': (FMSansFullAnalysis(n_cores), fmsans),
+                             'fmsans_sat': (FMSansFullAnalysisSAT(n_cores), fmsans),
+                             'fmsans_bdd': (FMSansFullAnalysisBDD(n_cores), fmsans),
+                             'fmsans_gft': (FMFullAnalysisGFT(), gft_model)}
 
             op, model = op_model_dict[tool]
-            result = perform_analysis(op, model)
-            
+            signal.alarm(TIME_OUT)
+            with timer.Timer(name=TIME_ANALYSIS, logger=None):
+                result = op.execute(model).get_result()
+            signal.alarm(0)
             if timeout:
                 file.write(f'{i}, timeout{os.linesep}')
                 return None
@@ -103,23 +135,29 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
     print()
 
     # Get results
-    n_configs = result
-    print(f'#Configurations: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
+    n_configs = result[FMConfigurationsNumber.get_name()]
+    n_configs_scientific = {utils.int_to_scientific_notation(n_configs)}
+    n_configs_pretty = n_configs_scientific if n_configs > 10e6 else n_configs
+    core_features = result[FMCoreFeatures.get_name()]
+    #dead_features = result[FMDeadFeatures.get_name()]
+    print(f'#Configurations: {n_configs} ({n_configs_scientific})')
+    print(f'#Core features: {len(core_features)} {[f.name if isinstance(f, Feature) else f for f in core_features]}')
+    #print(f'#Dead features: {len(dead_features)} {[f.name if isinstance(f, Feature) else f for f in dead_features]}')
 
     # Get stats
     values_median = statistics.median(stats_results)
     values_mean = statistics.mean(stats_results)
     values_stdev = statistics.stdev(stats_results) if len(stats_results) > 1 else 0
     print(f'Time median (analysis): {values_median} s.')
-    print(f'Model, Time_median(s), Time_mean(s), Time_stdev(s)')
-    print(f'{filename}, {values_median}, {values_mean}, {values_stdev}')
+    print(f'Model, Tool, Runs, Cores, #Products, #CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s)')
+    print(f'{filename}, {tool}, {runs}, {n_cores}, {n_configs_pretty}, {len(core_features)}, {values_median}, {values_mean}, {values_stdev}')
 
     # Save stats in file
     if not os.path.exists(OUTPUTFILE_RESULTS_STATS):
         with open(OUTPUTFILE_RESULTS_STATS, 'w', encoding='utf8') as file:
-            file.write(f'Model, Tool, #Products, Time_median(s), Time_mean(s), Time_stdev(s){os.linesep}')
+            file.write(f'Model, Tool, #Products, #CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s){os.linesep}')
     with open(OUTPUTFILE_RESULTS_STATS, 'a', encoding='utf8') as file:
-        file.write(f'{filename}, {tool}, {utils.int_to_scientific_notation(n_configs)}, {values_median}, {values_mean}, {values_stdev}{os.linesep}')
+        file.write(f'{filename}, {tool}, {n_configs_pretty}, {len(core_features)}, {values_median}, {values_mean}, {values_stdev}{os.linesep}')
     
 
 if __name__ == '__main__':

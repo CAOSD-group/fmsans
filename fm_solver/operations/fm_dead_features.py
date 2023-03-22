@@ -31,10 +31,12 @@ class FMDeadFeatures(FMOperation):
 
     @staticmethod
     def join_results(subtrees_results: list[set[Feature]], fm: FM) -> set[Feature]:
-        features = {f for f in fm.get_features() if not fm_utils.is_auxiliary_feature(f)}
-        return features.difference(set.union(*subtrees_results))
+        union_features = set.union(*subtrees_results)
+        features = set(fm.get_features()).difference(union_features)
+        features = {f for f in features if not fm_utils.is_auxiliary_feature(f)}
+        return features
 
 
 def get_dead_features(feature_model: FM) -> set[Feature]:
-    """ In a feature model without constraints there is no dead features."""
+    """In a feature model without constraints there is no dead features."""
     return set(feature_model.get_features())  #{f for f in feature_model.get_features() if not fm_utils.is_auxiliary_feature(f)}

@@ -10,7 +10,7 @@ OUTPUTFILE_SUFIXNAME = '_stats'
 
 def read_csvfile(filepath: str):
     data = []
-    with open(filepath, 'r', encoding='utf8', newline='') as csvfile:
+    with open(filepath, 'r', encoding='utf8', newline=os.linesep) as csvfile:
         reader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
         for row in reader:
             data.append(row)

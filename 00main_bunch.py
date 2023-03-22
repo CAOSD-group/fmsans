@@ -27,23 +27,40 @@ def get_fm_filepath_models(dir: str) -> list[str]:
 def main(dir: str):
     models_filepaths = get_fm_filepath_models(dir)
 
+    analyzed_models = []
+    # to avoid already analyzed models
+    with open('models_to_tests2.csv', 'r') as f:
+        analyzed_models = f.read()
+
     for i, fm_filepath in enumerate(models_filepaths, 1):
         try:
             if fm_filepath.endswith('.uvl'):
-                # Load the feature model
-                feature_model = UVLReader(fm_filepath).transform()
+                # Get feature model name
+                path, filename = os.path.split(fm_filepath)
+                filename = '.'.join(filename.split('.')[:-1])
 
-                # Get stats
-                fm = FM.from_feature_model(feature_model)
-                n_ctcs = len(fm.get_constraints())
-                n_basic_ctcs = sum(constraints_utils.is_simple_constraint(ctc) for ctc in fm.get_constraints())
-                print(f'FM {i}: {fm_filepath}. #Constraints: {n_ctcs} ({n_basic_ctcs} basics)')
-                if n_ctcs > 10 and n_ctcs < 800:
+                if filename in analyzed_models:
+                    print(f'Skypped model.')
+                else:
+                    # Load the feature model
+                    feature_model = UVLReader(fm_filepath).transform()
+
+                    # Get stats
+                    fm = FM.from_feature_model(feature_model)
+                    n_features = len(fm.get_features())
+                    n_ctcs = len(fm.get_constraints())
+                    n_basic_ctcs = sum(constraints_utils.is_simple_constraint(ctc) for ctc in fm.get_constraints())
+                    n_complex_ctcs = n_ctcs - n_basic_ctcs
+                    print(f'FM {i}: {fm_filepath}. #Constraints: {n_ctcs} ({n_basic_ctcs} basics)')
                     new_fm, output_filepath = transform_to_basic(fm_filepath)
-                    n_ctcs_new = len(new_fm.get_constraints())
-                    with open('models_to_tests.csv', 'a') as csv_file:
-                        str_content = f'{output_filepath},{n_ctcs_new},{2**n_ctcs_new}{os.linesep}'
-                        csv_file.write(str_content)
+                    if new_fm is not None:
+                        n_features_new = len(new_fm.get_features())
+                        n_ctcs_new = len(new_fm.get_constraints())
+                        with open('models_to_tests3.csv', 'a') as csv_file:
+                            str_content = f'{filename},{n_features},{n_ctcs},{n_features_new},{n_ctcs_new}{os.linesep}'
+                            csv_file.write(str_content)
+                    else:
+                        print('Model to big.')
         except Exception as e:
             print(e)
             print(f'Error in model: {fm_filepath}')
@@ -65,6 +82,8 @@ def transform_to_basic(fm_filepath: str) -> tuple[FM, str]:
     # Refactor pseudo-complex constraints
     print(f'Refactoring pseudo-complex constraints...')
     fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
+    if len(fm.get_constraints()) > 2000:
+        return (None, None)
     # Refactor strict-complex constraints
     print(f'Refactoring strict-complex constraints...')
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)

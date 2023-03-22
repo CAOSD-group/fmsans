@@ -10,7 +10,7 @@ import locale
 
 PYTHON_SCRIPT_SUMMARIZE_STATS = '06main_summarize_stats.py'
 #COLUMNS_VALUES = [str(i) for i in range(4, 13+1)]
-COLUMNS_VALUES = ['4']
+COLUMNS_VALUES = ['0']
 
 
 def main(runs: int, script: str, arguments: list[str]) -> None:
@@ -19,8 +19,9 @@ def main(runs: int, script: str, arguments: list[str]) -> None:
     path, filename = os.path.split(filepath)
     filename = '.'.join(filename.split('.')[:-1])
 
+    output_file = os.path.join(path, f'{filename}.csv')
+    print(f'Output file: {output_file}')
 
-    results = []
     print(f'Executing {runs} runs: ')
     for i in range(1, runs + 1):
         print(f'{i} ', end='', flush=True)
@@ -29,23 +30,14 @@ def main(runs: int, script: str, arguments: list[str]) -> None:
     
         # Parse result:
         result_split = result.split(os.linesep)
-        header = result_split[-3]
-        #header = f'Run,{header}'
         res = result_split[-2]
+        #header = result_split[-3]
+        #header = f'Run,{header}'
+        #res = result_split[-2]
         #res = f'{i},{res}'
-        if not results:
-            results.append(header)
-            results.append(res)
-        else:
-            results.append(res)
-
-    print()
-    results_str = os.linesep.join(results)
-    print(results_str)
-
-    output_file = os.path.join(path, f'{filename}.csv')
-    with open(output_file, 'w', encoding='utf8') as file:
-        file.write(results_str)
+        if res:
+            with open(output_file, 'a+', encoding='utf8') as file:
+                file.write(f'{res}{os.linesep}')
 
     # Sumarize stats
     process = subprocess.run(args=['python', PYTHON_SCRIPT_SUMMARIZE_STATS, output_file, *COLUMNS_VALUES], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)

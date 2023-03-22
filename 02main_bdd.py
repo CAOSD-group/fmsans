@@ -74,8 +74,10 @@ def main(fm_filepath: str, n_cores: int, runs: int) -> None:
     
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Analyze an FM using the FMSans Solver.')
-    parser.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, required=True, help='Input feature model in UVL format (.uvl).')
+    parser = argparse.ArgumentParser(description='Analyze an FM using the BDD solver.')
+    input_model = parser.add_mutually_exclusive_group(required=True)
+    input_model.add_argument('-d', '--dir', dest='dir', type=str, help='Input directory with the models in the same format (.uvl or .json) to be analyzed.')
+    input_model.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, help='Input feature model in UVL format (.uvl).')
     parser.add_argument('-c', '--cores', dest='n_cores', type=int, required=False, default=1, help='Number of cores (processes) to execute (power of 2) (default = CPU count).')
     parser.add_argument('-r', '--runs', dest='runs', type=int, required=False, default=1, help='Number of experiments.')
     args = parser.parse_args()

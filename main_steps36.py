@@ -41,7 +41,7 @@ def main(fm_filepath: str, n_cores: int) -> None:
 
     print(f'Bulding FM model...')
     fm = FM.from_feature_model(fm)
-    
+    #fm = fm_utils.to_unique_features(fm)
     # Serializing the feature model
     output_fm_filepath = f'{filename}{FM_OUTPUT_FILENAME_POSTFIX}.uvl'
     print(f'Serializing FM model in {output_fm_filepath} ...')

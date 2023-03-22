@@ -12,10 +12,6 @@ from fm_solver.operations import (
 class FMFullAnalysis(FMOperation):
     """Meta operation that returns the result of several other operations."""
 
-    CONFIGURATIONS_NUMBER = '#Configurations'
-    CORE_FEATURES = 'Core features'
-    DEAD_FEATURES = 'Dead features'
-
     @staticmethod
     def get_name() -> str:
         return 'Full analysis'
@@ -38,14 +34,14 @@ class FMFullAnalysis(FMOperation):
     @staticmethod
     def join_results(subtrees_results: list[dict[str, Any]], fm: FM) -> dict[str, Any]:
         if not subtrees_results:
-            return {FMFullAnalysis.CONFIGURATIONS_NUMBER: 0, 
-                    FMFullAnalysis.CORE_FEATURES: set(),
-                    FMFullAnalysis.DEAD_FEATURES: set()}
+            return {FMConfigurationsNumber.get_name(): 0, 
+                    FMCoreFeatures.get_name(): set()}
+                    #FMDeadFeatures.get_name(): set()}
                     
         result = {}
-        result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = FMConfigurationsNumber.join_results([r[FMFullAnalysis.CONFIGURATIONS_NUMBER] for r in subtrees_results])
-        result[FMFullAnalysis.CORE_FEATURES] = FMCoreFeatures.join_results([r[FMFullAnalysis.CORE_FEATURES] for r in subtrees_results])
-        result[FMFullAnalysis.DEAD_FEATURES] = FMDeadFeatures.join_results([r[FMFullAnalysis.DEAD_FEATURES] for r in subtrees_results], fm)
+        result[FMConfigurationsNumber.get_name()] = FMConfigurationsNumber.join_results([r[FMConfigurationsNumber.get_name()] for r in subtrees_results])
+        result[FMCoreFeatures.get_name()] = FMCoreFeatures.join_results([r[FMCoreFeatures.get_name()] for r in subtrees_results])
+        #result[FMDeadFeatures.get_name()] = FMDeadFeatures.join_results([r[FMDeadFeatures.get_name()] for r in subtrees_results], fm)
         return result
 
 
@@ -56,14 +52,14 @@ def get_full_analysis(feature_model: FM) -> dict[str, Any]:
     result = {}
     # Number of configurations
     n_configurations = FMConfigurationsNumber().execute(feature_model).get_result()
-    result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = n_configurations
+    result[FMConfigurationsNumber.get_name()] = n_configurations
 
     # Core features
     core_features = FMCoreFeatures().execute(feature_model).get_result()
-    result[FMFullAnalysis.CORE_FEATURES] = core_features
+    result[FMCoreFeatures.get_name()] = core_features
 
     # Dead features
-    dead_features = FMDeadFeatures().execute(feature_model).get_result()
-    result[FMFullAnalysis.DEAD_FEATURES] = dead_features
+    #dead_features = FMDeadFeatures().execute(feature_model).get_result()
+    #result[FMDeadFeatures.get_name()] = dead_features
 
     return result

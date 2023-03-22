@@ -21,6 +21,16 @@ FM_OUTPUT_FILENAME_POSTFIX = '_fmsans'
 TIME_TRANSFORMATION = 'TIME_TRANSFORMATION'
 
 
+def get_fm_filepath_models(dir: str) -> list[str]:
+    """Get all models from the given directory."""
+    models = []
+    for root, dirs, files in os.walk(dir):
+        for file in files:
+            filepath = os.path.join(root, file)
+            models.append(filepath)
+    return models
+
+
 def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1):
     # Get feature model name
     path, filename = os.path.split(fm_filepath)
@@ -52,7 +62,9 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an FM in (.uvl) to an FMSans (.json).')
-    parser.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, required=True, help='Input feature model in UVL format.')
+    input_model = parser.add_mutually_exclusive_group(required=True)
+    input_model.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, help='Input feature model in UVL format.')
+    input_model.add_argument('-d', '--dir', dest='dir', type=str, help='Input directory with the models in the same format (.uvl or .json) to be analyzed.')
     parser.add_argument('-c', '--cores', dest='n_cores', type=int, required=False, default=multiprocessing.cpu_count(), help='Number of cores (processes) to execute (power of 2) (default = CPU count).')
     parser.add_argument('-t', '--tasks', dest='n_tasks', type=int, required=False, default=1, help='Number of tasks.')
     parser.add_argument('-i', '--task', dest='current_task', type=int, required=False, default=0, help='Current task.')
@@ -66,5 +78,11 @@ if __name__ == '__main__':
     if args.n_tasks <= 0 or not math.log(args.n_tasks, 2).is_integer() and args.current_task >= 1 and args.current_task <= args.n_tasks:
         sys.exit(f'The number of tasks must be positive and power of 2.')
     else:
-        main(args.feature_model, args.n_cores, args.n_tasks, args.current_task)
-        print(f'Tip: Use the 02main_analysis.py script to analyze the result FMSans.')
+        if args.feature_model:
+            main(args.feature_model, args.n_cores, args.n_tasks, args.current_task)
+            print(f'Tip: Use the 02main_analysis.py script to analyze the result FMSans.')
+        elif args.dir:
+            models = get_fm_filepath_models(args.dir)
+            for filepath in models:
+                main(filepath, args.n_cores, args.n_tasks, args.current_task)
+

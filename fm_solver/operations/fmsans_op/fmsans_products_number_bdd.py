@@ -53,7 +53,7 @@ def configurations_number(fmsans: FMSans, n_processes: int = 1) -> int:
 
 
 def execute_paralell(fmsans: FMSans, fm: bytes, binary_vector: list[str], op: Operation, num: int) -> Any:
-        tree, _ = fmsans.transformations_vector.execute(fm, binary_vector)
-        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
-        bdd_model = FmToBDD(tree, f'{tree.root.name}{num}').transform()
-        return op().execute(bdd_model).get_result()
+    tree, _ = fmsans.transformations_vector.execute(fm, binary_vector)
+    tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+    bdd_model = FmToBDD(tree, f'{tree.root.name}{num}').transform()
+    return op().execute(bdd_model).get_result()

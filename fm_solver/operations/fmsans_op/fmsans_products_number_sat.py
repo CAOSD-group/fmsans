@@ -53,7 +53,7 @@ def configurations_number(fmsans: FMSans, n_processes: int = 1) -> int:
 
 
 def execute_paralell(fmsans: FMSans, fm: bytes, binary_vector: list[str], op: Operation) -> Any:
-        tree, _ = fmsans.transformations_vector.execute(fm, binary_vector)
-        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
-        sat_model = FmToPysat(tree).transform()
-        return op().execute(sat_model).get_result()
+    tree, _ = fmsans.transformations_vector.execute(fm, binary_vector)
+    tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+    sat_model = FmToPysat(tree).transform()
+    return op().execute(sat_model).get_result()

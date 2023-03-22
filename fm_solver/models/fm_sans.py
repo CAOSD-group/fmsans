@@ -174,7 +174,7 @@ class FMSans():
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
         with multiprocessing.Pool(n_processes) as pool:
             items = [(pick_tree, list(format(num, f'0{n_bits}b')), BDDProductsNumber, num) for num in self.transformations_ids.values()]
-            analysis_result = pool.starmap_async(self._execute_paralell_bdd, items)
+            analysis_result = pool.starmap_async(self.execute_paralell_bdd, items)
             result = FMConfigurationsNumber.join_results(analysis_result.get(), self.fm)
         return result
     
@@ -186,7 +186,7 @@ class FMSans():
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
         with multiprocessing.Pool(n_processes) as pool:
             items = [(pick_tree, list(format(num, f'0{n_bits}b')), SATProductsNumber, num) for num in self.transformations_ids.values()]
-            analysis_result = pool.starmap_async(self._execute_paralell_sat, items)
+            analysis_result = pool.starmap_async(self.execute_paralell_sat, items)
             result = FMConfigurationsNumber.join_results(analysis_result.get(), self.fm)
         return result
 
@@ -200,13 +200,13 @@ class FMSans():
         tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
         return op().execute(tree).get_result()
 
-    def _execute_paralell_bdd(self, fm: bytes, binary_vector: list[str], op: FMOperation, num: int) -> Any:
+    def execute_paralell_bdd(self, fm: bytes, binary_vector: list[str], op: FMOperation, num: int) -> Any:
         tree, _ = self.transformations_vector.execute(fm, binary_vector)
         tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
         bdd_model = FmToBDD(tree, f'{tree.root.name}{num}').transform()
         return op().execute(bdd_model).get_result()
 
-    def _execute_paralell_sat(self, fm: bytes, binary_vector: list[str], op: FMOperation, num: int) -> Any:
+    def execute_paralell_sat(self, fm: bytes, binary_vector: list[str], op: FMOperation, num: int) -> Any:
         tree, _ = self.transformations_vector.execute(fm, binary_vector)
         tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
         sat_model = FmToPysat(tree).transform()
