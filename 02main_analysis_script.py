@@ -21,15 +21,13 @@ from fm_solver.operations import (
 
 OUTPUTFILE_RESULTS_STATS = 'analysis_script_results.csv'
 TIME_ANALYSIS = 'TIME_ANALYSIS'
-TIME_OUT = 60  # seconds
+TIME_OUT = 5  # seconds
 TOOLS = ['sat', 'bdd', 'gft', 'fmsans', 'fmsans_sat', 'fmsans_bdd', 'fmsans_gft']
-timeout = False
 
 
 def timeout_handler(signum, frame):
     """Use a system signal to check out time outs."""
-    timeout = True
-    print("Time out!")
+    raise Exception(f'Time out! ({TIME_OUT} seconds)')
 signal.signal(signal.SIGALRM, timeout_handler)
 
 
@@ -44,6 +42,8 @@ def get_fm_filepath_models(dir: str) -> list[str]:
 
 
 def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
+    global timeout
+
     # Get feature model name
     path, filename = os.path.split(fm_filepath)
     filename = '.'.join(filename.split('.')[:-1])
@@ -60,46 +60,52 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
     gft_model = None
     if tool.startswith('fmsans'):
         print(f'  Reading FMSans model (.json)...')
-        timeout = False
         signal.alarm(TIME_OUT)
-        fmsans = FMSansReader(fm_filepath).transform()
-        signal.alarm(0)
-        if timeout:  
+        try:
+            fmsans = FMSansReader(fm_filepath).transform()
+        except Exception as e:
+            print(e)
             return None
+        signal.alarm(0)
         
         if tool == 'fmsans_gft':
             print(f'    Obtaining GFT model (steps 3 and 6)...')
-            timeout = False
             signal.alarm(TIME_OUT)
-            gft_model = fmsans.get_feature_model(n_cores)
-            signal.alarm(0)
-            if timeout:  
+            try:
+                gft_model = fmsans.get_feature_model(n_cores)
+            except Exception as e:
+                print(e)
                 return None
+            signal.alarm(0)
     else:
         print(f'  Reading FM model (.uvl)...')
-        timeout = False
         signal.alarm(TIME_OUT)
-        fm = UVLReader(fm_filepath).transform()
+        try:
+            fm = UVLReader(fm_filepath).transform()
+        except Exception as e:
+                print(e)
+                return None
         signal.alarm(0)
-        if timeout:  
-            return None
         
         if tool == 'sat':
             print(f'    Transforming feature model to SAT...')
-            timeout = False
             signal.alarm(TIME_OUT)
-            sat_model = FmToPysat(fm).transform()
-            signal.alarm(0)
-            if timeout:  
+            try:
+                sat_model = FmToPysat(fm).transform()
+            except Exception as e:
+                print(e)
                 return None
+            signal.alarm(0)
+
         elif tool == 'bdd':
             print(f'    Transforming feature model to BDD...')
-            timeout = False
             signal.alarm(TIME_OUT)
-            bdd_model = FmToBDD(fm).transform() if tool == 'bdd' else None
-            signal.alarm(0)
-            if timeout:
+            try:
+                bdd_model = FmToBDD(fm).transform()
+            except Exception as e:
+                print(e)
                 return None
+            signal.alarm(0)
         
     # Perform analysis
     print(f'Analyzing model...')
@@ -109,7 +115,6 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
         print(f'Run: ', end='', flush=True)
         for i in range(1, runs + 1):
             print(f'{i} ', end='', flush=True)
-            timeout = False
 
             op_model_dict = {'sat': (FMFullAnalysisSAT(), sat_model),
                              'bdd': (FMFullAnalysisBDD(), bdd_model),
@@ -121,12 +126,14 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
 
             op, model = op_model_dict[tool]
             signal.alarm(TIME_OUT)
-            with timer.Timer(name=TIME_ANALYSIS, logger=None):
-                result = op.execute(model).get_result()
-            signal.alarm(0)
-            if timeout:
+            try:
+                with timer.Timer(name=TIME_ANALYSIS, logger=None):
+                    result = op.execute(model).get_result()
+            except Exception as e:
+                print(e)
                 file.write(f'{i}, timeout{os.linesep}')
                 return None
+            signal.alarm(0)
 
             total_time = timer.Timer.timers[TIME_ANALYSIS]
             total_time = round(total_time, 4)
