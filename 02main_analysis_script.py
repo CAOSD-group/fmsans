@@ -21,7 +21,7 @@ from fm_solver.operations import (
 
 OUTPUTFILE_RESULTS_STATS = 'analysis_script_results.csv'
 TIME_ANALYSIS = 'TIME_ANALYSIS'
-TIME_OUT = 5  # seconds
+TIME_OUT = 3600  # seconds
 TOOLS = ['sat', 'bdd', 'gft', 'fmsans', 'fmsans_sat', 'fmsans_bdd', 'fmsans_gft']
 
 
@@ -42,8 +42,6 @@ def get_fm_filepath_models(dir: str) -> list[str]:
 
 
 def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
-    global timeout
-
     # Get feature model name
     path, filename = os.path.split(fm_filepath)
     filename = '.'.join(filename.split('.')[:-1])
