@@ -14,7 +14,7 @@ from flamapy.metamodels.fm_metamodel.models import (
 )
 
 from fm_solver.models.feature_model import FM
-from fm_solver.utils import constraints_utils
+#from fm_solver.utils import constraints_utils
 
 
 def commitment_feature(feature_model: FM, feature_name: str) -> FM:
@@ -92,23 +92,23 @@ def get_model_from_subtrees(fm: FM, subtrees: set[FM]) -> FeatureModel:
     return FeatureModel(new_root)
 
 
-def numbers_of_features_to_be_removed(fm: FM, ctc: Constraint) -> tuple[int, int]:
-    """Return the number of features that will be deleted from the feature model when
-    the given constraint is refactored into the tree diagram.
+# def numbers_of_features_to_be_removed(fm: FM, ctc: Constraint) -> tuple[int, int]:
+#     """Return the number of features that will be deleted from the feature model when
+#     the given constraint is refactored into the tree diagram.
     
-    It returns a tuple where the first value corresponds with the first transformation required
-    to eliminate the CTC (i.e., the commitment or deletion of a feature), while the second value
-    corresponds with the second transformation required to eliminate the CTC (i.e., the 
-    deletion of both features or the deletion of the first feature and the commitment of the other.
-    """
-    left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
-    if constraints_utils.is_requires_constraint(ctc):
-        t_0 = numbers_of_features_to_be_removed_commitment(fm, right_feature)
-        t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_deletion(fm, right_feature)
-    else:  # it is an excludes
-        t_0 = numbers_of_features_to_be_removed_deletion(fm, right_feature)
-        t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_commitment(fm, right_feature)
-    return (t_0, t_1)
+#     It returns a tuple where the first value corresponds with the first transformation required
+#     to eliminate the CTC (i.e., the commitment or deletion of a feature), while the second value
+#     corresponds with the second transformation required to eliminate the CTC (i.e., the 
+#     deletion of both features or the deletion of the first feature and the commitment of the other.
+#     """
+#     left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
+#     if constraints_utils.is_requires_constraint(ctc):
+#         t_0 = numbers_of_features_to_be_removed_commitment(fm, right_feature)
+#         t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_deletion(fm, right_feature)
+#     else:  # it is an excludes
+#         t_0 = numbers_of_features_to_be_removed_deletion(fm, right_feature)
+#         t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_commitment(fm, right_feature)
+#     return (t_0, t_1)
 
 
 def numbers_of_features_to_be_removed_commitment(fm: FM, feature_name: str) -> int:
@@ -269,35 +269,35 @@ def get_unique_features(model: FeatureModel) -> list[Feature]:
     return unique_features
 
 
-def fm_stats(fm: FeatureModel) -> str:
-    lines = []
-    n_features = len(fm.get_features())
-    n_unique_features = len(set(fm.get_features()))
-    n_abstract_features = sum(f.is_abstract for f in fm.get_features())
-    n_concrete_features = n_features - n_abstract_features
-    n_auxiliary_features = sum(is_auxiliary_feature(f) for f in fm.get_features())
-    n_ctcs = len(fm.get_constraints())
-    n_ctcs_simple = sum(constraints_utils.is_simple_constraint(ctc) for ctc in fm.get_constraints())
-    n_ctcs_complex = n_ctcs - n_ctcs_simple
-    n_pseudo_ctcs = sum(constraints_utils.is_pseudo_complex_constraint(ctc) for ctc in fm.get_constraints())
-    n_strict_ctcs = n_ctcs_complex - n_pseudo_ctcs
-    n_requires_ctcs = sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())
-    n_excludes_ctcs = n_ctcs_simple - n_requires_ctcs
+# def fm_stats(fm: FeatureModel) -> str:
+#     lines = []
+#     n_features = len(fm.get_features())
+#     n_unique_features = len(set(fm.get_features()))
+#     n_abstract_features = sum(f.is_abstract for f in fm.get_features())
+#     n_concrete_features = n_features - n_abstract_features
+#     n_auxiliary_features = sum(is_auxiliary_feature(f) for f in fm.get_features())
+#     n_ctcs = len(fm.get_constraints())
+#     n_ctcs_simple = sum(constraints_utils.is_simple_constraint(ctc) for ctc in fm.get_constraints())
+#     n_ctcs_complex = n_ctcs - n_ctcs_simple
+#     n_pseudo_ctcs = sum(constraints_utils.is_pseudo_complex_constraint(ctc) for ctc in fm.get_constraints())
+#     n_strict_ctcs = n_ctcs_complex - n_pseudo_ctcs
+#     n_requires_ctcs = sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())
+#     n_excludes_ctcs = n_ctcs_simple - n_requires_ctcs
 
-    lines.append(f'FM stats:')
-    lines.append(f'  #Features:            {n_features}')
-    lines.append(f'    #Concrete features: {n_concrete_features}')
-    lines.append(f'    #Abstract features: {n_abstract_features}')
-    lines.append(f'    #Auxiliary features:{n_auxiliary_features}')
-    lines.append(f'    #Unique features:   {n_unique_features}')
-    lines.append(f'  #Constraints:         {n_ctcs}')
-    lines.append(f'    #Simple CTCs:       {n_ctcs_simple}')
-    lines.append(f'      #Requires:        {n_requires_ctcs}')
-    lines.append(f'      #Excludes:        {n_excludes_ctcs}')
-    lines.append(f'    #Complex CTCs:      {n_ctcs_complex}')
-    lines.append(f'      #Pseudo CTCs:     {n_pseudo_ctcs}')
-    lines.append(f'      #Strict CTCs:     {n_strict_ctcs}')
-    return '\n'.join(lines)
+#     lines.append(f'FM stats:')
+#     lines.append(f'  #Features:            {n_features}')
+#     lines.append(f'    #Concrete features: {n_concrete_features}')
+#     lines.append(f'    #Abstract features: {n_abstract_features}')
+#     lines.append(f'    #Auxiliary features:{n_auxiliary_features}')
+#     lines.append(f'    #Unique features:   {n_unique_features}')
+#     lines.append(f'  #Constraints:         {n_ctcs}')
+#     lines.append(f'    #Simple CTCs:       {n_ctcs_simple}')
+#     lines.append(f'      #Requires:        {n_requires_ctcs}')
+#     lines.append(f'      #Excludes:        {n_excludes_ctcs}')
+#     lines.append(f'    #Complex CTCs:      {n_ctcs_complex}')
+#     lines.append(f'      #Pseudo CTCs:     {n_pseudo_ctcs}')
+#     lines.append(f'      #Strict CTCs:     {n_strict_ctcs}')
+#     return '\n'.join(lines)
 
 
 def add_auxiliary_feature_attribute(feature: Feature) -> Feature:
