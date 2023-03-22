@@ -1,0 +1,569 @@
+{
+    "feature_tree": {
+        "name": "Truck",
+        "abstract": false,
+        "relations": [
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Weight",
+                        "abstract": false,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Lightweight",
+                                        "abstract": false,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Tons12",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Tons18",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Heavyweight",
+                                        "abstract": false,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Tons23",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Tons40",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Type",
+                        "abstract": false,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Semitrailer",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Tank",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Flatbed",
+                                        "abstract": false,
+                                        "relations": [
+                                            {
+                                                "type": "MANDATORY",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Dumper",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Engine",
+                        "abstract": false,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "KW160",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "KW280",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "KW400",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Cabin",
+                        "abstract": false,
+                        "relations": [
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "HighRoof",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "SleeperCabin",
+                                        "abstract": false,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Bed1",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Beds2",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Axles",
+                        "abstract": false,
+                        "relations": [
+                            {
+                                "type": "MANDATORY",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Count",
+                                        "abstract": false,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "Axles2",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "MultipleRearAxles",
+                                                        "abstract": false,
+                                                        "relations": [
+                                                            {
+                                                                "type": "XOR",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "Axles3",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "Axles4",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "AdditionalSteeringAxle",
+                                        "abstract": false,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MANDATORY",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Drivetrain",
+                                        "abstract": false,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "DrivenAxle1",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "DrivenAxles2",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "DrivenAxles3",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            }
+        ],
+        "attributes": []
+    },
+    "ctcs_transformations": [
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "HighRoof"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Beds2",
+                    "HighRoof"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MultipleRearAxles"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DrivenAxles2",
+                    "MultipleRearAxles"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Axles4"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DrivenAxles3",
+                    "Axles4"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "KW400"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Tons40",
+                    "KW400"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Axles4"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "AdditionalSteeringAxle",
+                    "Axles4"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Heavyweight"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "HighRoof",
+                    "Heavyweight"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Tons18"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Semitrailer",
+                    "Tons18"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Flatbed"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "SleeperCabin",
+                    "Flatbed"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Tank"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "SleeperCabin",
+                    "Tank"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "KW400"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Tank",
+                    "KW400"
+                ]
+            }
+        ]
+    ],
+    "transformations_ids": {
+        "-7076603571500911742": 170,
+        "-1730388803072299315": 172,
+        "-393964407994109522": 237,
+        "-8867648740121970331": 426,
+        "6270750092138348182": 428,
+        "6887395092528767582": 493,
+        "-5387101403342648252": 10,
+        "-4040623481720303347": 12,
+        "-5224052354544006021": 77,
+        "6575485278355385614": 522,
+        "-8701624985074156844": 524,
+        "-2542603358277467417": 528,
+        "-1637391831974926574": 530,
+        "-282390147570153469": 532,
+        "-2429484273768595037": 538,
+        "7571881746262660560": 540,
+        "-6965984821016113438": 589,
+        "-2885575724343568774": 593,
+        "5890998894732089947": 597,
+        "5534912000712148679": 605,
+        "747861348821782537": 938,
+        "-3884024605904729963": 940,
+        "7626033986514195257": 944,
+        "-2927190850605494110": 946,
+        "2771151864029431184": 948,
+        "4836355113647686645": 954,
+        "-8824105761710821550": 956,
+        "2833149846386758147": 1005,
+        "-6664427367310917782": 1009,
+        "6896226456706198657": 1013,
+        "-4381723053256240775": 1021,
+        "8502290173298745028": 682,
+        "948488592258824304": 684,
+        "-6133663846037103837": 688,
+        "-8287820265348447656": 690,
+        "7000353605803021785": 692,
+        "-6222316213879845057": 698,
+        "9198141132559821579": 700,
+        "-4255026281425051433": 749,
+        "7683198407848977925": 753,
+        "6985388883881963683": 757,
+        "4842251791374951167": 765
+    }
+}
