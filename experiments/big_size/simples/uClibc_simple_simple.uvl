@@ -1,0 +1,2340 @@
+features
+	root 
+		mandatory
+			CONFIG_386_alt {abstract}
+				alternative
+					CONFIG_GENERIC_386 
+					CONFIG_386 
+					CONFIG_486 
+					CONFIG_586 
+					CONFIG_586MMX 
+					CONFIG_686 
+					CONFIG_PENTIUMII 
+					CONFIG_PENTIUMIII 
+					CONFIG_PENTIUM4 
+					CONFIG_K6 
+					CONFIG_K7 
+					CONFIG_ELAN 
+					CONFIG_CRUSOE 
+					CONFIG_WINCHIPC6 
+					CONFIG_WINCHIP2 
+					CONFIG_CYRIXIII 
+					CONFIG_NEHEMIAH 
+		mandatory
+			CONFIG_ARM926T_alt {abstract}
+				alternative
+					CONFIG_GENERIC_ARM 
+					CONFIG_ARM610 
+					CONFIG_ARM710 
+					CONFIG_ARM7TDMI 
+					CONFIG_ARM720T 
+					CONFIG_ARM920T 
+					CONFIG_ARM922T 
+					CONFIG_ARM926T 
+					CONFIG_ARM10T 
+					CONFIG_ARM1136JF_S 
+					CONFIG_ARM1176JZ_S 
+					CONFIG_ARM1176JZF_S 
+					CONFIG_ARM_CORTEX_M3 
+					CONFIG_ARM_CORTEX_M1 
+					CONFIG_ARM_SA110 
+					CONFIG_ARM_SA1100 
+					CONFIG_ARM_XSCALE 
+					CONFIG_ARM_IWMMXT 
+		mandatory
+			UCLIBC_HAS_STDIO_BUFSIZ_512_alt {abstract}
+				alternative
+					UCLIBC_HAS_STDIO_BUFSIZ_NONE 
+					UCLIBC_HAS_STDIO_BUFSIZ_256 
+					UCLIBC_HAS_STDIO_BUFSIZ_512 
+					UCLIBC_HAS_STDIO_BUFSIZ_1024 
+					UCLIBC_HAS_STDIO_BUFSIZ_2048 
+					UCLIBC_HAS_STDIO_BUFSIZ_4096 
+					UCLIBC_HAS_STDIO_BUFSIZ_8192 
+		mandatory
+			TARGET_i960_alt {abstract}
+				alternative
+					TARGET_alpha 
+					TARGET_arm 
+					TARGET_avr32 
+					TARGET_bfin 
+					TARGET_cris 
+					TARGET_e1 
+					TARGET_frv 
+					TARGET_h8300 
+					TARGET_hppa 
+					TARGET_i386 
+					TARGET_i960 
+					TARGET_ia64 
+					TARGET_m68k 
+					TARGET_microblaze 
+					TARGET_mips 
+					TARGET_nios 
+					TARGET_nios2 
+					TARGET_powerpc 
+					TARGET_sh 
+					TARGET_sh64 
+					TARGET_sparc 
+					TARGET_v850 
+					TARGET_vax 
+					TARGET_x86_64 
+					TARGET_xtensa 
+		mandatory
+			MALLOC_alt {abstract}
+				alternative
+					MALLOC 
+					MALLOC_SIMPLE 
+					MALLOC_STANDARD 
+		mandatory
+			CONFIG_MIPS_ISA_1_alt {abstract}
+				alternative
+					CONFIG_MIPS_ISA_1 
+					CONFIG_MIPS_ISA_2 
+					CONFIG_MIPS_ISA_3 
+					CONFIG_MIPS_ISA_4 
+					CONFIG_MIPS_ISA_MIPS32 
+					CONFIG_MIPS_ISA_MIPS32R2 
+					CONFIG_MIPS_ISA_MIPS64 
+		mandatory
+			LINUXTHREADS_OLD_alt {abstract}
+				alternative
+					HAS_NO_THREADS 
+					LINUXTHREADS_OLD 
+					LINUXTHREADS_NEW 
+					UCLIBC_HAS_THREADS_NATIVE 
+		mandatory
+			ARCH_WANTS_LITTLE_ENDIAN_alt {abstract}
+				alternative
+					ARCH_WANTS_BIG_ENDIAN 
+					ARCH_WANTS_LITTLE_ENDIAN 
+		mandatory
+			DESIRED_TARGET_ARCH 
+		mandatory
+			UCLIBC_FORMAT_FLAT_SEP_DATA_alt {abstract}
+				alternative
+					UCLIBC_FORMAT_ELF 
+					UCLIBC_FORMAT_FDPIC_ELF 
+					UCLIBC_FORMAT_FLAT 
+					UCLIBC_FORMAT_FLAT_SEP_DATA 
+					UCLIBC_FORMAT_SHARED_FLAT 
+		mandatory
+			KERNEL_HEADERS 
+		mandatory
+			DEVEL_PREFIX 
+		mandatory
+			WARNINGS 
+		mandatory
+			CONFIG_SH4_alt {abstract}
+				alternative
+					CONFIG_SH2A 
+					CONFIG_SH2 
+					CONFIG_SH3 
+					CONFIG_SH4 
+		mandatory
+			CONFIG_SPARC_V9_alt {abstract}
+				alternative
+					CONFIG_SPARC_V7 
+					CONFIG_SPARC_V8 
+					CONFIG_SPARC_V9 
+					CONFIG_SPARC_V9B 
+		mandatory
+			CONFIG_H8S_alt {abstract}
+				alternative
+					CONFIG_H8300H 
+					CONFIG_H8S 
+		mandatory
+			UCLIBC_HAS_STDIO_BUILTIN_BUFFER_4_alt {abstract}
+				alternative
+					UCLIBC_HAS_STDIO_BUILTIN_BUFFER_NONE 
+					UCLIBC_HAS_STDIO_BUILTIN_BUFFER_4 
+					UCLIBC_HAS_STDIO_BUILTIN_BUFFER_8 
+		mandatory
+			CONFIG_CRISV32_alt {abstract}
+				alternative
+					CONFIG_CRIS 
+					CONFIG_CRISV32 
+		mandatory
+			UCLIBC_GRP_BUFFER_SIZE 
+		mandatory
+			CONFIG_MIPS_O32_ABI_alt {abstract}
+				alternative
+					CONFIG_MIPS_O32_ABI 
+					CONFIG_MIPS_N32_ABI 
+					CONFIG_MIPS_N64_ABI 
+		mandatory
+			TARGET_ARCH 
+		mandatory
+			CONFIG_CLASSIC_alt {abstract}
+				alternative
+					CONFIG_CLASSIC 
+					CONFIG_E500 
+		mandatory
+			CONFIG_AVR32_AP7_alt {abstract}
+				mandatory
+					CONFIG_AVR32_AP7 
+		mandatory
+			TARGET_SUBARCH 
+		mandatory
+			UCLIBC_PRINTF_SCANF_POSITIONAL_ARGS 
+		mandatory
+			UCLIBC_EXTRA_CFLAGS 
+		mandatory
+			CROSS_COMPILER_PREFIX 
+		mandatory
+			UCLIBC_PWD_BUFFER_SIZE 
+		mandatory
+			MULTILIB_DIR 
+		mandatory
+			CONFIG_ARM_EABI_alt {abstract}
+				alternative
+					CONFIG_ARM_OABI 
+					CONFIG_ARM_EABI 
+		mandatory
+			UCLIBC_BUILD_MINIMAL_LOCALES 
+		mandatory
+			RUNTIME_PREFIX 
+		mandatory
+			CONFIG_SH5_alt {abstract}
+				mandatory
+					CONFIG_SH5 
+		mandatory
+			UCLIBC_SHARED_FLAT_ID 
+		mandatory
+			Subtree {abstract}
+				mandatory
+					OR0_0 {abstract}
+						or
+							AND1_1 {abstract}
+								mandatory
+									TARGET_arm_1_2 {abstract}
+								mandatory
+									AND1_2 {abstract}
+										mandatory
+											NOT_CONFIG_GENERIC_ARM_1_3 {abstract}
+										mandatory
+											AND1_3 {abstract}
+												mandatory
+													NOT_CONFIG_ARM610_1_4 {abstract}
+												mandatory
+													NOT_CONFIG_ARM710_1_4 {abstract}
+							AND2_1 {abstract}
+								mandatory
+									OR2_2 {abstract}
+										or
+											AND2_3 {abstract}
+												mandatory
+													AND2_4 {abstract}
+														mandatory
+															NOT_CONFIG_ARM_CORTEX_M1_2_5 {abstract}
+														mandatory
+															NOT_CONFIG_ARM_CORTEX_M3_2_5 {abstract}
+												mandatory
+													OR2_4 {abstract}
+														or
+															NOT_TARGET_arm_2_5 {abstract}
+															OR2_5 {abstract}
+																or
+																	CONFIG_GENERIC_ARM_2_6 {abstract}
+																	OR2_6 {abstract}
+																		or
+																			CONFIG_ARM610_2_7 {abstract}
+																			CONFIG_ARM710_2_7 {abstract}
+											USE_BX_2_3 {abstract}
+								mandatory
+									OR2_2_0 {abstract}
+										or
+											NOT_USE_BX_2_3 {abstract}
+											OR2_3 {abstract}
+												or
+													OR2_4_0 {abstract}
+														or
+															CONFIG_ARM_CORTEX_M1_2_5 {abstract}
+															CONFIG_ARM_CORTEX_M3_2_5 {abstract}
+													AND2_4_0 {abstract}
+														mandatory
+															TARGET_arm_2_5 {abstract}
+														mandatory
+															AND2_5 {abstract}
+																mandatory
+																	NOT_CONFIG_GENERIC_ARM_2_6 {abstract}
+																mandatory
+																	AND2_6 {abstract}
+																		mandatory
+																			NOT_CONFIG_ARM610_2_7 {abstract}
+																		mandatory
+																			NOT_CONFIG_ARM710_2_7 {abstract}
+				mandatory
+					OR2_0 {abstract}
+						or
+							TARGET_avr32_3_1 {abstract}
+							TARGET_avr32_4_1 {abstract}
+							LINKRELAX_5_1 {abstract}
+				mandatory
+					OR5_0 {abstract}
+						or
+							TARGET_sh_6_1 {abstract}
+							CONFIG_SH4_7_1 {abstract}
+							ARCH_HAS_BWD_MEMCPY_8_1 {abstract}
+				mandatory
+					OR8_0 {abstract}
+						or
+							UCLIBC_FORMAT_SHARED_FLAT_9_1 {abstract}
+							UCLIBC_FORMAT_SHARED_FLAT_10_1 {abstract}
+							UCLIBC_SHARED_FLAT_ID_11_1 {abstract}
+				mandatory
+					OR11_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_12_1 {abstract}
+							TARGET_mips_13_1 {abstract}
+							ARCH_ANY_ENDIAN_14_1 {abstract}
+				mandatory
+					OR14_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_15_1 {abstract}
+							TARGET_sh_16_1 {abstract}
+							ARCH_ANY_ENDIAN_17_1 {abstract}
+				mandatory
+					OR17_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_18_1 {abstract}
+							TARGET_sh64_19_1 {abstract}
+							ARCH_ANY_ENDIAN_20_1 {abstract}
+				mandatory
+					OR20_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_21_1 {abstract}
+							TARGET_h8300_22_1 {abstract}
+							ARCH_ANY_ENDIAN_23_1 {abstract}
+				mandatory
+					OR23_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_24_1 {abstract}
+							TARGET_arm_25_1 {abstract}
+							ARCH_ANY_ENDIAN_26_1 {abstract}
+				mandatory
+					OR26_0 {abstract}
+						or
+							ARCH_ANY_ENDIAN_27_1 {abstract}
+							TARGET_mips_28_1 {abstract}
+							TARGET_sh_29_1 {abstract}
+							TARGET_sh64_30_1 {abstract}
+							TARGET_h8300_31_1 {abstract}
+							TARGET_arm_32_1 {abstract}
+				mandatory
+					OR32_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_33_1 {abstract}
+							TARGET_e1_34_1 {abstract}
+							ARCH_BIG_ENDIAN_35_1 {abstract}
+				mandatory
+					OR35_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_36_1 {abstract}
+							TARGET_sparc_37_1 {abstract}
+							ARCH_BIG_ENDIAN_38_1 {abstract}
+				mandatory
+					OR38_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_39_1 {abstract}
+							TARGET_powerpc_40_1 {abstract}
+							ARCH_BIG_ENDIAN_41_1 {abstract}
+				mandatory
+					OR41_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_42_1 {abstract}
+							TARGET_microblaze_43_1 {abstract}
+							ARCH_BIG_ENDIAN_44_1 {abstract}
+				mandatory
+					OR44_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_45_1 {abstract}
+							TARGET_frv_46_1 {abstract}
+							ARCH_BIG_ENDIAN_47_1 {abstract}
+				mandatory
+					OR47_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_48_1 {abstract}
+							TARGET_hppa_49_1 {abstract}
+							ARCH_BIG_ENDIAN_50_1 {abstract}
+				mandatory
+					OR50_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_51_1 {abstract}
+							TARGET_m68k_52_1 {abstract}
+							ARCH_BIG_ENDIAN_53_1 {abstract}
+				mandatory
+					OR53_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_54_1 {abstract}
+							TARGET_avr32_55_1 {abstract}
+							ARCH_BIG_ENDIAN_56_1 {abstract}
+				mandatory
+					OR56_0 {abstract}
+						or
+							ARCH_BIG_ENDIAN_57_1 {abstract}
+							FORCE_OPTIONS_FOR_ARCH_58_1 {abstract}
+							ARCH_WANTS_BIG_ENDIAN_59_1 {abstract}
+				mandatory
+					OR59_0 {abstract}
+						or
+							ARCH_BIG_ENDIAN_60_1 {abstract}
+							TARGET_e1_61_1 {abstract}
+							TARGET_sparc_62_1 {abstract}
+							TARGET_powerpc_63_1 {abstract}
+							TARGET_microblaze_64_1 {abstract}
+							TARGET_frv_65_1 {abstract}
+							TARGET_hppa_66_1 {abstract}
+							TARGET_m68k_67_1 {abstract}
+							TARGET_avr32_68_1 {abstract}
+							ARCH_WANTS_BIG_ENDIAN_69_1 {abstract}
+				mandatory
+					OR69_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_70_1 {abstract}
+							TARGET_i960_71_1 {abstract}
+							ARCH_LITTLE_ENDIAN_72_1 {abstract}
+				mandatory
+					OR72_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_73_1 {abstract}
+							TARGET_vax_74_1 {abstract}
+							ARCH_LITTLE_ENDIAN_75_1 {abstract}
+				mandatory
+					OR75_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_76_1 {abstract}
+							TARGET_nios2_77_1 {abstract}
+							ARCH_LITTLE_ENDIAN_78_1 {abstract}
+				mandatory
+					OR78_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_79_1 {abstract}
+							TARGET_bfin_80_1 {abstract}
+							ARCH_LITTLE_ENDIAN_81_1 {abstract}
+				mandatory
+					OR81_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_82_1 {abstract}
+							TARGET_x86_64_83_1 {abstract}
+							ARCH_LITTLE_ENDIAN_84_1 {abstract}
+				mandatory
+					OR84_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_85_1 {abstract}
+							TARGET_alpha_86_1 {abstract}
+							ARCH_LITTLE_ENDIAN_87_1 {abstract}
+				mandatory
+					OR87_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_88_1 {abstract}
+							TARGET_i386_89_1 {abstract}
+							ARCH_LITTLE_ENDIAN_90_1 {abstract}
+				mandatory
+					OR90_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_91_1 {abstract}
+							TARGET_nios_92_1 {abstract}
+							ARCH_LITTLE_ENDIAN_93_1 {abstract}
+				mandatory
+					OR93_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_94_1 {abstract}
+							TARGET_ia64_95_1 {abstract}
+							ARCH_LITTLE_ENDIAN_96_1 {abstract}
+				mandatory
+					OR96_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_97_1 {abstract}
+							TARGET_cris_98_1 {abstract}
+							ARCH_LITTLE_ENDIAN_99_1 {abstract}
+				mandatory
+					OR99_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_100_1 {abstract}
+							TARGET_v850_101_1 {abstract}
+							ARCH_LITTLE_ENDIAN_102_1 {abstract}
+				mandatory
+					OR102_0 {abstract}
+						or
+							ARCH_LITTLE_ENDIAN_103_1 {abstract}
+							FORCE_OPTIONS_FOR_ARCH_104_1 {abstract}
+							ARCH_WANTS_LITTLE_ENDIAN_105_1 {abstract}
+				mandatory
+					OR105_0 {abstract}
+						or
+							ARCH_LITTLE_ENDIAN_106_1 {abstract}
+							TARGET_i960_107_1 {abstract}
+							TARGET_vax_108_1 {abstract}
+							TARGET_nios2_109_1 {abstract}
+							TARGET_bfin_110_1 {abstract}
+							TARGET_x86_64_111_1 {abstract}
+							ARCH_WANTS_LITTLE_ENDIAN_112_1 {abstract}
+							TARGET_alpha_113_1 {abstract}
+							TARGET_i386_114_1 {abstract}
+							TARGET_nios_115_1 {abstract}
+							TARGET_ia64_116_1 {abstract}
+							TARGET_cris_117_1 {abstract}
+							TARGET_v850_118_1 {abstract}
+				mandatory
+					OR118_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_119_1 {abstract}
+							TARGET_i960_120_1 {abstract}
+							ARCH_HAS_NO_MMU_121_1 {abstract}
+				mandatory
+					OR121_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_122_1 {abstract}
+							TARGET_e1_123_1 {abstract}
+							ARCH_HAS_NO_MMU_124_1 {abstract}
+				mandatory
+					OR124_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_125_1 {abstract}
+							TARGET_nios2_126_1 {abstract}
+							ARCH_HAS_NO_MMU_127_1 {abstract}
+				mandatory
+					OR127_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_128_1 {abstract}
+							TARGET_microblaze_129_1 {abstract}
+							ARCH_HAS_NO_MMU_130_1 {abstract}
+				mandatory
+					OR130_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_131_1 {abstract}
+							TARGET_frv_132_1 {abstract}
+							ARCH_HAS_NO_MMU_133_1 {abstract}
+				mandatory
+					OR133_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_134_1 {abstract}
+							TARGET_bfin_135_1 {abstract}
+							ARCH_HAS_NO_MMU_136_1 {abstract}
+				mandatory
+					OR136_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_137_1 {abstract}
+							TARGET_h8300_138_1 {abstract}
+							ARCH_HAS_NO_MMU_139_1 {abstract}
+				mandatory
+					OR139_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_140_1 {abstract}
+							TARGET_nios_141_1 {abstract}
+							ARCH_HAS_NO_MMU_142_1 {abstract}
+				mandatory
+					OR142_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_143_1 {abstract}
+							TARGET_v850_144_1 {abstract}
+							ARCH_HAS_NO_MMU_145_1 {abstract}
+				mandatory
+					OR145_0 {abstract}
+						or
+							ARCH_HAS_NO_MMU_146_1 {abstract}
+							FORCE_OPTIONS_FOR_ARCH_147_1 {abstract}
+							CONFIG_ARM7TDMI_148_1 {abstract}
+							CONFIG_SH2_149_1 {abstract}
+							CONFIG_ARM_CORTEX_M1_150_1 {abstract}
+							CONFIG_SH2A_151_1 {abstract}
+							CONFIG_ARM_CORTEX_M3_152_1 {abstract}
+				mandatory
+					OR152_0 {abstract}
+						or
+							ARCH_HAS_NO_MMU_153_1 {abstract}
+							TARGET_i960_154_1 {abstract}
+							TARGET_e1_155_1 {abstract}
+							CONFIG_ARM7TDMI_156_1 {abstract}
+							TARGET_nios2_157_1 {abstract}
+							TARGET_microblaze_158_1 {abstract}
+							TARGET_frv_159_1 {abstract}
+							TARGET_bfin_160_1 {abstract}
+							TARGET_h8300_161_1 {abstract}
+							CONFIG_SH2_162_1 {abstract}
+							CONFIG_ARM_CORTEX_M1_163_1 {abstract}
+							CONFIG_SH2A_164_1 {abstract}
+							CONFIG_ARM_CORTEX_M3_165_1 {abstract}
+							TARGET_nios_166_1 {abstract}
+							TARGET_v850_167_1 {abstract}
+				mandatory
+					OR167_0 {abstract}
+						or
+							NOT_ARCH_HAS_NO_MMU_168_1 {abstract}
+							AND169_1 {abstract}
+								mandatory
+									OR169_2 {abstract}
+										or
+											AND169_3 {abstract}
+												mandatory
+													AND169_4 {abstract}
+														mandatory
+															AND169_5 {abstract}
+																mandatory
+																	AND169_6 {abstract}
+																		mandatory
+																			AND169_7 {abstract}
+																				mandatory
+																					AND169_8 {abstract}
+																						mandatory
+																							AND169_9 {abstract}
+																								mandatory
+																									AND169_10 {abstract}
+																										mandatory
+																											AND169_11 {abstract}
+																												mandatory
+																													AND169_12 {abstract}
+																														mandatory
+																															AND169_13 {abstract}
+																																mandatory
+																																	AND169_14 {abstract}
+																																		mandatory
+																																			AND169_15 {abstract}
+																																				mandatory
+																																					AND169_16 {abstract}
+																																						mandatory
+																																							AND169_17 {abstract}
+																																								mandatory
+																																									AND169_18 {abstract}
+																																										mandatory
+																																											AND169_19 {abstract}
+																																												mandatory
+																																													AND169_20 {abstract}
+																																														mandatory
+																																															AND169_21 {abstract}
+																																																mandatory
+																																																	AND169_22 {abstract}
+																																																		mandatory
+																																																			AND169_23 {abstract}
+																																																				mandatory
+																																																					AND169_24 {abstract}
+																																																						mandatory
+																																																							AND169_25 {abstract}
+																																																								mandatory
+																																																									AND169_26 {abstract}
+																																																										mandatory
+																																																											AND169_27 {abstract}
+																																																												mandatory
+																																																													NOT_CONFIG_ARM922T_169_28 {abstract}
+																																																												mandatory
+																																																													NOT_CONFIG_ARM1176JZ_S_169_28 {abstract}
+																																																										mandatory
+																																																											OR169_27 {abstract}
+																																																												or
+																																																													NOT_FORCE_OPTIONS_FOR_ARCH_169_28 {abstract}
+																																																													NOT_TARGET_powerpc_169_28 {abstract}
+																																																								mandatory
+																																																									NOT_CONFIG_ARM920T_169_26 {abstract}
+																																																						mandatory
+																																																							NOT_CONFIG_ARM720T_169_25 {abstract}
+																																																				mandatory
+																																																					NOT_CONFIG_CRISV32_169_24 {abstract}
+																																																		mandatory
+																																																			NOT_CONFIG_ARM610_169_23 {abstract}
+																																																mandatory
+																																																	OR169_22 {abstract}
+																																																		or
+																																																			NOT_FORCE_OPTIONS_FOR_ARCH_169_23 {abstract}
+																																																			NOT_TARGET_hppa_169_23 {abstract}
+																																														mandatory
+																																															NOT_CONFIG_ARM_SA110_169_21 {abstract}
+																																												mandatory
+																																													NOT_CONFIG_AVR32_AP7_169_20 {abstract}
+																																										mandatory
+																																											OR169_19 {abstract}
+																																												or
+																																													NOT_FORCE_OPTIONS_FOR_ARCH_169_20 {abstract}
+																																													NOT_TARGET_x86_64_169_20 {abstract}
+																																								mandatory
+																																									NOT_CONFIG_ARM_XSCALE_169_18 {abstract}
+																																						mandatory
+																																							NOT_CONFIG_ARM10T_169_17 {abstract}
+																																				mandatory
+																																					NOT_CONFIG_ARM_SA1100_169_16 {abstract}
+																																		mandatory
+																																			NOT_CONFIG_CRIS_169_15 {abstract}
+																																mandatory
+																																	OR169_14 {abstract}
+																																		or
+																																			NOT_FORCE_OPTIONS_FOR_ARCH_169_15 {abstract}
+																																			NOT_TARGET_alpha_169_15 {abstract}
+																														mandatory
+																															OR169_13 {abstract}
+																																or
+																																	NOT_FORCE_OPTIONS_FOR_ARCH_169_14 {abstract}
+																																	NOT_TARGET_i386_169_14 {abstract}
+																												mandatory
+																													NOT_CONFIG_SH5_169_12 {abstract}
+																										mandatory
+																											NOT_CONFIG_ARM710_169_11 {abstract}
+																								mandatory
+																									NOT_CONFIG_ARM926T_169_10 {abstract}
+																						mandatory
+																							OR169_9 {abstract}
+																								or
+																									NOT_FORCE_OPTIONS_FOR_ARCH_169_10 {abstract}
+																									NOT_TARGET_ia64_169_10 {abstract}
+																				mandatory
+																					NOT_CONFIG_ARM1136JF_S_169_8 {abstract}
+																		mandatory
+																			NOT_CONFIG_ARM1176JZF_S_169_7 {abstract}
+																mandatory
+																	NOT_CONFIG_SH3_169_6 {abstract}
+														mandatory
+															NOT_CONFIG_ARM_IWMMXT_169_5 {abstract}
+												mandatory
+													ARCH_HAS_NO_MMU_169_4 {abstract}
+											ARCH_HAS_MMU_169_3 {abstract}
+								mandatory
+									OR169_2_0 {abstract}
+										or
+											NOT_ARCH_HAS_MMU_169_3 {abstract}
+											OR169_3 {abstract}
+												or
+													OR169_4 {abstract}
+														or
+															OR169_5 {abstract}
+																or
+																	OR169_6 {abstract}
+																		or
+																			OR169_7 {abstract}
+																				or
+																					OR169_8 {abstract}
+																						or
+																							OR169_9_0 {abstract}
+																								or
+																									OR169_10 {abstract}
+																										or
+																											OR169_11 {abstract}
+																												or
+																													OR169_12 {abstract}
+																														or
+																															OR169_13_0 {abstract}
+																																or
+																																	OR169_14_0 {abstract}
+																																		or
+																																			OR169_15 {abstract}
+																																				or
+																																					OR169_16 {abstract}
+																																						or
+																																							OR169_17 {abstract}
+																																								or
+																																									OR169_18 {abstract}
+																																										or
+																																											OR169_19_0 {abstract}
+																																												or
+																																													OR169_20 {abstract}
+																																														or
+																																															OR169_21 {abstract}
+																																																or
+																																																	OR169_22_0 {abstract}
+																																																		or
+																																																			OR169_23 {abstract}
+																																																				or
+																																																					OR169_24 {abstract}
+																																																						or
+																																																							OR169_25 {abstract}
+																																																								or
+																																																									OR169_26 {abstract}
+																																																										or
+																																																											OR169_27_0 {abstract}
+																																																												or
+																																																													CONFIG_ARM922T_169_28 {abstract}
+																																																													CONFIG_ARM1176JZ_S_169_28 {abstract}
+																																																											AND169_27_0 {abstract}
+																																																												mandatory
+																																																													FORCE_OPTIONS_FOR_ARCH_169_28 {abstract}
+																																																												mandatory
+																																																													TARGET_powerpc_169_28 {abstract}
+																																																									CONFIG_ARM920T_169_26 {abstract}
+																																																							CONFIG_ARM720T_169_25 {abstract}
+																																																					CONFIG_CRISV32_169_24 {abstract}
+																																																			CONFIG_ARM610_169_23 {abstract}
+																																																	AND169_22_0 {abstract}
+																																																		mandatory
+																																																			FORCE_OPTIONS_FOR_ARCH_169_23 {abstract}
+																																																		mandatory
+																																																			TARGET_hppa_169_23 {abstract}
+																																															CONFIG_ARM_SA110_169_21 {abstract}
+																																													CONFIG_AVR32_AP7_169_20 {abstract}
+																																											AND169_19_0 {abstract}
+																																												mandatory
+																																													FORCE_OPTIONS_FOR_ARCH_169_20 {abstract}
+																																												mandatory
+																																													TARGET_x86_64_169_20 {abstract}
+																																									CONFIG_ARM_XSCALE_169_18 {abstract}
+																																							CONFIG_ARM10T_169_17 {abstract}
+																																					CONFIG_ARM_SA1100_169_16 {abstract}
+																																			CONFIG_CRIS_169_15 {abstract}
+																																	AND169_14_0 {abstract}
+																																		mandatory
+																																			FORCE_OPTIONS_FOR_ARCH_169_15 {abstract}
+																																		mandatory
+																																			TARGET_alpha_169_15 {abstract}
+																															AND169_13_0 {abstract}
+																																mandatory
+																																	FORCE_OPTIONS_FOR_ARCH_169_14 {abstract}
+																																mandatory
+																																	TARGET_i386_169_14 {abstract}
+																													CONFIG_SH5_169_12 {abstract}
+																											CONFIG_ARM710_169_11 {abstract}
+																									CONFIG_ARM926T_169_10 {abstract}
+																							AND169_9_0 {abstract}
+																								mandatory
+																									FORCE_OPTIONS_FOR_ARCH_169_10 {abstract}
+																								mandatory
+																									TARGET_ia64_169_10 {abstract}
+																					CONFIG_ARM1136JF_S_169_8 {abstract}
+																			CONFIG_ARM1176JZF_S_169_7 {abstract}
+																	CONFIG_SH3_169_6 {abstract}
+															CONFIG_ARM_IWMMXT_169_5 {abstract}
+													NOT_ARCH_HAS_NO_MMU_169_4 {abstract}
+				mandatory
+					OR169_0 {abstract}
+						or
+							UCLIBC_HAS_FLOATS_170_1 {abstract}
+							AND171_1 {abstract}
+								mandatory
+									OR171_2 {abstract}
+										or
+											AND171_3 {abstract}
+												mandatory
+													OR171_4 {abstract}
+														or
+															NOT_FORCE_OPTIONS_FOR_ARCH_171_5 {abstract}
+															NOT_TARGET_frv_171_5 {abstract}
+												mandatory
+													NOT_UCLIBC_HAS_FLOATS_171_4 {abstract}
+											UCLIBC_HAS_FPU_171_3 {abstract}
+								mandatory
+									OR171_2_0 {abstract}
+										or
+											NOT_UCLIBC_HAS_FPU_171_3 {abstract}
+											OR171_3 {abstract}
+												or
+													AND171_4 {abstract}
+														mandatory
+															FORCE_OPTIONS_FOR_ARCH_171_5 {abstract}
+														mandatory
+															TARGET_frv_171_5 {abstract}
+													UCLIBC_HAS_FLOATS_171_4 {abstract}
+				mandatory
+					OR171_0 {abstract}
+						or
+							UCLIBC_HAS_FLOATS_172_1 {abstract}
+							UCLIBC_HAS_FPU_173_1 {abstract}
+							UCLIBC_HAS_SOFT_FLOAT_174_1 {abstract}
+				mandatory
+					OR174_0 {abstract}
+						or
+							AND175_1 {abstract}
+								mandatory
+									DO_C99_MATH_175_2 {abstract}
+								mandatory
+									OR175_2 {abstract}
+										or
+											TARGET_i386_175_3 {abstract}
+											OR175_3 {abstract}
+												or
+													TARGET_m68k_175_4 {abstract}
+													OR175_4 {abstract}
+														or
+															TARGET_sparc_175_5 {abstract}
+															OR175_5 {abstract}
+																or
+																	TARGET_x86_64_175_6 {abstract}
+																	OR175_6 {abstract}
+																		or
+																			TARGET_powerpc_175_7 {abstract}
+																			TARGET_sh_175_7 {abstract}
+							AND176_1 {abstract}
+								mandatory
+									OR176_2 {abstract}
+										or
+											OR176_3 {abstract}
+												or
+													NOT_DO_C99_MATH_176_4 {abstract}
+													AND176_4 {abstract}
+														mandatory
+															NOT_TARGET_i386_176_5 {abstract}
+														mandatory
+															AND176_5 {abstract}
+																mandatory
+																	NOT_TARGET_m68k_176_6 {abstract}
+																mandatory
+																	AND176_6 {abstract}
+																		mandatory
+																			NOT_TARGET_sparc_176_7 {abstract}
+																		mandatory
+																			AND176_7 {abstract}
+																				mandatory
+																					NOT_TARGET_x86_64_176_8 {abstract}
+																				mandatory
+																					AND176_8 {abstract}
+																						mandatory
+																							NOT_TARGET_powerpc_176_9 {abstract}
+																						mandatory
+																							NOT_TARGET_sh_176_9 {abstract}
+											UCLIBC_HAS_LONG_DOUBLE_MATH_176_3 {abstract}
+								mandatory
+									OR176_2_0 {abstract}
+										or
+											NOT_UCLIBC_HAS_LONG_DOUBLE_MATH_176_3 {abstract}
+											AND176_3 {abstract}
+												mandatory
+													DO_C99_MATH_176_4 {abstract}
+												mandatory
+													OR176_4 {abstract}
+														or
+															TARGET_i386_176_5 {abstract}
+															OR176_5 {abstract}
+																or
+																	TARGET_m68k_176_6 {abstract}
+																	OR176_6 {abstract}
+																		or
+																			TARGET_sparc_176_7 {abstract}
+																			OR176_7 {abstract}
+																				or
+																					TARGET_x86_64_176_8 {abstract}
+																					OR176_8 {abstract}
+																						or
+																							TARGET_powerpc_176_9 {abstract}
+																							TARGET_sh_176_9 {abstract}
+				mandatory
+					OR176_0 {abstract}
+						or
+							ARCH_USE_MMU_177_1 {abstract}
+							UCLIBC_UCLINUX_BROKEN_MUNMAP_178_1 {abstract}
+				mandatory
+					OR178_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_179_1 {abstract}
+							TARGET_v850_180_1 {abstract}
+							HAVE_NO_PIC_181_1 {abstract}
+				mandatory
+					OR181_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_182_1 {abstract}
+							TARGET_nios_183_1 {abstract}
+							HAVE_NO_PIC_184_1 {abstract}
+				mandatory
+					OR184_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_185_1 {abstract}
+							TARGET_nios2_186_1 {abstract}
+							HAVE_NO_PIC_187_1 {abstract}
+				mandatory
+					OR187_0 {abstract}
+						or
+							HAVE_NO_PIC_188_1 {abstract}
+							FORCE_OPTIONS_FOR_ARCH_189_1 {abstract}
+							CONFIG_SH2A_190_1 {abstract}
+				mandatory
+					OR190_0 {abstract}
+						or
+							HAVE_NO_PIC_191_1 {abstract}
+							TARGET_v850_192_1 {abstract}
+							TARGET_nios_193_1 {abstract}
+							TARGET_nios2_194_1 {abstract}
+							CONFIG_SH2A_195_1 {abstract}
+				mandatory
+					OR195_0 {abstract}
+						or
+							NOT_HAVE_NO_PIC_196_1 {abstract}
+							AND197_1 {abstract}
+								mandatory
+									OR197_2 {abstract}
+										or
+											AND197_3 {abstract}
+												mandatory
+													AND197_4 {abstract}
+														mandatory
+															OR197_5 {abstract}
+																or
+																	NOT_FORCE_SHAREABLE_TEXT_SEGMENTS_197_6 {abstract}
+																	NOT_HAVE_SHARED_197_6 {abstract}
+														mandatory
+															OR197_5_0 {abstract}
+																or
+																	NOT_UCLIBC_FORMAT_FDPIC_ELF_197_6 {abstract}
+																	ARCH_USE_MMU_197_6 {abstract}
+												mandatory
+													HAVE_NO_PIC_197_4 {abstract}
+											DOPIC_197_3 {abstract}
+								mandatory
+									OR197_2_0 {abstract}
+										or
+											NOT_DOPIC_197_3 {abstract}
+											OR197_3 {abstract}
+												or
+													OR197_4 {abstract}
+														or
+															AND197_5 {abstract}
+																mandatory
+																	FORCE_SHAREABLE_TEXT_SEGMENTS_197_6 {abstract}
+																mandatory
+																	HAVE_SHARED_197_6 {abstract}
+															AND197_5_0 {abstract}
+																mandatory
+																	UCLIBC_FORMAT_FDPIC_ELF_197_6 {abstract}
+																mandatory
+																	AND197_6 {abstract}
+																		mandatory
+																			NOT_ARCH_USE_MMU_197_7 {abstract}
+													NOT_HAVE_NO_PIC_197_4 {abstract}
+				mandatory
+					OR197_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_198_1 {abstract}
+							TARGET_e1_199_1 {abstract}
+							ARCH_HAS_NO_SHARED_200_1 {abstract}
+				mandatory
+					OR200_0 {abstract}
+						or
+							ARCH_HAS_NO_SHARED_201_1 {abstract}
+							ARCH_HAS_NO_LDSO_202_1 {abstract}
+							FORCE_OPTIONS_FOR_ARCH_203_1 {abstract}
+							CONFIG_SPARC_V7_204_1 {abstract}
+				mandatory
+					OR204_0 {abstract}
+						or
+							ARCH_HAS_NO_SHARED_205_1 {abstract}
+							ARCH_HAS_NO_LDSO_206_1 {abstract}
+							TARGET_e1_207_1 {abstract}
+							CONFIG_SPARC_V7_208_1 {abstract}
+				mandatory
+					AND208_0 {abstract}
+						mandatory
+							OR209_1 {abstract}
+								or
+									AND209_2 {abstract}
+										mandatory
+											AND209_3 {abstract}
+												mandatory
+													AND209_4 {abstract}
+														mandatory
+															AND209_5 {abstract}
+																mandatory
+																	AND209_6 {abstract}
+																		mandatory
+																			AND209_7 {abstract}
+																				mandatory
+																					AND209_8 {abstract}
+																						mandatory
+																							AND209_9 {abstract}
+																								mandatory
+																									OR209_10 {abstract}
+																										or
+																											NOT_UCLIBC_FORMAT_FLAT_SEP_DATA_209_11 {abstract}
+																											ARCH_USE_MMU_209_11 {abstract}
+																								mandatory
+																									OR209_10_0 {abstract}
+																										or
+																											NOT_FORCE_OPTIONS_FOR_ARCH_209_11 {abstract}
+																											NOT_TARGET_vax_209_11 {abstract}
+																						mandatory
+																							OR209_9 {abstract}
+																								or
+																									NOT_FORCE_OPTIONS_FOR_ARCH_209_10 {abstract}
+																									NOT_TARGET_nios2_209_10 {abstract}
+																				mandatory
+																					OR209_8 {abstract}
+																						or
+																							NOT_UCLIBC_FORMAT_SHARED_FLAT_209_9 {abstract}
+																							ARCH_USE_MMU_209_9 {abstract}
+																		mandatory
+																			OR209_7 {abstract}
+																				or
+																					NOT_FORCE_OPTIONS_FOR_ARCH_209_8 {abstract}
+																					NOT_TARGET_hppa_209_8 {abstract}
+																mandatory
+																	OR209_6 {abstract}
+																		or
+																			NOT_UCLIBC_FORMAT_FLAT_209_7 {abstract}
+																			ARCH_USE_MMU_209_7 {abstract}
+														mandatory
+															OR209_5 {abstract}
+																or
+																	NOT_FORCE_OPTIONS_FOR_ARCH_209_6 {abstract}
+																	NOT_TARGET_alpha_209_6 {abstract}
+												mandatory
+													OR209_4 {abstract}
+														or
+															NOT_FORCE_OPTIONS_FOR_ARCH_209_5 {abstract}
+															NOT_TARGET_nios_209_5 {abstract}
+										mandatory
+											OR209_3 {abstract}
+												or
+													NOT_FORCE_OPTIONS_FOR_ARCH_209_4 {abstract}
+													NOT_TARGET_ia64_209_4 {abstract}
+									ARCH_HAS_NO_LDSO_209_2 {abstract}
+				mandatory
+					AND209_0 {abstract}
+						mandatory
+							OR210_1 {abstract}
+								or
+									AND210_2 {abstract}
+										mandatory
+											AND210_3 {abstract}
+												mandatory
+													AND210_4 {abstract}
+														mandatory
+															AND210_5 {abstract}
+																mandatory
+																	AND210_6 {abstract}
+																		mandatory
+																			AND210_7 {abstract}
+																				mandatory
+																					AND210_8 {abstract}
+																						mandatory
+																							AND210_9 {abstract}
+																								mandatory
+																									OR210_10 {abstract}
+																										or
+																											NOT_UCLIBC_FORMAT_FLAT_SEP_DATA_210_11 {abstract}
+																											ARCH_USE_MMU_210_11 {abstract}
+																								mandatory
+																									OR210_10_0 {abstract}
+																										or
+																											NOT_FORCE_OPTIONS_FOR_ARCH_210_11 {abstract}
+																											NOT_TARGET_vax_210_11 {abstract}
+																						mandatory
+																							OR210_9 {abstract}
+																								or
+																									NOT_FORCE_OPTIONS_FOR_ARCH_210_10 {abstract}
+																									NOT_TARGET_nios2_210_10 {abstract}
+																				mandatory
+																					OR210_8 {abstract}
+																						or
+																							NOT_UCLIBC_FORMAT_SHARED_FLAT_210_9 {abstract}
+																							ARCH_USE_MMU_210_9 {abstract}
+																		mandatory
+																			OR210_7 {abstract}
+																				or
+																					NOT_FORCE_OPTIONS_FOR_ARCH_210_8 {abstract}
+																					NOT_TARGET_hppa_210_8 {abstract}
+																mandatory
+																	OR210_6 {abstract}
+																		or
+																			NOT_UCLIBC_FORMAT_FLAT_210_7 {abstract}
+																			ARCH_USE_MMU_210_7 {abstract}
+														mandatory
+															OR210_5 {abstract}
+																or
+																	NOT_FORCE_OPTIONS_FOR_ARCH_210_6 {abstract}
+																	NOT_TARGET_alpha_210_6 {abstract}
+												mandatory
+													OR210_4 {abstract}
+														or
+															NOT_FORCE_OPTIONS_FOR_ARCH_210_5 {abstract}
+															NOT_TARGET_nios_210_5 {abstract}
+										mandatory
+											OR210_3 {abstract}
+												or
+													NOT_FORCE_OPTIONS_FOR_ARCH_210_4 {abstract}
+													NOT_TARGET_ia64_210_4 {abstract}
+									ARCH_HAS_NO_LDSO_210_2 {abstract}
+						mandatory
+							OR211_1 {abstract}
+								or
+									NOT_ARCH_HAS_NO_LDSO_211_2 {abstract}
+									OR211_2 {abstract}
+										or
+											OR211_3 {abstract}
+												or
+													OR211_4 {abstract}
+														or
+															OR211_5 {abstract}
+																or
+																	OR211_6 {abstract}
+																		or
+																			OR211_7 {abstract}
+																				or
+																					OR211_8 {abstract}
+																						or
+																							OR211_9 {abstract}
+																								or
+																									AND211_10 {abstract}
+																										mandatory
+																											UCLIBC_FORMAT_FLAT_SEP_DATA_211_11 {abstract}
+																										mandatory
+																											AND211_11 {abstract}
+																												mandatory
+																													NOT_ARCH_USE_MMU_211_12 {abstract}
+																									AND211_10_0 {abstract}
+																										mandatory
+																											FORCE_OPTIONS_FOR_ARCH_211_11 {abstract}
+																										mandatory
+																											TARGET_vax_211_11 {abstract}
+																							AND211_9 {abstract}
+																								mandatory
+																									FORCE_OPTIONS_FOR_ARCH_211_10 {abstract}
+																								mandatory
+																									TARGET_nios2_211_10 {abstract}
+																					AND211_8 {abstract}
+																						mandatory
+																							UCLIBC_FORMAT_SHARED_FLAT_211_9 {abstract}
+																						mandatory
+																							AND211_9_0 {abstract}
+																								mandatory
+																									NOT_ARCH_USE_MMU_211_10 {abstract}
+																			AND211_7 {abstract}
+																				mandatory
+																					FORCE_OPTIONS_FOR_ARCH_211_8 {abstract}
+																				mandatory
+																					TARGET_hppa_211_8 {abstract}
+																	AND211_6 {abstract}
+																		mandatory
+																			UCLIBC_FORMAT_FLAT_211_7 {abstract}
+																		mandatory
+																			AND211_7_0 {abstract}
+																				mandatory
+																					NOT_ARCH_USE_MMU_211_8 {abstract}
+															AND211_5 {abstract}
+																mandatory
+																	FORCE_OPTIONS_FOR_ARCH_211_6 {abstract}
+																mandatory
+																	TARGET_alpha_211_6 {abstract}
+													AND211_4 {abstract}
+														mandatory
+															FORCE_OPTIONS_FOR_ARCH_211_5 {abstract}
+														mandatory
+															TARGET_nios_211_5 {abstract}
+											AND211_3 {abstract}
+												mandatory
+													FORCE_OPTIONS_FOR_ARCH_211_4 {abstract}
+												mandatory
+													TARGET_ia64_211_4 {abstract}
+				mandatory
+					OR211_0 {abstract}
+						or
+							ARCH_HAS_NO_SHARED_212_1 {abstract}
+							ARCH_HAS_NO_SHARED_213_1 {abstract}
+							HAVE_SHARED_214_1 {abstract}
+				mandatory
+					OR214_0 {abstract}
+						or
+							HAVE_SHARED_215_1 {abstract}
+							AND216_1 {abstract}
+								mandatory
+									OR216_2 {abstract}
+										or
+											AND216_3 {abstract}
+												mandatory
+													AND216_4 {abstract}
+														mandatory
+															OR216_5 {abstract}
+																or
+																	NOT_FORCE_OPTIONS_FOR_ARCH_216_6 {abstract}
+																	NOT_TARGET_avr32_216_6 {abstract}
+														mandatory
+															OR216_5_0 {abstract}
+																or
+																	NOT_UCLIBC_BUILD_PIE_216_6 {abstract}
+																	OR216_6 {abstract}
+																		or
+																			NOT_HAVE_SHARED_216_7 {abstract}
+																			AND216_7 {abstract}
+																				mandatory
+																					NOT_TARGET_arm_216_8 {abstract}
+																				mandatory
+																					AND216_8 {abstract}
+																						mandatory
+																							NOT_TARGET_frv_216_9 {abstract}
+																						mandatory
+																							AND216_9 {abstract}
+																								mandatory
+																									NOT_TARGET_i386_216_10 {abstract}
+																								mandatory
+																									AND216_10 {abstract}
+																										mandatory
+																											NOT_TARGET_mips_216_11 {abstract}
+																										mandatory
+																											NOT_TARGET_powerpc_216_11 {abstract}
+												mandatory
+													NOT_CONFIG_SH4_216_4 {abstract}
+											FORCE_SHAREABLE_TEXT_SEGMENTS_216_3 {abstract}
+								mandatory
+									OR216_2_0 {abstract}
+										or
+											NOT_FORCE_SHAREABLE_TEXT_SEGMENTS_216_3 {abstract}
+											OR216_3 {abstract}
+												or
+													OR216_4 {abstract}
+														or
+															AND216_5 {abstract}
+																mandatory
+																	FORCE_OPTIONS_FOR_ARCH_216_6 {abstract}
+																mandatory
+																	TARGET_avr32_216_6 {abstract}
+															AND216_5_0 {abstract}
+																mandatory
+																	UCLIBC_BUILD_PIE_216_6 {abstract}
+																mandatory
+																	AND216_6 {abstract}
+																		mandatory
+																			HAVE_SHARED_216_7 {abstract}
+																		mandatory
+																			OR216_7 {abstract}
+																				or
+																					TARGET_arm_216_8 {abstract}
+																					OR216_8 {abstract}
+																						or
+																							TARGET_frv_216_9 {abstract}
+																							OR216_9 {abstract}
+																								or
+																									TARGET_i386_216_10 {abstract}
+																									OR216_10 {abstract}
+																										or
+																											TARGET_mips_216_11 {abstract}
+																											TARGET_powerpc_216_11 {abstract}
+													CONFIG_SH4_216_4 {abstract}
+				mandatory
+					OR216_0 {abstract}
+						or
+							HAS_NO_THREADS_217_1 {abstract}
+							UCLIBC_HAS_THREADS_218_1 {abstract}
+				mandatory
+					OR218_0 {abstract}
+						or
+							UCLIBC_HAS_THREADS_NATIVE_219_1 {abstract}
+							UCLIBC_HAS_THREADS_NATIVE_220_1 {abstract}
+							UCLIBC_HAS_TLS_221_1 {abstract}
+				mandatory
+					OR221_0 {abstract}
+						or
+							UCLIBC_HAS_NETWORK_SUPPORT_222_1 {abstract}
+							UCLIBC_HAS_NETWORK_SUPPORT_223_1 {abstract}
+							UCLIBC_HAS_SYSLOG_224_1 {abstract}
+				mandatory
+					OR224_0 {abstract}
+						or
+							UCLIBC_HAS_CRYPT_IMPL_225_1 {abstract}
+							UCLIBC_HAS_CRYPT_IMPL_226_1 {abstract}
+							UCLIBC_HAS_CRYPT_STUB_227_1 {abstract}
+				mandatory
+					OR227_0 {abstract}
+						or
+							UCLIBC_HAS_CRYPT_228_1 {abstract}
+							UCLIBC_HAS_CRYPT_IMPL_229_1 {abstract}
+							UCLIBC_HAS_CRYPT_STUB_230_1 {abstract}
+				mandatory
+					OR230_0 {abstract}
+						or
+							UCLIBC_BUILD_MINIMAL_LOCALE_231_1 {abstract}
+							UCLIBC_BUILD_MINIMAL_LOCALE_232_1 {abstract}
+							UCLIBC_BUILD_MINIMAL_LOCALES_233_1 {abstract}
+				mandatory
+					OR233_0 {abstract}
+						or
+							USE_OLD_VFPRINTF_234_1 {abstract}
+							USE_OLD_VFPRINTF_235_1 {abstract}
+							UCLIBC_PRINTF_SCANF_POSITIONAL_ARGS_236_1 {abstract}
+				mandatory
+					OR236_0 {abstract}
+						or
+							UCLIBC_HAS_STDIO_BUFSIZ_NONE_237_1 {abstract}
+							UCLIBC_HAS_STDIO_BUFSIZ_NONE_238_1 {abstract}
+							UCLIBC_HAS_STDIO_GETC_MACRO_239_1 {abstract}
+				mandatory
+					OR239_0 {abstract}
+						or
+							UCLIBC_HAS_STDIO_BUFSIZ_NONE_240_1 {abstract}
+							UCLIBC_HAS_STDIO_BUFSIZ_NONE_241_1 {abstract}
+							UCLIBC_HAS_STDIO_PUTC_MACRO_242_1 {abstract}
+				mandatory
+					OR242_0 {abstract}
+						or
+							UCLIBC_HAS_THREADS_NATIVE_243_1 {abstract}
+							UCLIBC_HAS_THREADS_NATIVE_244_1 {abstract}
+							UCLIBC_HAS_STDIO_FUTEXES_245_1 {abstract}
+				mandatory
+					OR245_0 {abstract}
+						or
+							UCLIBC_HAS_GNU_GETOPT_246_1 {abstract}
+							UCLIBC_HAS_GNU_GETOPT_247_1 {abstract}
+							UCLIBC_HAS_GETOPT_LONG_248_1 {abstract}
+				mandatory
+					OR248_0 {abstract}
+						or
+							UCLIBC_HAS_FNMATCH_249_1 {abstract}
+							UCLIBC_HAS_FNMATCH_250_1 {abstract}
+							UCLIBC_HAS_GLOB_251_1 {abstract}
+				mandatory
+					OR251_0 {abstract}
+						or
+							TARGET_arm_252_1 {abstract}
+							TARGET_frv_253_1 {abstract}
+							TARGET_i386_254_1 {abstract}
+							TARGET_mips_255_1 {abstract}
+							TARGET_powerpc_256_1 {abstract}
+							UCLIBC_BUILD_PIE_257_1 {abstract}
+				mandatory
+					OR257_0 {abstract}
+						or
+							FORCE_OPTIONS_FOR_ARCH_258_1 {abstract}
+							TARGET_hppa_259_1 {abstract}
+							HAVE_NO_SSP_260_1 {abstract}
+				mandatory
+					OR260_0 {abstract}
+						or
+							HAVE_SHARED_261_1 {abstract}
+							HAVE_SHARED_262_1 {abstract}
+							UCLIBC_BUILD_RELRO_263_1 {abstract}
+				mandatory
+					OR263_0 {abstract}
+						or
+							DODEBUG_264_1 {abstract}
+							DODEBUG_265_1 {abstract}
+							DOSTRIP_266_1 {abstract}
+				mandatory
+					OR266_0 {abstract}
+						or
+							MALLOC_267_1 {abstract}
+							MALLOC_STANDARD_268_1 {abstract}
+							UCLIBC_MALLOC_DEBUGGING_269_1 {abstract}
+		optional
+			DOMULTI 
+		optional
+			ARCH_LITTLE_ENDIAN 
+		optional
+			COMPAT_ATEXIT 
+		optional
+			UCLIBC_HAS_OBSOLETE_SYSV_SIGNAL 
+		optional
+			UCLIBC_HAS_LONG_DOUBLE_MATH 
+		optional
+			UCLIBC_SV4_DEPRECATED 
+		optional
+			UCLIBC_HAS_STRING_ARCH_OPT 
+		optional
+			ARCH_BIG_ENDIAN 
+		optional
+			UCLIBC_HAS_NETWORK_SUPPORT 
+				optional
+					UCLIBC_HAS_LIBNSL_STUB 
+				optional
+					UCLIBC_HAS_EXTRA_COMPAT_RES_STATE 
+				optional
+					UCLIBC_HAS_IPV4 
+				optional
+					UCLIBC_HAS_LIBRESOLV_STUB 
+				optional
+					UCLIBC_HAS_COMPAT_RES_STATE 
+				optional
+					UCLIBC_HAS_BSD_RES_CLOSE 
+				optional
+					UCLIBC_USE_NETLINK 
+						optional
+							UCLIBC_SUPPORT_AI_ADDRCONFIG 
+				optional
+					UCLIBC_HAS_SOCKET 
+				optional
+					UCLIBC_HAS_IPV6 
+						optional
+							UCLIBC_HAS_RPC 
+								optional
+									UCLIBC_HAS_REENTRANT_RPC 
+								optional
+									UCLIBC_HAS_FULL_RPC 
+		optional
+			UCLIBC_HAS_GNU_GETSUBOPT 
+		optional
+			UCLIBC_HAS_GETOPT_LONG 
+		optional
+			UCLIBC_HAS_REALTIME 
+				optional
+					UCLIBC_HAS_ADVANCED_REALTIME 
+		optional
+			UCLIBC_HAS_SCANF_GLIBC_A_FLAG 
+		optional
+			UCLIBC_HAS_GNU_GETOPT 
+		optional
+			PTHREADS_DEBUG_SUPPORT 
+		optional
+			UCLIBC_HAS_PROGRAM_INVOCATION_NAME 
+				optional
+					UCLIBC_HAS___PROGNAME 
+		optional
+			ARCH_ANY_ENDIAN 
+		optional
+			ARCH_HAS_NO_SHARED 
+		optional
+			UCLIBC_HAS_PTY 
+				optional
+					UNIX98PTY_ONLY 
+				optional
+					ASSUME_DEVPTS 
+		optional
+			UCLIBC_HAS_TLS 
+		optional
+			UCLIBC_HAS_STDIO_GETC_MACRO 
+		optional
+			SUPPORT_LD_DEBUG 
+		optional
+			UCLIBC_HAS_GLIBC_DIGIT_GROUPING 
+				optional
+					UCLIBC_HAS_SCANF_LENIENT_DIGIT_GROUPING 
+		optional
+			UCLIBC_SUSV3_LEGACY 
+		optional
+			UCLIBC_HAS_PROFILING 
+		optional
+			HAVE_SHARED 
+				optional
+					LDSO_LDD_SUPPORT 
+				optional
+					UCLIBC_STATIC_LDCONFIG 
+				optional
+					LDSO_PRELOAD_ENV_SUPPORT 
+				optional
+					LDSO_PRELOAD_FILE_SUPPORT 
+						mandatory
+							LDSO_BASE_FILENAME 
+				optional
+					FORCE_SHAREABLE_TEXT_SEGMENTS 
+				optional
+					LDSO_CACHE_SUPPORT 
+				optional
+					LDSO_RUNPATH 
+				optional
+					LDSO_SEARCH_INTERP_PATH 
+		optional
+			UCLIBC_NTP_LEGACY 
+		optional
+			UCLIBC_HAS_STDIO_PUTC_MACRO 
+		optional
+			UCLIBC_HAS_STDIO_AUTO_RW_TRANSITION 
+		optional
+			UCLIBC_MALLOC_DEBUGGING 
+		optional
+			UCLIBC_HAS_PRINTF_M_SPEC 
+		optional
+			UCLIBC_HAS_FOPEN_EXCLUSIVE_MODE 
+		optional
+			UCLIBC_HAS_HEXADECIMAL_FLOATS 
+		optional
+			UCLIBC_HAS_LIBUTIL 
+		optional
+			LINKRELAX 
+		optional
+			HAVE_DOT_CONFIG 
+		optional
+			UCLIBC_DOWNLOAD_PREGENERATED_LOCALE_DATA 
+		optional
+			UCLIBC_HAS_SYSLOG 
+		optional
+			UCLIBC_HAS_REGEX 
+				optional
+					UCLIBC_HAS_REGEX_OLD 
+		optional
+			USE_BX 
+		optional
+			DOASSERTS 
+		optional
+			UCLIBC_HAS_LOCALE 
+				mandatory
+					UCLIBC_BUILD_ALL_LOCALE_alt {abstract}
+						alternative
+							UCLIBC_BUILD_ALL_LOCALE 
+							UCLIBC_BUILD_MINIMAL_LOCALE 
+							UCLIBC_PREGENERATED_LOCALE_DATA 
+		optional
+			UCLIBC_HAS_GLIBC_CUSTOM_STREAMS 
+		optional
+			MALLOC_GLIBC_COMPAT 
+		optional
+			ARCH_HAS_NO_LDSO 
+		optional
+			DODEBUG 
+		optional
+			UCLIBC_HAS_TM_EXTENSIONS 
+		optional
+			UCLIBC_BUILD_RELRO 
+		optional
+			UCLIBC_HAS_GLOB 
+				optional
+					UCLIBC_HAS_GNU_GLOB 
+		optional
+			UCLIBC_HAS_WORDEXP 
+		optional
+			UCLIBC_BUILD_NOW 
+		optional
+			UCLIBC_HAS_STRING_GENERIC_OPT 
+		optional
+			LDSO_GNU_HASH_SUPPORT 
+		optional
+			UCLIBC_HAS_FTW 
+		optional
+			UCLIBC_BUILD_PIE 
+		optional
+			UCLIBC_SUSV4_LEGACY 
+		optional
+			UCLIBC_HAS_FNMATCH 
+				optional
+					UCLIBC_HAS_FNMATCH_OLD 
+		optional
+			ARCH_HAS_BWD_MEMCPY 
+		optional
+			UCLIBC_HAS_OBSOLETE_BSD_SIGNAL 
+		optional
+			UCLIBC_LINUX_SPECIFIC 
+		optional
+			UCLIBC_HAS_GETTEXT_AWARENESS 
+		optional
+			USE_OLD_VFPRINTF 
+		optional
+			UCLIBC_UCLINUX_BROKEN_MUNMAP 
+		optional
+			UCLIBC_HAS_BSD_ERR 
+		optional
+			UCLIBC_CTOR_DTOR 
+		optional
+			UCLIBC_HAS_STDIO_FUTEXES 
+		optional
+			UCLIBC_BSD_SPECIFIC 
+		optional
+			UCLIBC_HAS_ARC4RANDOM 
+		optional
+			UCLIBC_HAS_FOPEN_LARGEFILE_MODE 
+		optional
+			UCLIBC_HAS_CRYPT_IMPL 
+				optional
+					UCLIBC_HAS_CRYPT 
+				optional
+					UCLIBC_HAS_CRYPT_STUB 
+		optional
+			UCLIBC_LINUX_MODULE_24 
+		optional
+			UCLIBC_HAS_TZ_FILE 
+				mandatory
+					UCLIBC_TZ_FILE_PATH 
+				optional
+					UCLIBC_HAS_TZ_FILE_READ_MANY 
+				optional
+					UCLIBC_FALLBACK_TO_ETC_LOCALTIME 
+		optional
+			HAVE_NO_SSP 
+		optional
+			UCLIBC_HAS_FLOATS 
+				optional
+					UCLIBC_HAS_FPU 
+						optional
+							UCLIBC_HAS_SOFT_FLOAT 
+				optional
+					DO_C99_MATH 
+				optional
+					UCLIBC_HAS_FENV 
+				optional
+					DO_XSI_MATH 
+		optional
+			UCLIBC_HAS_XATTR 
+		optional
+			UCLIBC_HAS_SSP 
+				mandatory
+					PROPOLICE_BLOCK_SEGV_alt {abstract}
+						alternative
+							PROPOLICE_BLOCK_ABRT 
+							PROPOLICE_BLOCK_SEGV 
+				optional
+					SSP_QUICK_CANARY 
+				optional
+					UCLIBC_HAS_SSP_COMPAT 
+				optional
+					UCLIBC_BUILD_SSP 
+		optional
+			UCLIBC_SUSV3_LEGACY_MACROS 
+		optional
+			EXTRA_WARNINGS 
+		optional
+			DODEBUG_PT 
+		optional
+			UCLIBC_HAS_WCHAR 
+		optional
+			UCLIBC_HAS_CTYPE_TABLES 
+				mandatory
+					UCLIBC_HAS_CTYPE_ENFORCED_alt {abstract}
+						alternative
+							UCLIBC_HAS_CTYPE_UNSAFE 
+							UCLIBC_HAS_CTYPE_CHECKED 
+							UCLIBC_HAS_CTYPE_ENFORCED 
+				optional
+					UCLIBC_HAS_CTYPE_SIGNED 
+		optional
+			HAVE_NO_PIC 
+		optional
+			UCLIBC_HAS_NFTW 
+		optional
+			UCLIBC_HAS_LFS 
+		optional
+			ARCH_HAS_NO_MMU 
+		optional
+			UCLIBC_HAS_STUBS 
+		optional
+			UCLIBC_HAS_BACKTRACE 
+		optional
+			DOSTRIP 
+		optional
+			FORCE_OPTIONS_FOR_ARCH 
+		optional
+			UCLIBC_HAS_SIGNUM_MESSAGES 
+				optional
+					UCLIBC_HAS_SYS_SIGLIST 
+		optional
+			UCLIBC_HAS_ERRNO_MESSAGES 
+				optional
+					UCLIBC_HAS_SYS_ERRLIST 
+		optional
+			UCLIBC_HAS_XLOCALE 
+		optional
+			UCLIBC_HAS_EPOLL 
+		optional
+			UCLIBC_BUILD_NOEXECSTACK 
+		optional
+			UCLIBC_HAS_GETPT 
+		optional
+			UCLIBC_HAS_STDIO_SHUTDOWN_ON_ABORT 
+		optional
+			UCLIBC_HAS_GNU_ERROR 
+		optional
+			SUPPORT_LD_DEBUG_EARLY 
+		optional
+			UCLIBC_HAS_SHADOW 
+		optional
+			UCLIBC_HAS_TZ_CACHING 
+		optional
+			ARCH_HAS_MMU 
+				optional
+					ARCH_USE_MMU 
+		optional
+			UCLIBC_HAS_GLIBC_CUSTOM_PRINTF 
+		optional
+			DOPIC 
+		optional
+			UCLIBC_HAS_THREADS 
+		optional
+			UCLIBC_MJN3_ONLY 
+		optional
+			UCLIBC_DYNAMIC_ATEXIT 
+		optional
+			UCLIBC_HAS_UTMPX 
+		optional
+			HARDWIRED_ABSPATH 
+		mandatory
+			OR_FEATURE {abstract, aux}
+				or
+					TARGET_avr321 {abstract, aux}
+					LINKRELAX1 {abstract, aux}
+		mandatory
+			OR_FEATURE1 {abstract, aux}
+				or
+					UCLIBC_FORMAT_SHARED_FLAT1 {abstract, aux}
+					UCLIBC_SHARED_FLAT_ID1 {abstract, aux}
+		mandatory
+			OR_FEATURE2 {abstract, aux}
+				or
+					ARCH_HAS_NO_SHARED1 {abstract, aux}
+					HAVE_SHARED1 {abstract, aux}
+		mandatory
+			OR_FEATURE3 {abstract, aux}
+				or
+					UCLIBC_HAS_THREADS_NATIVE1 {abstract, aux}
+					UCLIBC_HAS_TLS1 {abstract, aux}
+		mandatory
+			OR_FEATURE4 {abstract, aux}
+				or
+					UCLIBC_HAS_NETWORK_SUPPORT1 {abstract, aux}
+					UCLIBC_HAS_SYSLOG1 {abstract, aux}
+		mandatory
+			OR_FEATURE5 {abstract, aux}
+				or
+					UCLIBC_HAS_CRYPT_IMPL1 {abstract, aux}
+					UCLIBC_HAS_CRYPT_STUB1 {abstract, aux}
+		mandatory
+			OR_FEATURE6 {abstract, aux}
+				or
+					UCLIBC_BUILD_MINIMAL_LOCALE1 {abstract, aux}
+					UCLIBC_BUILD_MINIMAL_LOCALES1 {abstract, aux}
+		mandatory
+			OR_FEATURE7 {abstract, aux}
+				or
+					USE_OLD_VFPRINTF1 {abstract, aux}
+					UCLIBC_PRINTF_SCANF_POSITIONAL_ARGS1 {abstract, aux}
+		mandatory
+			OR_FEATURE8 {abstract, aux}
+				or
+					UCLIBC_HAS_STDIO_BUFSIZ_NONE1 {abstract, aux}
+					UCLIBC_HAS_STDIO_GETC_MACRO1 {abstract, aux}
+		mandatory
+			OR_FEATURE9 {abstract, aux}
+				or
+					UCLIBC_HAS_STDIO_BUFSIZ_NONE2 {abstract, aux}
+					UCLIBC_HAS_STDIO_PUTC_MACRO1 {abstract, aux}
+		mandatory
+			OR_FEATURE10 {abstract, aux}
+				or
+					UCLIBC_HAS_THREADS_NATIVE2 {abstract, aux}
+					UCLIBC_HAS_STDIO_FUTEXES1 {abstract, aux}
+		mandatory
+			OR_FEATURE11 {abstract, aux}
+				or
+					UCLIBC_HAS_GNU_GETOPT1 {abstract, aux}
+					UCLIBC_HAS_GETOPT_LONG1 {abstract, aux}
+		mandatory
+			OR_FEATURE12 {abstract, aux}
+				or
+					UCLIBC_HAS_FNMATCH1 {abstract, aux}
+					UCLIBC_HAS_GLOB1 {abstract, aux}
+		mandatory
+			OR_FEATURE13 {abstract, aux}
+				or
+					HAVE_SHARED2 {abstract, aux}
+					UCLIBC_BUILD_RELRO1 {abstract, aux}
+		mandatory
+			OR_FEATURE14 {abstract, aux}
+				or
+					DODEBUG1 {abstract, aux}
+					DOSTRIP1 {abstract, aux}
+constraints
+	!ARCH_USE_MMU | !UCLIBC_FORMAT_SHARED_FLAT
+	HAVE_SHARED | !LDSO_GNU_HASH_SUPPORT
+	UCLIBC_HAS_THREADS | !PTHREADS_DEBUG_SUPPORT
+	ARCH_USE_MMU | !MALLOC_STANDARD
+	UCLIBC_HAS_PTY | !UCLIBC_HAS_LIBUTIL
+	UCLIBC_HAS_NETWORK_SUPPORT | !UCLIBC_USE_NETLINK
+	UCLIBC_HAS_SOCKET | !UCLIBC_USE_NETLINK
+	UCLIBC_PREGENERATED_LOCALE_DATA | !UCLIBC_DOWNLOAD_PREGENERATED_LOCALE_DATA
+	UCLIBC_HAS_CTYPE_TABLES | !UCLIBC_HAS_HEXADECIMAL_FLOATS
+	UCLIBC_HAS_FLOATS | !UCLIBC_HAS_HEXADECIMAL_FLOATS
+	UCLIBC_HAS_LOCALE | !UCLIBC_HAS_GLIBC_DIGIT_GROUPING
+	UCLIBC_HAS_FLOATS | !UCLIBC_HAS_GLIBC_DIGIT_GROUPING
+	!UCLIBC_HAS_WCHAR | !UCLIBC_HAS_STDIO_BUFSIZ_NONE
+	UCLIBC_HAS_LFS | !UCLIBC_HAS_FOPEN_LARGEFILE_MODE
+	UCLIBC_HAS_LOCALE | !UCLIBC_HAS_GETTEXT_AWARENESS
+	UCLIBC_MJN3_ONLY | !UCLIBC_HAS_GETTEXT_AWARENESS
+	UCLIBC_HAS_GLOB | !UCLIBC_HAS_WORDEXP
+	UCLIBC_SUSV4_LEGACY | !UCLIBC_HAS_FTW
+	!HAVE_NO_SSP | !UCLIBC_HAS_SSP
+	HAVE_SHARED | !UCLIBC_BUILD_NOW
+	UCLIBC_HAS_THREADS | !DODEBUG_PT
+	LINUXTHREADS_OLD | !DODEBUG_PT
+	HAVE_SHARED | !SUPPORT_LD_DEBUG
+	HAVE_SHARED | !SUPPORT_LD_DEBUG_EARLY
+	HAVE_SHARED | !UCLIBC_HAS_BACKTRACE
+	TARGET_sh | !UCLIBC_HAS_BACKTRACE
+	!ARCH_HAS_BWD_MEMCPY | TARGET_sh
+	!ARCH_HAS_BWD_MEMCPY | CONFIG_SH4
+	!ARCH_ANY_ENDIAN | FORCE_OPTIONS_FOR_ARCH
+	!ARCH_WANTS_BIG_ENDIAN | ARCH_BIG_ENDIAN
+	!ARCH_WANTS_LITTLE_ENDIAN | ARCH_LITTLE_ENDIAN
+	!CONFIG_ARM7TDMI | ARCH_HAS_NO_MMU
+	!CONFIG_SH2 | ARCH_HAS_NO_MMU
+	!CONFIG_ARM_CORTEX_M1 | ARCH_HAS_NO_MMU
+	!CONFIG_SH2A | ARCH_HAS_NO_MMU
+	!CONFIG_ARM_CORTEX_M3 | ARCH_HAS_NO_MMU
+	!UCLIBC_HAS_SOFT_FLOAT | UCLIBC_HAS_FLOATS
+	!UCLIBC_HAS_SOFT_FLOAT | !UCLIBC_HAS_FPU
+	!UCLIBC_UCLINUX_BROKEN_MUNMAP | !ARCH_USE_MMU
+	!CONFIG_SH2A | HAVE_NO_PIC
+	!ARCH_HAS_NO_LDSO | ARCH_HAS_NO_SHARED
+	!CONFIG_SPARC_V7 | ARCH_HAS_NO_SHARED
+	!UCLIBC_HAS_THREADS | !HAS_NO_THREADS
+	!UCLIBC_HAS_CRYPT_IMPL | UCLIBC_HAS_CRYPT
+	!UCLIBC_HAS_CRYPT_STUB | UCLIBC_HAS_CRYPT
+	HAVE_SHARED | !UCLIBC_BUILD_PIE
+	!HAVE_NO_SSP | FORCE_OPTIONS_FOR_ARCH
+	!HAVE_NO_SSP | TARGET_hppa
+	TARGET_arm_1_2 => TARGET_arm
+	NOT_CONFIG_GENERIC_ARM_1_3 => !CONFIG_GENERIC_ARM
+	NOT_CONFIG_ARM610_1_4 => !CONFIG_ARM610
+	NOT_CONFIG_ARM710_1_4 => !CONFIG_ARM710
+	NOT_CONFIG_ARM_CORTEX_M1_2_5 => !CONFIG_ARM_CORTEX_M1
+	NOT_CONFIG_ARM_CORTEX_M3_2_5 => !CONFIG_ARM_CORTEX_M3
+	NOT_TARGET_arm_2_5 => !TARGET_arm
+	CONFIG_GENERIC_ARM_2_6 => CONFIG_GENERIC_ARM
+	CONFIG_ARM610_2_7 => CONFIG_ARM610
+	CONFIG_ARM710_2_7 => CONFIG_ARM710
+	USE_BX_2_3 => USE_BX
+	NOT_USE_BX_2_3 => !USE_BX
+	CONFIG_ARM_CORTEX_M1_2_5 => CONFIG_ARM_CORTEX_M1
+	CONFIG_ARM_CORTEX_M3_2_5 => CONFIG_ARM_CORTEX_M3
+	TARGET_arm_2_5 => TARGET_arm
+	NOT_CONFIG_GENERIC_ARM_2_6 => !CONFIG_GENERIC_ARM
+	NOT_CONFIG_ARM610_2_7 => !CONFIG_ARM610
+	NOT_CONFIG_ARM710_2_7 => !CONFIG_ARM710
+	TARGET_avr32_3_1 => TARGET_avr32
+	TARGET_avr32_4_1 => !TARGET_avr32
+	LINKRELAX_5_1 => LINKRELAX
+	TARGET_sh_6_1 => !TARGET_sh
+	CONFIG_SH4_7_1 => !CONFIG_SH4
+	ARCH_HAS_BWD_MEMCPY_8_1 => ARCH_HAS_BWD_MEMCPY
+	UCLIBC_FORMAT_SHARED_FLAT_9_1 => UCLIBC_FORMAT_SHARED_FLAT
+	UCLIBC_FORMAT_SHARED_FLAT_10_1 => !UCLIBC_FORMAT_SHARED_FLAT
+	UCLIBC_SHARED_FLAT_ID_11_1 => UCLIBC_SHARED_FLAT_ID
+	FORCE_OPTIONS_FOR_ARCH_12_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_mips_13_1 => !TARGET_mips
+	ARCH_ANY_ENDIAN_14_1 => ARCH_ANY_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_15_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_sh_16_1 => !TARGET_sh
+	ARCH_ANY_ENDIAN_17_1 => ARCH_ANY_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_18_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_sh64_19_1 => !TARGET_sh64
+	ARCH_ANY_ENDIAN_20_1 => ARCH_ANY_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_21_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_h8300_22_1 => !TARGET_h8300
+	ARCH_ANY_ENDIAN_23_1 => ARCH_ANY_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_24_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_arm_25_1 => !TARGET_arm
+	ARCH_ANY_ENDIAN_26_1 => ARCH_ANY_ENDIAN
+	ARCH_ANY_ENDIAN_27_1 => !ARCH_ANY_ENDIAN
+	TARGET_mips_28_1 => TARGET_mips
+	TARGET_sh_29_1 => TARGET_sh
+	TARGET_sh64_30_1 => TARGET_sh64
+	TARGET_h8300_31_1 => TARGET_h8300
+	TARGET_arm_32_1 => TARGET_arm
+	FORCE_OPTIONS_FOR_ARCH_33_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_e1_34_1 => !TARGET_e1
+	ARCH_BIG_ENDIAN_35_1 => ARCH_BIG_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_36_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_sparc_37_1 => !TARGET_sparc
+	ARCH_BIG_ENDIAN_38_1 => ARCH_BIG_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_39_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_powerpc_40_1 => !TARGET_powerpc
+	ARCH_BIG_ENDIAN_41_1 => ARCH_BIG_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_42_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_microblaze_43_1 => !TARGET_microblaze
+	ARCH_BIG_ENDIAN_44_1 => ARCH_BIG_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_45_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_frv_46_1 => !TARGET_frv
+	ARCH_BIG_ENDIAN_47_1 => ARCH_BIG_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_48_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_hppa_49_1 => !TARGET_hppa
+	ARCH_BIG_ENDIAN_50_1 => ARCH_BIG_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_51_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_m68k_52_1 => !TARGET_m68k
+	ARCH_BIG_ENDIAN_53_1 => ARCH_BIG_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_54_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_avr32_55_1 => !TARGET_avr32
+	ARCH_BIG_ENDIAN_56_1 => ARCH_BIG_ENDIAN
+	ARCH_BIG_ENDIAN_57_1 => !ARCH_BIG_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_58_1 => FORCE_OPTIONS_FOR_ARCH
+	ARCH_WANTS_BIG_ENDIAN_59_1 => ARCH_WANTS_BIG_ENDIAN
+	ARCH_BIG_ENDIAN_60_1 => !ARCH_BIG_ENDIAN
+	TARGET_e1_61_1 => TARGET_e1
+	TARGET_sparc_62_1 => TARGET_sparc
+	TARGET_powerpc_63_1 => TARGET_powerpc
+	TARGET_microblaze_64_1 => TARGET_microblaze
+	TARGET_frv_65_1 => TARGET_frv
+	TARGET_hppa_66_1 => TARGET_hppa
+	TARGET_m68k_67_1 => TARGET_m68k
+	TARGET_avr32_68_1 => TARGET_avr32
+	ARCH_WANTS_BIG_ENDIAN_69_1 => ARCH_WANTS_BIG_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_70_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_i960_71_1 => !TARGET_i960
+	ARCH_LITTLE_ENDIAN_72_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_73_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_vax_74_1 => !TARGET_vax
+	ARCH_LITTLE_ENDIAN_75_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_76_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_nios2_77_1 => !TARGET_nios2
+	ARCH_LITTLE_ENDIAN_78_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_79_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_bfin_80_1 => !TARGET_bfin
+	ARCH_LITTLE_ENDIAN_81_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_82_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_x86_64_83_1 => !TARGET_x86_64
+	ARCH_LITTLE_ENDIAN_84_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_85_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_alpha_86_1 => !TARGET_alpha
+	ARCH_LITTLE_ENDIAN_87_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_88_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_i386_89_1 => !TARGET_i386
+	ARCH_LITTLE_ENDIAN_90_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_91_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_nios_92_1 => !TARGET_nios
+	ARCH_LITTLE_ENDIAN_93_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_94_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_ia64_95_1 => !TARGET_ia64
+	ARCH_LITTLE_ENDIAN_96_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_97_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_cris_98_1 => !TARGET_cris
+	ARCH_LITTLE_ENDIAN_99_1 => ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_100_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_v850_101_1 => !TARGET_v850
+	ARCH_LITTLE_ENDIAN_102_1 => ARCH_LITTLE_ENDIAN
+	ARCH_LITTLE_ENDIAN_103_1 => !ARCH_LITTLE_ENDIAN
+	FORCE_OPTIONS_FOR_ARCH_104_1 => FORCE_OPTIONS_FOR_ARCH
+	ARCH_WANTS_LITTLE_ENDIAN_105_1 => ARCH_WANTS_LITTLE_ENDIAN
+	ARCH_LITTLE_ENDIAN_106_1 => !ARCH_LITTLE_ENDIAN
+	TARGET_i960_107_1 => TARGET_i960
+	TARGET_vax_108_1 => TARGET_vax
+	TARGET_nios2_109_1 => TARGET_nios2
+	TARGET_bfin_110_1 => TARGET_bfin
+	TARGET_x86_64_111_1 => TARGET_x86_64
+	ARCH_WANTS_LITTLE_ENDIAN_112_1 => ARCH_WANTS_LITTLE_ENDIAN
+	TARGET_alpha_113_1 => TARGET_alpha
+	TARGET_i386_114_1 => TARGET_i386
+	TARGET_nios_115_1 => TARGET_nios
+	TARGET_ia64_116_1 => TARGET_ia64
+	TARGET_cris_117_1 => TARGET_cris
+	TARGET_v850_118_1 => TARGET_v850
+	FORCE_OPTIONS_FOR_ARCH_119_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_i960_120_1 => !TARGET_i960
+	ARCH_HAS_NO_MMU_121_1 => ARCH_HAS_NO_MMU
+	FORCE_OPTIONS_FOR_ARCH_122_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_e1_123_1 => !TARGET_e1
+	ARCH_HAS_NO_MMU_124_1 => ARCH_HAS_NO_MMU
+	FORCE_OPTIONS_FOR_ARCH_125_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_nios2_126_1 => !TARGET_nios2
+	ARCH_HAS_NO_MMU_127_1 => ARCH_HAS_NO_MMU
+	FORCE_OPTIONS_FOR_ARCH_128_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_microblaze_129_1 => !TARGET_microblaze
+	ARCH_HAS_NO_MMU_130_1 => ARCH_HAS_NO_MMU
+	FORCE_OPTIONS_FOR_ARCH_131_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_frv_132_1 => !TARGET_frv
+	ARCH_HAS_NO_MMU_133_1 => ARCH_HAS_NO_MMU
+	FORCE_OPTIONS_FOR_ARCH_134_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_bfin_135_1 => !TARGET_bfin
+	ARCH_HAS_NO_MMU_136_1 => ARCH_HAS_NO_MMU
+	FORCE_OPTIONS_FOR_ARCH_137_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_h8300_138_1 => !TARGET_h8300
+	ARCH_HAS_NO_MMU_139_1 => ARCH_HAS_NO_MMU
+	FORCE_OPTIONS_FOR_ARCH_140_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_nios_141_1 => !TARGET_nios
+	ARCH_HAS_NO_MMU_142_1 => ARCH_HAS_NO_MMU
+	FORCE_OPTIONS_FOR_ARCH_143_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_v850_144_1 => !TARGET_v850
+	ARCH_HAS_NO_MMU_145_1 => ARCH_HAS_NO_MMU
+	ARCH_HAS_NO_MMU_146_1 => !ARCH_HAS_NO_MMU
+	FORCE_OPTIONS_FOR_ARCH_147_1 => FORCE_OPTIONS_FOR_ARCH
+	CONFIG_ARM7TDMI_148_1 => CONFIG_ARM7TDMI
+	CONFIG_SH2_149_1 => CONFIG_SH2
+	CONFIG_ARM_CORTEX_M1_150_1 => CONFIG_ARM_CORTEX_M1
+	CONFIG_SH2A_151_1 => CONFIG_SH2A
+	CONFIG_ARM_CORTEX_M3_152_1 => CONFIG_ARM_CORTEX_M3
+	ARCH_HAS_NO_MMU_153_1 => !ARCH_HAS_NO_MMU
+	TARGET_i960_154_1 => TARGET_i960
+	TARGET_e1_155_1 => TARGET_e1
+	CONFIG_ARM7TDMI_156_1 => CONFIG_ARM7TDMI
+	TARGET_nios2_157_1 => TARGET_nios2
+	TARGET_microblaze_158_1 => TARGET_microblaze
+	TARGET_frv_159_1 => TARGET_frv
+	TARGET_bfin_160_1 => TARGET_bfin
+	TARGET_h8300_161_1 => TARGET_h8300
+	CONFIG_SH2_162_1 => CONFIG_SH2
+	CONFIG_ARM_CORTEX_M1_163_1 => CONFIG_ARM_CORTEX_M1
+	CONFIG_SH2A_164_1 => CONFIG_SH2A
+	CONFIG_ARM_CORTEX_M3_165_1 => CONFIG_ARM_CORTEX_M3
+	TARGET_nios_166_1 => TARGET_nios
+	TARGET_v850_167_1 => TARGET_v850
+	NOT_ARCH_HAS_NO_MMU_168_1 => !ARCH_HAS_NO_MMU
+	NOT_CONFIG_ARM922T_169_28 => !CONFIG_ARM922T
+	NOT_CONFIG_ARM1176JZ_S_169_28 => !CONFIG_ARM1176JZ_S
+	NOT_FORCE_OPTIONS_FOR_ARCH_169_28 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_powerpc_169_28 => !TARGET_powerpc
+	NOT_CONFIG_ARM920T_169_26 => !CONFIG_ARM920T
+	NOT_CONFIG_ARM720T_169_25 => !CONFIG_ARM720T
+	NOT_CONFIG_CRISV32_169_24 => !CONFIG_CRISV32
+	NOT_CONFIG_ARM610_169_23 => !CONFIG_ARM610
+	NOT_FORCE_OPTIONS_FOR_ARCH_169_23 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_hppa_169_23 => !TARGET_hppa
+	NOT_CONFIG_ARM_SA110_169_21 => !CONFIG_ARM_SA110
+	NOT_CONFIG_AVR32_AP7_169_20 => !CONFIG_AVR32_AP7
+	NOT_FORCE_OPTIONS_FOR_ARCH_169_20 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_x86_64_169_20 => !TARGET_x86_64
+	NOT_CONFIG_ARM_XSCALE_169_18 => !CONFIG_ARM_XSCALE
+	NOT_CONFIG_ARM10T_169_17 => !CONFIG_ARM10T
+	NOT_CONFIG_ARM_SA1100_169_16 => !CONFIG_ARM_SA1100
+	NOT_CONFIG_CRIS_169_15 => !CONFIG_CRIS
+	NOT_FORCE_OPTIONS_FOR_ARCH_169_15 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_alpha_169_15 => !TARGET_alpha
+	NOT_FORCE_OPTIONS_FOR_ARCH_169_14 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_i386_169_14 => !TARGET_i386
+	NOT_CONFIG_SH5_169_12 => !CONFIG_SH5
+	NOT_CONFIG_ARM710_169_11 => !CONFIG_ARM710
+	NOT_CONFIG_ARM926T_169_10 => !CONFIG_ARM926T
+	NOT_FORCE_OPTIONS_FOR_ARCH_169_10 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_ia64_169_10 => !TARGET_ia64
+	NOT_CONFIG_ARM1136JF_S_169_8 => !CONFIG_ARM1136JF_S
+	NOT_CONFIG_ARM1176JZF_S_169_7 => !CONFIG_ARM1176JZF_S
+	NOT_CONFIG_SH3_169_6 => !CONFIG_SH3
+	NOT_CONFIG_ARM_IWMMXT_169_5 => !CONFIG_ARM_IWMMXT
+	ARCH_HAS_NO_MMU_169_4 => ARCH_HAS_NO_MMU
+	ARCH_HAS_MMU_169_3 => ARCH_HAS_MMU
+	NOT_ARCH_HAS_MMU_169_3 => !ARCH_HAS_MMU
+	CONFIG_ARM922T_169_28 => CONFIG_ARM922T
+	CONFIG_ARM1176JZ_S_169_28 => CONFIG_ARM1176JZ_S
+	FORCE_OPTIONS_FOR_ARCH_169_28 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_powerpc_169_28 => TARGET_powerpc
+	CONFIG_ARM920T_169_26 => CONFIG_ARM920T
+	CONFIG_ARM720T_169_25 => CONFIG_ARM720T
+	CONFIG_CRISV32_169_24 => CONFIG_CRISV32
+	CONFIG_ARM610_169_23 => CONFIG_ARM610
+	FORCE_OPTIONS_FOR_ARCH_169_23 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_hppa_169_23 => TARGET_hppa
+	CONFIG_ARM_SA110_169_21 => CONFIG_ARM_SA110
+	CONFIG_AVR32_AP7_169_20 => CONFIG_AVR32_AP7
+	FORCE_OPTIONS_FOR_ARCH_169_20 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_x86_64_169_20 => TARGET_x86_64
+	CONFIG_ARM_XSCALE_169_18 => CONFIG_ARM_XSCALE
+	CONFIG_ARM10T_169_17 => CONFIG_ARM10T
+	CONFIG_ARM_SA1100_169_16 => CONFIG_ARM_SA1100
+	CONFIG_CRIS_169_15 => CONFIG_CRIS
+	FORCE_OPTIONS_FOR_ARCH_169_15 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_alpha_169_15 => TARGET_alpha
+	FORCE_OPTIONS_FOR_ARCH_169_14 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_i386_169_14 => TARGET_i386
+	CONFIG_SH5_169_12 => CONFIG_SH5
+	CONFIG_ARM710_169_11 => CONFIG_ARM710
+	CONFIG_ARM926T_169_10 => CONFIG_ARM926T
+	FORCE_OPTIONS_FOR_ARCH_169_10 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_ia64_169_10 => TARGET_ia64
+	CONFIG_ARM1136JF_S_169_8 => CONFIG_ARM1136JF_S
+	CONFIG_ARM1176JZF_S_169_7 => CONFIG_ARM1176JZF_S
+	CONFIG_SH3_169_6 => CONFIG_SH3
+	CONFIG_ARM_IWMMXT_169_5 => CONFIG_ARM_IWMMXT
+	NOT_ARCH_HAS_NO_MMU_169_4 => !ARCH_HAS_NO_MMU
+	UCLIBC_HAS_FLOATS_170_1 => UCLIBC_HAS_FLOATS
+	NOT_FORCE_OPTIONS_FOR_ARCH_171_5 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_frv_171_5 => !TARGET_frv
+	NOT_UCLIBC_HAS_FLOATS_171_4 => !UCLIBC_HAS_FLOATS
+	UCLIBC_HAS_FPU_171_3 => UCLIBC_HAS_FPU
+	NOT_UCLIBC_HAS_FPU_171_3 => !UCLIBC_HAS_FPU
+	FORCE_OPTIONS_FOR_ARCH_171_5 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_frv_171_5 => TARGET_frv
+	UCLIBC_HAS_FLOATS_171_4 => UCLIBC_HAS_FLOATS
+	UCLIBC_HAS_FLOATS_172_1 => !UCLIBC_HAS_FLOATS
+	UCLIBC_HAS_FPU_173_1 => UCLIBC_HAS_FPU
+	UCLIBC_HAS_SOFT_FLOAT_174_1 => UCLIBC_HAS_SOFT_FLOAT
+	DO_C99_MATH_175_2 => DO_C99_MATH
+	TARGET_i386_175_3 => TARGET_i386
+	TARGET_m68k_175_4 => TARGET_m68k
+	TARGET_sparc_175_5 => TARGET_sparc
+	TARGET_x86_64_175_6 => TARGET_x86_64
+	TARGET_powerpc_175_7 => TARGET_powerpc
+	TARGET_sh_175_7 => TARGET_sh
+	NOT_DO_C99_MATH_176_4 => !DO_C99_MATH
+	NOT_TARGET_i386_176_5 => !TARGET_i386
+	NOT_TARGET_m68k_176_6 => !TARGET_m68k
+	NOT_TARGET_sparc_176_7 => !TARGET_sparc
+	NOT_TARGET_x86_64_176_8 => !TARGET_x86_64
+	NOT_TARGET_powerpc_176_9 => !TARGET_powerpc
+	NOT_TARGET_sh_176_9 => !TARGET_sh
+	UCLIBC_HAS_LONG_DOUBLE_MATH_176_3 => UCLIBC_HAS_LONG_DOUBLE_MATH
+	NOT_UCLIBC_HAS_LONG_DOUBLE_MATH_176_3 => !UCLIBC_HAS_LONG_DOUBLE_MATH
+	DO_C99_MATH_176_4 => DO_C99_MATH
+	TARGET_i386_176_5 => TARGET_i386
+	TARGET_m68k_176_6 => TARGET_m68k
+	TARGET_sparc_176_7 => TARGET_sparc
+	TARGET_x86_64_176_8 => TARGET_x86_64
+	TARGET_powerpc_176_9 => TARGET_powerpc
+	TARGET_sh_176_9 => TARGET_sh
+	ARCH_USE_MMU_177_1 => ARCH_USE_MMU
+	UCLIBC_UCLINUX_BROKEN_MUNMAP_178_1 => UCLIBC_UCLINUX_BROKEN_MUNMAP
+	FORCE_OPTIONS_FOR_ARCH_179_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_v850_180_1 => !TARGET_v850
+	HAVE_NO_PIC_181_1 => HAVE_NO_PIC
+	FORCE_OPTIONS_FOR_ARCH_182_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_nios_183_1 => !TARGET_nios
+	HAVE_NO_PIC_184_1 => HAVE_NO_PIC
+	FORCE_OPTIONS_FOR_ARCH_185_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_nios2_186_1 => !TARGET_nios2
+	HAVE_NO_PIC_187_1 => HAVE_NO_PIC
+	HAVE_NO_PIC_188_1 => !HAVE_NO_PIC
+	FORCE_OPTIONS_FOR_ARCH_189_1 => FORCE_OPTIONS_FOR_ARCH
+	CONFIG_SH2A_190_1 => CONFIG_SH2A
+	HAVE_NO_PIC_191_1 => !HAVE_NO_PIC
+	TARGET_v850_192_1 => TARGET_v850
+	TARGET_nios_193_1 => TARGET_nios
+	TARGET_nios2_194_1 => TARGET_nios2
+	CONFIG_SH2A_195_1 => CONFIG_SH2A
+	NOT_HAVE_NO_PIC_196_1 => !HAVE_NO_PIC
+	NOT_FORCE_SHAREABLE_TEXT_SEGMENTS_197_6 => !FORCE_SHAREABLE_TEXT_SEGMENTS
+	NOT_HAVE_SHARED_197_6 => !HAVE_SHARED
+	NOT_UCLIBC_FORMAT_FDPIC_ELF_197_6 => !UCLIBC_FORMAT_FDPIC_ELF
+	ARCH_USE_MMU_197_6 => ARCH_USE_MMU
+	HAVE_NO_PIC_197_4 => HAVE_NO_PIC
+	DOPIC_197_3 => DOPIC
+	NOT_DOPIC_197_3 => !DOPIC
+	FORCE_SHAREABLE_TEXT_SEGMENTS_197_6 => FORCE_SHAREABLE_TEXT_SEGMENTS
+	HAVE_SHARED_197_6 => HAVE_SHARED
+	UCLIBC_FORMAT_FDPIC_ELF_197_6 => UCLIBC_FORMAT_FDPIC_ELF
+	NOT_ARCH_USE_MMU_197_7 => !ARCH_USE_MMU
+	NOT_HAVE_NO_PIC_197_4 => !HAVE_NO_PIC
+	FORCE_OPTIONS_FOR_ARCH_198_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_e1_199_1 => !TARGET_e1
+	ARCH_HAS_NO_SHARED_200_1 => ARCH_HAS_NO_SHARED
+	ARCH_HAS_NO_SHARED_201_1 => !ARCH_HAS_NO_SHARED
+	ARCH_HAS_NO_LDSO_202_1 => ARCH_HAS_NO_LDSO
+	FORCE_OPTIONS_FOR_ARCH_203_1 => FORCE_OPTIONS_FOR_ARCH
+	CONFIG_SPARC_V7_204_1 => CONFIG_SPARC_V7
+	ARCH_HAS_NO_SHARED_205_1 => !ARCH_HAS_NO_SHARED
+	ARCH_HAS_NO_LDSO_206_1 => ARCH_HAS_NO_LDSO
+	TARGET_e1_207_1 => TARGET_e1
+	CONFIG_SPARC_V7_208_1 => CONFIG_SPARC_V7
+	NOT_UCLIBC_FORMAT_FLAT_SEP_DATA_209_11 => !UCLIBC_FORMAT_FLAT_SEP_DATA
+	ARCH_USE_MMU_209_11 => ARCH_USE_MMU
+	NOT_FORCE_OPTIONS_FOR_ARCH_209_11 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_vax_209_11 => !TARGET_vax
+	NOT_FORCE_OPTIONS_FOR_ARCH_209_10 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_nios2_209_10 => !TARGET_nios2
+	NOT_UCLIBC_FORMAT_SHARED_FLAT_209_9 => !UCLIBC_FORMAT_SHARED_FLAT
+	ARCH_USE_MMU_209_9 => ARCH_USE_MMU
+	NOT_FORCE_OPTIONS_FOR_ARCH_209_8 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_hppa_209_8 => !TARGET_hppa
+	NOT_UCLIBC_FORMAT_FLAT_209_7 => !UCLIBC_FORMAT_FLAT
+	ARCH_USE_MMU_209_7 => ARCH_USE_MMU
+	NOT_FORCE_OPTIONS_FOR_ARCH_209_6 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_alpha_209_6 => !TARGET_alpha
+	NOT_FORCE_OPTIONS_FOR_ARCH_209_5 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_nios_209_5 => !TARGET_nios
+	NOT_FORCE_OPTIONS_FOR_ARCH_209_4 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_ia64_209_4 => !TARGET_ia64
+	ARCH_HAS_NO_LDSO_209_2 => ARCH_HAS_NO_LDSO
+	NOT_UCLIBC_FORMAT_FLAT_SEP_DATA_210_11 => !UCLIBC_FORMAT_FLAT_SEP_DATA
+	ARCH_USE_MMU_210_11 => ARCH_USE_MMU
+	NOT_FORCE_OPTIONS_FOR_ARCH_210_11 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_vax_210_11 => !TARGET_vax
+	NOT_FORCE_OPTIONS_FOR_ARCH_210_10 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_nios2_210_10 => !TARGET_nios2
+	NOT_UCLIBC_FORMAT_SHARED_FLAT_210_9 => !UCLIBC_FORMAT_SHARED_FLAT
+	ARCH_USE_MMU_210_9 => ARCH_USE_MMU
+	NOT_FORCE_OPTIONS_FOR_ARCH_210_8 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_hppa_210_8 => !TARGET_hppa
+	NOT_UCLIBC_FORMAT_FLAT_210_7 => !UCLIBC_FORMAT_FLAT
+	ARCH_USE_MMU_210_7 => ARCH_USE_MMU
+	NOT_FORCE_OPTIONS_FOR_ARCH_210_6 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_alpha_210_6 => !TARGET_alpha
+	NOT_FORCE_OPTIONS_FOR_ARCH_210_5 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_nios_210_5 => !TARGET_nios
+	NOT_FORCE_OPTIONS_FOR_ARCH_210_4 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_ia64_210_4 => !TARGET_ia64
+	ARCH_HAS_NO_LDSO_210_2 => ARCH_HAS_NO_LDSO
+	NOT_ARCH_HAS_NO_LDSO_211_2 => !ARCH_HAS_NO_LDSO
+	UCLIBC_FORMAT_FLAT_SEP_DATA_211_11 => UCLIBC_FORMAT_FLAT_SEP_DATA
+	NOT_ARCH_USE_MMU_211_12 => !ARCH_USE_MMU
+	FORCE_OPTIONS_FOR_ARCH_211_11 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_vax_211_11 => TARGET_vax
+	FORCE_OPTIONS_FOR_ARCH_211_10 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_nios2_211_10 => TARGET_nios2
+	UCLIBC_FORMAT_SHARED_FLAT_211_9 => UCLIBC_FORMAT_SHARED_FLAT
+	NOT_ARCH_USE_MMU_211_10 => !ARCH_USE_MMU
+	FORCE_OPTIONS_FOR_ARCH_211_8 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_hppa_211_8 => TARGET_hppa
+	UCLIBC_FORMAT_FLAT_211_7 => UCLIBC_FORMAT_FLAT
+	NOT_ARCH_USE_MMU_211_8 => !ARCH_USE_MMU
+	FORCE_OPTIONS_FOR_ARCH_211_6 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_alpha_211_6 => TARGET_alpha
+	FORCE_OPTIONS_FOR_ARCH_211_5 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_nios_211_5 => TARGET_nios
+	FORCE_OPTIONS_FOR_ARCH_211_4 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_ia64_211_4 => TARGET_ia64
+	ARCH_HAS_NO_SHARED_212_1 => !ARCH_HAS_NO_SHARED
+	ARCH_HAS_NO_SHARED_213_1 => ARCH_HAS_NO_SHARED
+	HAVE_SHARED_214_1 => HAVE_SHARED
+	HAVE_SHARED_215_1 => HAVE_SHARED
+	NOT_FORCE_OPTIONS_FOR_ARCH_216_6 => !FORCE_OPTIONS_FOR_ARCH
+	NOT_TARGET_avr32_216_6 => !TARGET_avr32
+	NOT_UCLIBC_BUILD_PIE_216_6 => !UCLIBC_BUILD_PIE
+	NOT_HAVE_SHARED_216_7 => !HAVE_SHARED
+	NOT_TARGET_arm_216_8 => !TARGET_arm
+	NOT_TARGET_frv_216_9 => !TARGET_frv
+	NOT_TARGET_i386_216_10 => !TARGET_i386
+	NOT_TARGET_mips_216_11 => !TARGET_mips
+	NOT_TARGET_powerpc_216_11 => !TARGET_powerpc
+	NOT_CONFIG_SH4_216_4 => !CONFIG_SH4
+	FORCE_SHAREABLE_TEXT_SEGMENTS_216_3 => FORCE_SHAREABLE_TEXT_SEGMENTS
+	NOT_FORCE_SHAREABLE_TEXT_SEGMENTS_216_3 => !FORCE_SHAREABLE_TEXT_SEGMENTS
+	FORCE_OPTIONS_FOR_ARCH_216_6 => FORCE_OPTIONS_FOR_ARCH
+	TARGET_avr32_216_6 => TARGET_avr32
+	UCLIBC_BUILD_PIE_216_6 => UCLIBC_BUILD_PIE
+	HAVE_SHARED_216_7 => HAVE_SHARED
+	TARGET_arm_216_8 => TARGET_arm
+	TARGET_frv_216_9 => TARGET_frv
+	TARGET_i386_216_10 => TARGET_i386
+	TARGET_mips_216_11 => TARGET_mips
+	TARGET_powerpc_216_11 => TARGET_powerpc
+	CONFIG_SH4_216_4 => CONFIG_SH4
+	HAS_NO_THREADS_217_1 => HAS_NO_THREADS
+	UCLIBC_HAS_THREADS_218_1 => UCLIBC_HAS_THREADS
+	UCLIBC_HAS_THREADS_NATIVE_219_1 => UCLIBC_HAS_THREADS_NATIVE
+	UCLIBC_HAS_THREADS_NATIVE_220_1 => !UCLIBC_HAS_THREADS_NATIVE
+	UCLIBC_HAS_TLS_221_1 => UCLIBC_HAS_TLS
+	UCLIBC_HAS_NETWORK_SUPPORT_222_1 => UCLIBC_HAS_NETWORK_SUPPORT
+	UCLIBC_HAS_NETWORK_SUPPORT_223_1 => !UCLIBC_HAS_NETWORK_SUPPORT
+	UCLIBC_HAS_SYSLOG_224_1 => UCLIBC_HAS_SYSLOG
+	UCLIBC_HAS_CRYPT_IMPL_225_1 => !UCLIBC_HAS_CRYPT_IMPL
+	UCLIBC_HAS_CRYPT_IMPL_226_1 => UCLIBC_HAS_CRYPT_IMPL
+	UCLIBC_HAS_CRYPT_STUB_227_1 => UCLIBC_HAS_CRYPT_STUB
+	UCLIBC_HAS_CRYPT_228_1 => !UCLIBC_HAS_CRYPT
+	UCLIBC_HAS_CRYPT_IMPL_229_1 => UCLIBC_HAS_CRYPT_IMPL
+	UCLIBC_HAS_CRYPT_STUB_230_1 => UCLIBC_HAS_CRYPT_STUB
+	UCLIBC_BUILD_MINIMAL_LOCALE_231_1 => UCLIBC_BUILD_MINIMAL_LOCALE
+	UCLIBC_BUILD_MINIMAL_LOCALE_232_1 => !UCLIBC_BUILD_MINIMAL_LOCALE
+	UCLIBC_BUILD_MINIMAL_LOCALES_233_1 => UCLIBC_BUILD_MINIMAL_LOCALES
+	USE_OLD_VFPRINTF_234_1 => !USE_OLD_VFPRINTF
+	USE_OLD_VFPRINTF_235_1 => USE_OLD_VFPRINTF
+	UCLIBC_PRINTF_SCANF_POSITIONAL_ARGS_236_1 => UCLIBC_PRINTF_SCANF_POSITIONAL_ARGS
+	UCLIBC_HAS_STDIO_BUFSIZ_NONE_237_1 => !UCLIBC_HAS_STDIO_BUFSIZ_NONE
+	UCLIBC_HAS_STDIO_BUFSIZ_NONE_238_1 => UCLIBC_HAS_STDIO_BUFSIZ_NONE
+	UCLIBC_HAS_STDIO_GETC_MACRO_239_1 => UCLIBC_HAS_STDIO_GETC_MACRO
+	UCLIBC_HAS_STDIO_BUFSIZ_NONE_240_1 => !UCLIBC_HAS_STDIO_BUFSIZ_NONE
+	UCLIBC_HAS_STDIO_BUFSIZ_NONE_241_1 => UCLIBC_HAS_STDIO_BUFSIZ_NONE
+	UCLIBC_HAS_STDIO_PUTC_MACRO_242_1 => UCLIBC_HAS_STDIO_PUTC_MACRO
+	UCLIBC_HAS_THREADS_NATIVE_243_1 => UCLIBC_HAS_THREADS_NATIVE
+	UCLIBC_HAS_THREADS_NATIVE_244_1 => !UCLIBC_HAS_THREADS_NATIVE
+	UCLIBC_HAS_STDIO_FUTEXES_245_1 => UCLIBC_HAS_STDIO_FUTEXES
+	UCLIBC_HAS_GNU_GETOPT_246_1 => !UCLIBC_HAS_GNU_GETOPT
+	UCLIBC_HAS_GNU_GETOPT_247_1 => UCLIBC_HAS_GNU_GETOPT
+	UCLIBC_HAS_GETOPT_LONG_248_1 => UCLIBC_HAS_GETOPT_LONG
+	UCLIBC_HAS_FNMATCH_249_1 => UCLIBC_HAS_FNMATCH
+	UCLIBC_HAS_FNMATCH_250_1 => !UCLIBC_HAS_FNMATCH
+	UCLIBC_HAS_GLOB_251_1 => UCLIBC_HAS_GLOB
+	TARGET_arm_252_1 => TARGET_arm
+	TARGET_frv_253_1 => TARGET_frv
+	TARGET_i386_254_1 => TARGET_i386
+	TARGET_mips_255_1 => TARGET_mips
+	TARGET_powerpc_256_1 => TARGET_powerpc
+	UCLIBC_BUILD_PIE_257_1 => !UCLIBC_BUILD_PIE
+	FORCE_OPTIONS_FOR_ARCH_258_1 => !FORCE_OPTIONS_FOR_ARCH
+	TARGET_hppa_259_1 => !TARGET_hppa
+	HAVE_NO_SSP_260_1 => HAVE_NO_SSP
+	HAVE_SHARED_261_1 => HAVE_SHARED
+	HAVE_SHARED_262_1 => !HAVE_SHARED
+	UCLIBC_BUILD_RELRO_263_1 => UCLIBC_BUILD_RELRO
+	DODEBUG_264_1 => !DODEBUG
+	DODEBUG_265_1 => DODEBUG
+	DOSTRIP_266_1 => DOSTRIP
+	MALLOC_267_1 => MALLOC
+	MALLOC_STANDARD_268_1 => MALLOC_STANDARD
+	UCLIBC_MALLOC_DEBUGGING_269_1 => !UCLIBC_MALLOC_DEBUGGING
+	TARGET_avr321 => TARGET_avr32
+	LINKRELAX1 => ! LINKRELAX
+	UCLIBC_FORMAT_SHARED_FLAT1 => UCLIBC_FORMAT_SHARED_FLAT
+	UCLIBC_SHARED_FLAT_ID1 => ! UCLIBC_SHARED_FLAT_ID
+	ARCH_HAS_NO_SHARED1 => ! ARCH_HAS_NO_SHARED
+	HAVE_SHARED1 => ! HAVE_SHARED
+	UCLIBC_HAS_THREADS_NATIVE1 => UCLIBC_HAS_THREADS_NATIVE
+	UCLIBC_HAS_TLS1 => ! UCLIBC_HAS_TLS
+	UCLIBC_HAS_NETWORK_SUPPORT1 => UCLIBC_HAS_NETWORK_SUPPORT
+	UCLIBC_HAS_SYSLOG1 => ! UCLIBC_HAS_SYSLOG
+	UCLIBC_HAS_CRYPT_IMPL1 => ! UCLIBC_HAS_CRYPT_IMPL
+	UCLIBC_HAS_CRYPT_STUB1 => ! UCLIBC_HAS_CRYPT_STUB
+	UCLIBC_BUILD_MINIMAL_LOCALE1 => UCLIBC_BUILD_MINIMAL_LOCALE
+	UCLIBC_BUILD_MINIMAL_LOCALES1 => ! UCLIBC_BUILD_MINIMAL_LOCALES
+	USE_OLD_VFPRINTF1 => ! USE_OLD_VFPRINTF
+	UCLIBC_PRINTF_SCANF_POSITIONAL_ARGS1 => ! UCLIBC_PRINTF_SCANF_POSITIONAL_ARGS
+	UCLIBC_HAS_STDIO_BUFSIZ_NONE1 => ! UCLIBC_HAS_STDIO_BUFSIZ_NONE
+	UCLIBC_HAS_STDIO_GETC_MACRO1 => ! UCLIBC_HAS_STDIO_GETC_MACRO
+	UCLIBC_HAS_STDIO_BUFSIZ_NONE2 => ! UCLIBC_HAS_STDIO_BUFSIZ_NONE
+	UCLIBC_HAS_STDIO_PUTC_MACRO1 => ! UCLIBC_HAS_STDIO_PUTC_MACRO
+	UCLIBC_HAS_THREADS_NATIVE2 => UCLIBC_HAS_THREADS_NATIVE
+	UCLIBC_HAS_STDIO_FUTEXES1 => ! UCLIBC_HAS_STDIO_FUTEXES
+	UCLIBC_HAS_GNU_GETOPT1 => ! UCLIBC_HAS_GNU_GETOPT
+	UCLIBC_HAS_GETOPT_LONG1 => ! UCLIBC_HAS_GETOPT_LONG
+	UCLIBC_HAS_FNMATCH1 => UCLIBC_HAS_FNMATCH
+	UCLIBC_HAS_GLOB1 => ! UCLIBC_HAS_GLOB
+	HAVE_SHARED2 => HAVE_SHARED
+	UCLIBC_BUILD_RELRO1 => ! UCLIBC_BUILD_RELRO
+	DODEBUG1 => ! DODEBUG
+	DOSTRIP1 => ! DOSTRIP
