@@ -117,9 +117,10 @@ class FM(FeatureModel):
         features = [root]
         while features:
             f = features.pop()
-            self._features.remove(f)
-            self._feature_by_name.pop(f.name)
-            features.extend(f.get_children())
+            if f in self._features:  # be careful: the model MTGCards raise an exception here because it remove a features that does not exist.
+                self._features.remove(f)
+                self._feature_by_name.pop(f.name)
+                features.extend(f.get_children())
 
     def _clear_model(self) -> None:
         self.root = None

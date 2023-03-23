@@ -4,6 +4,7 @@ import math
 import argparse
 import statistics
 import multiprocessing
+import signal 
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
@@ -15,7 +16,14 @@ from fm_solver.operations import FMConfigurationsNumber
 
 
 #sys.setrecursionlimit(10000)
+TIME_OUT = 3600  # seconds
 OUTPUT_FILE = 'models_stats.csv'
+
+
+def timeout_handler(signum, frame):
+    """Use a system signal to check out time outs."""
+    raise Exception(f'Time out! ({TIME_OUT} seconds)')
+signal.signal(signal.SIGALRM, timeout_handler)
 
 
 def get_fm_filepath_models(dir: str) -> list[str]:
@@ -50,38 +58,51 @@ def main(fm_filepath: str, n_cores: int):
 
     if fm is not None:
         print(f'Analyzing metrics...')
-        n_features = len(fm.get_features())
-        print(f'#Features:             {n_features}')
-        n_abstract_features = sum(f.is_abstract for f in fm.get_features())
-        n_concrete_features = n_features - n_abstract_features
-        print(f'  #Concrete features:  {n_concrete_features}')
-        print(f'  #Abstract features:  {n_abstract_features}')
-        n_auxiliary_features = sum(fm_utils.is_auxiliary_feature(f) for f in fm.get_features())
-        print(f'  #Auxiliary features: {n_auxiliary_features}')
-        n_ctcs = len(fm.get_constraints())
-        print(f'#Constraints:          {n_ctcs}')
-        n_ctcs_simple = sum(constraints_utils.is_simple_constraint(ctc) for ctc in fm.get_constraints())    
-        print(f'  #Simple CTCs:        {n_ctcs_simple}')
-        n_requires_ctcs = sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())
-        n_excludes_ctcs = n_ctcs_simple - n_requires_ctcs
-        print(f'    #Requires:         {n_requires_ctcs}')
-        print(f'    #Excludes:         {n_excludes_ctcs}')
-        n_ctcs_complex = n_ctcs - n_ctcs_simple
-        print(f'  #Complex CTCs:       {n_ctcs_complex}')
-        n_pseudo_ctcs = sum(constraints_utils.is_pseudo_complex_constraint(ctc) for ctc in fm.get_constraints())
-        n_strict_ctcs = n_ctcs_complex - n_pseudo_ctcs
-        print(f'    #Pseudo:           {n_pseudo_ctcs}')
-        print(f'    #Strict:           {n_strict_ctcs}')
+        signal.alarm(TIME_OUT)
+        try:
+            n_features = len(fm.get_features())
+            print(f'#Features:             {n_features}')
+            n_abstract_features = sum(f.is_abstract for f in fm.get_features())
+            n_concrete_features = n_features - n_abstract_features
+            print(f'  #Concrete features:  {n_concrete_features}')
+            print(f'  #Abstract features:  {n_abstract_features}')
+            n_auxiliary_features = sum(fm_utils.is_auxiliary_feature(f) for f in fm.get_features())
+            print(f'  #Auxiliary features: {n_auxiliary_features}')
+            n_ctcs = len(fm.get_constraints())
+            print(f'#Constraints:          {n_ctcs}')
+            n_ctcs_simple = sum(constraints_utils.is_simple_constraint(ctc) for ctc in fm.get_constraints())    
+            print(f'  #Simple CTCs:        {n_ctcs_simple}')
+            n_requires_ctcs = sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())
+            n_excludes_ctcs = n_ctcs_simple - n_requires_ctcs
+            print(f'    #Requires:         {n_requires_ctcs}')
+            print(f'    #Excludes:         {n_excludes_ctcs}')
+            n_ctcs_complex = n_ctcs - n_ctcs_simple
+            print(f'  #Complex CTCs:       {n_ctcs_complex}')
+            n_pseudo_ctcs = sum(constraints_utils.is_pseudo_complex_constraint(ctc) for ctc in fm.get_constraints())
+            n_strict_ctcs = n_ctcs_complex - n_pseudo_ctcs
+            print(f'    #Pseudo:           {n_pseudo_ctcs}')
+            print(f'    #Strict:           {n_strict_ctcs}')
+        except Exception as e:
+            print(e)
+            return None
+        signal.alarm(0)
 
         print(f'Analyzing semantics...')
-        if fm.get_constraints():
-            print(f'Transforming FM to BDD...')
-            bdd_model = FmToBDD(fm).transform()
-            print(f'Computing products number using the BDD...')
-            n_configs = BDDProductsNumber().execute(bdd_model).get_result()
-        else:
-            print(f'Computing products number using the FM structure...')
-            n_configs = FMConfigurationsNumber().execute(fm).get_result()
+        signal.alarm(TIME_OUT)
+        try:
+            if fm.get_constraints():
+                print(f'Transforming FM to BDD...')
+                bdd_model = FmToBDD(fm).transform()
+                print(f'Computing products number using the BDD...')
+                n_configs = BDDProductsNumber().execute(bdd_model).get_result()
+            else:
+                print(f'Computing products number using the FM structure...')
+                n_configs = FMConfigurationsNumber().execute(fm).get_result()
+        except Exception as e:
+            print(e)
+            return None
+        signal.alarm(0)
+
         n_configs_scientific = utils.int_to_scientific_notation(n_configs)
         n_configs_pretty = n_configs_scientific if n_configs > 10e6 else n_configs    
         print(f'#Configs:             {n_configs} ({n_configs_scientific})')
@@ -96,24 +117,37 @@ def main(fm_filepath: str, n_cores: int):
     elif fmsans is not None:
         n_subtrees = len(fmsans.transformations_ids)
         print(f'#Subtrees:            {n_subtrees}')
-        subtrees = fmsans.get_subtrees(n_cores)
-        features_subtrees = [len(st.get_features()) for st in subtrees]
-        min_features_subtrees = min(features_subtrees)
-        max_features_subtrees = max(features_subtrees)
-        median_features_subtrees = round(statistics.median(features_subtrees), 2)
-        mean_features_subtrees = round(statistics.mean(features_subtrees), 2)
-        stdev_features_subtrees = round(statistics.stdev(features_subtrees), 2) if len(features_subtrees) > 1 else 0
-        print(f'  #Min features:      {min_features_subtrees}')
-        print(f'  #Max features:      {max_features_subtrees}')
-        print(f'  #Median features:   {median_features_subtrees}')
-        print(f'  #Mean features:     {mean_features_subtrees}')
-        print(f'  #Stdev features:    {stdev_features_subtrees}')
+        signal.alarm(TIME_OUT)
+        try:
+            subtrees = fmsans.get_subtrees(n_cores)
+            features_subtrees = [len(st.get_features()) for st in subtrees]
+            min_features_subtrees = min(features_subtrees)
+            max_features_subtrees = max(features_subtrees)
+            median_features_subtrees = round(statistics.median(features_subtrees), 2)
+            mean_features_subtrees = round(statistics.mean(features_subtrees), 2)
+            stdev_features_subtrees = round(statistics.stdev(features_subtrees), 2) if len(features_subtrees) > 1 else 0
+            print(f'  #Min features:      {min_features_subtrees}')
+            print(f'  #Max features:      {max_features_subtrees}')
+            print(f'  #Median features:   {median_features_subtrees}')
+            print(f'  #Mean features:     {mean_features_subtrees}')
+            print(f'  #Stdev features:    {stdev_features_subtrees}')
+        except Exception as e:
+            print(e)
+            return None
+        signal.alarm(0)
         
         print(f'Analyzing semantics...')
         print(f'Obtaining GFT...')
-        gft = fmsans.get_feature_model(n_cores)
-        print(f'Computing products number using the FM structure...')
-        n_configs = FMConfigurationsNumber().execute(gft).get_result()    
+        signal.alarm(TIME_OUT)
+        try:
+            gft = fmsans.get_feature_model(n_cores)
+            print(f'Computing products number using the FM structure...')
+            n_configs = FMConfigurationsNumber().execute(gft).get_result()    
+        except Exception as e:
+            print(e)
+            return None
+        signal.alarm(0)
+        
         n_configs_scientific = utils.int_to_scientific_notation(n_configs)
         n_configs_pretty = n_configs_scientific if n_configs > 10e6 else n_configs    
         print(f'#Configs:             {n_configs} ({n_configs_scientific})')

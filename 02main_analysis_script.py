@@ -160,9 +160,9 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
     # Save stats in file
     if not os.path.exists(OUTPUTFILE_RESULTS_STATS):
         with open(OUTPUTFILE_RESULTS_STATS, 'w', encoding='utf8') as file:
-            file.write(f'Model, Tool, #Products, #CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s){os.linesep}')
+            file.write(f'Model, Tool, Runs, Cores, #Products, #CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s){os.linesep}')
     with open(OUTPUTFILE_RESULTS_STATS, 'a', encoding='utf8') as file:
-        file.write(f'{filename}, {tool}, {n_configs_pretty}, {len(core_features)}, {values_median}, {values_mean}, {values_stdev}{os.linesep}')
+        file.write(f'{filename}, {tool}, {runs}, {n_cores}, {n_configs_pretty}, {len(core_features)}, {values_median}, {values_mean}, {values_stdev}{os.linesep}')
     
 
 if __name__ == '__main__':
