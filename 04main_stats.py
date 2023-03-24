@@ -16,7 +16,7 @@ from fm_solver.operations import FMConfigurationsNumber
 
 
 #sys.setrecursionlimit(10000)
-TIME_OUT = 3600  # seconds
+TIME_OUT = 360000  # seconds
 OUTPUT_FILE = 'models_stats.csv'
 
 
@@ -147,7 +147,7 @@ def main(fm_filepath: str, n_cores: int):
             print(e)
             return None
         signal.alarm(0)
-        
+
         n_configs_scientific = utils.int_to_scientific_notation(n_configs)
         n_configs_pretty = n_configs_scientific if n_configs > 10e6 else n_configs    
         print(f'#Configs:             {n_configs} ({n_configs_scientific})')
