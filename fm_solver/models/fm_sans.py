@@ -93,10 +93,12 @@ class FMSans():
             return FMFullAnalysis().execute(self.fm).get_result()
         n_bits = self.transformations_vector.n_bits()
         pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        results = []
         with multiprocessing.Pool(n_processes) as pool:
             items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysis) for num in self.transformations_ids.values()]
             results_subtrees = pool.starmap_async(self._execute_paralell, items)
-            result_analysis = FMFullAnalysis.join_results(results_subtrees.get(), self.fm)
+            results.append(results_subtrees.get())
+        result_analysis = FMFullAnalysis.join_results(results, self.fm)
         return result_analysis
 
     def get_analysis_bdd(self, n_processes: int = 1) -> dict[str, Any]:

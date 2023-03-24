@@ -1,5 +1,6 @@
 import pickle
 import multiprocessing
+import concurrent.futures
 from typing import Any
 
 from fm_solver.models import FMSans
@@ -57,7 +58,7 @@ def full_analysis(fmsans: FMSans, n_processes: int = 1) -> dict[str, Any]:
     with multiprocessing.Pool(n_processes) as pool:
         items = [(fmsans, pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysis) for num in fmsans.transformations_ids.values()]
         analysis_result = pool.starmap_async(execute_paralell, items)
-        result = FMSansFullAnalysis.join_results(analysis_result.get(), fmsans.fm)
+        result = FMFullAnalysis.join_results(analysis_result.get(), fmsans.fm)
     return result
 
 
@@ -65,3 +66,9 @@ def execute_paralell(fmsans: FMSans, fm: bytes, binary_vector: list[str], op: FM
         tree, _ = fmsans.transformations_vector.execute(fm, binary_vector)
         tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
         return op().execute(tree).get_result()
+
+
+# with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
+#     futures = [executor.submit(foo, arg) for arg in some_args]
+#     for future in concurrent.futures.as_completed(futures):
+#         #do something with completed result

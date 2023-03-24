@@ -146,7 +146,7 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
     core_features = result[FMCoreFeatures.get_name()]
     #dead_features = result[FMDeadFeatures.get_name()]
     print(f'#Configurations: {n_configs} ({n_configs_scientific})')
-    print(f'#Core features: {len(core_features)} {[f.name if isinstance(f, Feature) else f for f in core_features]}')
+    print(f'#Core features: {len(core_features)} {[f for f in core_features]}')
     #print(f'#Dead features: {len(dead_features)} {[f.name if isinstance(f, Feature) else f for f in dead_features]}')
 
     # Get stats

@@ -13,6 +13,7 @@ from flamapy.metamodels.bdd_metamodel.operations import BDDProductsNumber
 from fm_solver.utils import utils, fm_utils, constraints_utils
 from fm_solver.transformations import FMSansReader
 from fm_solver.operations import FMConfigurationsNumber, FMFullAnalysis
+from fm_solver.operations.fmsans_op import FMSansFullAnalysis
 
 
 #sys.setrecursionlimit(10000)
@@ -119,17 +120,21 @@ def main(fm_filepath: str, n_cores: int):
         print(f'#Subtrees:            {n_subtrees}')
         signal.alarm(TIME_OUT)
         try:
-            result = fmsans.get_analysis(n_cores)
+            result = FMSansFullAnalysis(n_cores).execute(fmsans).get_result()
             min_features_subtrees = result[FMFullAnalysis.MIN_FEATURES]
             max_features_subtrees = result[FMFullAnalysis.MAX_FEATURES]
             median_features_subtrees = result[FMFullAnalysis.MEDIAN_FEATURES]
             mean_features_subtrees = result[FMFullAnalysis.MEAN_FEATURES]
             stdev_features_subtrees = result[FMFullAnalysis.STDEV_FEATURES]
+            n_configs = result[FMConfigurationsNumber.get_name()]
+            n_configs_scientific = utils.int_to_scientific_notation(n_configs)
+            n_configs_pretty = n_configs_scientific if n_configs > 10e6 else n_configs
             print(f'  #Min features:      {min_features_subtrees}')
             print(f'  #Max features:      {max_features_subtrees}')
             print(f'  #Median features:   {median_features_subtrees}')
             print(f'  #Mean features:     {mean_features_subtrees}')
             print(f'  #Stdev features:    {stdev_features_subtrees}')
+            print(f'  #Configurations:    {n_configs_pretty}')
             # subtrees = fmsans.get_subtrees(n_cores)
             # features_subtrees = [len(st.get_features()) for st in subtrees]
             # min_features_subtrees = min(features_subtrees)
