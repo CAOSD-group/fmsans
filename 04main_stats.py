@@ -12,7 +12,7 @@ from flamapy.metamodels.bdd_metamodel.operations import BDDProductsNumber
 
 from fm_solver.utils import utils, fm_utils, constraints_utils
 from fm_solver.transformations import FMSansReader
-from fm_solver.operations import FMConfigurationsNumber
+from fm_solver.operations import FMConfigurationsNumber, FMFullAnalysis
 
 
 #sys.setrecursionlimit(10000)
@@ -119,18 +119,29 @@ def main(fm_filepath: str, n_cores: int):
         print(f'#Subtrees:            {n_subtrees}')
         signal.alarm(TIME_OUT)
         try:
-            subtrees = fmsans.get_subtrees(n_cores)
-            features_subtrees = [len(st.get_features()) for st in subtrees]
-            min_features_subtrees = min(features_subtrees)
-            max_features_subtrees = max(features_subtrees)
-            median_features_subtrees = round(statistics.median(features_subtrees), 2)
-            mean_features_subtrees = round(statistics.mean(features_subtrees), 2)
-            stdev_features_subtrees = round(statistics.stdev(features_subtrees), 2) if len(features_subtrees) > 1 else 0
+            result = fmsans.get_analysis(n_cores)
+            min_features_subtrees = result[FMFullAnalysis.MIN_FEATURES]
+            max_features_subtrees = result[FMFullAnalysis.MAX_FEATURES]
+            median_features_subtrees = result[FMFullAnalysis.MEDIAN_FEATURES]
+            mean_features_subtrees = result[FMFullAnalysis.MEAN_FEATURES]
+            stdev_features_subtrees = result[FMFullAnalysis.STDEV_FEATURES]
             print(f'  #Min features:      {min_features_subtrees}')
             print(f'  #Max features:      {max_features_subtrees}')
             print(f'  #Median features:   {median_features_subtrees}')
             print(f'  #Mean features:     {mean_features_subtrees}')
             print(f'  #Stdev features:    {stdev_features_subtrees}')
+            # subtrees = fmsans.get_subtrees(n_cores)
+            # features_subtrees = [len(st.get_features()) for st in subtrees]
+            # min_features_subtrees = min(features_subtrees)
+            # max_features_subtrees = max(features_subtrees)
+            # median_features_subtrees = round(statistics.median(features_subtrees), 2)
+            # mean_features_subtrees = round(statistics.mean(features_subtrees), 2)
+            # stdev_features_subtrees = round(statistics.stdev(features_subtrees), 2) if len(features_subtrees) > 1 else 0
+            # print(f'  #Min features:      {min_features_subtrees}')
+            # print(f'  #Max features:      {max_features_subtrees}')
+            # print(f'  #Median features:   {median_features_subtrees}')
+            # print(f'  #Mean features:     {mean_features_subtrees}')
+            # print(f'  #Stdev features:    {stdev_features_subtrees}')
         except Exception as e:
             print(e)
             return None
