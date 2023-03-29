@@ -12,15 +12,17 @@ from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
 
 from fm_solver.transformations import FMSansReader
-from fm_solver.utils import utils,timer
+from fm_solver.utils import utils,timer, sizer, memory_profiler
 from fm_solver.operations.fmsans_op import FMSansFullAnalysis, FMSansFullAnalysisSAT, FMSansFullAnalysisBDD
 from fm_solver.operations import (
     FMConfigurationsNumber, FMCoreFeatures, FMDeadFeatures,
     FMFullAnalysis, FMFullAnalysisGFT, FMFullAnalysisSAT, FMFullAnalysisBDD
 )
 
-OUTPUTFILE_RESULTS_STATS = 'analysis_script_results.csv'
+OUTPUT_DIR = 'results'
+OUTPUTFILE_RESULTS_STATS = 'steps345'
 TIME_ANALYSIS = 'TIME_ANALYSIS'
+MEMORY_ANALYSIS = 'MEMORY_ANALYSIS'
 TIME_OUT = 3600  # seconds
 TOOLS = ['sat', 'bdd', 'gft', 'fmsans', 'fmsans_sat', 'fmsans_bdd', 'fmsans_gft']
 
@@ -47,7 +49,10 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
     filename = '.'.join(filename.split('.')[:-1])
 
     # Output file for raw data
-    output_file = os.path.join(path, f'{filename}_{tool}.csv')
+    output_dir = os.path.join(path, OUTPUT_DIR)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    output_file = os.path.join(path, OUTPUT_DIR, f'{filename}_{tool}_{n_cores}cores.csv')
 
     # Load the feature model
     print(f'Reading feature model from {fm_filepath}')
@@ -61,6 +66,8 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
         signal.alarm(TIME_OUT)
         try:
             fmsans = FMSansReader(fm_filepath).transform()
+            fmsans_memory = sizer.getsizeof(gft_model, logger=None) / 1e6
+            print(f'Memory of the FMSans model (MB): {fmsans_memory}')
         except Exception as e:
             print(e)
             return None
@@ -71,6 +78,8 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
             signal.alarm(TIME_OUT)
             try:
                 gft_model = fmsans.get_feature_model(n_cores)
+                fm_memory = sizer.getsizeof(gft_model, logger=None) / 1e6
+                print(f'Memory of the feature model (MB): {fm_memory}')
             except Exception as e:
                 print(e)
                 return None
@@ -80,6 +89,8 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
         signal.alarm(TIME_OUT)
         try:
             fm = UVLReader(fm_filepath).transform()
+            fm_memory = sizer.getsizeof(gft_model, logger=None) / 1e6
+            print(f'Memory of the feature model (MB): {fm_memory}')
         except Exception as e:
                 print(e)
                 return None
@@ -90,6 +101,8 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
             signal.alarm(TIME_OUT)
             try:
                 sat_model = FmToPysat(fm).transform()
+                sat_memory = sizer.getsizeof(gft_model, logger=None) / 1e6
+                print(f'Memory of the SAT model (MB): {sat_memory}')
             except Exception as e:
                 print(e)
                 return None
@@ -100,6 +113,8 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
             signal.alarm(TIME_OUT)
             try:
                 bdd_model = FmToBDD(fm).transform()
+                bdd_memory = sizer.getsizeof(gft_model, logger=None) / 1e6
+                print(f'Memory of the BDD model (MB): {bdd_memory}')
             except Exception as e:
                 print(e)
                 return None
@@ -108,6 +123,7 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
     # Perform analysis
     print(f'Analyzing model...')
     stats_results = []
+    stats_results_mem = []
     with open(output_file, 'w', encoding='utf8') as file:
         file.write(f'Run, Time(s){os.linesep}')
         print(f'Run: ', end='', flush=True)
@@ -125,7 +141,7 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
             op, model = op_model_dict[tool]
             signal.alarm(TIME_OUT)
             try:
-                with timer.Timer(name=TIME_ANALYSIS, logger=None):
+                with memory_profiler.MemoryProfiler(name=MEMORY_ANALYSIS, logger=None), timer.Timer(name=TIME_ANALYSIS, logger=None):
                     result = op.execute(model).get_result()
             except Exception as e:
                 print(e)
@@ -137,11 +153,12 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
             total_time = round(total_time, 4)
             file.write(f'{i}, {total_time}{os.linesep}')
             stats_results.append(total_time)
+            stats_results_mem.append(memory_profiler.MemoryProfiler.memory_profilers[MEMORY_ANALYSIS])
     print()
 
     # Get results
     n_configs = result[FMConfigurationsNumber.get_name()]
-    n_configs_scientific = {utils.int_to_scientific_notation(n_configs)}
+    n_configs_scientific = utils.int_to_scientific_notation(n_configs)
     n_configs_pretty = n_configs_scientific if n_configs > 10e6 else n_configs
     core_features = result[FMCoreFeatures.get_name()]
     #dead_features = result[FMDeadFeatures.get_name()]
@@ -149,20 +166,28 @@ def main(fm_filepath: str, n_cores: int, runs: int, tool: str) -> None:
     print(f'#Core features: {len(core_features)} {[f for f in core_features]}')
     #print(f'#Dead features: {len(dead_features)} {[f.name if isinstance(f, Feature) else f for f in dead_features]}')
 
+    if fm is not None:
+        n_ctcs = len(fm.get_constraints())
+    elif fmsans is not None:
+        n_ctcs = fmsans.transformations_vector.n_bits() if fmsans.transformations_vector is not None else 0
+
     # Get stats
     values_median = statistics.median(stats_results)
     values_mean = statistics.mean(stats_results)
     values_stdev = statistics.stdev(stats_results) if len(stats_results) > 1 else 0
+    memory_median = statistics.median(stats_results_mem)
+    pretty_memory = memory_median / 1e6  # MB
     print(f'Time median (analysis): {values_median} s.')
-    print(f'Model, Tool, Runs, Cores, #Products, #CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s)')
-    print(f'{filename}, {tool}, {runs}, {n_cores}, {n_configs_pretty}, {len(core_features)}, {values_median}, {values_mean}, {values_stdev}')
+    print(f'Model, Tool, Runs, Cores, Constraints, Products, CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s), Memory(MB)')
+    print(f'{filename}, {tool}, {runs}, {n_cores}, {n_ctcs}, {n_configs_pretty}, {len(core_features)}, {values_median}, {values_mean}, {values_stdev}, {pretty_memory}')
 
     # Save stats in file
-    if not os.path.exists(OUTPUTFILE_RESULTS_STATS):
-        with open(OUTPUTFILE_RESULTS_STATS, 'w', encoding='utf8') as file:
-            file.write(f'Model, Tool, Runs, Cores, #Products, #CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s){os.linesep}')
-    with open(OUTPUTFILE_RESULTS_STATS, 'a', encoding='utf8') as file:
-        file.write(f'{filename}, {tool}, {runs}, {n_cores}, {n_configs_pretty}, {len(core_features)}, {values_median}, {values_mean}, {values_stdev}{os.linesep}')
+    outputfile_stats = os.path.join(path, OUTPUT_DIR, f'{OUTPUTFILE_RESULTS_STATS}_{n_cores}cores.csv')
+    if not os.path.exists(outputfile_stats):
+        with open(outputfile_stats, 'w', encoding='utf8') as file:
+            file.write(f'Model, Tool, Runs, Cores, Constraints, Products, CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s), Memory(MB){os.linesep}')
+    with open(outputfile_stats, 'a', encoding='utf8') as file:
+        file.write(f'{filename}, {tool}, {runs}, {n_cores}, {n_ctcs}, {n_configs_pretty}, {len(core_features)}, {values_median}, {values_mean}, {values_stdev}, {pretty_memory}{os.linesep}')
     
 
 if __name__ == '__main__':

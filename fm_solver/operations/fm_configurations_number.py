@@ -37,18 +37,34 @@ def configurations_number(fm: FM) -> int:
     return configurations_number_rec(fm.root)
 
 
+# def configurations_number_rec(feature: Feature) -> int:
+#     if feature.is_leaf():
+#         return 1
+#     counts = []
+#     for relation in feature.get_relations():
+#         if relation.is_mandatory():
+#             counts.append(configurations_number_rec(relation.children[0]))
+#         elif relation.is_optional():
+#             counts.append(configurations_number_rec(relation.children[0]) + 1)
+#         elif relation.is_alternative():
+#             counts.append(sum((configurations_number_rec(f) for f in relation.children)))
+#         elif relation.is_or():
+#             children_counts = [configurations_number_rec(f) + 1 for f in relation.children]
+#             counts.append(math.prod(children_counts) - 1)
+#     return math.prod(counts)
+
 def configurations_number_rec(feature: Feature) -> int:
     if feature.is_leaf():
         return 1
-    counts = []
+    counts = 1
     for relation in feature.get_relations():
         if relation.is_mandatory():
-            counts.append(configurations_number_rec(relation.children[0]))
+            counts *= configurations_number_rec(relation.children[0])
         elif relation.is_optional():
-            counts.append(configurations_number_rec(relation.children[0]) + 1)
+            counts *= configurations_number_rec(relation.children[0]) + 1
         elif relation.is_alternative():
-            counts.append(sum((configurations_number_rec(f) for f in relation.children)))
+            counts *= sum((configurations_number_rec(f) for f in relation.children))
         elif relation.is_or():
             children_counts = [configurations_number_rec(f) + 1 for f in relation.children]
-            counts.append(math.prod(children_counts) - 1)
-    return math.prod(counts)
+            counts *= math.prod(children_counts) - 1
+    return counts
