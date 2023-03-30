@@ -31,8 +31,9 @@ def main(fm_filepath: str, n_min: int, n_current: int, n_max: int, division_id: 
 
     # Transform the FM to the fmsans model
     fm = FM.from_feature_model(feature_model)
-    #print("NCores " + str(n_cores)+"NTask " + str(n_tasks)+"CurrentTask " + str(current_task))
-    fmsans_model = CeleryFMToFMSans(fm,n_min,n_current,n_max,division_id,divisions_max,t_max).transform()
+    #print("main nTask " + str(divisions_max) + " current_task " + str(division_id) + " min_id " + str(n_min) + " current_id " + str(n_current) + " max_id " + str(n_max) + " max_time " + str(t_max) )
+   
+    fmsans_model = CeleryFMToFMSans(fm,n_min,n_current,n_max,division_id,divisions_max,t_max,folder).transform()
     #result = fmsans_model.get_analysis()
     #n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
     #print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
@@ -67,4 +68,8 @@ if __name__ == '__main__':
     parser.add_argument('t_max', type=int, default=-1, help='Number max.')
     args = parser.parse_args()
 
+<<<<<<< HEAD
+    main(args.feature_model, args.n_min, args.n_current,args.n_max,args.division_id,args.divisions_max,args.t_max, args.folder)
+=======
     main(args.feature_model, args.n_min, args.n_current,args.n_max,args.division_id,args.divisions_max,args.t_max)
+>>>>>>> parent of d225cb0 (celery)

@@ -226,7 +226,8 @@ class TransformationsVector():
                                        min_id: int = 0,
                                        max_id: int = None,  # included
                                        current_id:int = None,
-                                       max_time:float=None) -> dict[str, int]:
+                                       max_time:float=None,
+                                       folder:str="") -> dict[str, int]:
 
         """Return all valid transformations ids for this transformations vector in the given model.
         
@@ -242,6 +243,8 @@ class TransformationsVector():
         pick_tree = pickle.dumps(fm, protocol=pickle.HIGHEST_PROTOCOL)
 
         initial_bit=TransformationsVector.get_initial_bit(min_id,max_id)
+        print("transofrmation vector nTask " + str(n_tasks) + " current_task " + str(current_task) + " min_id " + str(min_id) + " current_id " + str(current_id) + " max_id " + str(max_id) + " max_time " + str(max_time) )
+        
 
         tree, _ = self.execute(pick_tree, binary_vector, initial_bit=0, final_bit=initial_bit)
         if tree is None:
@@ -250,9 +253,8 @@ class TransformationsVector():
 
         counter = 0
         st = process_time()
-        
             
-        file_name =  "R_1_" + str(current_task) + "-" + str(n_tasks) + ".csv"
+        file_name =  "./" + folder + "/R_1_" + str(current_task) + "-" + str(n_tasks) + ".csv"
         countMax=100
         while num < max_number:  # Be careful! max should be included or excluded?
             binary_vector = list(format(num, f'0{n_bits}b'))
@@ -274,10 +276,12 @@ class TransformationsVector():
                 counter = 0
                 if (et-st>max_time):
                     file_new_jobs = open(file_name, "w")
-                    file_new_jobs.write(str(num)+";"+str(min_id)+";"+str(max_number)+";\n")
+                    file_new_jobs.write(str(min_id)+";"+str(num)+";"+str(max_number)+";\n")
                     file_new_jobs.close()
 
                     progress =decimal.Decimal(decimal.Decimal(num-min_id)/decimal.Decimal(max_number-min_id))
+                    print("File" + file_name)
+                    print(str(os.getcwd))
                     print("Process Progress " + str(progress) + " time " + str(et-st) + " > " + str(max_time))
                     break
         
@@ -365,14 +369,14 @@ class TransformationsVector():
     def get_valid_transformations_ids_picassso(self, fm: FM, n_tasks: int = 1, current_task: int = -1,  min_id:int=-1,max_id:int=-1,n_current=-1,max_time:float=-1) -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
-        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, n_current,max_time)
+        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, n_current,max_time,"")
         valid_transformed_numbers_trees.update(valid_ids)
         return valid_transformed_numbers_trees
     
-    def get_valid_transformations_ids_celery(self, fm: FM, n_tasks: int = 1, current_task: int = -1,  min_id:int=-1,max_id:int=-1,n_current=-1,max_time:float=-1) -> dict[str, int]:
+    def get_valid_transformations_ids_celery(self, fm: FM, n_tasks: int = 1, current_task: int = -1,  min_id:int=-1,max_id:int=-1,n_current=-1,max_time:float=-1,folder:str="") -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
-        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, n_current,max_time)
+        valid_ids = self._picasso_get_valid_transformations_ids(fm, n_tasks, current_task, min_id, max_id, n_current,max_time,folder)
         valid_transformed_numbers_trees.update(valid_ids)
         return valid_transformed_numbers_trees
 

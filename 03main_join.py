@@ -35,13 +35,13 @@ def main(dirpath: str) -> None:
     print(f'#Subtrees: {len(join_model.transformations_ids)}')
 
     # Serializing the FMSans model
-    print(f'Serializing model...')
-    parts_name = filename.split('_')
-    n_tasks = parts_name[-1].split('-')[1]
-    n_cores = parts_name[-2]
-    fm_name = '_'.join(parts_name[:-2])
-    output_fmsans_filepath = f'{fm_name}_{n_cores}_{n_tasks}.json'
-    FMSansWriter(output_fmsans_filepath, join_model).transform()
+    #print(f'Serializing model...')
+    #parts_name = filename.split('_')
+    #n_tasks = parts_name[-1].split('-')[1]
+    #n_cores = parts_name[-2]
+    #fm_name = '_'.join(parts_name[:-2])
+    #output_fmsans_filepath = f'{fm_name}_{n_cores}_{n_tasks}.json'
+    #FMSansWriter(output_fmsans_filepath, join_model).transform()
 
     print(f'Analyzing model...')
     # Get number of configurations

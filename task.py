@@ -30,5 +30,10 @@ app=Celery('task',broker='amqp://guest@localhost//')
 
 
 @app.task
+<<<<<<< HEAD
+def picasso(model,n_min,n_current,n_max,divisions_id,numberDivisions,max_time,folder):
+    return Celery01.main(model,n_min,n_current,n_max,divisions_id,numberDivisions,max_time,folder)
+=======
 def picasso(n_min:int,n_current:int,n_max:int,divisions_id:int):
     return Celery01.main(model,n_min,n_current,n_max,divisions_id,numberDivisions,max_time)
+>>>>>>> parent of d225cb0 (celery)
