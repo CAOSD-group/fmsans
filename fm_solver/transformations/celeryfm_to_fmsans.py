@@ -1,3 +1,4 @@
+from typing import Dict, Tuple
 from flamapy.core.transformations import ModelToModel
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 from fm_solver.models import feature_model
@@ -31,17 +32,16 @@ class CeleryFMToFMSans(FMToFMSans):
     def get_destination_extension() -> str:
         return 'fmsans'
 
-    def __init__(self, source_model: feature_model, n_min: int, n_current: int, n_max: int, division_id: int,divisions_max: int,t_max: int, folder:str) -> None:
+    def __init__(self, source_model: feature_model, n_min: int, n_current: int, n_max: int, division_id: int,divisions_max: int,t_max: int) -> None:
          super().__init__(source_model, 1, divisions_max, division_id,n_min,n_max,1,t_max)
          self.n_current=n_current
-         self.folder = folder
 
 
-    def transform(self) -> FMSans:
-         return celery_fm_to_fmsans(self.feature_model,self.n_min_job,self.n_current,self.n_max_job,self.current_task,self.n_tasks,self.max_time,self.folder)
+    def transform(self) -> Tuple[Dict[str, int], int, int, int]:
+         return celery_fm_to_fmsans(self.feature_model,self.n_min_job,self.n_current,self.n_max_job,self.current_task,self.n_tasks,self.max_time)
 
 
-def celery_fm_to_fmsans(feature_model: FeatureModel, n_min: int, n_current: int, n_max: int, division_id: int,divisions_max: int,t_max: int,folder:str) -> FMSans:
+def celery_fm_to_fmsans(feature_model: FeatureModel, n_min: int, n_current: int, n_max: int, division_id: int,divisions_max: int,t_max: int) -> Tuple[Dict[str, int], int, int, int]:
     fm = FM.from_feature_model(feature_model)
 
     if not fm.get_constraints():
@@ -56,10 +56,11 @@ def celery_fm_to_fmsans(feature_model: FeatureModel, n_min: int, n_current: int,
     # Get transformations vector
     trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
     #print("cekerttonssasnTask " + str(divisions_max) + " current_task " + str(division_id) + " min_id " + str(n_min) + " current_id " + str(n_current) + " max_id " + str(n_max) + " max_time " + str(t_max) )
-        
-    valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids_celery(fm, divisions_max,division_id,n_min,n_max,n_current,t_max,folder)
+    
+    valid_transformed_numbers_trees,n_current = trans_vector.get_valid_transformations_ids_celery(fm, divisions_max,division_id,n_min,n_max,n_current,t_max)
 
     # Get FMSans instance
-    return FMSans(FM(fm.root), trans_vector, valid_transformed_numbers_trees)
+    #return FMSans(FM(fm.root), trans_vector, valid_transformed_numbers_trees)
+    return valid_transformed_numbers_trees,n_min,n_current,n_max
 
 

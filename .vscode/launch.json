@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ALLIONE",
+            "name": "Celery",
             "type": "python",
             "request": "launch",
             "cwd": "${workspaceFolder}/GPL/",
-            "program": "${workspaceFolder}/00alli1.py",
+            "program": "${workspaceFolder}/00alli1Celerys.py",
             "console": "integratedTerminal",
-            "args": [],
+            "args": ["512","8","60","120","77371252455336267181195263","./fm_models/simples/GPL_simple.uvl","./GPL_simple.json"],
             "justMyCode": true
         },
         {

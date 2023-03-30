@@ -1,19 +1,14 @@
-import os
-import re
-import csv
-import re 
-from datetime import datetime
+import argparse
 import random
+
+
 from task import picasso
 import time
 
-numberDivisions = 512
-numberJobs = 8
-max_time = 60
+
 
 #Maximun and minium max_time adaptative.
 min_time_to_task=15
-max_time_to_task=300
 
 #improve to check for more than only one
 #maxConfiguration=77371252455336267181195263
@@ -29,12 +24,9 @@ max_time_to_task=300
 #maxConfiguration = 2305843009213693952
 
 #maxConfiguration=2199023255551
-maxConfiguration=77371252455336267181195263
+
 
 #model="fm_models/simples/MTGCard2020_simple.uvl"
-model="./fm_models/simples/GPL_simple.uvl"
-fileDivision="R_0_1_divisions.csv"
-folder = "GPL"
 #model="fm_models/simples/axTLS_simple.uvl"
 
 
@@ -72,89 +64,7 @@ def get_intervals(n_min,n_max) -> tuple[int, int, int,int]:
 
 
 
-def new_divisions(n_divisions):
-        uncomplete = 0
-        divisions=[]
-        now = datetime.now()
-        date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
-
-
-        #First diviions, we need to take out the index
-        divisionsGeneral=[]
-        file="R_0_1_divisions.csv"
-        
-        with open(file, newline='') as csvfile:
-                spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
-                for row in spamreader:
-                        uncomplete+=1
-                        #
-                        #min,current,max, dif
-                        divisionsGeneral.append([int(row[1]),int(row[2]),int(row[3]),int(row[3])-int(row[2])])          
-                csvfile.close()
-
-        if os.path.getsize(file) == 0:
-                os.remove(file)
-        else:
-                old_name = file
-                new_name = str(date_time)+file
-                os.rename(old_name, new_name)
-                
-
-
-
-        #Seconds the new divisions.
-
-        csv_file_regex="R_1_[0-9]+-[0-9]+.csv"
-        pattern = re.compile(csv_file_regex)
-
-        for roots,dirs, files in os.walk("."):
-                for file in files:
-                        if pattern.match(file):
-                                with open(file, newline='') as csvfile:
-                                        
-                                        spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
-                                        for row in spamreader:
-                                                uncomplete+=1
-                                                #current, min, dif, max
-                                                #min,current,max, dif
-                                                divisions.append([int(row[0]),int(row[1]),int(row[2]),int(row[2])-int(row[1])])       
-                                        csvfile.close()
-
-                                if os.path.getsize(file) == 0:
-                                        os.remove(file)
-                                else:
-                                        old_name = file
-                                        new_name = str(date_time)+file
-                                        os.rename(old_name, new_name)
-                break
-
-        #progress1 = [sum(i) for i in zip(*divisions)]
-        #progress2 = [sum(i) for i in zip(*divisionsGeneral)]
-        #print(str((progress1[2]+progress2[2])/maxConfiguration))
-        #print(str(maxConfiguration-progress1[2]+progress2[2]))
-
-        maxIter = n_divisions-len(divisionsGeneral)
-
-        #Divisions general-> divsiones que no se han llegado aprobar
-        #divisoins, diviiones nuevas que no se han completado.
-
-        divisions.sort(key=lambda x: x[3],reverse=True)
-        if (len(divisions)>0):
-                while (len(divisions)<maxIter//2):
-                        first=divisions.pop(0)
-                        currentNun=first[0]
-                        firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(first[0],first[2])
-                        
-                        while(currentNun>firstIntervalUpper):
-                                firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(secondIntervalLower,secondIntervalUpper)
-
-                        divisions.append([firstIntervalLower,currentNun,firstIntervalUpper,firstIntervalUpper-currentNun])
-                        divisions.append([secondIntervalLower,secondIntervalLower,secondIntervalUpper,secondIntervalUpper-secondIntervalLower])
-
-
-                print(" Divisions size: " + str(len(divisions)))
-
-        divisions+=divisionsGeneral
+def new_divisions(n_divisions,divisions):
         divisions.sort(key=lambda x: x[3],reverse=True)
         if (len(divisions)>0):
                 while (len(divisions)<n_divisions):
@@ -170,21 +80,9 @@ def new_divisions(n_divisions):
                 
 
                 print(" Divisions size: " + str(len(divisions)))
-                #Escribimos a ficheros
-                now = datetime.now()
-                date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
-                
-                #The last take all
-                file_name = "R_0_1_divisions.csv"
-                if os.path.isfile("./"+file_name):
-                        os.rename(file_name, str(date_time)+file_name)
-                write2file(0,"./"+file_name,divisions)
+       
 
-                rename_json(date_time)
-        else:
-               uncomplete=0
-
-        return uncomplete
+        return divisions
     
 
 def init_process(n_divisions,n_max):
@@ -208,35 +106,12 @@ def init_process(n_divisions,n_max):
 
 
         random.shuffle(divisions)
-        #Escribimos a ficheros
-        now = datetime.now()
-        date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
-    
-        file_name = "R_0_1_divisions.csv"
-        if os.path.isfile("./"+file_name):
-                os.rename(file_name, str(date_time)+file_name)
-        write2file(0,"./"+file_name,divisions)
-   
+        return divisions
 
 
 
 
-def rename_json(date_time):
-    json_file_regex="R_1_[0-9]+-[0-9]+.json" 
-    pattern = re.compile(json_file_regex)
-    for roots,dirs, files in os.walk("."):
-        for file in files:
-            if pattern.match(file):
-                old_name = file
-                new_name = str(date_time)+file
-                os.rename(old_name, new_name)     
-        break
-
-
-
-
-
-def wait_slot(arrayResult,st,max_time,):
+def wait_slot(arrayResult,st,max_time,dicJson: dict[str, int],arrayCSV):
         salir = False
         pos = -1
         while(not salir):
@@ -244,6 +119,11 @@ def wait_slot(arrayResult,st,max_time,):
                         if (arrayResult[i].state=='SUCCESS'):
                                 pos = i
                                 salir = True
+                                dict, min, current, max = arrayResult[i].get()
+                                dicJson.update(dict)
+                                if (current < max):
+                                        arrayCSV.append([min, current, max, max-current])
+                                
                                 break
                         elif (arrayResult[i].state=='FAILURE'):
                                 print("NFAllo tarea")
@@ -260,10 +140,14 @@ def wait_slot(arrayResult,st,max_time,):
                 #time.sleep(2)
         return pos
 
-def wait_forAll(arrayResult):
+def wait_forAll(arrayResult,dicJson: dict[str, int],arrayCSV):
         while(len(arrayResult)>0):
                 for i in range(len(arrayResult)-1,-1,-1):
                         if (arrayResult[i].state=='SUCCESS'):
+                                dict, min, current, max = arrayResult[i].get()
+                                dicJson.update(dict)
+                                if (current < max):
+                                        arrayCSV.append([min, current, max, max-current])
                                 del arrayResult[i]
                                 break
                         elif (arrayResult[i].state=='FAILURE'):
@@ -274,98 +158,133 @@ def wait_forAll(arrayResult):
                 time.sleep(1)
                 
                
-      
+if __name__ == '__main__':
+        parser = argparse.ArgumentParser(description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
+        parser.add_argument('numberDivisions', type=int, help='Initial Number of Divisions to split the input space.')
+        parser.add_argument('numberJobs', type=int, default=1, help='Number of cores (processes) to execute (power of 2) (default = CPU count).')
+        parser.add_argument('max_time_iteration', type=int,  default=-1, help='Maximum time per iteration.')
+        parser.add_argument('max_time_total', type=int,  default=-1, help='Maximum time in total.')
+        parser.add_argument('maxConfiguration', type=int, default=-1, help='Number of maximum configuration.')
+        parser.add_argument('model_name', type=str,  default=-1, help='Name of the model to test.')
+        parser.add_argument('json_file', type=str, default=-1, help='jSon file to keep de transformation')
+        args = parser.parse_args()
 
-arrayResult = []
+        numberDivisions = args.numberDivisions
+        numberJobs = args.numberJobs
+        max_time = args.max_time_iteration
+        maxConfiguration= args.maxConfiguration
+        model_name= args.model_name
+        json_file= args.json_file
 
-print(os.getcwd()) 
+        # numberJobs = 8
+        # max_time = 30
+        # maxConfiguration=77371252455336267181195263
+        # model_name="./fm_models/simples/GPL_simple.uvl"
+        # json_file="./GPL_simple.json"
 
-#Arrancamos todos
-finish = False
-
-fileToSaveProgess = "./progress" + folder + ".txt"
-fProgress = open(fileToSaveProgess, "w")
-
-
+        arrayResult = []
 
 
-init_process(numberDivisions,maxConfiguration)
-while (not finish):
-        with open(fileDivision, 'r+') as file:
-                lines = file.readlines()
+        #Arrancamos todos
+        finish = False
+
+        fileToSaveProgess = "./progress.txt"
+        fProgress = open(fileToSaveProgess, "w")
+
+
+
+
+
+        divisions = init_process(numberDivisions,maxConfiguration)
+        initTime = time.time()
+        while ((not finish) and (time.time()-initTime<args.max_time_total)):
                 contJob = 0     
                 st = time.time()
-                if (len(arrayResult)>0):
-                       print("ERROR array result mayor que cero")
-                       print(arrayResult)
                 #Launch to complete all the job
-                for line in lines:
-                        line_division = line.split(";")
+                print("Start to launch")
+                for line_division in divisions:
+                        
                         #model,n_min,n_current,n_max,divisions_id,numberDivisions,max_time
 
-                        arrayResult.append(picasso.delay(model,int(line_division[1]),int(line_division[2]),int(line_division[3]),int(line_division[0]),numberDivisions,max_time,folder))
+                        arrayResult.append(picasso.delay(model_name,line_division[0],line_division[1],line_division[2],contJob,numberDivisions,max_time))
                         contJob+=1
                         if contJob>=numberJobs:
                                 break
                 
                 for l in range(contJob-1,-1,-1):
-                        del lines[l]
+                        del divisions[l]
                 contJob=0
-                for line in lines:
-                        line_division = line.split(";")
+
+                dictJSON = {}
+                arrayCSV = []
+                for line_division in divisions:
+                
                         if (max_time-(time.time()-st)) < min_time_to_task:
                                 print("NO duration left, break and new divisions pre wait")
                                 break
-                        pos = wait_slot(arrayResult,st,max_time)
+                        pos = wait_slot(arrayResult,st,max_time,dictJSON,arrayCSV)
                         if (pos < 0):
-                               break
-                        arrayResult[pos] = picasso.delay(model,int(line_division[1]) ,int(line_division[2]),int(line_division[3]),int(line_division[0]),numberDivisions,max_time-(time.time()-st),folder)
+                                break
+                        arrayResult[pos] = picasso.delay(model_name,line_division[0] ,line_division[1],line_division[2],contJob,numberDivisions,max_time-(time.time()-st))
                         #print(arrayResult[pos])
                         #print(max_time-(time.time()-st))
                         contJob+=1
                 
                 for l in range(contJob-1,-1,-1):
-                        del lines[l]
+                        del divisions[l]
                 
                 #wait for the last one
-                wait_forAll(arrayResult)
-                #Escribir a fichero los que queden.
-                file.seek(0)  # Move the file pointer to the beginning
-                file.truncate()
-                file.writelines(lines)
-                file.close()
-                
-        #Combinamos todo en el fichero fileDivision
-        uncomplete = new_divisions(numberDivisions)
-        finish = (uncomplete<=0)  
-        percent = 100*uncomplete/numberJobs
-
-        fProgress.write("Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(percent))
-        print("Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(percent))
-        #Self adapt
-        if (percent > 200):
-                numberDivisions= round(numberDivisions/2)
-                if (numberDivisions<numberJobs):
-                        numberDivisions = numberJobs
-        elif(percent < 70):
-                numberDivisions= round(numberDivisions*2)
-               
-
-        print("Next Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(percent))
-       
-        
-
-fProgress.close()
-
-        
-
-        #OPen and atach all divisions to a list
-        
-        
-        
-        
-
-                
+                print("Wait for all")
+                wait_forAll(arrayResult,dictJSON,arrayCSV)
+                print("Merge and relaunch")
+                for line_division in divisions:
+                        arrayCSV.append([line_division[0] ,line_division[1],line_division[2],line_division[2]-line_division[1]])
+                        
+                #Combinamos todo en el fichero 
+                percent = 100*len(arrayCSV)/numberJobs
+                divisions = new_divisions(numberDivisions,arrayCSV)
+                finish = (len(divisions)==0)  
                 
 
-        
+                fProgress.write("Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(percent))
+                print("Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(percent))
+                #Self adapt
+                if (percent < 100):
+                        numberDivisions= round(numberDivisions*2)
+                
+
+                print("Next Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(percent*numberJobs/100))
+                jsonNewtransforms = open(json_file, "a")
+                if (not finish and (time.time()-initTime<args.max_time_total)):
+                        for key, value in dictJSON.items():
+                                jsonNewtransforms.write(f'"{key}": {value},\n')
+                else:
+                        cont = 0
+                        for i, (key, value) in enumerate(dictJSON.items()):
+                                if i == len(dictJSON) - 1:
+                                        jsonNewtransforms.write(f'"{key}": {value}\n')
+                                else:
+                                        jsonNewtransforms.write(f'"{key}": {value},\n')
+                        
+                jsonNewtransforms.close()
+        jsonNewtransforms = open(json_file, "a")
+        jsonNewtransforms.write("\t\t}\n}")
+        jsonNewtransforms.close()
+
+
+                
+
+        fProgress.close()
+
+                
+
+                #OPen and atach all divisions to a list
+                
+                
+                
+                
+
+                        
+                        
+
+                

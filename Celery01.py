@@ -1,5 +1,7 @@
 
 import argparse
+import os
+from typing import Dict, Tuple
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 
@@ -22,7 +24,7 @@ FM_OUTPUT_FILENAME_POSTFIX = '_fmsans'
 get_min_max_ids_transformations_for_parallelization
 
 
-def main(fm_filepath: str, n_min: int, n_current: int, n_max: int, division_id: int,divisions_max: int,t_max: int):
+def main(fm_filepath: str, n_min: int, n_current: int, n_max: int, division_id: int,divisions_max: int,t_max: int)  -> Tuple[Dict[str, int], int, int, int] :
     # Get feature model name
 
     # Load the feature model
@@ -33,29 +35,17 @@ def main(fm_filepath: str, n_min: int, n_current: int, n_max: int, division_id: 
     fm = FM.from_feature_model(feature_model)
     #print("main nTask " + str(divisions_max) + " current_task " + str(division_id) + " min_id " + str(n_min) + " current_id " + str(n_current) + " max_id " + str(n_max) + " max_time " + str(t_max) )
    
-    fmsans_model = CeleryFMToFMSans(fm,n_min,n_current,n_max,division_id,divisions_max,t_max,folder).transform()
-    #result = fmsans_model.get_analysis()
-    #n_configs = result[FMFullAnalysis.CONFIGURATIONS_NUMBER]
-    #print(f'Configs: {n_configs} ({utils.int_to_scientific_notation(n_configs)})')
+    #It returns a list with a [valid_transformed_numbers_trees,n_min,n_current,n_max]
+    dict, n_min, n_current, n_max = CeleryFMToFMSans(fm,n_min,n_current,n_max,division_id,divisions_max,t_max).transform()
 
-    # Serializing the FMSans model
-    # if (n_min>0):
-    #    output_fmsans_filepath = f'{fm.root.name}_{n_cores}_{current_task}-{n_tasks}--{n_min}-{n_max}.json'
-    # else:
-    if (len(fmsans_model.transformations_ids) > 0):
-        output_fmsans_filepath = f'R_1_{division_id}-{divisions_max}.json'
-        FMSansWriter(output_fmsans_filepath, fmsans_model).transform()
-
-    # fm_full = fmsans_model.get_feature_model()
-    # fm_full = fm_utils.to_unique_features(fm_full)
-    # output_fullfm_filepath = f'{fm.root.name}_full.uvl'
-    # UVLWriter(path=output_fullfm_filepath, source_model=fm).transform()
+    return dict, n_min, n_current, n_max
+    
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
-    parser.add_argument('feature_model', type=str,
+    parser.add_argument('feature_model', type=bytes,
                         help='Input feature model in UVL format.')
     parser.add_argument('n_min', type=int,  default="",
                         help='Minimun division')
@@ -68,8 +58,4 @@ if __name__ == '__main__':
     parser.add_argument('t_max', type=int, default=-1, help='Number max.')
     args = parser.parse_args()
 
-<<<<<<< HEAD
-    main(args.feature_model, args.n_min, args.n_current,args.n_max,args.division_id,args.divisions_max,args.t_max, args.folder)
-=======
     main(args.feature_model, args.n_min, args.n_current,args.n_max,args.division_id,args.divisions_max,args.t_max)
->>>>>>> parent of d225cb0 (celery)
