@@ -1,0 +1,8 @@
+Model, Cores, Constraints, Features, Subtrees, Time(s)
+Akesson2019b_simple, 16, 19, 72, 7, 0.0514
+GPL_excerpt_simple, 16, 5, 16, 14, 0.0091
+Truck_simple, 16, 10, 33, 42, 0.045
+Pizzas_complex_simple, 16, 5, 16, 16, 0.0077
+TankWar_simple, 16, 0, 37, 0, 0.0001
+WeaFQAs_simple, 16, 7, 179, 128, 0.1162
+MobileMedia_simple, 16, 3, 43, 8, 0.0049

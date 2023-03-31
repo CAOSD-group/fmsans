@@ -1,0 +1,3 @@
+Model, Tool, Runs, Cores, Constraints, Products, CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s), Memory(MB)
+WeaFQAs, fmsans, 30, 64, 7, 2.93e24, 1, 0.1723, 0.17331666666666667, 0.006205063746002457, 1.2775435
+WeaFQAs, fmsans, 100, 64, 7, 2.93e24, 1, 0.1727, 0.18513, 0.045764002659229225, 1.2950675
