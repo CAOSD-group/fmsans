@@ -70,9 +70,9 @@ if __name__ == '__main__':
 
         divisions.append([currentNun,firstIntervalLower,firstIntervalUpper-currentNun,firstIntervalUpper])
         divisions.append([secondIntervalLower,secondIntervalLower,secondIntervalUpper-secondIntervalLower,secondIntervalUpper])
-        divisions.sort(key=lambda x: x[2],reverse=True)
+        #divisions.sort(key=lambda x: x[2],reverse=True)
 
-   
+    print("Now, shuffle")
     random.shuffle(divisions)
     #Escribimos a ficheros
     now = datetime.now()
