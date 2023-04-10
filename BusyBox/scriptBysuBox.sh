@@ -38,7 +38,7 @@
 #SBATCH --array=0-127
 # the program to execute with its parameters:
 source $HOME/venv/bin/activate
-cd $HOME/fm_solver/uClib
+cd $HOME/fm_solver/BusyBox
 time python $HOME/fm_solver/picassofiles01main.py $HOME/fm_solver/fm_models/simples/busybox_simple.uvl 1048576 ${SLURM_ARRAY_TASK_ID} 128 3600
 deactivate
 

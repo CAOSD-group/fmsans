@@ -31,8 +31,8 @@
 ##SBATCH --constraint=sd
 
 # Set output and error files
-#SBATCH --error=OutputR_1_%a-256.err
-#SBATCH --output=OutputR_1_%a-256.out
+#SBATCH --error=OutputR_1_%a-128.err
+#SBATCH --output=OutputR_1_%a-128.out
 
 # Leave one comment in following line to make an array job. Then N jobs will be launched. In each one SLURM_ARRAY_TASK_ID will take one value from 1 to 100
 #SBATCH --array=0-127
