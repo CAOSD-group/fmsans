@@ -9,7 +9,7 @@
 #SBATCH --ntasks=1
 
 # Number of desired cpus (all in same node):
-#SBATCH --cpus-per-task=128
+#SBATCH --cpus-per-task=1
 
 # Amount of RAM needed for this job:
 #SBATCH --mem=1gb
@@ -38,7 +38,7 @@
 #SBATCH --array=0-127
 # the program to execute with its parameters:
 source $HOME/venv/bin/activate
-cd $HOME/fm_solver/Automotive
+cd $HOME/fm_solver/Automotivecd ..
 time python $HOME/fm_solver/picassofiles01main.py $HOME/fm_solver/fm_models/simples/automotive2_4_simple.uvl 1048576 ${SLURM_ARRAY_TASK_ID} 128 3600
 deactivate
 

@@ -9,7 +9,7 @@
 #SBATCH --ntasks=1
 
 # Number of desired cpus (all in same node):
-#SBATCH --cpus-per-task=128
+#SBATCH --cpus-per-task=1
 
 # Amount of RAM needed for this job:
 #SBATCH --mem=1gb
