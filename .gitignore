@@ -129,11 +129,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 *.json
-*.csv
 *.err
-CPLCopia/
-GPL copia/
-GPL_1CPU_1TASK/
 Pizza.sxfm
 fm_solver/models/utils/transformations_vector copy 2.py
 fm_solver/models/utils/transformations_vector copy.py
