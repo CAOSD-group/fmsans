@@ -1,0 +1,9 @@
+Model, Cores, Constraints, Features, Subtrees, Time(s)
+GPL_simple, 16, 86, 156, 94770, 2364.6177
+Oh2019_simple, 16, 61, 107, 30, 2.697
+JHipster_simple, 16, 44, 94, 79, 0.9367
+Ghamizi2019_simple, 16, 110, 1761, 9330, 3946.4875
+BerkeleyDB_simple, 16, 46, 76, 656, 14.1289
+axTLS_simple, 16, 169, 316, 432, 142.1014
+Horcas2022b_simple, 16, 61, 162, 310, 3.4474
+MTGCard2020_simple, 16, 41, 802, 163728, 1169.1273
