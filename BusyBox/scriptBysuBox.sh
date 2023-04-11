@@ -15,7 +15,7 @@
 #SBATCH --mem=1gb
 
 # The time the job will be running:
-#SBATCH --time=1:05:00
+#SBATCH --time=14:05:00
 
 # To use GPUs you have to request them:
 ##SBATCH --gres=gpu:1
@@ -39,6 +39,6 @@
 # the program to execute with its parameters:
 source $HOME/venv/bin/activate
 cd $HOME/fm_solver/BusyBox
-time python $HOME/fm_solver/picassofiles01main.py $HOME/fm_solver/fm_models/simples/busybox_simple.uvl 1048576 ${SLURM_ARRAY_TASK_ID} 128 3600
+time python $HOME/fm_solver/picassofiles01main.py $HOME/fm_solver/fm_models/simples/busybox_simple.uvl 1048576 ${SLURM_ARRAY_TASK_ID} 128 50400
 deactivate
 

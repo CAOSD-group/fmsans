@@ -4,8 +4,8 @@ import subprocess
 import re
 import sys
 
-numberDivisions = 1048576
-numberJobs = 8
+numberDivisions = 262144
+numberJobs = 128
 max_time = 300
 sleep = 1
 sleepCounter=8
