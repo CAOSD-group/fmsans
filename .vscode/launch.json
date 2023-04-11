@@ -60,12 +60,12 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/00initProcess.py",
-            "cwd": "${workspaceFolder}/uClib/",
+            "cwd": "${workspaceFolder}/Krieter/",
             "console": "integratedTerminal",
             "args": [
                 "1048576",
                 "128",
-                "14396524142538228424993723224595141948383030778566133225922417832357880258148761185020930195532450742879746914027266864394266451377581759004827248578768524336431103"
+                "75557863725914323419135"
             ],
             "justMyCode": true
         },
