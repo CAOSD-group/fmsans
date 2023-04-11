@@ -83,6 +83,9 @@ if __name__ == '__main__':
         file_name = "R_" + str(cont) + "_" + str(args.n_files) +"_divisions.csv"
         if os.path.isfile("./"+file_name):
             os.rename(file_name, str(date_time)+file_name)
-        write2file(cont*division_size,"./"+file_name,divisions[cont*division_size:(cont+1)*division_size])
+        if (cont == args.n_files-1):
+            write2file(cont*division_size,"./"+file_name,divisions[cont*division_size:])
+        else:
+            write2file(cont*division_size,"./"+file_name,divisions[cont*division_size:(cont+1)*division_size])
         cont+=1
    
