@@ -3,7 +3,7 @@
 # Those with two commets will be ignored:
 # The name to show in queue lists for this job:
 
-#SBATCH -J Krieter
+#SBATCH -J EMB
 
 # Number of desired cpus (can be in any node):
 #SBATCH --ntasks=1
@@ -12,10 +12,10 @@
 #SBATCH --cpus-per-task=1
 
 # Amount of RAM needed for this job:
-#SBATCH --mem=2gb
+#SBATCH --mem=250mb
 
 # The time the job will be running:
-#SBATCH --time=5:05:00
+#SBATCH --time=24:05:00
 
 # To use GPUs you have to request them:
 ##SBATCH --gres=gpu:1
@@ -38,7 +38,7 @@
 #SBATCH --array=0-127
 # the program to execute with its parameters:
 source $HOME/venv/bin/activate
-cd $HOME/fm_solver/Krieter
+cd $HOME/fm_solver/EMB
 time python $HOME/fm_solver/picassofiles01main.py $HOME/fm_solver/fm_models/simples/Krieter2020o_simple.uvl 1048576 ${SLURM_ARRAY_TASK_ID} 128 18000
 deactivate
 
