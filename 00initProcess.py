@@ -9,6 +9,9 @@ import decimal
 import decimal
 import math
 import random
+import sys
+
+sys.set_int_max_str_digits(5120)
 
 
 def write2file(cont, fileName,data):
