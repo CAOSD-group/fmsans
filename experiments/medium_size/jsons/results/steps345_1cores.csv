@@ -1,9 +1,0 @@
-Model, Tool, Runs, Cores, Constraints, Products, CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s)
-MTGCard2020, fmsans, 1, 1, 41, 6.89e214, 16, 899.6313, 899.6313, 0
-Ghamizi2019, fmsans, 1, 1, 110, 5.06e162, 9, 83.0152, 83.0152, 0
-Oh2019, fmsans, 1, 1, 61, 3840, 3, 0.3995, 0.3995, 0
-axTLS, fmsans, 1, 1, 169, 6.52e10, 25, 4.0197, 4.0197, 0
-Horcas2022b, fmsans, 1, 1, 61, 37706, 4, 0.3491, 0.3491, 0
-BerkeleyDB, fmsans, 1, 1, 46, 4.08e9, 1, 0.8862, 0.8862, 0
-JHipster, fmsans, 1, 1, 44, 26256, 7, 0.1366, 0.1366, 0
-GPL, fmsans, 1, 1, 86, 107094, 5, 187.1803, 187.1803, 0

@@ -1,6 +1,0 @@
-Model, F, Fc, Fa, Faux, CTC, CTCs, CTCreq, CTCexc, CTCc, CTCpseudo, CTCstrict, #Configs
-GPL_simple, 156, 36, 120, 90, 86, 86, 40, 46, 0, 0, 0, 2.70e14
-Ghamizi2019_simple, 1761, 1761, 0, 0, 110, 110, 65, 45, 0, 0, 0, 5.06e162
-uClinux-base_simple, 704, 309, 395, 324, 3713, 3713, 299, 3414, 0, 0, 0, 3.19e36
-Krieter2020o_simple, 628, 423, 205, 48, 76, 76, 65, 11, 0, 0, 0, 3.08e105
-uClibc_simple_simple, 1101, 291, 810, 45, 542, 542, 298, 244, 0, 0, 0, 1.72e76

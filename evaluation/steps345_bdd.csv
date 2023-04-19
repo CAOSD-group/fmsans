@@ -1,7 +1,0 @@
-FM,Runs,Cores,Features,Constraints,Trees,Time(s)
-JHipster,1,1,94,44,79,0.0128
-JHipster,1,2,94,44,79,0.0084
-JHipster,1,4,94,44,79,0.0143
-JHipster,1,8,94,44,79,0.0293
-JHipster,1,16,94,44,79,0.0919
-

@@ -1,7 +1,0 @@
-Model, Tool, Runs, Cores, Constraints, Products, CoreFeatures, Time_median(s), Time_mean(s), Time_stdev(s), Memory(MB)
-GPL, fmsans_gft, 1, 64, 86, 107094, 5, 15.8623, 15.8623, 0, 211.092099
-Ghamizi2019, fmsans_gft, 1, 64, 110, 5.06e162, 9, 21.8106, 21.8106, 0, 21.212382
-Ghamizi2019, fmsans_gft, 1, 64, 110, 5.06e162, 9, 22.9795, 22.9795, 0, 21.212382
-Ghamizi2019, fmsans, 1, 64, 110, 5.06e162, 9, 62.0758, 62.0758, 0, 52.96366
-GPL, fmsans, 1, 64, 86, 107094, 5, 90.1466, 90.1466, 0, 468.32698
-MTGCard2020, fmsans, 1, 64, 41, 6.89e214, 16, 411.6045, 411.6045, 0, 803.659947
