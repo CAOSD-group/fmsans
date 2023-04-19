@@ -46,12 +46,10 @@ The artifact includes:
 
 ### Requirements
 Our approach has been implemented 100% in Python and is built on top of [Flama](https://flamapy.github.io/).
-By convention, all requirements are depicted in the `requirements.txt` file. 
-In particular, the dependencies are:
+In particular, the main dependencies are:
 
 - [Python 3.9+](https://www.python.org/)
 - [Flama](https://flamapy.github.io/)
-- [YAML](https://pyyaml.org/)
 
 The framework has been tested in Linux (Mint and Ubuntu) and Windows 11.
 
@@ -73,7 +71,8 @@ The framework has been tested in Linux (Mint and Ubuntu) and Windows 11.
 
 ### Execution of the scripts
 Here we show how to execute our approach step by step with concrete examples using the JHipster FM.
-You can use any of the FM in the [models folder](models/) to replicate the results shown in the evaluation presented in the paper.
+You can use any other FM in the [models folder](models/) to replicate the results shown in the evaluation presented in the paper.
+For each script, we describe its syntaxis, inputs, outputs, and an example of execution.
 
 - **Step 1:** Convert an FM in UVL (.uvl) to an FM in UVL (.uvl) with only simple constraints (requires and excludes).
   
