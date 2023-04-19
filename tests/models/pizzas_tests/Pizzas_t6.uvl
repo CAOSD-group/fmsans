@@ -1,0 +1,125 @@
+namespace root
+
+features
+	root {abstract}	
+		alternative
+			Pizza {abstract}	
+				mandatory
+					Topping	
+						or
+							Salami
+							Ham
+							Mozzarella
+					Size	
+						mandatory
+							Big
+					Dough	
+						mandatory
+							Neapolitan
+					OR {abstract}	
+						or
+							CheesyCrust_1 {abstract}
+							Sicilian_1 {abstract}
+							Big_1 {abstract}
+			Pizza1 {abstract}	
+				mandatory
+					Topping1	
+						or
+							Salami1
+							Ham1
+							Mozzarella1
+					Size1	
+						mandatory
+							Normal
+					Dough1	
+						mandatory
+							Neapolitan1
+					OR1 {abstract}	
+						or
+							CheesyCrust_11 {abstract}
+							Sicilian_11 {abstract}
+			Pizza2 {abstract}	
+				mandatory
+					Topping2	
+						or
+							Salami2
+							Ham2
+							Mozzarella2
+					Size2	
+						mandatory
+							Big1
+					Dough2	
+						mandatory
+							Neapolitan2
+					CheesyCrust
+					OR2 {abstract}	
+						or
+							Sicilian_12 {abstract}
+							Big_11 {abstract}
+			Pizza3 {abstract}	
+				mandatory
+					Topping3	
+						or
+							Salami3
+							Ham3
+							Mozzarella3
+					Size3	
+						mandatory
+							Normal1
+					Dough3	
+						mandatory
+							Neapolitan3
+					CheesyCrust1
+					OR3 {abstract}	
+						mandatory
+							Sicilian_13 {abstract}
+			Pizza4 {abstract}	
+				mandatory
+					Topping4	
+						or
+							Salami4
+							Ham4
+							Mozzarella4
+					Size4	
+						mandatory
+							Big2
+					Dough4	
+						mandatory
+							Sicilian
+					OR4 {abstract}	
+						or
+							CheesyCrust_12 {abstract}
+							Big_12 {abstract}
+			Pizza5 {abstract}	
+				mandatory
+					Topping5	
+						or
+							Salami5
+							Ham5
+							Mozzarella5
+					Size5	
+						mandatory
+							Normal2
+					Dough5	
+						mandatory
+							Sicilian1
+					OR5 {abstract}	
+						mandatory
+							CheesyCrust_13 {abstract}
+			Pizza6 {abstract}	
+				mandatory
+					Topping6	
+						or
+							Salami6
+							Ham6
+							Mozzarella6
+					Size6	
+						mandatory
+							Big3
+					Dough6	
+						mandatory
+							Sicilian2
+					CheesyCrust2
+					OR6 {abstract}	
+						mandatory
+							Big_13 {abstract}

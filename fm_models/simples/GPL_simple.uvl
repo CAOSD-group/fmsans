@@ -1,0 +1,337 @@
+features
+	Gpl {abstract}
+		mandatory
+			MainGpl {abstract}
+				mandatory
+					Test {abstract}
+						mandatory
+							StartHere {abstract}
+								mandatory
+									Base 
+								optional
+									Benchmark 
+								optional
+									Prog 
+				optional
+					Implementation {abstract}
+						alternative
+							NoEdges {abstract}
+							OnlyNeighbors {abstract}
+							Edges {abstract}
+				optional
+					GraphType {abstract}
+						alternative
+							Directed {abstract}
+							Undirected {abstract}
+				optional
+					GraphTypeReal {abstract}
+						alternative
+							DirType {abstract}
+								mandatory
+									DirectedCommon 
+								mandatory
+									Dir {abstract}
+										alternative
+											DirectedGR 
+											DirectedGnR 
+											DirectedGenR 
+							UndirType {abstract}
+								mandatory
+									UndirectedCommon 
+								mandatory
+									Undir {abstract}
+										alternative
+											UndirectedGR 
+											UndirectedGnR 
+											UndirectedGenR 
+				optional
+					Weight {abstract}
+						alternative
+							Wgt {abstract}
+								mandatory
+									Weighted {abstract}
+								optional
+									WeightedCommon 
+								optional
+									dProgdWeightedCommon 
+							UnWeighted {abstract}
+				optional
+					WeightReal {abstract}
+						alternative
+							WeightedGR 
+							WeightedGnR 
+							WeightedGenR 
+				optional
+					SearchCommon 
+				optional
+					Search {abstract}
+						alternative
+							DFS 
+							BFS 
+				optional
+					Alg {abstract}
+						or
+							Num {abstract}
+								mandatory
+									Number 
+								optional
+									dProgdNumber 
+							Conn {abstract}
+								mandatory
+									Connected 
+								optional
+									dProgdConnected 
+							StrongC {abstract}
+								optional
+									Transpose 
+								mandatory
+									StronglyConnected 
+								optional
+									dProgdStronglyConnected 
+							Cyc {abstract}
+								mandatory
+									Cycle 
+								optional
+									dProgdCycle 
+							MPrim {abstract}
+								optional
+									MSTPrimPrepGnR 
+								optional
+									MSTPrimPrepGR 
+								mandatory
+									MSTPrim 
+								optional
+									dProgdMSTPrim 
+							MKrus {abstract}
+								optional
+									MSTKruskalPrepGnR 
+								optional
+									MSTKruskalPrepGR 
+								mandatory
+									MSTKruskal 
+								optional
+									dProgdMSTKruskal 
+							Shortest {abstract}
+		mandatory
+			OR_FEATURE {abstract, aux}
+				or
+					Directed1 {abstract, aux}
+					NoEdges1 {abstract, aux}
+					DirectedGR1 {abstract, aux}
+		mandatory
+			OR_FEATURE1 {abstract, aux}
+				or
+					Directed2 {abstract, aux}
+					OnlyNeighbors1 {abstract, aux}
+					DirectedGnR1 {abstract, aux}
+		mandatory
+			OR_FEATURE2 {abstract, aux}
+				or
+					Directed3 {abstract, aux}
+					Edges1 {abstract, aux}
+					DirectedGenR1 {abstract, aux}
+		mandatory
+			OR_FEATURE3 {abstract, aux}
+				or
+					Undirected1 {abstract, aux}
+					NoEdges2 {abstract, aux}
+					UndirectedGR1 {abstract, aux}
+		mandatory
+			OR_FEATURE4 {abstract, aux}
+				or
+					Undirected2 {abstract, aux}
+					OnlyNeighbors2 {abstract, aux}
+					UndirectedGnR1 {abstract, aux}
+		mandatory
+			OR_FEATURE5 {abstract, aux}
+				or
+					Undirected3 {abstract, aux}
+					Edges2 {abstract, aux}
+					UndirectedGenR1 {abstract, aux}
+		mandatory
+			OR_FEATURE6 {abstract, aux}
+				or
+					Weighted1 {abstract, aux}
+					NoEdges3 {abstract, aux}
+					WeightedGR1 {abstract, aux}
+		mandatory
+			OR_FEATURE7 {abstract, aux}
+				or
+					Weighted2 {abstract, aux}
+					OnlyNeighbors3 {abstract, aux}
+					WeightedGnR1 {abstract, aux}
+		mandatory
+			OR_FEATURE8 {abstract, aux}
+				or
+					Weighted3 {abstract, aux}
+					Edges3 {abstract, aux}
+					WeightedGenR1 {abstract, aux}
+		mandatory
+			OR_FEATURE9 {abstract, aux}
+				or
+					Prog1 {abstract, aux}
+					Weighted4 {abstract, aux}
+					dProgdWeightedCommon1 {abstract, aux}
+		mandatory
+			OR_FEATURE10 {abstract, aux}
+				or
+					Prog2 {abstract, aux}
+					Number1 {abstract, aux}
+					dProgdNumber1 {abstract, aux}
+		mandatory
+			OR_FEATURE11 {abstract, aux}
+				or
+					Prog3 {abstract, aux}
+					Connected1 {abstract, aux}
+					dProgdConnected1 {abstract, aux}
+		mandatory
+			OR_FEATURE12 {abstract, aux}
+				or
+					Prog4 {abstract, aux}
+					StronglyConnected1 {abstract, aux}
+					dProgdStronglyConnected1 {abstract, aux}
+		mandatory
+			OR_FEATURE13 {abstract, aux}
+				or
+					Prog5 {abstract, aux}
+					Cycle1 {abstract, aux}
+					dProgdCycle1 {abstract, aux}
+		mandatory
+			OR_FEATURE14 {abstract, aux}
+				or
+					Prog6 {abstract, aux}
+					MSTPrim1 {abstract, aux}
+					dProgdMSTPrim1 {abstract, aux}
+		mandatory
+			OR_FEATURE15 {abstract, aux}
+				or
+					MSTPrim2 {abstract, aux}
+					NoEdges4 {abstract, aux}
+					MSTPrimPrepGR1 {abstract, aux}
+		mandatory
+			OR_FEATURE16 {abstract, aux}
+				or
+					MSTPrim3 {abstract, aux}
+					OnlyNeighbors4 {abstract, aux}
+					MSTPrimPrepGnR1 {abstract, aux}
+		mandatory
+			OR_FEATURE17 {abstract, aux}
+				or
+					Prog7 {abstract, aux}
+					MSTPrim4 {abstract, aux}
+					dProgdMSTPrim2 {abstract, aux}
+		mandatory
+			OR_FEATURE18 {abstract, aux}
+				or
+					Prog8 {abstract, aux}
+					MSTKruskal1 {abstract, aux}
+					dProgdMSTKruskal1 {abstract, aux}
+		mandatory
+			OR_FEATURE19 {abstract, aux}
+				or
+					MSTKruskal2 {abstract, aux}
+					NoEdges5 {abstract, aux}
+					MSTKruskalPrepGR1 {abstract, aux}
+		mandatory
+			OR_FEATURE20 {abstract, aux}
+				or
+					MSTKruskal3 {abstract, aux}
+					OnlyNeighbors5 {abstract, aux}
+					MSTKruskalPrepGnR1 {abstract, aux}
+		mandatory
+			OR_FEATURE21 {abstract, aux}
+				or
+					MSTKruskal4 {abstract, aux}
+					MSTPrim5 {abstract, aux}
+		mandatory
+			OR_FEATURE22 {abstract, aux}
+				or
+					MSTPrim6 {abstract, aux}
+					MSTKruskal5 {abstract, aux}
+constraints
+	Weighted => WeightedCommon
+	Prog => Benchmark
+	Search => SearchCommon
+	Prog => Benchmark
+	!Number | GraphType
+	!Number | Search
+	!Connected | Undirected
+	!Connected | Search
+	!StronglyConnected | Directed
+	!StronglyConnected | DFS
+	!StronglyConnected | Transpose
+	!Cycle | GraphType
+	!Cycle | DFS
+	!MSTKruskal | Undirected
+	!MSTKruskal | Weighted
+	!MSTPrim | Undirected
+	!MSTPrim | Weighted
+	!Shortest | Directed
+	!Shortest | Weighted
+	Directed1 => ! Directed
+	NoEdges1 => ! NoEdges
+	DirectedGR1 => DirectedGR
+	Directed2 => ! Directed
+	OnlyNeighbors1 => ! OnlyNeighbors
+	DirectedGnR1 => DirectedGnR
+	Directed3 => ! Directed
+	Edges1 => ! Edges
+	DirectedGenR1 => DirectedGenR
+	Undirected1 => ! Undirected
+	NoEdges2 => ! NoEdges
+	UndirectedGR1 => UndirectedGR
+	Undirected2 => ! Undirected
+	OnlyNeighbors2 => ! OnlyNeighbors
+	UndirectedGnR1 => UndirectedGnR
+	Undirected3 => ! Undirected
+	Edges2 => ! Edges
+	UndirectedGenR1 => UndirectedGenR
+	Weighted1 => ! Weighted
+	NoEdges3 => ! NoEdges
+	WeightedGR1 => WeightedGR
+	Weighted2 => ! Weighted
+	OnlyNeighbors3 => ! OnlyNeighbors
+	WeightedGnR1 => WeightedGnR
+	Weighted3 => ! Weighted
+	Edges3 => ! Edges
+	WeightedGenR1 => WeightedGenR
+	Prog1 => ! Prog
+	Weighted4 => ! Weighted
+	dProgdWeightedCommon1 => dProgdWeightedCommon
+	Prog2 => ! Prog
+	Number1 => ! Number
+	dProgdNumber1 => dProgdNumber
+	Prog3 => ! Prog
+	Connected1 => ! Connected
+	dProgdConnected1 => dProgdConnected
+	Prog4 => ! Prog
+	StronglyConnected1 => ! StronglyConnected
+	dProgdStronglyConnected1 => dProgdStronglyConnected
+	Prog5 => ! Prog
+	Cycle1 => ! Cycle
+	dProgdCycle1 => dProgdCycle
+	Prog6 => ! Prog
+	MSTPrim1 => ! MSTPrim
+	dProgdMSTPrim1 => dProgdMSTPrim
+	MSTPrim2 => ! MSTPrim
+	NoEdges4 => ! NoEdges
+	MSTPrimPrepGR1 => MSTPrimPrepGR
+	MSTPrim3 => ! MSTPrim
+	OnlyNeighbors4 => ! OnlyNeighbors
+	MSTPrimPrepGnR1 => MSTPrimPrepGnR
+	Prog7 => ! Prog
+	MSTPrim4 => ! MSTPrim
+	dProgdMSTPrim2 => dProgdMSTPrim
+	Prog8 => ! Prog
+	MSTKruskal1 => ! MSTKruskal
+	dProgdMSTKruskal1 => dProgdMSTKruskal
+	MSTKruskal2 => ! MSTKruskal
+	NoEdges5 => ! NoEdges
+	MSTKruskalPrepGR1 => MSTKruskalPrepGR
+	MSTKruskal3 => ! MSTKruskal
+	OnlyNeighbors5 => ! OnlyNeighbors
+	MSTKruskalPrepGnR1 => MSTKruskalPrepGnR
+	MSTKruskal4 => ! MSTKruskal
+	MSTPrim5 => ! MSTPrim
+	MSTPrim6 => ! MSTPrim
+	MSTKruskal5 => ! MSTKruskal

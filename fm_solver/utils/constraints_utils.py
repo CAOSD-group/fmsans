@@ -47,6 +47,20 @@ def is_excludes_constraint(constraint: Constraint) -> bool:
     return False
 
 
+def is_pseudo_complex_constraint(constraint: Constraint) -> bool:
+    """Return true if the constraint is a pseudo-complex constraint 
+    (i.e., it can be transformed to a set of simple constraints)."""
+    split_ctcs = split_constraint(constraint)
+    return len(split_ctcs) > 1 and all(is_simple_constraint(ctc) for ctc in split_ctcs)
+
+
+def is_strict_complex_constraint(constraint: Constraint) -> bool:
+    """Return true if the constraint is a strict-complex constraint 
+    (i.e., it cannot be transformed to a set of simple constraints)."""
+    split_ctcs = split_constraint(constraint)
+    return any(is_complex_constraint(ctc) for ctc in split_ctcs)
+
+
 def get_new_ctc_name(ctcs_names: list[str], prefix_name: str) -> str:
     """Return a new name for a constraint (based on the provided prefix) that is not already 
     in the given list of constraints' names."""

@@ -4,13 +4,14 @@ from typing import Any
 from flamapy.core.transformations import TextToModel
 
 from flamapy.metamodels.fm_metamodel.models import (
-    FeatureModel, 
     Relation, 
     Feature, 
     Attribute
 )
 
-from fm_solver.models import FMSans, SimpleCTCTransformation
+from fm_solver.models.feature_model import FM
+from fm_solver.models import FMSans
+from fm_solver.models.utils import TransformationsVector, SimpleCTCTransformation
 from fm_solver.transformations import JSONFeatureType
 
 
@@ -32,19 +33,18 @@ class FMSansReader(TextToModel):
 
     @staticmethod
     def parse_json(data: str) -> FMSans:
-        features_without_constraints_info = data['features_without_constraints']
-        features_with_constraints_info = data['features_with_constraints']
+        #features_without_constraints_info = data['features_without_constraints']
+        #features_with_constraints_info = data['features_with_constraints']
+        tree = data['feature_tree']
         ctcs_transformations_info = data['ctcs_transformations']
         transformations_ids = data['transformations_ids']
 
-        subtree_without_constraints_implications = None if not features_without_constraints_info else FeatureModel(parse_tree(None, features_without_constraints_info))
-        subtree_with_constraints_implications = None if not features_with_constraints_info else FeatureModel(parse_tree(None, features_with_constraints_info))
+        #subtree_without_constraints_implications = None if not features_without_constraints_info else FM(parse_tree(None, features_without_constraints_info))
+        #subtree_with_constraints_implications = None if not features_with_constraints_info else FM(parse_tree(None, features_with_constraints_info))
+        fm = None if not tree else FM(parse_tree(None, tree))
         transformations_vector = None if not ctcs_transformations_info else parse_ctcs_transformations(ctcs_transformations_info)
-        transformations_ids = None if not transformations_ids else {int(i): h for i, h in transformations_ids.items()}
-        return FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications,
-                      subtree_without_constraints_implications=subtree_without_constraints_implications,
-                      transformations_vector=transformations_vector,
-                      transformations_ids=transformations_ids)
+        transformations_ids = {} if not transformations_ids else {h: int(i) for h, i in transformations_ids.items()}
+        return FMSans(fm, transformations_vector,transformations_ids)
 
 
 def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
@@ -90,13 +90,13 @@ def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
     return feature
 
 
-def parse_ctcs_transformations(ctcs_transformations_info: list[dict[str, Any]]) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
+def parse_ctcs_transformations(ctcs_transformations_info: list[dict[str, Any]]) -> TransformationsVector:
     transformations_vector = []
     for ct_info in ctcs_transformations_info:
         t0 = parse_simple_transformation(ct_info[0])
         t1 = parse_simple_transformation(ct_info[1])
         transformations_vector.append((t0, t1))
-    return transformations_vector
+    return TransformationsVector(transformations_vector)
 
 
 def parse_simple_transformation(transformation_info: dict[str, Any]) -> SimpleCTCTransformation:

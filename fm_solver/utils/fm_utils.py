@@ -6,119 +6,42 @@ import copy
 from collections.abc import Callable
 
 from flamapy.metamodels.fm_metamodel.models import (
-    FeatureModel, 
+    FeatureModel,
     Feature, 
     Relation, 
     Constraint, 
     Attribute
 )
 
-from fm_solver.utils import constraints_utils
+from fm_solver.models.feature_model import FM
+#from fm_solver.utils import constraints_utils
 
 
-def commitment_feature(feature_model: FeatureModel, feature_name: str) -> FeatureModel:
-    """Given a feature diagram T and a feature F, 
-    this algorithm computes the feature model T(+F) 
-    whose products are precisely those products of T with contain F.
-    
-    The algorithm transforms T into T(+F).
-
-    The algorithm is an adaptation from:
-        [Broek2008 @ SPLC: Elimination of constraints from feature trees].
-    """
-    feature = feature_model.get_feature_by_name(feature_name)
-    # Step 1. If T does not contain F, the result is NIL.
-    if feature not in feature_model.get_features():
-        return None
-    feature_to_commit = feature
-    # Step 2. If F is the root of T, the result is T.
-    while feature_to_commit != feature_model.root:
-        # Step 3. Let the parent feature of F be P.
-        parent = feature_to_commit.get_parent()  
-        # If P is a MandOpt feature and F is an optional subfeature, 
-        # make F a mandatory subfeature of P.
-        if not parent.is_group() and feature_to_commit.is_optional():  
-            rel = next((r for r in parent.get_relations() if feature_to_commit in r.children), None)
-            rel.card_min = 1
-        # If P is an Xor feature, 
-        # make P a MandOpt feature which has F as single mandatory subfeature 
-        # and has no optional subfeatures. All other subfeatures of P are removed from the tree.
-        elif parent.is_alternative_group():  
-            parent.get_relations()[0].children = [feature_to_commit]
-        # If P is an Or feature, 
-        # make P a MandOpt feature which has F as single mandatory subfeature, 
-        # and has all other subfeatures of P as optional subfeatures.
-        elif parent.is_or_group():  
-            parent_relations = parent.get_relations()
-            or_relation = parent_relations[0]
-            or_relation.children.remove(feature_to_commit)
-            parent_relations.remove(or_relation)
-            new_mandatory_rel = Relation(parent, [feature_to_commit], 1, 1)
-            parent_relations.append(new_mandatory_rel)
-            for child in or_relation.children:
-                new_optional_rel = Relation(parent, [child], 0, 1)
-                parent_relations.append(new_optional_rel)
-        # Step 4. GOTO step 2 with P instead of F.
-        feature_to_commit = parent
-    return feature_model
+def commitment_feature(feature_model: FM, feature_name: str) -> FM:
+    return feature_model.commit_feature(feature_name)
 
 
-def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureModel:
-    """Given a feature diagram T and a feature F,
-    this algorithm computes the feature model T(-F) 
-    whose products are precisely those products of T with do not contain F.
-    
-    The algorithm transforms T into T(-F).
-
-    The algorithm is an adaptation from:
-        [Broek2008 @ SPLC: Elimination of constraints from feature trees].
-    """
-    feature = feature_model.get_feature_by_name(feature_name)
-    # Step 1. If T does not contain F, the result is T.
-    if feature not in feature_model.get_features():
-        return feature_model
-    feature_to_delete = feature
-    # Step 2. Let the parent feature of F be P.
-    parent = feature_to_delete.get_parent()  
-    # Step 3. If P is a MandOpt feature and F is a mandatory subfeature of P, 
-    # GOTO step 4 with P instead of F.
-    while feature_to_delete != feature_model.root and not parent.is_group() and feature_to_delete.is_mandatory():
-        feature_to_delete = parent
-        parent = feature_to_delete.get_parent()
-    # If F is the root of T, the result is NIL.
-    if feature_to_delete == feature_model.root:  
-        return None
-    # If P is a MandOpt feature and F is an optional subfeature of P, delete F.
-    elif not parent.is_group() and feature_to_delete.is_optional():
-        rel = next((r for r in parent.get_relations() if feature_to_delete in r.children), None)
-        parent.get_relations().remove(rel)
-    # If P is an Xor feature or an Or feature, delete F; if P has only one remaining subfeature, 
-    # make P a MandOpt feature and its subfeature a mandatory subfeature.
-    elif parent.is_alternative_group() or parent.is_or_group():
-        rel = parent.get_relations()[0]
-        rel.children.remove(feature_to_delete)
-        if rel.card_max > 1:
-            rel.card_max -= 1
-    return feature_model
+def deletion_feature(feature_model: FM, feature_name: str) -> FM:
+    return feature_model.delete_feature(feature_name)
 
 
-def transform_tree(functions: list[Callable], fm: FeatureModel, features: list[str], copy_tree: bool) -> FeatureModel:
+def transform_tree(functions: list[Callable], fm: FM, features: list[str], copy_tree: bool, features_already_executed: tuple[set[str], set[str]]) -> FM:
     """Apply a list of functions (commitment_feature or deletion_feature) 
     to the tree of the feature model. 
     
     For each function, it uses each feature (in order) in the provided list as argument.
     """
     if copy_tree:
-        tree = FeatureModel(copy.deepcopy(fm.root), fm.get_constraints())
+        tree = FM(copy.deepcopy(fm.root), fm.get_constraints())
     else:
         tree = fm
     for func, feature in zip(functions, features):
         if tree is not None:
-            tree = func(tree, feature)
+            tree = func(tree, feature, features_already_executed)
     return tree
 
 
-def get_new_feature_name(fm: FeatureModel, prefix_name: str) -> str:
+def get_new_feature_name(fm: FM, prefix_name: str) -> str:
     """Return a new name for a feature (based on the provided prefix) that is not already in the feature model."""
     count = 1
     new_name = f'{prefix_name}'
@@ -128,7 +51,7 @@ def get_new_feature_name(fm: FeatureModel, prefix_name: str) -> str:
     return new_name
 
 
-def get_trees_from_original_root(fm: FeatureModel) -> list[FeatureModel]:
+def get_trees_from_original_root(fm: FM) -> list[FM]:
     """Given a feature model with non-unique features, 
     returns the subtrees the root of which are the original root of the feature model.
     
@@ -141,20 +64,22 @@ def get_trees_from_original_root(fm: FeatureModel) -> list[FeatureModel]:
         if all(child.name == child_name for child in root.get_children()):
             trees = []
             for child in root.get_children():
-                subtrees = get_trees_from_original_root(FeatureModel(child, fm.get_constraints()))
+                subtrees = get_trees_from_original_root(FM(child, fm.get_constraints()))
                 trees.extend(subtrees)
             return trees
     return [fm]
 
 
-def get_model_from_subtrees(fm: FeatureModel, subtrees: set[FeatureModel]) -> FeatureModel:
+def get_model_from_subtrees(fm: FM, subtrees: set[FM]) -> FeatureModel:
     """It returns a new feature model by joining all exclusive subtrees with a XOR group.
     
     The result is a model with a new root, which is an XOR group where each subfeatures is one
     of the subtrees.
     """
     new_root = Feature(get_new_feature_name(fm, 'XOR_Root'), is_abstract=True)
-    new_root.add_attribute(Attribute(name='new', domain=None, default_value=None, null_value=None))
+    add_auxiliary_feature_attribute(new_root)
+    fm.add_feature(new_root)
+    #new_root.add_attribute(Attribute(name='new', domain=None, default_value=None, null_value=None))
     #new_root = Feature(fm.root.name, is_abstract=True)  # We may use the same feature's name root.
     children = []
     for tree in subtrees:
@@ -167,26 +92,26 @@ def get_model_from_subtrees(fm: FeatureModel, subtrees: set[FeatureModel]) -> Fe
     return FeatureModel(new_root)
 
 
-def numbers_of_features_to_be_removed(fm: FeatureModel, ctc: Constraint) -> tuple[int, int]:
-    """Return the number of features that will be deleted from the feature model when
-    the given constraint is refactored into the tree diagram.
+# def numbers_of_features_to_be_removed(fm: FM, ctc: Constraint) -> tuple[int, int]:
+#     """Return the number of features that will be deleted from the feature model when
+#     the given constraint is refactored into the tree diagram.
     
-    It returns a tuple where the first value corresponds with the first transformation required
-    to eliminate the CTC (i.e., the commitment or deletion of a feature), while the second value
-    corresponds with the second transformation required to eliminate the CTC (i.e., the 
-    deletion of both features or the deletion of the first feature and the commitment of the other.
-    """
-    left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
-    if constraints_utils.is_requires_constraint(ctc):
-        t_0 = numbers_of_features_to_be_removed_commitment(fm, right_feature)
-        t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_deletion(fm, right_feature)
-    else:  # it is an excludes
-        t_0 = numbers_of_features_to_be_removed_deletion(fm, right_feature)
-        t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_commitment(fm, right_feature)
-    return (t_0, t_1)
+#     It returns a tuple where the first value corresponds with the first transformation required
+#     to eliminate the CTC (i.e., the commitment or deletion of a feature), while the second value
+#     corresponds with the second transformation required to eliminate the CTC (i.e., the 
+#     deletion of both features or the deletion of the first feature and the commitment of the other.
+#     """
+#     left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
+#     if constraints_utils.is_requires_constraint(ctc):
+#         t_0 = numbers_of_features_to_be_removed_commitment(fm, right_feature)
+#         t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_deletion(fm, right_feature)
+#     else:  # it is an excludes
+#         t_0 = numbers_of_features_to_be_removed_deletion(fm, right_feature)
+#         t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_commitment(fm, right_feature)
+#     return (t_0, t_1)
 
 
-def numbers_of_features_to_be_removed_commitment(fm: FeatureModel, feature_name: str) -> int:
+def numbers_of_features_to_be_removed_commitment(fm: FM, feature_name: str) -> int:
     """Return the number of features that will be removed from the feature model when
     the given feature is commitment into the diagram."""
     feature = fm.get_feature_by_name(feature_name)
@@ -205,7 +130,7 @@ def numbers_of_features_to_be_removed_commitment(fm: FeatureModel, feature_name:
     return n_features
 
 
-def numbers_of_features_to_be_removed_deletion(fm: FeatureModel, feature_name: str) -> int:
+def numbers_of_features_to_be_removed_deletion(fm: FM, feature_name: str) -> int:
     """Return the number of features that will be removed from the feature model when
     the given feature is deleted from the diagram."""
     feature = fm.get_feature_by_name(feature_name)
@@ -236,39 +161,43 @@ def children_number(feature: Feature) -> int:
     return n_features
 
 
-def get_subtrees_constraints_implications(fm: FeatureModel) -> tuple[FeatureModel, FeatureModel]:
+def get_subtrees_constraints_implications(fm: FM) -> tuple[FM, FM]:
     """Return the subtree of the feature model that is affected by cross-tree constraints,
     and the subtree of the feature model that is not affected by any cross-tree constraint."""
     subtree_without_implications = get_subtree_without_constraints_implications(fm)
     if subtree_without_implications is None:
-        subtree = FeatureModel(copy.deepcopy(fm.root))
+        subtree = FM(copy.deepcopy(fm.root))
         return (subtree, None)
     features = subtree_without_implications.get_features()
     features.remove(subtree_without_implications.root)
-    subtree = FeatureModel(copy.deepcopy(fm.root))
+    subtree = FM(copy.deepcopy(fm.root))
     for f in features:
         feature = subtree.get_feature_by_name(f.name)
         subtree = remove_feature_branch(subtree, feature)
     return (subtree, subtree_without_implications)
 
 
-def get_subtree_without_constraints_implications(fm: FeatureModel) -> FeatureModel:
+def get_subtree_without_constraints_implications(fm: FM) -> FM:
     """Return the subtree of the feature model that is not affected by any constraint."""
     if len(fm.get_constraints()) == 0:
         return None
     if len(fm.root.get_relations()) < 2:
         return None
-    subtree = FeatureModel(copy.deepcopy(fm.root))
+    subtree = FM(copy.deepcopy(fm.root))
     for ctc in fm.get_constraints():
         for f in ctc.get_features():
             if subtree is not None:
                 feature = subtree.get_feature_by_name(f)
                 subtree = remove_feature_branch(subtree, feature)
+    if subtree is None or len(subtree.get_features()) == 1:
+        subtree = None
     return subtree
 
 
-def remove_feature_branch(fm: FeatureModel, feature: Feature) -> FeatureModel:
+def remove_feature_branch(fm: FM, feature: Feature) -> FM:
     """Remove the entire branch from the root that containts the given feature."""
+    if feature == fm.root:
+        return None
     parent = feature.get_parent() if feature is not None else None
     while feature is not None and parent != fm.root:
         feature = parent
@@ -277,34 +206,41 @@ def remove_feature_branch(fm: FeatureModel, feature: Feature) -> FeatureModel:
         relations_to_be_deleted = [rel for rel in parent.get_relations() if feature in rel.children]
         for rel in relations_to_be_deleted:
             parent.get_relations().remove(rel)
+            for f in rel.children:
+                fm.delete_feature(f)
     return fm
 
 
-def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
+def remove_leaf_abstract_auxiliary_features(model: FM) -> FM:
     """Remove all leaf abstract features from the feature model."""
     assert len(model.get_constraints()) == 0
     
-    is_there_leaf_abstract_features = False
-    for feature in model.get_features():
-        if feature.is_leaf() and feature.is_abstract:
-            is_there_leaf_abstract_features = True
+    is_there_leaf_abstract_aux_features = False
+    features = list(model.get_features())
+    for feature in features:
+        if feature.is_leaf() and feature.is_abstract and is_auxiliary_feature(feature):
+            is_there_leaf_abstract_aux_features = True
             parent = feature.get_parent()
             # If parent is not group we eliminate the relation
             if not parent.is_group():
                 rel = next((r for r in parent.get_relations() if feature in r.children), None)
                 parent.get_relations().remove(rel)
+                model._delete_feature_branch(feature)
+                #for f in rel.children:
+                #    model._delete_feature_branch(f)
             # If parent is group we eliminate the feature from the group relation
             else:
                 rel = parent.get_relations()[0]
                 rel.children.remove(feature)
+                model._delete_feature_branch(feature)
                 if rel.card_max > 1:
                     rel.card_max -= 1
-    if is_there_leaf_abstract_features:  # need recursion
-        model = remove_leaf_abstract_features(model)
+    if is_there_leaf_abstract_aux_features:  # need recursion
+        model = remove_leaf_abstract_auxiliary_features(model)
     return model
 
 
-def to_unique_features(model: FeatureModel) -> FeatureModel:
+def to_unique_features(model: FM) -> FM:
     """Replace duplicated features names in the feature model.
     
     The model is augmented with attributes with features' references to the original features.
@@ -323,27 +259,54 @@ def to_unique_features(model: FeatureModel) -> FeatureModel:
     return model
 
 
-def fm_stats(fm: FeatureModel) -> str:
-    lines = []
-    unique_features = [f for f in fm.get_features() if not any(a.name == 'ref' for a in f.get_attributes())]
-    subtree_with_constraints_implications, subtree_without_constraints_implications = get_subtrees_constraints_implications(fm)
-    features_without_implications = 0 if subtree_without_constraints_implications is None else len(subtree_without_constraints_implications.get_features())
-    features_with_implications = 0 if subtree_with_constraints_implications is None else len(subtree_with_constraints_implications.get_features())
-    complex_ctcs = len([ctc for ctc in fm.get_constraints() if constraints_utils.is_complex_constraint(ctc)])
-    pseudo_complex_ctcs = len([ctc for ctc in fm.get_constraints() if len(constraints_utils.split_constraint(ctc)) > 1])
-    strict_complex_ctcs = complex_ctcs - pseudo_complex_ctcs
-    lines.append(f'FM stats:')
-    lines.append(f'  #Features:            {len(fm.get_features())}')
-    lines.append(f'    #Unique Features:   {len(unique_features)}')
-    lines.append(f'    #Features out CTCs: {features_without_implications}')
-    lines.append(f'    #Features in CTCs:  {features_with_implications}')
-    lines.append(f'  #Relations:           {len(fm.get_relations())}')
-    lines.append(f'  #Constraints:         {len(fm.get_constraints())}')
-    lines.append(f'    #Simple CTCs:       {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_simple_constraint(ctc)])}')
-    lines.append(f'      #Requires:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_requires_constraint(ctc)])}')
-    lines.append(f'      #Excludes:        {len([ctc for ctc in fm.get_constraints() if constraints_utils.is_excludes_constraint(ctc)])}')
-    lines.append(f'    #Complex CTCs:      {complex_ctcs}')
-    lines.append(f'      #Pseudo CTCs:      {pseudo_complex_ctcs}')
-    lines.append(f'      #Strict CTCs:      {strict_complex_ctcs}')
-    return '\n'.join(lines)
+def get_unique_features(model: FeatureModel) -> list[Feature]:
+    unique_features = []
+    unique_features_names = set()
+    for feature in model.get_features():
+        if feature.name not in unique_features_names:
+            unique_features_names.add(feature.name)
+            unique_features.append(feature)
+    return unique_features
 
+
+# def fm_stats(fm: FeatureModel) -> str:
+#     lines = []
+#     n_features = len(fm.get_features())
+#     n_unique_features = len(set(fm.get_features()))
+#     n_abstract_features = sum(f.is_abstract for f in fm.get_features())
+#     n_concrete_features = n_features - n_abstract_features
+#     n_auxiliary_features = sum(is_auxiliary_feature(f) for f in fm.get_features())
+#     n_ctcs = len(fm.get_constraints())
+#     n_ctcs_simple = sum(constraints_utils.is_simple_constraint(ctc) for ctc in fm.get_constraints())
+#     n_ctcs_complex = n_ctcs - n_ctcs_simple
+#     n_pseudo_ctcs = sum(constraints_utils.is_pseudo_complex_constraint(ctc) for ctc in fm.get_constraints())
+#     n_strict_ctcs = n_ctcs_complex - n_pseudo_ctcs
+#     n_requires_ctcs = sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())
+#     n_excludes_ctcs = n_ctcs_simple - n_requires_ctcs
+
+#     lines.append(f'FM stats:')
+#     lines.append(f'  #Features:            {n_features}')
+#     lines.append(f'    #Concrete features: {n_concrete_features}')
+#     lines.append(f'    #Abstract features: {n_abstract_features}')
+#     lines.append(f'    #Auxiliary features:{n_auxiliary_features}')
+#     lines.append(f'    #Unique features:   {n_unique_features}')
+#     lines.append(f'  #Constraints:         {n_ctcs}')
+#     lines.append(f'    #Simple CTCs:       {n_ctcs_simple}')
+#     lines.append(f'      #Requires:        {n_requires_ctcs}')
+#     lines.append(f'      #Excludes:        {n_excludes_ctcs}')
+#     lines.append(f'    #Complex CTCs:      {n_ctcs_complex}')
+#     lines.append(f'      #Pseudo CTCs:     {n_pseudo_ctcs}')
+#     lines.append(f'      #Strict CTCs:     {n_strict_ctcs}')
+#     return '\n'.join(lines)
+
+
+def add_auxiliary_feature_attribute(feature: Feature) -> Feature:
+    aux_attribute = Attribute(name=FM.AUXILIARY_FEATURES_ATTRIBUTE, domain=None, default_value=None, null_value=None)
+    aux_attribute.set_parent(feature)
+    feature.add_attribute(aux_attribute)
+    return feature 
+
+
+def is_auxiliary_feature(feature: Feature) -> bool:
+    return any(a for a in feature.get_attributes() if a.name == FM.AUXILIARY_FEATURES_ATTRIBUTE)
+    

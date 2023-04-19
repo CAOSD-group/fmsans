@@ -2,8 +2,9 @@ import copy
 import itertools
 
 from flamapy.metamodels.configuration_metamodel.models import Configuration
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
+from flamapy.metamodels.fm_metamodel.models import Feature
 
+from fm_solver.models.feature_model import FM
 from fm_solver.operations import FMOperation
 
 
@@ -18,7 +19,7 @@ class FMConfigurations(FMOperation):
         self._result = 0
         self.feature_model = None
 
-    def execute(self, model: FeatureModel) -> 'FMConfigurations':
+    def execute(self, model: FM) -> 'FMConfigurations':
         self.feature_model = model
         self._result = self.get_configurations()
         return self
@@ -34,7 +35,7 @@ class FMConfigurations(FMOperation):
         return set().union(*subtrees_results)
 
 
-def configurations_rec(fm: FeatureModel, feature: Feature) -> list[Configuration]:
+def configurations_rec(fm: FM, feature: Feature) -> list[Configuration]:
     original_feature = get_original_feature(fm, feature)
     feature_config = Configuration(elements={original_feature: True})
     if feature.is_leaf():
@@ -103,7 +104,7 @@ def add_configurations_to_configurations(new_configurations: list[Configuration]
     return configurations
 
 
-def get_original_feature(fm: FeatureModel, feature: Feature) -> Feature:
+def get_original_feature(fm: FM, feature: Feature) -> Feature:
     ref_attribute = next((a for a in feature.get_attributes() if a.name == 'ref'), None)
     if ref_attribute is None:
         original_feature = feature

@@ -1,0 +1,37 @@
+namespace BCS
+
+features
+	BCS	
+		optional
+			HMI	
+				optional
+					LED	
+						or
+							LEDFP
+							LEDCLS
+							LEDPW
+
+		mandatory
+			DS	
+				mandatory
+					PW	
+						mandatory
+							FP
+			SEC	
+				optional
+					AS	
+						optional
+							IM
+					CLS	
+						optional
+							AL
+					RCK	
+						optional
+							CAS
+							SF
+							CAP
+
+constraints
+	LEDCLS => CLS
+	CAS => AS
+	RCK => CLS

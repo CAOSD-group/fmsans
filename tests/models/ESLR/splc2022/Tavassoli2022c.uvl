@@ -1,0 +1,23 @@
+namespace Root
+
+features
+	BCS {abstract}	
+		mandatory
+			Human_Machine_Interface	
+				optional
+					Status_LED	
+						or
+							LED_Finger_Protection
+							LED_power_Window
+			Door_System	
+				mandatory
+					Power_Window	
+						mandatory
+							Finger_Protection
+							Window	
+								or
+									Manual_Power_Window
+									Automatic_Power_Window
+
+		optional
+			Central_Locking_System

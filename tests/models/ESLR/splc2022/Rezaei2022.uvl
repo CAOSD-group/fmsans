@@ -1,0 +1,31 @@
+namespace Laptop
+
+features
+	Laptop	
+		mandatory
+			Processor	
+				alternative
+					Celeron
+					Corei7
+					Razer
+			GardDrive	
+				or
+					GB256
+					GB512
+
+		optional
+			Touchcreen	
+				mandatory
+					Pen
+
+		mandatory
+			RAM	
+				alternative
+					BG8
+					GB16
+					GB32
+			CraphicsCard	
+				alternative
+					GeForce
+					Intel
+					Radeon

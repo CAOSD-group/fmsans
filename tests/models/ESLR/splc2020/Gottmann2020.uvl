@@ -1,0 +1,25 @@
+namespace Root
+
+features
+	Train {abstract}	
+		optional
+			Link {abstract}	
+				or
+					WAP
+					Ad_Hoc
+					LTE
+
+		mandatory
+			Speed {abstract}	
+				alternative
+					Fast
+					Slow
+					Halt
+
+		optional
+			InsideTunnel
+			Train_Nearby
+
+constraints
+	Ad_Hoc => Train_Nearby
+	LTE => !InsideTunnel

@@ -1,0 +1,19 @@
+namespace Root
+
+features
+	Sample_SPL {abstract}	
+		mandatory
+			A	
+				alternative
+					D
+					E
+
+		optional
+			B
+
+		mandatory
+			C	
+				or
+					F
+					G
+					H

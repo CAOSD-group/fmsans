@@ -1,0 +1,19 @@
+namespace MobileGame
+
+features
+	MobileGame	
+		mandatory
+			Input	
+				or
+					MovementDetection
+					SpeechInput
+					Keypad
+					Touchscreen
+
+		optional
+			Output	
+				optional
+					ForceFeedback
+			NetworkSupport	
+				optional
+					OnlineMultiplayer

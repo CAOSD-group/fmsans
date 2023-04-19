@@ -1,0 +1,20 @@
+namespace Root
+
+features
+	EltComponent {abstract}	
+		optional
+			RtcComponent	
+				optional
+					Runnable
+					Loopware	
+						mandatory
+							Loop_1
+
+						optional
+							Loop_2to10
+
+				mandatory
+					Updatable
+
+		mandatory
+			BasicFunctions

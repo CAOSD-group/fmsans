@@ -1,0 +1,50 @@
+namespace Root
+
+features
+	Onlineshop {abstract}	
+		mandatory
+			Payment {abstract}	
+				alternative
+					DebitCard
+					CreditCard
+			ProcutSelection {abstract}	
+				mandatory
+					Catalog	
+						optional
+							Categories
+							Sort
+
+				optional
+					Search
+
+		optional
+			UserManagement {abstract}	
+				or
+					Orders
+					Security
+					Payments
+					Wishlist
+			Newsletter
+
+		mandatory
+			Design	
+				mandatory
+					Responsive
+					Preview	
+						or
+							Starts
+							Numerical
+							Comments
+			ShoppingBasket
+			Platform	
+				or
+					Mobile
+					Tablet
+					PC
+
+constraints
+	Sort | Search
+	Search => Security
+	(Security => !Payments) & (Payments => !Security)
+	(Responsive => Mobile) & (Responsive => Tablet) & (Responsive => PC)
+	Starts & Numerical & Comments | Starts & Numerical & !Comments | Starts & !Numerical & Comments | !Starts & Numerical & Comments

@@ -54,7 +54,7 @@ class MemoryProfiler(ContextDecorator):
         if self.logger:
             self.logger(msg)
         if self.name:
-            self.memory_profilers[self.name] += memory_peak_usage
+            self.memory_profilers[self.name] = memory_peak_usage
 
         return memory_peak_usage
 

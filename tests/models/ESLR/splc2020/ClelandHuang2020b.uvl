@@ -1,0 +1,83 @@
+namespace Root
+
+features
+	IceRescue {abstract}	
+		mandatory
+			MissionPlanner	
+				mandatory
+					RoutePlanner	
+						mandatory
+							RouteManager	
+								mandatory
+									RouteAllocation
+									Map
+
+								optional
+									TerrainManager
+
+						optional
+							PlannedFlightRoutes	
+								or
+									Area_basedRouteGenerator
+									WaypointtargetPlanner	
+										or
+											SamplingPoint
+											SurveillancePosition
+											Deliveryposition
+							AdaptativeRoutePlanning	
+								or
+									BuildingPerimeterFlight
+									WaterlinePerimeterFlight
+									VictimTracker
+
+				optional
+					MehcanicalDevices	
+						alternative
+							PhysicalSampling	
+								mandatory
+									SensorManager
+
+								optional
+									SamplingDevice	
+										or
+											WaterSampler
+											AirSampler
+							CarryMechanism
+			MissionExecution	
+				mandatory
+					OnboardVision	
+						mandatory
+							ImageCollection	
+								mandatory
+									Camera	
+										alternative
+											ThermalImagery
+											RGBImagery
+							ImageAnalisys	
+								mandatory
+									TrainedObjectDetectionModel	
+										or
+											Water
+											Land
+											Fire
+											Traffic
+
+								optional
+									SceneRecosntruction	
+										alternative
+											_3DHeatMap
+											LabeledScene
+							VideoStream
+
+				optional
+					DispatchAid	
+						alternative
+							RequestHumanAidVieMobileUnit
+							DeliverPhysicalSupplies
+
+constraints
+	WaterSampler => Water
+	_3DHeatMap => ThermalImagery
+	DeliverPhysicalSupplies => CarryMechanism
+	WaterlinePerimeterFlight => Water
+	LabeledScene => Camera

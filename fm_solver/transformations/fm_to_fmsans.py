@@ -1,10 +1,10 @@
-import copy
-
 from flamapy.core.transformations import ModelToModel
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 
+from fm_solver.models.feature_model import FM
 from fm_solver.models import FMSans, fm_sans
-from fm_solver.utils import utils, fm_utils, logging_utils, timer, constraints_utils
+from fm_solver.models.utils import TransformationsVector
+from fm_solver.utils import utils, fm_utils
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
     RefactoringStrictComplexConstraint
@@ -27,63 +27,43 @@ class FMToFMSans(ModelToModel):
     def get_destination_extension() -> str:
         return 'fmsans'
 
-    def __init__(self, source_model: FeatureModel) -> None:
-        self._fm = source_model
+    def __init__(self, source_model: FeatureModel, n_cores: int = 1, n_tasks: int = 1, current_task: int = 0) -> None:
+        self.feature_model = source_model
+        self.n_cores = n_cores
+        self.n_tasks = n_tasks
+        self.current_task = current_task
     
     def transform(self) -> FMSans:
-        return fm_to_fmsans(self._fm)
+        return fm_to_fmsans(self.feature_model, self.n_cores, self.n_tasks, self.current_task)
 
 
-def fm_to_fmsans(fm: FeatureModel) -> FMSans:
-    logging_utils.LOGGER.debug(f'The input FM has {len(fm.get_features())} features, {len(fm.get_relations())} relations, and {len(fm.get_constraints())} constraints.')
+def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1, n_tasks: int = 1, current_task: int = 0) -> FMSans:
+    fm = FM.from_feature_model(feature_model)
+
     if not fm.get_constraints():
-        logging_utils.LOGGER.debug(f'The FM has not constraints.')
         # The feature model has not any constraint.
-        return FMSans(None, fm, None, None)
+        return FMSans(FM(fm.root), None, {})
 
     # Refactor pseudo-complex constraints
-    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Refactoring pseudo-complex constraints."):
-        fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
+    fm = utils.apply_refactoring(fm, RefactoringPseudoComplexConstraint)
     # Refactor strict-complex constraints
-    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Refactoring strict-complex constraints."):
-        fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
-    
-    logging_utils.LOGGER.debug(f'The simple FM has {len(fm.get_features())} features, {len(fm.get_relations())} relations, and {len(fm.get_constraints())} basic constraints ({sum(constraints_utils.is_requires_constraint(ctc) for ctc in fm.get_constraints())} requires, {sum(constraints_utils.is_excludes_constraint(ctc) for ctc in fm.get_constraints())} excludes) after complex constraints refactorings.')
-
-    # Get optimum constraints order
-    logging_utils.LOGGER.debug(f'Analyzing optimum constraints order...')
-    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Optimum constraints order."):
-        constraints_order = analysis_constraints_order(fm)
-    assert len(constraints_order[0]) == len(fm.get_constraints())
-
-    # Split the feature model into two
-    logging_utils.LOGGER.debug(f'Spliting FM tree...')
-    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Split FM tree."):
-        subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
-    logging_utils.LOGGER.debug(f'Subtree with no CTCs implications: {0 if subtree_without_constraints_implications is None else len(subtree_without_constraints_implications.get_features())} features.')
-    logging_utils.LOGGER.debug(f'Subtree with CTCs implications: {0 if subtree_with_constraints_implications is None else len(subtree_with_constraints_implications.get_features())} features.')
+    fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
 
     # Get transformations vector
-    logging_utils.LOGGER.debug(f'Getting transformations vector...')
-    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Transformations vector."):
-        transformations_vector = fm_sans.get_transformations_vector(constraints_order)
-    logging_utils.LOGGER.debug(f'Transformations vector length: {len(transformations_vector)} constraints.')
-
+    trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
+    
     # Get valid transformations ids.
-    logging_utils.LOGGER.debug(f'Getting valid transformations IDs...')
-    with timer.Timer(logger=logging_utils.LOGGER.debug, message="Valid transformations IDs."):
-        valid_transformed_numbers_trees = fm_sans.get_valid_transformations_ids(subtree_with_constraints_implications, transformations_vector)
-    logging_utils.LOGGER.debug(f'#Valid subtrees: {len(valid_transformed_numbers_trees)} subtrees from {2**len(transformations_vector)}.')
+    n_bits = trans_vector.n_bits()
+    n_processes = n_cores if n_bits > n_cores else 1
+    valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids(fm, n_processes, n_tasks, current_task)
     
     # Get FMSans instance
-    result_fm = FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications, 
-                       subtree_without_constraints_implications=subtree_without_constraints_implications,
-                       transformations_vector=transformations_vector,
-                       transformations_ids=valid_transformed_numbers_trees)
-    return result_fm
+    return FMSans(FM(fm.root), trans_vector, valid_transformed_numbers_trees)
 
 
-def analysis_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
+### The following is an optimization.
+
+def get_optimum_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
     """It analyses and returns the best order in which the constrainst will be eliminated.  
     
     It applies an Greedy heuristic, based on the transformations that first reach 
@@ -100,7 +80,7 @@ def analysis_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict
     constraints = [ctc for ctc in fm.get_constraints()]
     best_constraints_order = []
     best_constraints_transformation_order = {}
-    tree = FeatureModel(copy.deepcopy(fm.root))
+    #tree = FeatureModel(copy.deepcopy(fm.root))  # This is needed.
     size = len(fm.get_constraints())
     i = 0
     while i < size and tree is not None:

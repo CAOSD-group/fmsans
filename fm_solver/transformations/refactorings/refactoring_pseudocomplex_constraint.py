@@ -1,5 +1,6 @@
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
+from flamapy.metamodels.fm_metamodel.models import Constraint
 
+from fm_solver.models.feature_model import FM
 from fm_solver.transformations.refactorings import FMRefactoring
 from fm_solver.utils import constraints_utils
 
@@ -20,17 +21,17 @@ class RefactoringPseudoComplexConstraint(FMRefactoring):
         return 'Pseudo-complex constraint'
 
     @staticmethod
-    def get_instances(model: FeatureModel) -> list[Constraint]:
+    def get_instances(model: FM) -> list[Constraint]:
         # TODO: re-implement for efficiency
         return [ctc for ctc in model.get_constraints() if len(constraints_utils.split_constraint(ctc)) > 1]
 
     @staticmethod
-    def is_applicable(model: FeatureModel) -> bool:
+    def is_applicable(model: FM) -> bool:
         # TODO: re-implement for efficiency
         return len(RefactoringPseudoComplexConstraint.get_instances(model)) > 0
 
     @staticmethod
-    def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
+    def transform(model: FM, instance: Constraint) -> FM:
         model.ctcs.remove(instance)
         for ctc in constraints_utils.split_constraint(instance):
             model.ctcs.append(ctc)

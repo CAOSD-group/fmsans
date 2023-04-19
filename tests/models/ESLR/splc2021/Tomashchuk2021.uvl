@@ -1,0 +1,32 @@
+namespace Root
+
+features
+	DP_OSDD {abstract}	
+		or
+			DP_OSDD_Sleep {abstract}	
+				or
+					S_Accelerometer
+					S_Microphone
+					S_Users_summary
+					S_PSG
+			DP_OSDD_Activity {abstract}	
+				or
+					A_Accelerometer
+					A_Pedometer
+					A_Gyroscope
+			DP_OSDD_Nutrition {abstract}	
+				or
+					N_Camera
+					N_3rd_party_shopping_apps
+					N_users_summary
+			DP_OSDD_Mental_wellbeing {abstract}	
+				or
+					MW_Camera
+					MW_Accelerometer
+					MW_Microphone
+					MW_Users_summary
+			DP_OSDD_Body_parameters {abstract}	
+				or
+					BP_Weight
+					BP_Height
+			DP_OSDD_Consent

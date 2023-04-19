@@ -1,18 +1,33 @@
-import math
-import copy
+import pickle
+import multiprocessing
 from typing import Any
-from collections.abc import Callable
 
-from flamapy.metamodels.fm_metamodel.models import (
-    FeatureModel, 
-    Feature, 
-    Relation, 
-    Constraint, 
-    Attribute
+from flamapy.core.operations import Operation
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
+
+from fm_solver.models.utils import TransformationsVector
+from fm_solver.models.feature_model import FM
+from fm_solver.utils import fm_utils
+from fm_solver.operations import (
+    FMFullAnalysis, 
+    FMCoreFeatures, 
+    FMOperation, 
+    FMConfigurationsNumber,
+    FMFullAnalysisBDD,
+    FMFullAnalysisSAT
 )
 
-from fm_solver.utils import fm_utils, constraints_utils, logging_utils, timer
-from fm_solver.operations import FMFullAnalysis
+from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
+from flamapy.metamodels.bdd_metamodel.operations import (
+    BDDProductsNumber,
+    BDDCoreFeatures
+)
+
+from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
+from flamapy.metamodels.pysat_metamodel.operations import (
+    SATProductsNumber,
+    SATCoreFeatures
+)
 
 
 class FMSans():
@@ -46,260 +61,237 @@ class FMSans():
     
     A vector is valid is the application of all its transformation result in a feature model that
     is not NIL (None or Null). All valid vectors are stored as decimal numbers in a 
-    transformations id list (in fact, it is a dictionary of ids -> hash of the subtree):
+    transformations id list (in fact, it is a dictionary of hash of the subtree -> transformation ids):
       - Transformations IDS: [0, 1, 2, 245,..., 5432,..., 2^n-1]
           0 0 0 0 ... 0 = 0
           0 0 0 0 ... 1 = 1
           ...
           1 1 1 1 ... 1 = 2^n-1 
     """
-
     def __init__(self, 
-                 subtree_with_constraints_implications: FeatureModel,
-                 subtree_without_constraints_implications: FeatureModel,
-                 transformations_vector: list[tuple['SimpleCTCTransformation', 'SimpleCTCTransformation']],
-                 transformations_ids: dict[int, str],
+                 fm: FM,
+                 transformations_vector: TransformationsVector,
+                 transformations_ids: dict[str, int],
                 ) -> None:
-        self.subtree_with_constraints_implications = subtree_with_constraints_implications
-        self.subtree_without_constraints_implications = subtree_without_constraints_implications
-        # Order of the transformations of the constraints
+        self.fm = fm
         self.transformations_vector = transformations_vector  
-        # Numbers of the transformations
         self.transformations_ids = transformations_ids  
     
-    def get_feature_model(self) -> FeatureModel:
+    def get_feature_model(self, n_processes: int = 1) -> FeatureModel:
         """Returns the complete feature model without cross-tree constraints."""
-        if self.subtree_with_constraints_implications is None:
-            return self.subtree_without_constraints_implications
-        subtrees = set()
-        n_bits = len(self.transformations_vector)
-        max = len(self.transformations_ids)
-        for i, num in enumerate(self.transformations_ids.keys()):
-            binary_vector = list(format(num, f'0{n_bits}b'))
-            tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
-            subtrees.add(tree)
-            percentage = (i / max) * 100
-            logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
+        if self.transformations_vector is None:
+            return self.fm
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        subtrees = self.get_subtrees(n_processes)
         # Join all subtrees
-        logging_utils.LOGGER.debug(f'Getting full model from {len(subtrees)} unique subtrees...')
-        result_fm = fm_utils.get_model_from_subtrees(self.subtree_with_constraints_implications, subtrees)
-        # Mix result FM and subtree without implications:
-        # 1. Change name to the original root
-        if self.subtree_without_constraints_implications is None:
-            fm = result_fm
-        else:
-            logging_utils.LOGGER.debug(f'Joining subtrees to subtree without CTCs implications...')
-            #self.subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')  # This is not needed.
-            new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)  # We can use the same feature's name for Root.
-            #new_root = Feature(result_fm.root.name, is_abstract=True)   # We may use the same feature's name for Root.
-            new_root.add_attribute(Attribute(name='new', domain=None, default_value=None, null_value=None))
-            new_root.add_relation(Relation(new_root, [self.subtree_without_constraints_implications.root], 1, 1))
-            self.subtree_without_constraints_implications.root.parent = new_root
-            new_root.add_relation(Relation(new_root, [result_fm.root], 1, 1))
-            result_fm.root.parent = new_root
+        result_fm = pickle.loads(pick_tree)
+        result_fm = fm_utils.get_model_from_subtrees(result_fm, subtrees)
+        return result_fm
 
-            fm = FeatureModel(new_root)
-        logging_utils.LOGGER.debug(f'Removing {sum(f.is_abstract for f in fm.get_features())} abstract features...')
-        with timer.Timer(logger=logging_utils.LOGGER.info, message="Removing abstract features."): 
-            fm = fm_utils.remove_leaf_abstract_features(fm)
-        return fm
+    def get_analysis(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            return FMFullAnalysis().execute(self.fm).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        results = []
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysis) for num in self.transformations_ids.values()]
+            results_subtrees = pool.starmap_async(self._execute_paralell, items)
+            results.append(results_subtrees.get())
+        result_analysis = FMFullAnalysis.join_results(results, self.fm)
+        return result_analysis
 
-    def get_analysis(self) -> dict[str, Any]:
-        if self.subtree_with_constraints_implications is None:
-            return FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
-        n_bits = len(self.transformations_vector)
-        max = len(self.transformations_ids)
-        results: list[dict[str, Any]] = []
-        subtrees = set()  # usar mejor un dictionary de hash -> resultado de analysis (así evitamos el "if")
-        for i, num in enumerate(self.transformations_ids.keys()):
-            binary_vector = list(format(num, f'0{n_bits}b'))
-            tree, _ = execute_transformations_vector(self.subtree_with_constraints_implications, self.transformations_vector, binary_vector)
-            tree = fm_utils.remove_leaf_abstract_features(tree)
-            h = hash(tree)
-            if h not in subtrees:
-                subtrees.add(h)
-                analysis_result = FMFullAnalysis().execute(tree).get_result()
-                results.append(analysis_result)
-            percentage = (i / max) * 100
-            logging_utils.LOGGER.debug(f'ID: {num}. {i} / {max} ({percentage}%)')
-        # Join all subtrees
-        result = FMFullAnalysis.join_results(results)
-        logging_utils.LOGGER.debug(f'Joining results from {max} unique subtrees...')
-        # Join result with subtree without CTCs implications
-        result_subtree_without_constraints = FMFullAnalysis().execute(self.subtree_without_constraints_implications).get_result()
-        analysis_result = {}
-        analysis_result[FMFullAnalysis.CONFIGURATIONS_NUMBER] = result[FMFullAnalysis.CONFIGURATIONS_NUMBER] * result_subtree_without_constraints[FMFullAnalysis.CONFIGURATIONS_NUMBER]
-        analysis_result[FMFullAnalysis.CORE_FEATURES] = result[FMFullAnalysis.CORE_FEATURES].intersection(result_subtree_without_constraints[FMFullAnalysis.CORE_FEATURES])
-        return analysis_result
+    def get_analysis_bdd(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            bdd_model = FmToBDD(self.fm).transform()
+            return FMFullAnalysisSAT().execute(bdd_model).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysisSAT, num) for num in self.transformations_ids.values()]
+            results_subtrees = pool.starmap_async(self._execute_paralell_bdd, items)
+            result_analysis = FMFullAnalysisSAT.join_results(results_subtrees.get())
+        return result_analysis
+
+    def get_analysis_sat(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            sat_model = FmToPysat(self.fm).transform()
+            return FMFullAnalysisSAT().execute(sat_model).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysisSAT, num) for num in self.transformations_ids.values()]
+            results_subtrees = pool.starmap_async(self._execute_paralell_sat, items)
+            result_analysis = FMFullAnalysisSAT.join_results(results_subtrees.get())
+        return result_analysis
+
+        # for num in self.transformations_ids.values():
+        #     binary_vector = list(format(num, f'0{n_bits}b'))
+        #     tree, _ = self.transformations_vector.execute(pick_tree, binary_vector)
+        #     tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        #     analysis_result = FMFullAnalysis().execute(tree).get_result()
+        #     results.append(analysis_result)
+        # # Join all results
+        # return FMFullAnalysis.join_results(results)
+
+    def get_core_features(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            return FMCoreFeatures().execute(self.fm).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMCoreFeatures) for num in self.transformations_ids.values()]
+            analysis_result = pool.starmap_async(self._execute_paralell, items)
+            result = set.intersection(*analysis_result.get())
+        return result
+
+    def get_core_features_bdd(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            bdd_model = FmToBDD(self.fm).transform()
+            return BDDCoreFeatures().execute(bdd_model).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), BDDCoreFeatures) for num in self.transformations_ids.values()]
+            analysis_result = pool.starmap_async(self._execute_paralell_bdd, items)
+            result = set.intersection(*analysis_result.get())
+        return result
+
+    def get_number_of_configurations(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            return FMConfigurationsNumber().execute(self.fm).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMConfigurationsNumber) for num in self.transformations_ids.values()]
+            analysis_result = pool.starmap_async(self._execute_paralell, items)
+            result = FMConfigurationsNumber.join_results(analysis_result.get())
+        return result
+
+    def get_number_of_configurations_bdd(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            bdd_model = FmToBDD(self.fm).transform()
+            return BDDProductsNumber().execute(bdd_model).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), BDDProductsNumber, num) for num in self.transformations_ids.values()]
+            analysis_result = pool.starmap_async(self.execute_paralell_bdd, items)
+            result = FMConfigurationsNumber.join_results(analysis_result.get(), self.fm)
+        return result
+    
+    def get_number_of_configurations_sat(self, n_processes: int = 1) -> dict[str, Any]:
+        if self.transformations_vector is None:
+            sat_model = FmToPysat(self.fm).transform()
+            return SATProductsNumber().execute(sat_model).get_result()
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b')), SATProductsNumber, num) for num in self.transformations_ids.values()]
+            analysis_result = pool.starmap_async(self.execute_paralell_sat, items)
+            result = FMConfigurationsNumber.join_results(analysis_result.get(), self.fm)
+        return result
+
+    def execute_paralell(self, fm: bytes, binary_vector: list[str], op: FMOperation) -> Any:
+        tree, _ = self.transformations_vector.execute(fm, binary_vector)
+        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        return op().execute(tree).get_result()
+
+    def _execute_paralell(self, fm: bytes, binary_vector: list[str], op: FMOperation) -> Any:
+        tree, _ = self.transformations_vector.execute(fm, binary_vector)
+        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        return op().execute(tree).get_result()
+
+    def execute_paralell_bdd(self, fm: bytes, binary_vector: list[str], op: FMOperation, num: int) -> Any:
+        tree, _ = self.transformations_vector.execute(fm, binary_vector)
+        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        bdd_model = FmToBDD(tree, f'{tree.root.name}{num}').transform()
+        return op().execute(bdd_model).get_result()
+
+    def execute_paralell_sat(self, fm: bytes, binary_vector: list[str], op: FMOperation, num: int) -> Any:
+        tree, _ = self.transformations_vector.execute(fm, binary_vector)
+        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        sat_model = FmToPysat(tree).transform()
+        return op().execute(sat_model).get_result()
+
+    def _subtrees_execute_paralell(self, fm: bytes, binary_vector: list[str]) -> FM:
+        tree, _ = self.transformations_vector.execute(fm, binary_vector)
+        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+        return tree
+
+    def get_subtrees(self, n_processes: int = 1) -> list[FM]:
+        if self.transformations_vector is None:
+            return [self.fm]
+        n_bits = self.transformations_vector.n_bits()
+        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+        with multiprocessing.Pool(n_processes) as pool:
+            items = [(pick_tree, list(format(num, f'0{n_bits}b'))) for num in self.transformations_ids.values()]
+            results_subtrees = pool.starmap_async(self._subtrees_execute_paralell, items)
+            subtrees = results_subtrees.get()
+        return subtrees
+
+
+# def fmsans_stats(fm: FMSans) -> str:
+#     features_without_implications = 0 if fm.subtree_without_constraints_implications is None else len(fm.subtree_without_constraints_implications.get_features())
+#     features_with_implications = 0 if fm.subtree_with_constraints_implications is None else len(fm.subtree_with_constraints_implications.get_features())
+#     unique_features = set() if fm.subtree_without_constraints_implications is None else {f for f in fm.subtree_without_constraints_implications.get_features()}
+#     unique_features = unique_features if fm.subtree_with_constraints_implications is None else unique_features.union({f for f in fm.subtree_with_constraints_implications.get_features()})
+#     constraints = 0 if fm.transformations_vector is None else len(fm.transformations_vector)
+#     requires_ctcs = 0 if fm.transformations_vector is None else len([ctc for ctc in fm.transformations_vector if ctc[0].type == SimpleCTCTransformation.REQUIRES])
+#     excludes_ctcs = 0 if fm.transformations_vector is None else len([ctc for ctc in fm.transformations_vector if ctc[0].type == SimpleCTCTransformation.EXCLUDES])
+#     subtrees = 0 if fm.transformations_ids is None else len(fm.transformations_ids)
+#     lines = []
+#     lines.append(f'FMSans stats:')
+#     lines.append(f'  #Features:            {features_without_implications + features_with_implications}')
+#     lines.append(f'    #Unique Features:   {len(unique_features)}')
+#     lines.append(f'    #Features out CTCs: {features_without_implications}')
+#     lines.append(f'    #Features in CTCs:  {features_with_implications}')
+#     lines.append(f'  #Constraints:         {constraints}')
+#     lines.append(f'    #Requires:          {requires_ctcs}')
+#     lines.append(f'    #Excludes:          {excludes_ctcs}')
+#     lines.append(f'  #Subtrees:            {subtrees}')
+#     return '\n'.join(lines)
+
+
+# def fm2fmsans(fm: FM, n_cores: int = 1) -> FMSans:
+#     assert not any(constraints_utils.is_complex_constraint(ctc) for ctc in fm.get_constraints())
+    
+#     if fm.get_constraints():  # The feature model has constraints.
+#         # Split the feature model into two
+#         subtree_with_constraints_implications, subtree_without_constraints_implications = fm_utils.get_subtrees_constraints_implications(fm)
+#         #subtree_with_constraints_implications, subtree_without_constraints_implications = fm, None
         
+#         # Get constraints order
+#         constraints_order = get_basic_constraints_order(fm)
 
-class SimpleCTCTransformation():
-    """It represents a transformation of a simple cross-tree constraint (requires or excludes),
-    codified in binary.
+#         # Get transformations vector
+#         transformations_vector = get_transformations_vector(constraints_order)
 
-    It contains:
-        - a name being 'R' for requires constraints, and 'E' for excludes constraints.
-        - a value being 0 for the first transformation and 1 for the second transformation.
-        - a list of functions that implement the transformation.
-        - a list of features (the features of the constraint) to which the transformation will be applied.
-    """
-    REQUIRES = 'R'
-    EXCLUDES = 'E'
-    REQUIRES_T0 = [fm_utils.commitment_feature]
-    REQUIRES_T1 = [fm_utils.deletion_feature, fm_utils.deletion_feature]
-    EXCLUDES_T0 = [fm_utils.deletion_feature]
-    EXCLUDES_T1 = [fm_utils.deletion_feature, fm_utils.commitment_feature]
+#         # Get valid transformations ids.
+#         ### PARALLEL CODE
+#         valid_transformed_numbers_trees = {}
+#         queue = Queue()
+#         processes = []
+#         n_bits = len(constraints_order[0])
+#         cpu_count = n_cores
+#         n_processes = cpu_count if n_bits > cpu_count else 1
+#         pick_tree = pickle.dumps(subtree_with_constraints_implications, protocol=pickle.HIGHEST_PROTOCOL)
+#         for process_i in range(n_processes):
+#             min_id, max_id = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i)
+#             p = Process(target=get_valid_transformations_ids, args=(pick_tree, transformations_vector, min_id, max_id, queue))
+#             p.start()
+#             processes.append(p)
 
-    def __init__(self, type: str, value: int, transformations: list[Callable], features: list[str]) -> None:
-        self.type = type
-        self.value = value  # the value is not needed at all?
-        self.transformations = transformations
-        self.features = features
+#         for p in processes:
+#             valid_ids = queue.get()
+#             valid_transformed_numbers_trees.update(valid_ids)
+#         ### End of parallel code.
 
-    def transforms(self, fm: FeatureModel, copy_model: bool = False) -> FeatureModel:
-        return fm_utils.transform_tree(self.transformations, fm, self.features, copy_model)
-
-    def __str__(self) -> str:
-        return f'{self.type}{self.value}{[f for f in self.features]}'
-
-
-def get_transformations_vector(constraints_order: tuple[list[Constraint], dict[int, tuple[int, int]]]) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
-    """Get the transformations vector from a specific constraints order."""
-    transformations_vector = []
-    for i, ctc in enumerate(constraints_order[0], 0):
-        #print(f'i: {i}, ctc: {ctc}')
-        left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
-        if constraints_utils.is_requires_constraint(ctc):
-            t0 = SimpleCTCTransformation(SimpleCTCTransformation.REQUIRES, 0, SimpleCTCTransformation.REQUIRES_T0, [right_feature])
-            t1 = SimpleCTCTransformation(SimpleCTCTransformation.REQUIRES, 1, SimpleCTCTransformation.REQUIRES_T1, [left_feature, right_feature])
-        else:  # it is an excludes
-            t0 = SimpleCTCTransformation(SimpleCTCTransformation.EXCLUDES, 0, SimpleCTCTransformation.EXCLUDES_T0, [right_feature])
-            t1 = SimpleCTCTransformation(SimpleCTCTransformation.EXCLUDES, 1, SimpleCTCTransformation.EXCLUDES_T1, [left_feature, right_feature])
-        if constraints_order[1][i] == (0, 1):
-            transformations_vector.append((t0, t1))
-        else:
-            # t0.value = 1  # the value is not needed at all?
-            # t1.value = 0  # the value is not needed at all?
-            transformations_vector.append((t1, t0))
-    return transformations_vector
-
-
-def execute_transformations_vector(fm: FeatureModel, 
-                                   transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]], 
-                                   binary_vector: list[str]) -> tuple[FeatureModel, int]:
-    """Execute a transformations vector according to the binary number of the vector provided.
-    
-    It returns the resulting model and the transformation (bit) that fails in case of a
-    transformation returns NIL (None).
-    """
-    assert len(transformations_vector) == len(binary_vector)
-
-    tree = FeatureModel(copy.deepcopy(fm.root))
-    i = 0
-    while i < len(transformations_vector) and tree is not None:
-        tree = transformations_vector[i][int(binary_vector[i])].transforms(tree)
-        i += 1
-    return (tree, i-1)
-
-
-def get_next_number_prunning_binary_vector(binary_vector: list[str], bit: int) -> int:
-    """Given a binary vector and the bit that returns NIL (None or Null),
-    it returns the next decimal number to be considered (i.e., the next binary vector)."""
-    stop = False
-    while bit >= 0 and not stop:
-        if binary_vector[bit] == '0':
-            binary_vector[bit] = '1'
-            stop = True
-        else:
-            bit -= 1
-    binary_vector[bit+1:] = ['0' for d in binary_vector[bit+1:]] 
-    num = int(''.join(binary_vector), 2)
-    if bit < 0:
-        num = 2**len(binary_vector)
-    return num
-
-
-def get_valid_transformations_ids(fm: FeatureModel,
-                                  transformations_vector: list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]) -> dict[int, str]:
-    n_bits = len(transformations_vector)
-    num = 0
-    max = 2**n_bits
-    valid_transformed_numbers_trees = {}
-    percentage = 0.0
-    total_invalids = 0
-    total_skipped = 0
-    trees = set()
-    while num < max:
-        #binary_vector = list(format(num, f'0{n_bits}b')[::-1])
-        binary_vector = list(format(num, f'0{n_bits}b'))
-        tree, null_bit = execute_transformations_vector(fm, transformations_vector, binary_vector)
-        if tree is not None:
-            tree_hash = hash(tree)
-            if tree_hash not in trees:
-                trees.add(tree_hash)
-                valid_transformed_numbers_trees[num] = hash(tree)
-                logging_utils.LOGGER.debug(f'ID (valid): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
-            else:
-                logging_utils.LOGGER.debug(f'ID (valid, duplicated): {num} / {max} ({percentage}%), #Valids: {len(valid_transformed_numbers_trees)}')
-            num += 1
-        else:  # tree is None
-            previous_num = num
-            total_invalids += 1
-            num = get_next_number_prunning_binary_vector(binary_vector, null_bit)
-            skipped = num - previous_num - 1
-            total_skipped += skipped
-            logging_utils.LOGGER.debug(f'ID (not valid): {previous_num} / {max} ({percentage}%), null_bit: {null_bit}, {skipped} skipped. #Valids: {len(valid_transformed_numbers_trees)}')
-        percentage = (num / max) * 100
-    logging_utils.LOGGER.debug(f'Total IDs: {max}, #Valids: {len(valid_transformed_numbers_trees)}, #Invalids: {total_invalids}, #Skipped: {total_skipped}.')
-    return valid_transformed_numbers_trees
-
-
-def get_min_max_ids_transformations_for_parallelization(n_bits: int, n_cores: int, current_core: int) -> tuple[int, int]:
-    if current_core >= n_cores:
-        raise Exception(f'The current core must be in range [0, n_cores).')
-    left_bits = math.log(n_cores, 2)  # number of bits on the left
-    if not left_bits.is_integer():
-        raise Exception(f'The number of cores (or processors) must be power of 2.')
-    left_bits = int(left_bits)
-    right_bits = n_bits - left_bits  # number of bits on the left
-    binary_min_number = format(current_core, f'0{left_bits}b') + format(0, f'0{right_bits}b')
-    min_number = int(binary_min_number, 2)
-    max_number = min_number + 2**right_bits - 1
-    return (min_number, max_number)
-
-
-def get_basic_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
-    """It returns a basic constraints order for the transformations.  
-    
-    The result is a tuple with:
-     - The list of constraints in order.
-     - A dictionary of 'index -> (T0, T1)',
-        where index is the index of the constraint in the previous list,
-        and T0 and T1 are the two transformations of each constraint,
-            where T0 will be codified with a bit to 0, and T1 will be codified with a bit to 1.
-    """
-    constraints = fm.get_constraints()
-    transformations = {i: (0, 1) for i, _ in enumerate(constraints)}
-    return (constraints, transformations)
-
-
-def fmsans_stats(fm: FMSans) -> str:
-    features_without_implications = 0 if fm.subtree_without_constraints_implications is None else len(fm.subtree_without_constraints_implications.get_features())
-    features_with_implications = 0 if fm.subtree_with_constraints_implications is None else len(fm.subtree_with_constraints_implications.get_features())
-    unique_features = set() if fm.subtree_without_constraints_implications is None else {f for f in fm.subtree_without_constraints_implications.get_features()}
-    unique_features = unique_features if fm.subtree_with_constraints_implications is None else unique_features.union({f for f in fm.subtree_with_constraints_implications.get_features()})
-    constraints = 0 if fm.transformations_vector is None else len(fm.transformations_vector)
-    requires_ctcs = 0 if fm.transformations_vector is None else len([ctc for ctc in fm.transformations_vector if ctc[0].type == SimpleCTCTransformation.REQUIRES])
-    excludes_ctcs = 0 if fm.transformations_vector is None else len([ctc for ctc in fm.transformations_vector if ctc[0].type == SimpleCTCTransformation.EXCLUDES])
-    subtrees = 0 if fm.transformations_ids is None else len(fm.transformations_ids)
-    lines = []
-    lines.append(f'FMSans stats:')
-    lines.append(f'  #Features:            {features_without_implications + features_with_implications}')
-    lines.append(f'    #Unique Features:   {len(unique_features)}')
-    lines.append(f'    #Features out CTCs: {features_without_implications}')
-    lines.append(f'    #Features in CTCs:  {features_with_implications}')
-    lines.append(f'  #Constraints:         {constraints}')
-    lines.append(f'    #Requires:          {requires_ctcs}')
-    lines.append(f'    #Excludes:          {excludes_ctcs}')
-    lines.append(f'  #Subtrees:            {subtrees}')
-    return '\n'.join(lines)
+#         # Get FMSans instance
+#         fm_sans_model = FMSans(subtree_with_constraints_implications=subtree_with_constraints_implications, 
+#                         subtree_without_constraints_implications=subtree_without_constraints_implications,
+#                         transformations_vector=transformations_vector,
+#                         transformations_ids=valid_transformed_numbers_trees)
+#     else:  # The feature model has not any constraint.
+#         fm_sans_model = FMSans(None, fm, [], {})
+#     return fm_sans_model

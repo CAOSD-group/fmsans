@@ -1,0 +1,22 @@
+namespace AGM
+
+features
+	AGM	
+		mandatory
+			A	
+				mandatory
+					M
+					L
+			C
+			R	
+				alternative
+					B
+					N
+					W
+			V	
+				mandatory
+					Y
+					P
+
+				optional
+					S

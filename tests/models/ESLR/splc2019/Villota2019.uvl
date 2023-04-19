@@ -1,0 +1,32 @@
+namespace Root
+
+features
+	e_shop {abstract}	
+		mandatory
+			CustomerType	
+				alternative
+					Sporadic
+					regular
+
+		optional
+			Connection	
+				alternative
+					Secure
+					Insecure
+			Payment	
+				or
+					PayPal
+					Card	
+						optional
+							debit
+							Gift
+
+						mandatory
+							Credit
+			Implementation	
+				optional
+					AppServer
+					Machines
+
+constraints
+	!(Insecure | Credit)

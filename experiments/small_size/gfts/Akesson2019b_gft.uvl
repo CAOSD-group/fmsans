@@ -1,0 +1,622 @@
+features
+	XOR_Root {abstract, aux}
+		alternative
+			ApoGames {abstract}
+				mandatory
+					Menu {abstract}
+						optional
+							Editor 
+						optional
+							Userlevels 
+						mandatory
+							Theme {abstract}
+								mandatory
+									TreasureMenu 
+						mandatory
+							LevelChooser {abstract}
+								mandatory
+									LevelGrid 
+								optional
+									NextLevel 
+				optional
+					World {abstract}
+						optional
+							Component {abstract}
+								optional
+									Dynamic {abstract}
+										optional
+											Avatar {abstract}
+												optional
+													MonoAvatar 
+												optional
+													SnakeAvatar 
+												optional
+													TreasureAvatar 
+										optional
+											TreasureBox 
+										optional
+											TreasureBlocks 
+								optional
+									Static {abstract}
+										optional
+											MonoObjects 
+										optional
+											TreasureKey 
+						optional
+							Canvas {abstract}
+								optional
+									Grey 
+								optional
+									TreasureCanvas 
+								optional
+									MonoCanvas 
+				optional
+					Controls {abstract}
+						optional
+							MoveButtons 
+				optional
+					Options 
+						optional
+							Sound {abstract}
+								optional
+									Effects {abstract}
+										mandatory
+											TreasureEffect 
+								optional
+									Music {abstract}
+										mandatory
+											TreasureMusic 
+						optional
+							Language {abstract}
+								or
+									German 
+									English 
+						optional
+							MonoColor {abstract}
+								or
+									White 
+									Green 
+				mandatory
+					GameLogic {abstract}
+						mandatory
+							TreasureLogic 
+				mandatory
+					Font {abstract}
+						alternative
+							ApoFont 
+							TreasureFont 
+							MonoFont 
+				optional
+					Addition 
+				optional
+					Subtraction 
+			ApoGames {abstract}
+				mandatory
+					Menu {abstract}
+						optional
+							Editor 
+						optional
+							Userlevels 
+						mandatory
+							Theme {abstract}
+								mandatory
+									TreasureMenu 
+						mandatory
+							LevelChooser {abstract}
+								mandatory
+									LevelGrid 
+								optional
+									NextLevel 
+				optional
+					World {abstract}
+						optional
+							Component {abstract}
+								optional
+									Dynamic {abstract}
+										optional
+											Avatar {abstract}
+												optional
+													MonoAvatar 
+												optional
+													SnakeAvatar 
+												optional
+													TreasureAvatar 
+										optional
+											TreasureBox 
+										optional
+											TreasureBlocks 
+								optional
+									Static {abstract}
+										optional
+											MonoObjects 
+										optional
+											TreasureKey 
+						optional
+							Canvas {abstract}
+								optional
+									Grey 
+								optional
+									TreasureCanvas 
+								optional
+									MonoCanvas 
+				mandatory
+					Controls {abstract}
+						mandatory
+							Press 
+						optional
+							MoveButtons 
+				optional
+					Options 
+						optional
+							Sound {abstract}
+								optional
+									Effects {abstract}
+										mandatory
+											TreasureEffect 
+								optional
+									Music {abstract}
+										mandatory
+											TreasureMusic 
+						optional
+							Language {abstract}
+								or
+									German 
+									English 
+						optional
+							MonoColor {abstract}
+								or
+									White 
+									Green 
+				mandatory
+					GameLogic {abstract}
+						mandatory
+							TreasureLogic 
+				mandatory
+					Font {abstract}
+						alternative
+							ApoFont 
+							TreasureFont 
+							MonoFont 
+				optional
+					Addition 
+				optional
+					Subtraction 
+			ApoGames {abstract}
+				mandatory
+					Menu {abstract}
+						optional
+							Editor 
+						optional
+							Userlevels 
+						mandatory
+							Theme {abstract}
+								mandatory
+									ApoMenu 
+						mandatory
+							LevelChooser {abstract}
+								mandatory
+									LevelGrid 
+								optional
+									NextLevel 
+				optional
+					World {abstract}
+						optional
+							Component {abstract}
+								optional
+									Dynamic {abstract}
+										optional
+											Dice 
+										optional
+											Avatar {abstract}
+												optional
+													MonoAvatar 
+												optional
+													SnakeAvatar 
+												optional
+													TreasureAvatar 
+										optional
+											TreasureBox 
+										optional
+											TreasureBlocks 
+								optional
+									Static {abstract}
+										optional
+											MonoObjects 
+										optional
+											TreasureKey 
+						optional
+							Canvas {abstract}
+								optional
+									Grey 
+								optional
+									TreasureCanvas 
+								optional
+									MonoCanvas 
+				optional
+					Controls {abstract}
+						optional
+							Drag 
+						optional
+							MoveButtons 
+				optional
+					Score {abstract}
+						mandatory
+							Moves 
+				optional
+					Options 
+						optional
+							Sound {abstract}
+						optional
+							Language {abstract}
+								or
+									German 
+									English 
+						optional
+							MonoColor {abstract}
+								or
+									White 
+									Green 
+				mandatory
+					GameLogic {abstract}
+						mandatory
+							DiceLogic 
+				mandatory
+					Font {abstract}
+						alternative
+							ApoFont 
+							TreasureFont 
+							MonoFont 
+				optional
+					Addition 
+				optional
+					Subtraction 
+			ApoGames {abstract}
+				mandatory
+					Menu {abstract}
+						optional
+							Editor 
+						optional
+							Userlevels 
+						mandatory
+							Theme {abstract}
+								mandatory
+									ApoMenu 
+						mandatory
+							LevelChooser {abstract}
+								mandatory
+									LevelGrid 
+								optional
+									NextLevel 
+				optional
+					World {abstract}
+						optional
+							Component {abstract}
+								optional
+									Dynamic {abstract}
+										optional
+											Avatar {abstract}
+												optional
+													MonoAvatar 
+												optional
+													SnakeAvatar 
+												optional
+													TreasureAvatar 
+										optional
+											TreasureBox 
+										optional
+											TreasureBlocks 
+								optional
+									Static {abstract}
+										optional
+											MonoObjects 
+										optional
+											TreasureKey 
+						optional
+							Canvas {abstract}
+								optional
+									Grey 
+								optional
+									TreasureCanvas 
+								optional
+									MonoCanvas 
+				optional
+					Controls {abstract}
+						optional
+							MoveButtons 
+				optional
+					Options 
+						optional
+							Sound {abstract}
+						optional
+							Language {abstract}
+								or
+									German 
+									English 
+						optional
+							MonoColor {abstract}
+								or
+									White 
+									Green 
+				mandatory
+					GameLogic {abstract}
+						mandatory
+							SnakeLogic 
+				mandatory
+					Font {abstract}
+						alternative
+							ApoFont 
+							TreasureFont 
+							MonoFont 
+				optional
+					Addition 
+				optional
+					Subtraction 
+			ApoGames {abstract}
+				mandatory
+					Menu {abstract}
+						optional
+							Editor 
+						optional
+							Userlevels 
+						mandatory
+							Theme {abstract}
+								mandatory
+									ApoMenu 
+						mandatory
+							LevelChooser {abstract}
+								mandatory
+									LevelGrid 
+								optional
+									NextLevel 
+				optional
+					World {abstract}
+						optional
+							Component {abstract}
+								optional
+									Dynamic {abstract}
+										optional
+											Clock 
+										optional
+											Avatar {abstract}
+												optional
+													MonoAvatar 
+												optional
+													SnakeAvatar 
+												optional
+													TreasureAvatar 
+										optional
+											TreasureBox 
+										optional
+											TreasureBlocks 
+								optional
+									Static {abstract}
+										optional
+											MonoObjects 
+										optional
+											TreasureKey 
+						optional
+							Canvas {abstract}
+								optional
+									Grey 
+								optional
+									TreasureCanvas 
+								optional
+									MonoCanvas 
+				optional
+					Controls {abstract}
+						optional
+							MoveButtons 
+				optional
+					Score {abstract}
+						mandatory
+							Counter 
+				optional
+					Options 
+						optional
+							Sound {abstract}
+						optional
+							Language {abstract}
+								or
+									German 
+									English 
+						optional
+							MonoColor {abstract}
+								or
+									White 
+									Green 
+						optional
+							Nickname 
+				mandatory
+					GameLogic {abstract}
+						mandatory
+							ClockLogic 
+				mandatory
+					Font {abstract}
+						alternative
+							ApoFont 
+							TreasureFont 
+							MonoFont 
+				optional
+					Addition 
+				optional
+					Subtraction 
+			ApoGames {abstract}
+				mandatory
+					Menu {abstract}
+						optional
+							Editor 
+						optional
+							Userlevels 
+						mandatory
+							Theme {abstract}
+								mandatory
+									ApoMenu 
+						mandatory
+							LevelChooser {abstract}
+								mandatory
+									LevelGrid 
+								optional
+									NextLevel 
+				optional
+					World {abstract}
+						optional
+							Component {abstract}
+								optional
+									Dynamic {abstract}
+										optional
+											Clock 
+										optional
+											Avatar {abstract}
+												optional
+													MonoAvatar 
+												optional
+													SnakeAvatar 
+												optional
+													TreasureAvatar 
+										optional
+											TreasureBox 
+										optional
+											TreasureBlocks 
+								optional
+									Static {abstract}
+										optional
+											MonoObjects 
+										optional
+											TreasureKey 
+						optional
+							Canvas {abstract}
+								optional
+									Grey 
+								optional
+									TreasureCanvas 
+								optional
+									MonoCanvas 
+				mandatory
+					Controls {abstract}
+						mandatory
+							Press 
+						optional
+							MoveButtons 
+				optional
+					Score {abstract}
+						mandatory
+							Counter 
+				optional
+					Options 
+						optional
+							Sound {abstract}
+						optional
+							Language {abstract}
+								or
+									German 
+									English 
+						optional
+							MonoColor {abstract}
+								or
+									White 
+									Green 
+						optional
+							Nickname 
+				mandatory
+					GameLogic {abstract}
+						mandatory
+							ClockLogic 
+				mandatory
+					Font {abstract}
+						alternative
+							ApoFont 
+							TreasureFont 
+							MonoFont 
+				optional
+					Addition 
+				optional
+					Subtraction 
+			ApoGames {abstract}
+				mandatory
+					Menu {abstract}
+						optional
+							Editor 
+						optional
+							Userlevels 
+						mandatory
+							Theme {abstract}
+								mandatory
+									MonoMenu 
+						mandatory
+							LevelChooser {abstract}
+								mandatory
+									LevelGrid 
+								optional
+									NextLevel 
+				optional
+					World {abstract}
+						optional
+							Component {abstract}
+								optional
+									Dynamic {abstract}
+										optional
+											Avatar {abstract}
+												optional
+													MonoAvatar 
+												optional
+													SnakeAvatar 
+												optional
+													TreasureAvatar 
+										optional
+											TreasureBox 
+										optional
+											TreasureBlocks 
+								optional
+									Static {abstract}
+										optional
+											MonoObjects 
+										optional
+											TreasureKey 
+						optional
+							Canvas {abstract}
+								optional
+									Grey 
+								optional
+									TreasureCanvas 
+								optional
+									MonoCanvas 
+				optional
+					Controls {abstract}
+						optional
+							MoveButtons 
+				optional
+					Options 
+						optional
+							Sound {abstract}
+								optional
+									Effects {abstract}
+										mandatory
+											MonoEffect 
+								optional
+									Music {abstract}
+										mandatory
+											MonoMusic 
+						optional
+							Language {abstract}
+								or
+									German 
+									English 
+						optional
+							MonoColor {abstract}
+								or
+									White 
+									Green 
+				mandatory
+					GameLogic {abstract}
+						mandatory
+							MonoLogic 
+				mandatory
+					Font {abstract}
+						alternative
+							ApoFont 
+							TreasureFont 
+							MonoFont 
+				optional
+					Addition 
+				optional
+					Subtraction 

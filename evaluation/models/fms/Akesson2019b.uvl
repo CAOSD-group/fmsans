@@ -1,0 +1,112 @@
+namespace ApoGames
+
+features
+	ApoGames {abstract}	
+		mandatory
+			Menu {abstract}	
+				optional
+					Editor
+					Userlevels
+
+				mandatory
+					Theme {abstract}	
+						alternative
+							MonoMenu
+							TreasureMenu
+							ApoMenu
+					LevelChooser {abstract}	
+						mandatory
+							LevelGrid
+
+						optional
+							NextLevel
+
+		optional
+			World {abstract}	
+				optional
+					Component {abstract}	
+						optional
+							Dynamic {abstract}	
+								optional
+									Dice
+									Clock
+									Avatar {abstract}	
+										optional
+											MonoAvatar
+											SnakeAvatar
+											TreasureAvatar
+									TreasureBox
+									TreasureBlocks
+							Static {abstract}	
+								optional
+									MonoObjects
+									TreasureKey
+					Canvas {abstract}	
+						optional
+							Grey
+							TreasureCanvas
+							MonoCanvas
+			Controls {abstract}	
+				optional
+					Press
+					Drag
+					MoveButtons
+			Score {abstract}	
+				or
+					Moves
+					Counter
+			Options	
+				optional
+					Sound {abstract}	
+						optional
+							Effects {abstract}	
+								alternative
+									TreasureEffect
+									MonoEffect
+							Music {abstract}	
+								alternative
+									TreasureMusic
+									MonoMusic
+					Language {abstract}	
+						or
+							German
+							English
+					MonoColor {abstract}	
+						or
+							White
+							Green
+					Nickname
+
+		mandatory
+			GameLogic {abstract}	
+				alternative
+					SnakeLogic
+					DiceLogic
+					ClockLogic
+					MonoLogic
+					TreasureLogic
+			Font {abstract}	
+				alternative
+					ApoFont
+					TreasureFont
+					MonoFont
+
+		optional
+			Addition
+			Subtraction
+
+constraints
+	TreasureMenu => TreasureLogic
+	MonoMenu => MonoLogic
+	ApoMenu => ClockLogic | DiceLogic | SnakeLogic
+	TreasureEffect => TreasureLogic
+	MonoEffect => MonoLogic
+	TreasureMusic => TreasureLogic
+	MonoMusic => MonoLogic
+	Nickname => ClockLogic
+	Press => ClockLogic | TreasureLogic
+	Drag => DiceLogic
+	Counter => ClockLogic
+	Moves => DiceLogic
+	Clock => ClockLogic
+	Dice => DiceLogic

@@ -1,0 +1,146 @@
+features
+	ApoGames {abstract}
+		mandatory
+			Menu {abstract}
+				optional
+					Editor 
+				optional
+					Userlevels 
+				mandatory
+					Theme {abstract}
+						alternative
+							MonoMenu 
+							TreasureMenu 
+							ApoMenu 
+				mandatory
+					LevelChooser {abstract}
+						mandatory
+							LevelGrid 
+						optional
+							NextLevel 
+		optional
+			World {abstract}
+				optional
+					Component {abstract}
+						optional
+							Dynamic {abstract}
+								optional
+									Dice 
+								optional
+									Clock 
+								optional
+									Avatar {abstract}
+										optional
+											MonoAvatar 
+										optional
+											SnakeAvatar 
+										optional
+											TreasureAvatar 
+								optional
+									TreasureBox 
+								optional
+									TreasureBlocks 
+						optional
+							Static {abstract}
+								optional
+									MonoObjects 
+								optional
+									TreasureKey 
+				optional
+					Canvas {abstract}
+						optional
+							Grey 
+						optional
+							TreasureCanvas 
+						optional
+							MonoCanvas 
+		optional
+			Controls {abstract}
+				optional
+					Press 
+				optional
+					Drag 
+				optional
+					MoveButtons 
+		optional
+			Score {abstract}
+				or
+					Moves 
+					Counter 
+		optional
+			Options 
+				optional
+					Sound {abstract}
+						optional
+							Effects {abstract}
+								alternative
+									TreasureEffect 
+									MonoEffect 
+						optional
+							Music {abstract}
+								alternative
+									TreasureMusic 
+									MonoMusic 
+				optional
+					Language {abstract}
+						or
+							German 
+							English 
+				optional
+					MonoColor {abstract}
+						or
+							White 
+							Green 
+				optional
+					Nickname 
+		mandatory
+			GameLogic {abstract}
+				alternative
+					SnakeLogic 
+					DiceLogic 
+					ClockLogic 
+					MonoLogic 
+					TreasureLogic 
+		mandatory
+			Font {abstract}
+				alternative
+					ApoFont 
+					TreasureFont 
+					MonoFont 
+		optional
+			Addition 
+		optional
+			Subtraction 
+		mandatory
+			OR_FEATURE {abstract, aux}
+				or
+					ApoMenu1 {abstract, aux}
+					ClockLogic1 {abstract, aux}
+					DiceLogic1 {abstract, aux}
+					SnakeLogic1 {abstract, aux}
+		mandatory
+			OR_FEATURE1 {abstract, aux}
+				or
+					Press1 {abstract, aux}
+					ClockLogic2 {abstract, aux}
+					TreasureLogic1 {abstract, aux}
+constraints
+	TreasureMenu => TreasureLogic
+	MonoMenu => MonoLogic
+	TreasureEffect => TreasureLogic
+	MonoEffect => MonoLogic
+	TreasureMusic => TreasureLogic
+	MonoMusic => MonoLogic
+	Nickname => ClockLogic
+	Drag => DiceLogic
+	Counter => ClockLogic
+	Moves => DiceLogic
+	Clock => ClockLogic
+	Dice => DiceLogic
+	ApoMenu1 => ! ApoMenu
+	ClockLogic1 => ClockLogic
+	DiceLogic1 => DiceLogic
+	SnakeLogic1 => SnakeLogic
+	Press1 => ! Press
+	ClockLogic2 => ClockLogic
+	TreasureLogic1 => TreasureLogic

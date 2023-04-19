@@ -1,0 +1,42 @@
+namespace Root
+
+features
+	ApoGames {abstract}	
+		mandatory
+			Menu	
+				optional
+					WhiteMenu
+					Credits
+					Options
+			World	
+				mandatory
+					Components {abstract}	
+						mandatory
+							Objects {abstract}	
+								mandatory
+									Interactive	
+										alternative
+											NotSoSimpleInteractive
+											SnakeInteractive
+											IcarusInteractive
+							Player
+
+		optional
+			Levels {abstract}	
+				optional
+					NotSoSimpleLevel
+					SnakeLevel
+			LevelChooser	
+				mandatory
+					Grid	
+						mandatory
+							NotSoSimpleGrid
+			Score	
+				optional
+					Timer
+			Editor	
+				alternative
+					BottomEditor
+					SideEditor
+			Achievements
+			Sound

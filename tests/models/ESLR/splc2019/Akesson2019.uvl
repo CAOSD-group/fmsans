@@ -1,0 +1,71 @@
+namespace Root
+
+features
+	Apogames {abstract}	
+		optional
+			Menu {abstract}	
+				optional
+					Editor
+					Userlevels
+
+				mandatory
+					Theme {abstract}	
+						alternative
+							MonoMenu
+							TreasureMenu
+							ApoMenu
+					LevelChooser {abstract}	
+						mandatory
+							LevelGrid
+
+						optional
+							NextLevel
+			World {abstract}	
+				optional
+					Component {abstract}	
+						optional
+							Dynamic
+							Static
+					Canvas {abstract}	
+						optional
+							Grey
+							TreasureCanvas
+							MonoCanvas
+			Controls {abstract}	
+				optional
+					Press
+					Grad
+					MoveButtons
+			Score {abstract}	
+				or
+					Moves
+					Counter
+			Options	
+				optional
+					Sound {abstract}	
+						optional
+							Effects
+							Music
+					Language {abstract}	
+						or
+							German
+							English
+					MonoColor {abstract}	
+						or
+							White
+							Green
+					NickName
+
+		mandatory
+			GameLogic {abstract}	
+				alternative
+					SnakeLogic
+					DiceLogic
+					ClockLogic
+					MonoLogic
+					treasureLogic
+			Font {abstract}	
+				alternative
+					ApoFont
+					TreasureFont
+					MonoFont

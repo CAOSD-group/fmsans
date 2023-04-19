@@ -1,68 +1,89 @@
 import os
+import sys
+import math
 import argparse
+import multiprocessing
 
-from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader
+from flamapy.metamodels.fm_metamodel.models import Feature
 
-from fm_solver.transformations import FMToFMSans, FMSansWriter, FMSansReader
-from fm_solver.utils import fm_utils, logging_utils, timer, sizer
-from fm_solver.models import fm_sans as fm_sans_utils
-from fm_solver.operations import FMConfigurationsNumber, FMConfigurations, FMCoreFeatures, FMFullAnalysis
+from fm_solver.transformations import FMToFMSans, FMSansReader
+from fm_solver.operations.fmsans_op import (
+    FMSansProductsNumber,
+    FMSansCoreFeatures,
+    FMSansDeadFeatures,
+    FMSansFullAnalysis
+)
+
+from fm_solver.utils import timer, memory_profiler, sizer
 
 
-def main(fm_filepath: str) -> None:
+CODES = ['Reading', 'Transformation', 'ProductsNumber_op', 'CoreFeatures_op', 'DeadFeatures_op']
+#CODES = ['Reading', 'Transformation', 'FullAnalysis_op']
+
+
+def main(fm_filepath: str, n_cores: int) -> None:
     # Get feature model name
-    logging_utils.FM_LOGGER.info(f'Input model: {fm_filepath}')
-    fm_name = '.'.join(os.path.basename(fm_filepath).split('.')[:-1])
-    logging_utils.FM_LOGGER.info(f'FM name: {fm_name}')
+    path, filename = os.path.split(fm_filepath)
+    filename = '.'.join(filename.split('.')[:-1])
 
-    # Load the feature model
-    logging_utils.LOGGER.info(f"Reading FM '{fm_filepath}' model...")
-    with timer.Timer(logger=logging_utils.LOGGER.info, message="FM loading."):
-        fm = UVLReader(fm_filepath).transform()
-    sizer.getsizeof(fm, logging_utils.LOGGER.info, message="FM.")
-    logging_utils.FM_LOGGER.info(fm_sans_utils.fm_stats(fm))
+    # Read the FM Sans
+    with memory_profiler.MemoryProfiler(name=CODES[0], logger=None), timer.Timer(name=CODES[0], logger=None):
+        fmsans_model = FMSansReader(fm_filepath).transform()
+
+    # there is not transformation needed.
+    with memory_profiler.MemoryProfiler(name=CODES[1], logger=None), timer.Timer(name=CODES[1], logger=None):
+        pass
     
-    if fm.get_constraints():
-        print(f"Error: The FM has cross-tree constraints. Please transform it first using the 'fmsimplectcs2fmsans.py' script.")
-        return None
+    fm_memory = sizer.getsizeof(fmsans_model, logger=None)
+    n_features = len(fmsans_model.fm.get_features())
+    n_constraints = len(fmsans_model.fm.get_constraints())
 
-    n_configurations = FMConfigurationsNumber().execute(fm).get_result()
-    print(f'#Configurations: {n_configurations}')
+    # Products numbers
+    with memory_profiler.MemoryProfiler(name=CODES[2], logger=None), timer.Timer(name=CODES[2], logger=None):
+        n_configs = fmsans_model.get_number_of_configurations_bdd(n_cores)
+    print(f'#Configs: {n_configs}')
 
-    configurations = FMConfigurations().execute(fm).get_result()
-    for i, c in enumerate(configurations, 1):
-        print(f'C{i}: {[f.name for f in c.get_selected_elements()]}')
+    # Core features
+    with memory_profiler.MemoryProfiler(name=CODES[3], logger=None), timer.Timer(name=CODES[3], logger=None):
+        core_features = fmsans_model.get_core_features_bdd(n_cores)
+    if core_features and isinstance(core_features[0], Feature):
+        core_features = [f.name for f in core_features]
+    print(f'Core features: {len(core_features)} {[f for f in core_features]}')
 
-    core_features = FMCoreFeatures().execute(fm).get_result()
-    print(f'Core features: {len(core_features)}, {[f.name for f in core_features]}')
+    # Dead features
+    with memory_profiler.MemoryProfiler(name=CODES[4], logger=None), timer.Timer(name=CODES[4], logger=None):
+        dead_features = []
+    if dead_features and isinstance(dead_features[0], Feature):
+        dead_features = [f.name for f in dead_features]
+    print(f'Dead features: {len(dead_features)} {[f for f in dead_features]}')
 
-
-def main_fmsans(fm_filepath: str) -> None:
-    fm_sans = FMSansReader(fm_filepath).transform()
-    result = fm_sans.get_analysis()
-    print(f'Result from paralelization analysis: ')
-    print(f'#Configurations: {result[FMFullAnalysis.CONFIGURATIONS_NUMBER]}')
-    print(f'Core features: {[f.name for f in result[FMFullAnalysis.CORE_FEATURES]]}')
-
-    fm = fm_sans.get_feature_model()
-    print(f'Result from full composed feature model: ')
-    n_configurations = FMConfigurationsNumber().execute(fm).get_result()
-    print(f'#Configurations: {n_configurations}')
-
-    core_features = FMCoreFeatures().execute(fm).get_result()
-    print(f'Core features: {len(core_features)}, {[f.name for f in core_features]}')
+    # Print outputs
+    header = f"Parallel_cores,Features,Constraints,FM_size(B),{','.join(c + '(s)' for c in CODES)},{','.join(c + '(B)' for c in CODES)},#Configs,#Cores,Cores,#Deads,Deads"
+    values = f'{n_cores},{n_features},{n_constraints},{fm_memory},'
+    values += ','.join([str(timer.Timer.timers[c]) for c in CODES])
+    values += ',' + ','.join([str(memory_profiler.MemoryProfiler.memory_profilers[c]) for c in CODES])
+    values += f',{n_configs}'
+    values += f',{len(core_features)},"{[f for f in core_features]}"'
+    values += f',{len(dead_features)},"{[f for f in dead_features]}"'
+    print(header)
+    print(values)
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Analyze an FM using the FM Solver.')
-    input_model = parser.add_mutually_exclusive_group(required=True)
-    input_model.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, help='Input feature model in UVL format (.uvl).')
-    input_model.add_argument('-fmsans', dest='fm_sans', type=str, help='Input feature model in FMSans (.json) format.')
+    parser = argparse.ArgumentParser(description='Analyze an FM using the FMSans Solver.')
+    parser.add_argument('-fm', '--featuremodel', dest='feature_model', type=str, required=True, help='Input feature model in FMSans format (.json).')
+    parser.add_argument('-c', '--cores', dest='n_cores', type=int, required=False, default=multiprocessing.cpu_count(), help='Number of cores (processes) to execute (power of 2) (default = CPU count).')
     args = parser.parse_args()
 
-    if args.feature_model:
-        main(args.feature_model)
-    elif args.fm_sans:
-        main_fmsans(args.fm_sans) 
-        pass
+    if args.n_cores <= 0 or not math.log(args.n_cores, 2).is_integer():
+        if args.n_cores == multiprocessing.cpu_count():
+            sys.exit(f'The number of cores of this computer is not a power of 2. Please set the -c parameter to a power of 2.')
+        else:
+            sys.exit(f'The number of cores must be positive and power of 2.')
+    if not args.feature_model.endswith('.json'):
+        sys.exit(f'Error, incorrect file format for {args.feature_model}. It should be a FMSans model (.json).')
+
+    main(args.feature_model, args.n_cores)
+
     

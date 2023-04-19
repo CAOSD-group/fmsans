@@ -1,0 +1,21 @@
+namespace Root
+
+features
+	Minepump_SPL {abstract}	
+		mandatory
+			Command	
+				or
+					Start
+					Stop
+
+		optional
+			MethaneDetect
+
+		mandatory
+			WaterRegulation	
+				optional
+					Low
+					Normal
+
+				mandatory
+					High

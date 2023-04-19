@@ -1,0 +1,21 @@
+namespace eShop
+
+features
+	eShop	
+		mandatory
+			catalogue
+			payment	
+				or
+					banktrasnsfer
+					creditcard
+					e_coins
+			security	
+				alternative
+					high
+					standard
+
+		optional
+			search
+
+constraints
+	!creditcard | high

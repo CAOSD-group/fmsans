@@ -1,0 +1,22 @@
+namespace VM
+
+features
+	VM {abstract}	
+		mandatory
+			BEV {abstract}	
+				or
+					COF
+					TEA
+					CAP
+
+		optional
+			TON
+
+		mandatory
+			CUR {abstract}	
+				alternative
+					EUR
+					DOL
+
+constraints
+	CAP => TON

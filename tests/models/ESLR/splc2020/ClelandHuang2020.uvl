@@ -1,0 +1,33 @@
+namespace Root
+
+features
+	IceRescue {abstract}	
+		mandatory
+			RoutePlanner	
+				mandatory
+					SearchAreaDefinition
+					Map_basedRoutGenerator	
+						mandatory
+							Map
+					RouteAllocation
+			MissionExecution	
+				mandatory
+					OnboardVision	
+						mandatory
+							ImageCollection	
+								optional
+									Camera	
+										or
+											ThermalImagery
+											RGBImagery
+							IceRescueImageAnalysis
+
+				optional
+					VictimRescue	
+						mandatory
+							MobilerescueSupport
+							FlotationDeviceDelivery
+			UAV_FlighteManagement	
+				mandatory
+					CommUnication
+					FlightControl

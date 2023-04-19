@@ -1,0 +1,38 @@
+namespace JCalc
+
+features
+	JCalc	
+		mandatory
+			LANG	
+				alternative
+					PT_BR
+					EN
+			MENU	
+				mandatory
+					FILE
+					HELP
+
+				optional
+					EDIT
+					SAVE
+
+		optional
+			LOOKANDFEEL	
+				alternative
+					Metal
+					System
+					Motif
+					GTK
+					Windows
+			ANALYZER
+			PERFORMANCE
+
+		mandatory
+			DEVICE	
+				alternative
+					Z6
+					Milestone
+					PC
+
+		optional
+			COMMA

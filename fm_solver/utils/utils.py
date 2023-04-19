@@ -2,21 +2,42 @@
 This module contains generic utils.
 """
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel
+import os
 
+from fm_solver.models.feature_model import FM
 from fm_solver.transformations.refactorings import FMRefactoring
-from fm_solver.utils import logging_utils
 
 
-def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
+def apply_refactoring(fm: FM, refactoring: FMRefactoring) -> FM:
     """It applies a given refactoring to all instances in the feature model."""
     instances = refactoring.get_instances(fm)
-    max = len(instances)
-    logging_utils.LOGGER.debug(f'Applying {refactoring.get_name()} to {len(instances)} instances.')
     for i, instance in enumerate(instances, 1):
-        percentage = (i / max) * 100
-        logging_utils.LOGGER.debug(f'Instance {i} / {max} ({percentage}%). Applying {refactoring.get_name()} to {instance}.')
+        print(f'{refactoring.get_name()}: {i}/{len(instances)} ({i/len(instances)*100}%). CTC: {instance}')
         fm = refactoring.transform(fm, instance)
     return fm
 
 
+def int_to_scientific_notation(n: int, precision: int = 2) -> str:
+    """Convert a large int into scientific notation.
+    
+    It is required for large numbers that Python cannot convert to float,
+    solving the error `OverflowError: int too large to convert to float`.
+    """
+    str_n = str(n)
+    decimal = str_n[1:precision+1]
+    exponent = str(len(str_n) - 1)
+    return str_n[0] + '.' + decimal + 'e' + exponent
+
+
+def get_filespaths(dirpath: str) -> list[str]:
+    """Get all file paths from the given directory path."""
+    models = []
+    for root, dirs, files in os.walk(dirpath):
+        for file in files:
+            filepath = os.path.join(root, file)
+            models.append(filepath)
+    return models
+
+
+def get_filename_from_filepath(filepath: str) -> str:
+    return '.'.join(os.path.basename(filepath).split('.')[:-1])

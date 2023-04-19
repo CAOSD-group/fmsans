@@ -1,0 +1,42 @@
+namespace Root
+
+features
+	CSVF_SPL {abstract}	
+		mandatory
+			Diagnosis
+			Monitoring
+			Message	
+				mandatory
+					Transmit	
+						mandatory
+							Layout	
+								alternative
+									Layout1
+									Layout2
+							Signals	
+								mandatory
+									Signal1
+									Signal2	
+										mandatory
+											Flag	
+												alternative
+													Flag1
+													Flag2
+													Flag3
+									Signal3
+
+								optional
+									Signal4	
+										alternative
+											Algorithm1
+											Algorithm2
+									Signal5
+									Signal6
+					Recieve
+
+				optional
+					Identification
+
+		optional
+			Calculations
+			Interface_support

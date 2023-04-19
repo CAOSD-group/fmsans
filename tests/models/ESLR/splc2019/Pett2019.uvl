@@ -1,0 +1,37 @@
+namespace Root
+
+features
+	GLP {abstract}	
+		mandatory
+			Gtp {abstract}	
+				alternative
+					Directed
+					Undirected
+			Wgt {abstract}	
+				alternative
+					Weigthed
+					Unweigthed
+
+		optional
+			Src {abstract}	
+				alternative
+					DFS
+					BFS
+			Alg {abstract}	
+				or
+					Number
+					Connected
+					Cycle
+					StronglyConnected
+					MST {abstract}	
+						alternative
+							MST_Prim
+							MST_Krustal
+					Shortest
+
+constraints
+	Connected => Undirected
+	StronglyConnected => Directed & DFS
+	Cycle => DFS
+	MST => Undirected & Weigthed
+	Shortest => Directed & Weigthed

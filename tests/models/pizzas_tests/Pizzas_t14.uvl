@@ -1,0 +1,62 @@
+namespace Pizza
+
+features
+	Pizza {abstract}	
+		mandatory
+			Dough	
+				alternative
+					Neapolitan
+					Sicilian
+
+		optional
+			CheesyCrust
+
+		mandatory
+			xor {abstract}	
+				alternative
+					plus {abstract}	
+						mandatory
+							Topping	
+								optional
+									Salami
+
+								mandatory
+									Ham
+
+								optional
+									Mozzarella
+							Size	
+								alternative
+									Normal
+									Big
+					less {abstract}	
+						mandatory
+							Topping1	
+								or
+									Salami1
+									Mozzarella1
+							Size1	
+								mandatory
+									Normal1
+			xor1 {abstract}	
+				alternative
+					XOR {abstract}	
+						alternative
+							plus1 {abstract}	
+								optional
+									Topping2	
+										optional
+											Salami2
+
+										mandatory
+											Ham2
+											Mozzarella2
+							plus2 {abstract}	
+								mandatory
+									Topping12	
+										optional
+											Salami12
+
+										mandatory
+											Mozzarella12
+					less1 {abstract}

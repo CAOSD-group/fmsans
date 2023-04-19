@@ -1,0 +1,3095 @@
+{
+    "feature_tree": {
+        "name": "Graph",
+        "abstract": true,
+        "relations": [
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "Information",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "MissingValues",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "QuantitativeScaleNotBeginAtZero",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MANDATORY",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "DataRelationship",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "TimeSeries",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OR",
+                                                                "card_min": 1,
+                                                                "card_max": 8,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "change",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "rise",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "fluctuate",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "increase",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "grow",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "decline",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "decrease",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "trend",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Ranking",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OR",
+                                                                "card_min": 1,
+                                                                "card_max": 5,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "largerThan",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "smallerThan",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "equalTo",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "greaterThan",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "lessThan",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "PartToWhole",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OR",
+                                                                "card_min": 1,
+                                                                "card_max": 6,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "rate",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "rateOfTotal",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "percent",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "percentOfTotal",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "share",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "accountsForXPercent",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "DistributionRelationship",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "DistributionKeywords",
+                                                                        "abstract": true,
+                                                                        "relations": [
+                                                                            {
+                                                                                "type": "OR",
+                                                                                "card_min": 1,
+                                                                                "card_max": 7,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "name": "normalCurve",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "concentration",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "frequency",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "range",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "distribution",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "normalDistribution",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "bellCurve",
+                                                                                        "abstract": false,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "type": "MANDATORY",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "DistributionType",
+                                                                        "abstract": true,
+                                                                        "relations": [
+                                                                            {
+                                                                                "type": "XOR",
+                                                                                "card_min": 1,
+                                                                                "card_max": 1,
+                                                                                "children": [
+                                                                                    {
+                                                                                        "name": "SingleDistribution",
+                                                                                        "abstract": true,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "MultipleDistribution",
+                                                                                        "abstract": true,
+                                                                                        "relations": [],
+                                                                                        "attributes": []
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Deviation",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OR",
+                                                                "card_min": 1,
+                                                                "card_max": 5,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "plus",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "minus",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "variance",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "difference",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "relativeTo",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Geospatial",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OR",
+                                                                "card_min": 1,
+                                                                "card_max": 8,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "geography",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "location",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "where",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "region",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "territory",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "country",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "state",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "city",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "Correlation",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OR",
+                                                                "card_min": 1,
+                                                                "card_max": 7,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "increasesWith",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "decreasesWith",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "changesWith",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "variesWith",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "causedBy",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "affectedBy",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "follows",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "NominalComparison",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OR",
+                                                                "card_min": 1,
+                                                                "card_max": 4,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "thisIsBiggerThanThat",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "thisIsTheBiggestOfAll",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "thisIsAlmostTwiceAsBigAsThat",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "theseTwoAreFarBiggerThanAllTheOthers",
+                                                                        "abstract": true,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OPTIONAL",
+                                "card_min": 0,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "EmphasizeGoal",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "EmphIndividualValues",
+                                                        "abstract": true,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "EmphOverallPattern",
+                                                        "abstract": true,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "ValueEncodingObject",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "XOR",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "children": [
+                                    {
+                                        "name": "Points",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "XOR",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "ScatterPlot",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "DotPlot",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    },
+                                                    {
+                                                        "name": "StripPlot",
+                                                        "abstract": false,
+                                                        "relations": [],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Lines",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "MANDATORY",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "LineGraph",
+                                                        "abstract": false,
+                                                        "relations": [
+                                                            {
+                                                                "type": "OPTIONAL",
+                                                                "card_min": 0,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "WithPoints",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Bars",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "MANDATORY",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "BarGraph",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "XOR",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "VerticalBars",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "HorizontalBars",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    },
+                                    {
+                                        "name": "Boxes",
+                                        "abstract": true,
+                                        "relations": [
+                                            {
+                                                "type": "MANDATORY",
+                                                "card_min": 1,
+                                                "card_max": 1,
+                                                "children": [
+                                                    {
+                                                        "name": "BoxPlot",
+                                                        "abstract": true,
+                                                        "relations": [
+                                                            {
+                                                                "type": "XOR",
+                                                                "card_min": 1,
+                                                                "card_max": 1,
+                                                                "children": [
+                                                                    {
+                                                                        "name": "VerticalBoxes",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    },
+                                                                    {
+                                                                        "name": "HorizontalBoxes",
+                                                                        "abstract": false,
+                                                                        "relations": [],
+                                                                        "attributes": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "attributes": []
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "attributes": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 5,
+                                "children": [
+                                    {
+                                        "name": "TimeSeries1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "LineGraph1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "VerticalBars1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DotPlot1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "VerticalBoxes1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE1",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "TimeSeries2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "EmphOverallPattern1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "LineGraph2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE2",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 4,
+                                "children": [
+                                    {
+                                        "name": "TimeSeries3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "EmphIndividualValues1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MissingValues1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "VerticalBars2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE3",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 4,
+                                "children": [
+                                    {
+                                        "name": "TimeSeries4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "MissingValues2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DotPlot2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "WithPoints1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE4",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 4,
+                                "children": [
+                                    {
+                                        "name": "Ranking1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "BarGraph1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DotPlot3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "BoxPlot1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE5",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Ranking2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "QuantitativeScaleNotBeginAtZero1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DotPlot4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE6",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 5,
+                                "children": [
+                                    {
+                                        "name": "DistributionRelationship1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "StripPlot1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "LineGraph3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "VerticalBars3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "BoxPlot2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE7",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "DistributionRelationship2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "EmphIndividualValues2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "StripPlot2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE8",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "DistributionRelationship3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "EmphOverallPattern2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "LineGraph4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE9",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "SingleDistribution1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "EmphIndividualValues3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "VerticalBars4",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE10",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "PartToWhole1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "BarGraph2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "LineGraph5",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE11",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 4,
+                                "children": [
+                                    {
+                                        "name": "Deviation1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "BarGraph3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DotPlot5",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "LineGraph6",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE12",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Deviation2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "QuantitativeScaleNotBeginAtZero2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DotPlot6",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE13",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Geospatial1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Points1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Lines1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE14",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "Correlation1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "ScatterPlot1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "HorizontalBars1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE15",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "NominalComparison1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Bars1",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DotPlot7",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "MANDATORY",
+                "card_min": 1,
+                "card_max": 1,
+                "children": [
+                    {
+                        "name": "OR_FEATURE16",
+                        "abstract": true,
+                        "relations": [
+                            {
+                                "type": "OR",
+                                "card_min": 1,
+                                "card_max": 3,
+                                "children": [
+                                    {
+                                        "name": "NominalComparison2",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "QuantitativeScaleNotBeginAtZero3",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "DotPlot8",
+                                        "abstract": true,
+                                        "relations": [],
+                                        "attributes": [
+                                            {
+                                                "name": "aux"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "attributes": [
+                            {
+                                "name": "aux"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "attributes": []
+    },
+    "ctcs_transformations": [
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Boxes"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "SingleDistribution",
+                    "Boxes"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Bars"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MultipleDistribution",
+                    "Bars"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "TimeSeries"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "TimeSeries1",
+                    "TimeSeries"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "LineGraph"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "LineGraph1",
+                    "LineGraph"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "VerticalBars"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "VerticalBars1",
+                    "VerticalBars"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DotPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DotPlot1",
+                    "DotPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "VerticalBoxes"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "VerticalBoxes1",
+                    "VerticalBoxes"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "TimeSeries"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "TimeSeries2",
+                    "TimeSeries"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "EmphOverallPattern"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "EmphOverallPattern1",
+                    "EmphOverallPattern"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "LineGraph"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "LineGraph2",
+                    "LineGraph"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "TimeSeries"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "TimeSeries3",
+                    "TimeSeries"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "EmphIndividualValues"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "EmphIndividualValues1",
+                    "EmphIndividualValues"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "MissingValues"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "MissingValues1",
+                    "MissingValues"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "VerticalBars"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "VerticalBars2",
+                    "VerticalBars"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "TimeSeries"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "TimeSeries4",
+                    "TimeSeries"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "MissingValues"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "MissingValues2",
+                    "MissingValues"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DotPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DotPlot2",
+                    "DotPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "WithPoints"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "WithPoints1",
+                    "WithPoints"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Ranking"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Ranking1",
+                    "Ranking"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "BarGraph"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "BarGraph1",
+                    "BarGraph"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DotPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DotPlot3",
+                    "DotPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "BoxPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "BoxPlot1",
+                    "BoxPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Ranking"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Ranking2",
+                    "Ranking"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "QuantitativeScaleNotBeginAtZero"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "QuantitativeScaleNotBeginAtZero1",
+                    "QuantitativeScaleNotBeginAtZero"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DotPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DotPlot4",
+                    "DotPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "DistributionRelationship"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "DistributionRelationship1",
+                    "DistributionRelationship"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "StripPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "StripPlot1",
+                    "StripPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "LineGraph"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "LineGraph3",
+                    "LineGraph"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "VerticalBars"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "VerticalBars3",
+                    "VerticalBars"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "BoxPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "BoxPlot2",
+                    "BoxPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "DistributionRelationship"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "DistributionRelationship2",
+                    "DistributionRelationship"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "EmphIndividualValues"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "EmphIndividualValues2",
+                    "EmphIndividualValues"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "StripPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "StripPlot2",
+                    "StripPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "DistributionRelationship"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "DistributionRelationship3",
+                    "DistributionRelationship"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "EmphOverallPattern"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "EmphOverallPattern2",
+                    "EmphOverallPattern"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "LineGraph"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "LineGraph4",
+                    "LineGraph"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "SingleDistribution"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "SingleDistribution1",
+                    "SingleDistribution"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "EmphIndividualValues"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "EmphIndividualValues3",
+                    "EmphIndividualValues"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "VerticalBars"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "VerticalBars4",
+                    "VerticalBars"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "PartToWhole"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "PartToWhole1",
+                    "PartToWhole"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "BarGraph"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "BarGraph2",
+                    "BarGraph"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "LineGraph"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "LineGraph5",
+                    "LineGraph"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Deviation"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Deviation1",
+                    "Deviation"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "BarGraph"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "BarGraph3",
+                    "BarGraph"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DotPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DotPlot5",
+                    "DotPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "LineGraph"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "LineGraph6",
+                    "LineGraph"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Deviation"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Deviation2",
+                    "Deviation"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "QuantitativeScaleNotBeginAtZero"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "QuantitativeScaleNotBeginAtZero2",
+                    "QuantitativeScaleNotBeginAtZero"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DotPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DotPlot6",
+                    "DotPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Geospatial"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Geospatial1",
+                    "Geospatial"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Points"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Points1",
+                    "Points"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Lines"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Lines1",
+                    "Lines"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "Correlation"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "Correlation1",
+                    "Correlation"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "ScatterPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "ScatterPlot1",
+                    "ScatterPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "HorizontalBars"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "HorizontalBars1",
+                    "HorizontalBars"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "NominalComparison"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "NominalComparison1",
+                    "NominalComparison"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "Bars"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "Bars1",
+                    "Bars"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DotPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DotPlot7",
+                    "DotPlot"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "NominalComparison"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "NominalComparison2",
+                    "NominalComparison"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "E",
+                "value": 0,
+                "features": [
+                    "QuantitativeScaleNotBeginAtZero"
+                ]
+            },
+            {
+                "type": "E",
+                "value": 1,
+                "features": [
+                    "QuantitativeScaleNotBeginAtZero3",
+                    "QuantitativeScaleNotBeginAtZero"
+                ]
+            }
+        ],
+        [
+            {
+                "type": "R",
+                "value": 0,
+                "features": [
+                    "DotPlot"
+                ]
+            },
+            {
+                "type": "R",
+                "value": 1,
+                "features": [
+                    "DotPlot8",
+                    "DotPlot"
+                ]
+            }
+        ]
+    ],
+    "transformations_ids": {
+        "-462715986513825158": 849941831508137645,
+        "-8406617410726778120": 849941831508137865,
+        "-8780364458307310192": 849941831508416137,
+        "7040870038898573423": 849941831510234761,
+        "4506862682192864185": 849941968947099531,
+        "-4998109188748192602": 849941968949196427,
+        "-579973270093162944": 849946504432555657,
+        "-3448715316712835607": 424978379181331673,
+        "9034472914864339125": 424978516620293339,
+        "4559724283560276365": 424987175274353881,
+        "-1286399375068759172": 424987312713315547,
+        "7485390173796855191": 237189430188344052,
+        "-8609168759074107224": 237189430188346064,
+        "4588091375833060979": 237189430188622544,
+        "-3907376574144896054": 237189567627305718,
+        "7458507077091340974": 237189567627307730,
+        "-3322545842898732909": 237189567627584210,
+        "7272151287584804361": 237194103112762064,
+        "-8295407326955930219": 237194240551723730,
+        "-7701992106367436629": 1412088863938811609,
+        "-8611740908908663258": 273483260780845785,
+        "3558074410370894787": 273483278229148505,
+        "-480133548499977378": 273483278229150297,
+        "-1598273867313512991": 273483296348541657,
+        "4247669128264167521": 273483398219807451,
+        "5952200797609582709": 273483415668110171,
+        "1874773255623928948": 273483415668111963,
+        "-8004752067070860606": 273483433787503323,
+        "-4547880641219938064": 425295039075390681,
+        "6207304942040077558": 425295176514352347,
+        "-1965329602723483943": 777180545184012013,
+        "-5790260329270483002": 777180545184290505,
+        "931536687376879027": 777180545186109129,
+        "-5092939960459933476": 777180580768487113,
+        "-6570421140810027098": 777180682625070795,
+        "-2696447424576795217": 777180718207448779,
+        "8883927433279610132": 777185218108430025,
+        "4246864437340672018": 853882480703936173,
+        "-3611496311517426630": 853882480703936393,
+        "3377410132650392262": 853882480704214665,
+        "-1798197539866764161": 853882480706033289,
+        "-2084770380799455304": 853882618142898059,
+        "-8326507911240229066": 853882618144994955,
+        "9029865124474290093": 853887153628354185,
+        "-7257941431143903745": 127107485622541529,
+        "5547630289021130882": 127107485622818009,
+        "-7819282226256206581": 127107485624636633,
+        "-594785666333130726": 127107623061503195,
+        "3262220901330887845": 127107623063598299,
+        "-642538690989405989": 127116281715563737,
+        "7406965366271208923": 127116281715840217,
+        "2882205483521360975": 127116281717658841,
+        "4038151971257369232": 127116419154525403,
+        "-5204808370204667594": 127116419156620507,
+        "-4669478364432234271": 1407580626887612121,
+        "437843080232089472": 1407580764326573787,
+        "3613655772042239440": 1407585264244332249,
+        "3359040347673900822": 131048134818340057,
+        "-1745107946739695673": 131048134818616537,
+        "-7328213456285328864": 131048134820435161,
+        "7247173288482905391": 131048170386035929,
+        "8801279299691635989": 131048170402813145,
+        "8989584363657907941": 131048272257301723,
+        "6867360744478874483": 131048272259396827,
+        "-122120053716866609": 131048307824997595,
+        "-2786654554860215665": 131048307841774811,
+        "6208523551431928100": 131056930911362265,
+        "5719558075565679433": 131056930911638745,
+        "-954512874877413701": 131056930913457369,
+        "5182006100690824914": 131056966479058137,
+        "3062726126574091866": 131056966495835353,
+        "-5834576488929015659": 131057068350323931,
+        "3315850009580698573": 131057068352419035,
+        "-2548194282748506434": 131057103918019803,
+        "7541010179356903877": 131057103934797019,
+        "-8397765860468299248": 1425841316001715929,
+        "-992209833061440596": 1425841453440677595,
+        "9065224593282544681": 1425845953358436057,
+        "-5550210392082391085": 849695540903515821,
+        "-9095406010561761586": 849695540903516041,
+        "8372104619324973760": 849695540903794313,
+        "-6626187661879378640": 849695540905612937,
+        "-8359850545913145757": 849695678342477707,
+        "-8021613169601533409": 849695678344574603,
+        "874977788262155886": 849700213827933833,
+        "7512474909900068444": 849378881009456813,
+        "4958932745958250064": 849378881009457033,
+        "-6246206729856952443": 849378881009735305,
+        "1963152481180562852": 849378881011553929,
+        "-8819774158080323237": 849379018448418699,
+        "7566851449148662762": 849379018450515595,
+        "-3340088777125159108": 849383553933874825,
+        "8281415394151376703": 241376369988764404,
+        "-8378054451805679700": 241376369988766416,
+        "5192310798484571865": 241376369989042896,
+        "-2640184400273795311": 241376507427726070,
+        "-3075111980826636075": 241376507427728082,
+        "-3752555349032570834": 241376507428004562,
+        "1137706026265324992": 241381042913182416,
+        "-3505027763388754521": 241381180352144082,
+        "2039230716118794425": 1706260725982009049,
+        "1425031055050224038": 1706260863420970715,
+        "7278620418465939683": 429235688271189209,
+        "2928466714999986011": 429235825710150875,
+        "3541726076529590249": 277423909976644313,
+        "4961937962992860182": 277423927424947033,
+        "-4716850644488725813": 277423927424948825,
+        "8279397724289306296": 277424047415605979,
+        "3254010861564007195": 277424064863908699,
+        "-3692156969965880155": 277424064863910491,
+        "-6413052144837397827": 1426162613252495065,
+        "8531761453174067314": 272674019677543129,
+        "-8694769251020318170": 272674037125845849,
+        "-1412954148704210747": 272674037125847641,
+        "-848687535939131798": 272674055245239001,
+        "-1448130727696705032": 272674055262016217,
+        "-3537068852824414641": 272674157116504795,
+        "1075558083508249322": 272674174564807515,
+        "-7323984450009568422": 272674174564809307,
+        "2998371013235371567": 272674192684200667,
+        "8028261020043620245": 272674192700977883,
+        "-3125846478147415677": 1412335154543433433,
+        "4207270600775820276": 126861195017919705,
+        "-7512356044024832495": 126861195018196185,
+        "-2005446287857813272": 126861195020014809,
+        "6721208866273216760": 126861332456881371,
+        "-2090781905442160026": 126861332458976475,
+        "-8098884621224703471": 126869991110941913,
+        "-7194872742377543344": 126869991111218393,
+        "8984618657445511722": 126869991113037017,
+        "5513386859740987295": 126870128549903579,
+        "-5843660966910322291": 126870128551998683,
+        "-289982226275938558": 126298244519238873,
+        "2190433771246457306": 126298244519515353,
+        "2799296185847274722": 126298244521333977,
+        "-7314004043166163853": 126298280086934745,
+        "4645446057152168827": 126298280103711961,
+        "-5676432555437413152": 126298381958200539,
+        "-7584692372069477937": 126298381960295643,
+        "-7366551445591431955": 126298417525896411,
+        "-7798674135570611041": 126298417542673627,
+        "-4018503857703657775": 126307040612261081,
+        "7238349869911228414": 126307040612537561,
+        "8591159062787639098": 126307040614356185,
+        "7406095862433936987": 126307076179956953,
+        "-5603183849347144129": 126307076196734169,
+        "8033730309069510903": 126307178051222747,
+        "3569125893924830329": 126307178053317851,
+        "-3410883816732989981": 126307213618918619,
+        "-3629906166769944451": 126307213635695835,
+        "5475721886820129582": 1408394505347634905,
+        "-2657421436665184358": 1425595025397094105,
+        "-6985317999280301322": 1425595162836055771,
+        "1033761229158661460": 1425599662753814233,
+        "340767088745996741": 1430349553052915417,
+        "-8228813167273894012": 777743495682692845,
+        "-8894806540040442809": 777743495682971337,
+        "-2102518809940574486": 777743495684789961,
+        "-8139111567754418214": 777743633123751627,
+        "-4327359306814716318": 777748168607110857,
+        "8241110795208573469": 237435720792965876,
+        "-4263654662427816423": 237435720792967888,
+        "-8172061303459387488": 237435720793244368,
+        "-5650290453672059301": 237435858231927542,
+        "-5847409706745415418": 237435858231929554,
+        "-1168710106385215994": 237435858232206034,
+        "-3547673923263948134": 237440393717383888,
+        "315478756319842758": 237440531156345554,
+        "-6849216514665595642": 1075614389241485001,
+        "-6446234429637376437": 1075614526680446667,
+        "2194162650942067483": 1426408903857116889,
+        "4215301552071986669": 236626479689663220,
+        "-6453649883361529982": 236626479689665232,
+        "-893888029561450194": 236626479689941712,
+        "-8960217264026554541": 236626617128624886,
+        "5891782125807328719": 236626617128626898,
+        "-3973076004534356024": 236626617128903378,
+        "3805450025629071652": 236631152614081232,
+        "-6316133229322070299": 236631290053042898,
+        "-425626014135561962": 1407826917492233945,
+        "6817423766785584160": 1407827054931195611,
+        "-2564709731228677233": 1407831554848954073,
+        "4798128614858787225": 535060323747136208,
+        "-2398831384244840711": 535060461186097874,
+        "-1664022002405324015": 535306614351758032,
+        "-6426614643103948696": 535306751790719698,
+        "2252793137079019127": 236872770294285044,
+        "-8206235186308638214": 236872770294287056,
+        "3418599627606211770": 236872770294563536,
+        "1445722234020725996": 236872907733246710,
+        "2253086020558678547": 236872907733248722,
+        "6088762928145351686": 236872907733525202,
+        "-7965431585040583279": 236877443218703056,
+        "-5788592241211808508": 236877580657664722,
+        "1265230370302453590": 424732088576709849,
+        "2785384213392479869": 424732226015671515,
+        "-5591215089131786428": 1076177339740165833,
+        "6827236864858603466": 1076177477179127499,
+        "-4607218174131629531": 126544535123860697,
+        "9181465687700935084": 126544535124137177,
+        "1505908111237172656": 126544535125955801,
+        "-2745847758872168979": 126544570691556569,
+        "-8935989374100285651": 126544570708333785,
+        "-2211008762809714916": 126544672562822363,
+        "-8504520700105156392": 126544672564917467,
+        "7930078200749796298": 126544708130518235,
+        "7387185633079350983": 126544708147295451,
+        "-2450750400263337767": 126553331216882905,
+        "8796420171515841885": 126553331217159385,
+        "-4067603020847151162": 126553331218978009,
+        "-6701564625630076618": 126553366784578777,
+        "-1489653128425013253": 126553366801355993,
+        "4822132804626358350": 126553468655844571,
+        "-5910805970011859367": 126553468657939675,
+        "3360074230955368007": 126553504223540443,
+        "2970391175202170020": 126553504240317659,
+        "3862194112547853682": 277177619372022489,
+        "-4956990246754586455": 277177636820325209,
+        "1692261433408490475": 277177636820327001,
+        "-2486368998699856358": 277177756810984155,
+        "-7964602773569269662": 277177774259286875,
+        "3583627452943611648": 277177774259288667,
+        "4564544853067607251": 273236970176223961,
+        "1004651539730927941": 273236987624526681,
+        "7716288464230091711": 273236987624528473,
+        "-1753368588655066597": 273237005743919833,
+        "-4437587465814504801": 273237107615185627,
+        "-6678911836603847242": 273237125063488347,
+        "4242250871263984107": 273237125063490139,
+        "4953066962567447084": 273237143182881499,
+        "8583930136648548460": 272920310282164953,
+        "-6740787330643943930": 272920327730467673,
+        "3605891545995662429": 272920327730469465,
+        "5522976425108184977": 272920345849860825,
+        "8255282650930932210": 272920345866638041,
+        "3090981656950667631": 272920447721126619,
+        "-5214340608318921754": 272920465169429339,
+        "3462722552474598540": 272920465169431131,
+        "-7131440631910488786": 272920483288822491,
+        "3592718454691962118": 272920483305599707,
+        "1484942721485203870": 1408148214743013081,
+        "8106021748638769057": 241130079384142580,
+        "-6072579938464605086": 241130079384144592,
+        "-230255601966939706": 241130079384421072,
+        "-539291489494673125": 241130216823104246,
+        "1597140103757512023": 241130216823106258,
+        "-799516929026306035": 241130216823382738,
+        "3257498467895144849": 241134752308560592,
+        "-3356980111895409412": 241134889747522258,
+        "-13827161211105970": 853636190099314349,
+        "4576977732114605758": 853636190099314569,
+        "2291131504505987079": 853636190099592841,
+        "6895992692560445923": 853636190101411465,
+        "-7177253551868978408": 853636327538276235,
+        "5473037126240655633": 853636327540373131,
+        "-8956041975955512891": 853640863023732361,
+        "-7667102818983194234": 776934254579390189,
+        "-5798095704597648065": 776934254579668681,
+        "3826155290790292042": 776934254581487305,
+        "-5598660060996974638": 776934290163865289,
+        "-1654761875821152796": 776934392020448971,
+        "-3846448560425213862": 776934427602826955,
+        "-417245020306568671": 776938927503808201,
+        "-4030658753292263958": 781684144878491373,
+        "6414377352217001154": 781684144878769865,
+        "5209154076156181958": 781684144880588489,
+        "-159774812009306790": 781684282319550155,
+        "-3743404021935121559": 781688817802909385,
+        "-4741147477011855503": 777497205078071021,
+        "832858259355381769": 777497205078349513,
+        "-9034080373482723775": 777497205080168137,
+        "-2672473786298304956": 777497342519129803,
+        "3841976330453385263": 777501878002489033,
+        "4092083300326892776": 130801844213718233,
+        "4347972247798536344": 130801844213994713,
+        "4116800128884693968": 130801844215813337,
+        "-353136956487185698": 130801879781414105,
+        "5663566337414932844": 130801879798191321,
+        "5121050362345144901": 130801981652679899,
+        "8155234472730908823": 130801981654775003,
+        "7072200810659481268": 130802017220375771,
+        "-8249313802705469640": 130802017237152987,
+        "-782558243120209709": 130810640306740441,
+        "-2830430073506314080": 130810640307016921,
+        "-1492407310091716243": 130810640308835545,
+        "11373688976044697": 130810675874436313,
+        "7184852579833433578": 130810675891213529,
+        "-2187580599159912153": 130810777745702107,
+        "-1656711413803834350": 130810777747797211,
+        "-7911170668086795951": 130810813313397979,
+        "7245184817934057573": 130810813330175195,
+        "898410354709640537": 781437854273869549,
+        "-4178714925979464985": 781437854274148041,
+        "-5360683913948519719": 781437854275966665,
+        "-2992050095880072910": 781437991714928331,
+        "104290967522337855": 781442527198287561,
+        "4062011187624721210": 429481978875811033,
+        "-8449773288877221337": 429482116314772699,
+        "8008606154997092672": 429490774968833241,
+        "-8751783810979471294": 429490912407794907,
+        "-5251885127364975974": 1430103262448293593,
+        "6822587406740020624": 535623274245817040,
+        "1347177063313036908": 535623411684778706,
+        "6576067937829526271": 849132590404834989,
+        "6078494479175964832": 849132590404835209,
+        "-8310641388890183458": 849132590405113481,
+        "4561745642618069600": 849132590406932105,
+        "3629551106060536099": 849132727843796875,
+        "-1770323781089796792": 849132727845893771,
+        "1395521011802348017": 849137263329253001
+    }
+}
