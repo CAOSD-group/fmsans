@@ -8,6 +8,7 @@ from .fm_full_analysis import FMFullAnalysis
 from .fm_full_analysis_bdd import FMFullAnalysisBDD
 from .fm_full_analysis_sat import FMFullAnalysisSAT
 from .fm_full_analysis_gft import FMFullAnalysisGFT
+from .fm_valid import FMValid
 
 
 __all__ = ['FMOperation',
@@ -19,4 +20,5 @@ __all__ = ['FMOperation',
            'FMFullAnalysisBDD',
            'FMFullAnalysisSAT',
            'FMDeadFeaturesGFT',
-           'FMFullAnalysisGFT']
+           'FMFullAnalysisGFT',
+           'FMValid']
