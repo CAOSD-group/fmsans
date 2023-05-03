@@ -30,6 +30,4 @@ class FMValid(FMOperation):
 
 
 def is_valid(feature_model: FM) -> bool:
-    if feature_model.root is None:
-        return False
-    return len(feature_model.get_features()) > 0
+    return feature_model.root is not None

@@ -35,7 +35,7 @@ OUTPUT_DIR = 'results'
 OUTPUTFILE_RESULTS_STATS = 'analysis'
 TIME_ANALYSIS = 'TIME_ANALYSIS'
 TOOLS = ['sat', 'bdd', 'gft']
-OPERATION = 'DeadFeatures'
+OPERATION = 'Valid'
 
 def get_fm_filepath_models(dir: str) -> list[str]:
     """Get all models from the given directory."""
@@ -85,8 +85,8 @@ def main(fm_filepath: str, runs: int, tool: str) -> None:
             print(f'{i} ', end='', flush=True)
 
             op_model_dict = {'sat': (SATProductsNumber(), sat_model),
-                             'bdd': (BDDDeadFeatures(), bdd_model),
-                             'gft': (FMDeadFeaturesGFT(), fm)}
+                             'bdd': (BDDProductsNumber(), bdd_model),
+                             'gft': (FMConfigurationsNumber(), fm)}
             
             op, model = op_model_dict[tool]
             with timer.Timer(name=TIME_ANALYSIS, logger=None):
