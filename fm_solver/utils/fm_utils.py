@@ -14,7 +14,7 @@ from flamapy.metamodels.fm_metamodel.models import (
 )
 
 from fm_solver.models.feature_model import FM
-#from fm_solver.utils import constraints_utils
+from fm_solver.utils import constraints_utils
 
 
 def commitment_feature(feature_model: FM, feature_name: str) -> FM:
@@ -92,23 +92,23 @@ def get_model_from_subtrees(fm: FM, subtrees: set[FM]) -> FeatureModel:
     return FeatureModel(new_root)
 
 
-# def numbers_of_features_to_be_removed(fm: FM, ctc: Constraint) -> tuple[int, int]:
-#     """Return the number of features that will be deleted from the feature model when
-#     the given constraint is refactored into the tree diagram.
+def numbers_of_features_to_be_removed(fm: FM, ctc: Constraint) -> tuple[int, int]:
+    """Return the number of features that will be deleted from the feature model when
+    the given constraint is refactored into the tree diagram.
     
-#     It returns a tuple where the first value corresponds with the first transformation required
-#     to eliminate the CTC (i.e., the commitment or deletion of a feature), while the second value
-#     corresponds with the second transformation required to eliminate the CTC (i.e., the 
-#     deletion of both features or the deletion of the first feature and the commitment of the other.
-#     """
-#     left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
-#     if constraints_utils.is_requires_constraint(ctc):
-#         t_0 = numbers_of_features_to_be_removed_commitment(fm, right_feature)
-#         t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_deletion(fm, right_feature)
-#     else:  # it is an excludes
-#         t_0 = numbers_of_features_to_be_removed_deletion(fm, right_feature)
-#         t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_commitment(fm, right_feature)
-#     return (t_0, t_1)
+    It returns a tuple where the first value corresponds with the first transformation required
+    to eliminate the CTC (i.e., the commitment or deletion of a feature), while the second value
+    corresponds with the second transformation required to eliminate the CTC (i.e., the 
+    deletion of both features or the deletion of the first feature and the commitment of the other.
+    """
+    left_feature, right_feature = constraints_utils.left_right_features_from_simple_constraint(ctc)
+    if constraints_utils.is_requires_constraint(ctc):
+        t_0 = numbers_of_features_to_be_removed_commitment(fm, right_feature)
+        t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_deletion(fm, right_feature)
+    else:  # it is an excludes
+        t_0 = numbers_of_features_to_be_removed_deletion(fm, right_feature)
+        t_1 = numbers_of_features_to_be_removed_deletion(fm, left_feature) + numbers_of_features_to_be_removed_commitment(fm, right_feature)
+    return (t_0, t_1)
 
 
 def numbers_of_features_to_be_removed_commitment(fm: FM, feature_name: str) -> int:

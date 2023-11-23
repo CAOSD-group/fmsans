@@ -150,6 +150,10 @@ class TransformationsVector():
                 queue.put(valid_transformed_numbers_trees)
             return valid_transformed_numbers_trees
         pick_tree = pickle.dumps(tree, protocol=pickle.HIGHEST_PROTOCOL)
+        # Logs variables
+        _valids = 0
+        _invalids_analyzed = 0
+        _avoids = 0
         # Calculate valid ids
         while num <= max_number:  # Be careful! max should be included or excluded?
             binary_vector = list(format(num, f'0{n_bits}b'))
@@ -158,11 +162,21 @@ class TransformationsVector():
                 valid_transformed_numbers_trees[hash(tree)] = num
                 #print(f'ID (valid): {num} / {max_number} ({num/max_number}%), #Valids: {len(valid_transformed_numbers_trees)}')
                 num += 1
+                _valids += 1
             else:  # tree is None
+                jump = num
                 num = TransformationsVector.get_next_number_prunning_binary_vector(binary_vector, null_bit)
                 #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
+                _avoids += (num - jump)
+                _invalids_analyzed += 1
         if queue is not None:
             queue.put(valid_transformed_numbers_trees)
+        
+        print(f'#Total trees: {max_number + 1}')
+        print(f'#Valid analyzed trees: {_valids} ({_valids/max_number * 100} %)')
+        print(f'#Invalid analyzed trees: {_invalids_analyzed} ({_invalids_analyzed/max_number * 100} %)')
+        print(f'#Analyzed trees: {_valids + _invalids_analyzed} ({(_valids + _invalids_analyzed)/max_number * 100} %)')
+        print(f'#Avoid trees: {_avoids - _invalids_analyzed} ({(_avoids - _invalids_analyzed)/max_number * 100} %)')
         return valid_transformed_numbers_trees
 
     def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1) -> dict[str, int]:
