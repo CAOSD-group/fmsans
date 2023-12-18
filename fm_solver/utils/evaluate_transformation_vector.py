@@ -3,6 +3,10 @@ import string
 from fm_solver.models.utils import TransformationsVector
 from fm_solver.utils import utils, constraints_utils
 from copy import deepcopy
+from deap import base, creator, tools, algorithms
+import random
+import numpy as np
+
 
 
 # class syntax
@@ -233,6 +237,55 @@ class Evaluate_transformation_vector:
 
         
 
+
+    @classmethod
+    def best_order(self,constraint):
+        Evaluate_transformation_vector.load_all()
+        """ l=constraint
+        for i in range(100): 
+            value=Evaluate_transformation_vector.evaluate(l)
+            print(value)
+            random.shuffle(l) """
+
+        # Genetic Algorithm parameters
+        population_size = 200
+        mutation_rate = 0.1
+        generations = 50
+
+        # Create the DEAP types for individuals and fitness
+        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        creator.create("Individual", list, fitness=creator.FitnessMax)
+
+        # Register functions for initialization, crossover, and mutation
+        toolbox = base.Toolbox()
+        toolbox.register("indices", random.sample, range(len(constraint)), len(constraint))
+        toolbox.register("individual", tools.initIterate, creator.Individual,
+                    toolbox.indices)
+        toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+        toolbox.register("evaluate", lambda ind: Evaluate_transformation_vector.evaluate(ind, constraint))  # Pass data_array to the evaluation function
+        toolbox.register("mate", tools.cxOrdered)
+        toolbox.register("mutate", tools.mutShuffleIndexes, indpb=mutation_rate)
+
+        toolbox.register("select", tools.selTournament, tournsize=3)
+
+        # Create an initial population of random orders
+        population = toolbox.population(n=population_size)
+
+        stats = tools.Statistics(key=lambda ind: ind.fitness.values)
+        stats.register("max", np.max)
+        # Main loop for the genetic algorithm
+        algorithms.eaMuPlusLambda(population, toolbox, mu=population_size, lambda_=population_size, cxpb=0.7, mutpb=0.2, ngen=generations, stats=stats, halloffame=None, verbose=True)
+
+        # Select the best individual from the final population
+        best_individual = tools.selBest(population, k=1)[0]
+
+        # Print the best order and its fitness score
+        print("Best Order:", best_individual)
+        print("Fitness Score:", Evaluate_transformation_vector.evaluate(best_individual, constraint))
+
+        return best_individual
+
+    
 
     @classmethod
     def evaluate2(self,c1,c2):
