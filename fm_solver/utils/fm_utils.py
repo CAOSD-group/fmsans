@@ -25,7 +25,7 @@ def deletion_feature(feature_model: FM, feature_name: str) -> FM:
     return feature_model.delete_feature(feature_name)
 
 
-def transform_tree(functions: list[Callable], fm: FM, features: list[str], copy_tree: bool, features_already_executed: tuple[set[str], set[str]]) -> FM:
+def transform_tree(functions: list[Callable], fm: FM, features: list[str], copy_tree: bool) -> FM:
     """Apply a list of functions (commitment_feature or deletion_feature) 
     to the tree of the feature model. 
     
@@ -37,7 +37,7 @@ def transform_tree(functions: list[Callable], fm: FM, features: list[str], copy_
         tree = fm
     for func, feature in zip(functions, features):
         if tree is not None:
-            tree = func(tree, feature, features_already_executed)
+            tree = func(tree, feature)
     return tree
 
 
