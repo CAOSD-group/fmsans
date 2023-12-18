@@ -315,9 +315,9 @@ class Evaluate_transformation_vector:
             c3=0
             c2=0
             if (i+3< len(constraints)):
-                c3 = Evaluate_transformation_vector.evaluate3(constraints[i],constraints[i+1],constraints[i+2])
+                c3 = Evaluate_transformation_vector.evaluate3(constraints[i],constraints[i+1],constraints[i+2])*(2^(len(constraints)-i))
             if (i+2< len(constraints)):
-                c2 = Evaluate_transformation_vector.evaluate2(constraints[i],constraints[i+1])
+                c2 = Evaluate_transformation_vector.evaluate2(constraints[i],constraints[i+1])*(2^(len(constraints)-i))
             if (c3>c2):
                 i+=3
                 metric+=c3

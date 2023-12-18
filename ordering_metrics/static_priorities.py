@@ -6,8 +6,8 @@ from itertools import groupby
 
 variables = 4
 transformationNumber=3
-name_var=['a','b','c','d']
-name_new=['f','g','h','i']
+name_var=['a','b','c','d','e']
+name_new=['f','g','h','i','j']
 # class syntax
 class Tipo(Enum):
     __order__ = 'REQUIRE EXCLUDE'
@@ -126,17 +126,20 @@ def evaluate(tg):
         #Cogemos la primera transformada
         tt = total[tran]
         cont = 0
-        while (cont < len(tt)):
+        salir = False
+        while (cont < len(tt) and not salir):
             init=tt[cont]
             contInt = cont+1
-            while (contInt < len(tt)):
+            while (contInt < len(tt) and not salir):
                 comp=tt[contInt]
                 if(init[0]!=comp[0] and init[1]==comp[1]):
-                    numNil+=1
+                    salir=True
                 contInt+=1
 
 
             cont+=1
+        if (salir):
+            numNil+=1
 
         tran+=1
 
