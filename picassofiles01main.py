@@ -73,7 +73,7 @@ if __name__ == '__main__':
     file_division = "R_" + str(args.current_metatask) + \
         "_" + str(args.number_metatask) + "_divisions.csv"
     
-    sys.set_int_max_str_digits(5120)
+    sys.set_int_max_str_digits(10000)
 
     main(args.feature_model, file_division, args.t_max,
          args.n_divisions, args.current_metatask)

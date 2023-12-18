@@ -1,15 +1,9 @@
 import os
 import argparse
-import multiprocessing
-import csv
-import re 
-import re 
-from datetime import datetime
-import decimal
-import decimal
 import math
-import random
 import sys
+import random
+from datetime import datetime
 
 sys.set_int_max_str_digits(10000)
 
@@ -60,20 +54,22 @@ if __name__ == '__main__':
     
     divisions=[]
    
-    #id_task,current, min, dif, max
-    divisions.append([0,0,args.n_max,args.n_max])          
+    num_bits_pre = int(math.log2(args.n_divisions))
+    num_bits_post = int(math.log2(args.n_max)-num_bits_pre)
 
-    while (len(divisions)<args.n_divisions):
-        first=divisions.pop(0)
-        currentNun=first[0]
-        firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(first[1],first[3])
-        
-        while(currentNun>firstIntervalUpper):
-            firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(secondIntervalLower,secondIntervalUpper)
 
-        divisions.append([currentNun,firstIntervalLower,firstIntervalUpper-currentNun,firstIntervalUpper])
-        divisions.append([secondIntervalLower,secondIntervalLower,secondIntervalUpper-secondIntervalLower,secondIntervalUpper])
-        #divisions.sort(key=lambda x: x[2],reverse=True)
+
+             
+    i = 1
+    lowerBound = 0
+    while (i<args.n_divisions):
+        binary_string = bin(i)[2:].zfill(num_bits_pre)
+        binary_string = "0b"+binary_string.ljust(num_bits_pre+num_bits_post, '0')
+        upperBound = int(binary_string,2)
+        #,current, min, dif, max
+        divisions.append([lowerBound,lowerBound,upperBound-lowerBound,upperBound]) 
+        lowerBound=upperBound+1  
+        i+=1
 
     print("Now, shuffle")
     random.shuffle(divisions)

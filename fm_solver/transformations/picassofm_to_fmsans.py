@@ -1,3 +1,8 @@
+import random
+from deap import base, creator, tools, algorithms
+
+import numpy as np
+
 from flamapy.core.transformations import ModelToModel
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 from fm_solver.models import feature_model
@@ -7,10 +12,12 @@ from fm_solver.models import FMSans, fm_sans
 from fm_solver.models.utils import TransformationsVector
 from fm_solver.transformations.fm_to_fmsans import FMToFMSans
 from fm_solver.utils import utils, fm_utils
+from fm_solver.utils.evaluate_transformation_vector import Evaluate_transformation_vector
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
     RefactoringStrictComplexConstraint
 )
+
 
 import csv
 from time import process_time
@@ -39,7 +46,57 @@ class PicassoFMToFMSans(FMToFMSans):
 
     def transform(self) -> FMSans:
          return picasso_fm_to_fmsans(self.feature_model, self.file_division,self.max_time,self.n_tasks)
+    
 
+def best_order(constraint):
+    Evaluate_transformation_vector.load_all()
+    """ l=constraint
+    for i in range(100): 
+        value=Evaluate_transformation_vector.evaluate(l)
+        print(value)
+        random.shuffle(l) """
+
+    # Genetic Algorithm parameters
+    population_size = 200
+    mutation_rate = 0.1
+    generations = 50
+
+    # Create the DEAP types for individuals and fitness
+    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+    creator.create("Individual", list, fitness=creator.FitnessMax)
+
+    # Register functions for initialization, crossover, and mutation
+    toolbox = base.Toolbox()
+    toolbox.register("indices", random.sample, range(len(constraint)), len(constraint))
+    toolbox.register("individual", tools.initIterate, creator.Individual,
+                 toolbox.indices)
+    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+    toolbox.register("evaluate", lambda ind: Evaluate_transformation_vector.evaluate(ind, constraint))  # Pass data_array to the evaluation function
+    toolbox.register("mate", tools.cxOrdered)
+    toolbox.register("mutate", tools.mutShuffleIndexes, indpb=mutation_rate)
+
+    toolbox.register("select", tools.selTournament, tournsize=3)
+
+    # Create an initial population of random orders
+    population = toolbox.population(n=population_size)
+
+    stats = tools.Statistics(key=lambda ind: ind.fitness.values)
+    stats.register("max", np.max)
+    # Main loop for the genetic algorithm
+    algorithms.eaMuPlusLambda(population, toolbox, mu=population_size, lambda_=population_size, cxpb=0.7, mutpb=0.2, ngen=generations, stats=stats, halloffame=None, verbose=True)
+
+    # Select the best individual from the final population
+    best_individual = tools.selBest(population, k=1)[0]
+
+    # Print the best order and its fitness score
+    print("Best Order:", best_individual)
+    print("Fitness Score:", Evaluate_transformation_vector.evaluate(best_individual, constraint))
+
+    return best_individual
+
+    
+
+    
 
 def picasso_fm_to_fmsans(feature_model: FeatureModel, file_division:str,max_time:int,n_task:int) -> FMSans:
     fm = FM.from_feature_model(feature_model)
@@ -53,10 +110,19 @@ def picasso_fm_to_fmsans(feature_model: FeatureModel, file_division:str,max_time
     # Refactor strict-complex constraints
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
 
-    # Get transformations vector
-    trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
+   
 
-      #Explore by divisions if a file is provided.
+
+    new_trans_vector=best_order(fm.get_constraints())
+
+    data=fm.get_constraints()
+    data=[data[i] for i in new_trans_vector]
+
+
+     # Get transformations vector
+    trans_vector = TransformationsVector.from_constraints(data)
+
+    #Explore by divisions if a file is provided.
     min_max_current_task = []
 
    
