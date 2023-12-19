@@ -4,10 +4,23 @@ import itertools
 from copy import deepcopy
 from itertools import groupby
 
-variables = 4
-transformationNumber=3
-name_var=['a','b','c','d','e']
-name_new=['f','g','h','i','j']
+
+transformationNumber=4
+
+#2
+name_var=['a','b','c']
+name_new=['f','g','h']
+variables = 3
+#3
+if (transformationNumber==3):
+    variables = 4
+    name_var=['a','b','c','d']
+    name_new=['f','g','h','i']
+#4
+if (transformationNumber==4):
+    variables = 6
+    name_var=['a','b','c','d','e','g']
+    name_new=['f','g','h','i','j','k']
 # class syntax
 class Tipo(Enum):
     __order__ = 'REQUIRE EXCLUDE'
@@ -48,14 +61,27 @@ class Transformada:
            and self.tipo==other.tipo
   def __hash__(self):
     return hash((self.v1, self.v2, self.tipo))
+  
+
+    #The same or the same variables but oppositve type.
+  def avoid(self,other):
+      return self==other or (self.v1==other.v1 and self.v2==other.v2 and self.tipo!=other.tipo)
 
   def sorting_key(self):
-    if self.tipo == Tipo.REQUIRE:
-        return 0
-    elif self.tipo == Tipo.EXCLUDE:
-        return 1
+    i = -1
+    if (self.v1 in name_new):
+        i=name_new.index(self.v1)
+    elif (self.v1 in name_var):
+        i=name_var.index(self.v1)
     else:
-        return 2
+        print("error ordering")
+
+    if self.tipo == Tipo.REQUIRE:
+        return i*variables
+    elif self.tipo == Tipo.EXCLUDE:
+        return i*variables+1
+    else:
+        return -1
     
   def __lt__(self, other):
     if self.tipo == Tipo.EXCLUDE and other.tipo == Tipo.REQUIRE:
@@ -189,7 +215,16 @@ def filter(tg):
             tt=list(dict.fromkeys(tt))
             tt = sorted(tt, key=sorting_key)
             if (len(contSimilar)==0):
-                resultado.append(tt)
+                avoidtt=False
+                cont = 0
+                while(cont<len(tt) and not avoidtt):
+                    contI=cont+1
+                    while(contI<len(tt) and not avoidtt):
+                        avoidtt=tt[cont].avoid(tt[contI])
+                        contI+=1
+                    cont+=1
+                if (not avoidtt):
+                    resultado.append(tt)
         
         
         contT+=1
@@ -212,8 +247,8 @@ if __name__ == "__main__":
         for t in Tipo:
             posibleTrans.append(Transformada(l[0],l[1],t))
 
-
-    transGroup= list(itertools.permutations(posibleTrans, transformationNumber)) 
+    posibleTrans = list(set(posibleTrans))
+    transGroup= list(itertools.permutations(posibleTrans, transformationNumber))
     transGroup=filter(transGroup.copy())
     
     transGroup=[k for k,v in groupby(sorted(transGroup))]
