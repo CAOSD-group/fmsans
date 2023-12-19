@@ -19,8 +19,7 @@ from fm_solver.operations import (
 
 from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
 from flamapy.metamodels.bdd_metamodel.operations import (
-    BDDProductsNumber,
-    BDDCoreFeatures
+    BDDProductsNumber
 )
 
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat

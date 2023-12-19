@@ -13,7 +13,8 @@ from fm_solver.transformations.refactorings import (
 from fm_solver.transformations.heuristics import (
     NoHeuristic, 
     RandomHeuristic,
-    FeaturesRemovedHeuristic
+    FeaturesRemovedHeuristic,
+    GeneticHeuristic
 )
 
 
@@ -58,8 +59,9 @@ def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1, n_tasks: int = 1
     # Get transformations vector
     print(f'#Contraints: {len(fm.get_constraints())}')
     #trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
-    #trans_vector = RandomHeuristic(fm).get_transformation_vector()
-    trans_vector = FeaturesRemovedHeuristic(fm).get_transformation_vector()
+    trans_vector = RandomHeuristic(fm).get_transformation_vector()
+    #trans_vector = FeaturesRemovedHeuristic(fm).get_transformation_vector()
+    trans_vector = GeneticHeuristic(fm).get_transformation_vector()
     
     print('Analysis finished.')
     # Get valid transformations ids.

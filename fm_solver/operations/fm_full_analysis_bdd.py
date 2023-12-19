@@ -10,9 +10,7 @@ from fm_solver.operations import (
 
 from flamapy.metamodels.bdd_metamodel.models import BDDModel
 from flamapy.metamodels.bdd_metamodel.operations import (
-    BDDProductsNumber,
-    BDDCoreFeatures,
-    BDDDeadFeatures
+    BDDProductsNumber
 )
 
 
