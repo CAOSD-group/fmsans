@@ -113,6 +113,7 @@ class Transformada:
 class Evaluate_transformation_vector:
     trans2=[]
     trans3=[]
+    trans4=[]
     
     @classmethod
     def read_file(self,file_path):
@@ -159,13 +160,19 @@ class Evaluate_transformation_vector:
         Evaluate_transformation_vector.trans3 = Evaluate_transformation_vector.read_file(file_path)
 #        for entry in result3:
 #            print(entry)
+        file_path = 'knowledge/salida4.txt'
+        Evaluate_transformation_vector.trans4 = Evaluate_transformation_vector.read_file(file_path)
+#        for entry in result3:
+#            print(entry)
     
     @classmethod
     def print(self):
-       for entry in Evaluate_transformation_vector.trans2:
-           print(entry)
-       for entry in Evaluate_transformation_vector.trans3:
-           print(entry)
+        for entry in Evaluate_transformation_vector.trans2:
+            print(entry)
+        for entry in Evaluate_transformation_vector.trans3:
+            print(entry)
+        for entry in Evaluate_transformation_vector.trans4:
+            print(entry)
         
 
     @classmethod
@@ -178,7 +185,7 @@ class Evaluate_transformation_vector:
     
     @classmethod
     def filter(self,tt):
-        name_new=['f','g','h','i','j','k']
+        name_new=['f','g','h','i','j','k','l','m','n','ñ','o']
         resultado = []
 
         contI=0
@@ -217,22 +224,7 @@ class Evaluate_transformation_vector:
     @classmethod
     def sorting_key(self,obj):
         return obj.sorting_key()
-    @classmethod
-    def evaluate3(self,c1,c2,c3):
-        tt=[]
-        tt.append(Evaluate_transformation_vector.createTransform(c1))
-        tt.append(Evaluate_transformation_vector.createTransform(c2))
-        tt.append(Evaluate_transformation_vector.createTransform(c3))
-        #Rename variables
-        tt=Evaluate_transformation_vector.filter(tt)
-        cont=0
-        #Find the same, if found, return it value.
-        while (cont < len(Evaluate_transformation_vector.trans3)):
-            if (Evaluate_transformation_vector.trans3[cont].transList==tt):
-                return Evaluate_transformation_vector.trans3[cont].nil
-            cont+=1
-      
-        return 0
+
 
 
         
@@ -248,9 +240,9 @@ class Evaluate_transformation_vector:
             random.shuffle(l) """
 
         # Genetic Algorithm parameters
-        population_size = 2000
+        population_size = 50
         mutation_rate = 0.1
-        generations = 100
+        generations = 10
 
         # Create the DEAP types for individuals and fitness
         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
@@ -285,7 +277,39 @@ class Evaluate_transformation_vector:
 
         return best_individual
 
-    
+    @classmethod
+    def evaluate4(self,c1,c2,c3,c4):
+        tt=[]
+        tt.append(Evaluate_transformation_vector.createTransform(c1))
+        tt.append(Evaluate_transformation_vector.createTransform(c2))
+        tt.append(Evaluate_transformation_vector.createTransform(c3))
+        tt.append(Evaluate_transformation_vector.createTransform(c4))
+        #Rename variables
+        tt=Evaluate_transformation_vector.filter(tt)
+        cont=0
+        #Find the same, if found, return it value.
+        while (cont < len(Evaluate_transformation_vector.trans4)):
+            if (Evaluate_transformation_vector.trans4[cont].transList==tt):
+                return Evaluate_transformation_vector.trans4[cont].nil
+            cont+=1
+      
+        return 0
+    @classmethod
+    def evaluate3(self,c1,c2,c3):
+        tt=[]
+        tt.append(Evaluate_transformation_vector.createTransform(c1))
+        tt.append(Evaluate_transformation_vector.createTransform(c2))
+        tt.append(Evaluate_transformation_vector.createTransform(c3))
+        #Rename variables
+        tt=Evaluate_transformation_vector.filter(tt)
+        cont=0
+        #Find the same, if found, return it value.
+        while (cont < len(Evaluate_transformation_vector.trans3)):
+            if (Evaluate_transformation_vector.trans3[cont].transList==tt):
+                return Evaluate_transformation_vector.trans3[cont].nil
+            cont+=1
+      
+        return 0
 
     @classmethod
     def evaluate2(self,c1,c2):
@@ -305,6 +329,90 @@ class Evaluate_transformation_vector:
        
 
         return 2
+    
+    @classmethod
+    def reorder(self,data,result,constraintOrderHeuristic):
+        constraintValue = {key: order for order, key in enumerate(constraintOrderHeuristic)}
+        i = 0
+        constraints=[data[i] for i in result]
+        pre_result= result.copy()
+        while i < len(constraints):
+            c4=0
+            c3=0
+            c2=0
+            if (i+4< len(constraints)):
+                c4 = Evaluate_transformation_vector.evaluate4(constraints[i],constraints[i+1],constraints[i+2],constraints[i+3])*(2**(len(constraints)-i-4))
+            if (i+3< len(constraints)):
+                c3 = Evaluate_transformation_vector.evaluate3(constraints[i],constraints[i+1],constraints[i+2])*(2**(len(constraints)-i-3))
+            if (i+2< len(constraints)):
+                c2 = Evaluate_transformation_vector.evaluate2(constraints[i],constraints[i+1])*(2**(len(constraints)-i-2))
+            if (c2>=c3 and c2>=c4 and c2!=0):
+                
+                dd = dict()
+                dd[0]=constraintValue[i]
+                dd[1]=constraintValue[i+1]
+
+                aux=list()
+                aux.append(i)
+                aux.append(i+1)
+
+                sorted_dict = {k: v for k, v in sorted(dd.items(), key=lambda item: item[1])}
+
+                cont=0
+                itera = iter(sorted_dict)
+                for key in itera:
+                    result[cont+i]=pre_result[aux[key]]
+                    cont+=1                 
+                
+                i+=2
+            elif (c3>=c2 and c3>=c4 and c3!=0):
+                dd = dict()
+                dd[0]=constraintValue[i]
+                dd[1]=constraintValue[i+1]
+                dd[2]=constraintValue[i+2]
+
+                aux=list()
+                aux.append(i)
+                aux.append(i+1)
+                aux.append(i+2)
+
+                sorted_dict = {k: v for k, v in sorted(dd.items(), key=lambda item: item[1])}
+
+                cont=0
+                itera = iter(sorted_dict)
+                for key in itera:
+                    result[cont+i]=pre_result[aux[key]]
+                    cont+=1                
+                
+                i+=3            
+                
+            elif (c4>=c3) and (c4>=c2) and c4!=0:
+                
+                dd = dict()
+                dd[0]=constraintValue[i]
+                dd[1]=constraintValue[i+1]
+                dd[2]=constraintValue[i+2]
+                dd[3]=constraintValue[i+3]
+
+                aux=list()
+                aux.append(i)
+                aux.append(i+1)
+                aux.append(i+2)
+                aux.append(i+3)
+                sorted_dict = {k: v for k, v in sorted(dd.items(), key=lambda item: item[1])}
+
+                cont=0
+                itera = iter(sorted_dict)
+                for key in itera:
+                    result[cont+i]=pre_result[aux[key]]
+                    cont+=1              
+                
+                i+=4 
+            else:
+                i+=1
+        return result
+
+
 
     @classmethod
     def evaluate(self,constraintsOrder,data):
@@ -312,18 +420,24 @@ class Evaluate_transformation_vector:
         i = 0
         constraints=[data[i] for i in constraintsOrder]
         while i < len(constraints):
+            c4=0
             c3=0
             c2=0
             if (i+3< len(constraints)):
-                c3 = Evaluate_transformation_vector.evaluate3(constraints[i],constraints[i+1],constraints[i+2])*(2^(len(constraints)-i))
+                c4 = Evaluate_transformation_vector.evaluate4(constraints[i],constraints[i+1],constraints[i+2],constraints[i+3])*(2**(len(constraints)-i-4))
+            if (i+3< len(constraints)):
+                c3 = Evaluate_transformation_vector.evaluate3(constraints[i],constraints[i+1],constraints[i+2])*(2**(len(constraints)-i-3))
             if (i+2< len(constraints)):
-                c2 = Evaluate_transformation_vector.evaluate2(constraints[i],constraints[i+1])*(2^(len(constraints)-i))
-            if (c3>c2):
-                i+=3
-                metric+=c3
-            elif (c2>=c3 and c2!=0):
+                c2 = Evaluate_transformation_vector.evaluate2(constraints[i],constraints[i+1])*(2**(len(constraints)-i-2))
+            if (c2>=c3 and c2>=c4):
                 i+=2
                 metric+=c2
+            elif (c3>=c2 and c3>=c4):
+                i+=3
+                metric+=c3
+            elif (c4>=c3) and (c4>=c2):
+                i+=4
+                metric+=c4
             else:
                 i+=1
         return metric,
