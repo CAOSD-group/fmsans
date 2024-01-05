@@ -5,8 +5,8 @@ from .fm_core_features import FMCoreFeatures
 from .fm_dead_features import FMDeadFeatures
 from .fm_dead_features_gft import FMDeadFeaturesGFT
 from .fm_full_analysis import FMFullAnalysis
-from .fm_full_analysis_bdd import FMFullAnalysisBDD
-from .fm_full_analysis_sat import FMFullAnalysisSAT
+#from .fm_full_analysis_bdd import FMFullAnalysisBDD
+#from .fm_full_analysis_sat import FMFullAnalysisSAT
 from .fm_full_analysis_gft import FMFullAnalysisGFT
 
 
@@ -16,7 +16,5 @@ __all__ = ['FMOperation',
            'FMCoreFeatures',
            'FMDeadFeatures',
            'FMFullAnalysis',
-           'FMFullAnalysisBDD',
-           'FMFullAnalysisSAT',
            'FMDeadFeaturesGFT',
            'FMFullAnalysisGFT']

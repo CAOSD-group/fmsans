@@ -12,9 +12,7 @@ from fm_solver.operations import (
     FMFullAnalysis, 
     FMCoreFeatures, 
     FMOperation, 
-    FMConfigurationsNumber,
-    FMFullAnalysisBDD,
-    FMFullAnalysisSAT
+    FMConfigurationsNumber
 )
 
 from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
@@ -23,10 +21,6 @@ from flamapy.metamodels.bdd_metamodel.operations import (
 )
 
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
-from flamapy.metamodels.pysat_metamodel.operations import (
-    SATProductsNumber,
-    SATCoreFeatures
-)
 
 
 class FMSans():
@@ -100,29 +94,29 @@ class FMSans():
         result_analysis = FMFullAnalysis.join_results(results, self.fm)
         return result_analysis
 
-    def get_analysis_bdd(self, n_processes: int = 1) -> dict[str, Any]:
-        if self.transformations_vector is None:
-            bdd_model = FmToBDD(self.fm).transform()
-            return FMFullAnalysisSAT().execute(bdd_model).get_result()
-        n_bits = self.transformations_vector.n_bits()
-        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
-        with multiprocessing.Pool(n_processes) as pool:
-            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysisSAT, num) for num in self.transformations_ids.values()]
-            results_subtrees = pool.starmap_async(self._execute_paralell_bdd, items)
-            result_analysis = FMFullAnalysisSAT.join_results(results_subtrees.get())
-        return result_analysis
+    # def get_analysis_bdd(self, n_processes: int = 1) -> dict[str, Any]:
+    #     if self.transformations_vector is None:
+    #         bdd_model = FmToBDD(self.fm).transform()
+    #         return FMFullAnalysisSAT().execute(bdd_model).get_result()
+    #     n_bits = self.transformations_vector.n_bits()
+    #     pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+    #     with multiprocessing.Pool(n_processes) as pool:
+    #         items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysisSAT, num) for num in self.transformations_ids.values()]
+    #         results_subtrees = pool.starmap_async(self._execute_paralell_bdd, items)
+    #         result_analysis = FMFullAnalysisSAT.join_results(results_subtrees.get())
+    #     return result_analysis
 
-    def get_analysis_sat(self, n_processes: int = 1) -> dict[str, Any]:
-        if self.transformations_vector is None:
-            sat_model = FmToPysat(self.fm).transform()
-            return FMFullAnalysisSAT().execute(sat_model).get_result()
-        n_bits = self.transformations_vector.n_bits()
-        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
-        with multiprocessing.Pool(n_processes) as pool:
-            items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysisSAT, num) for num in self.transformations_ids.values()]
-            results_subtrees = pool.starmap_async(self._execute_paralell_sat, items)
-            result_analysis = FMFullAnalysisSAT.join_results(results_subtrees.get())
-        return result_analysis
+    # def get_analysis_sat(self, n_processes: int = 1) -> dict[str, Any]:
+    #     if self.transformations_vector is None:
+    #         sat_model = FmToPysat(self.fm).transform()
+    #         return FMFullAnalysisSAT().execute(sat_model).get_result()
+    #     n_bits = self.transformations_vector.n_bits()
+    #     pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+    #     with multiprocessing.Pool(n_processes) as pool:
+    #         items = [(pick_tree, list(format(num, f'0{n_bits}b')), FMFullAnalysisSAT, num) for num in self.transformations_ids.values()]
+    #         results_subtrees = pool.starmap_async(self._execute_paralell_sat, items)
+    #         result_analysis = FMFullAnalysisSAT.join_results(results_subtrees.get())
+    #     return result_analysis
 
         # for num in self.transformations_ids.values():
         #     binary_vector = list(format(num, f'0{n_bits}b'))
@@ -179,17 +173,17 @@ class FMSans():
             result = FMConfigurationsNumber.join_results(analysis_result.get(), self.fm)
         return result
     
-    def get_number_of_configurations_sat(self, n_processes: int = 1) -> dict[str, Any]:
-        if self.transformations_vector is None:
-            sat_model = FmToPysat(self.fm).transform()
-            return SATProductsNumber().execute(sat_model).get_result()
-        n_bits = self.transformations_vector.n_bits()
-        pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
-        with multiprocessing.Pool(n_processes) as pool:
-            items = [(pick_tree, list(format(num, f'0{n_bits}b')), SATProductsNumber, num) for num in self.transformations_ids.values()]
-            analysis_result = pool.starmap_async(self.execute_paralell_sat, items)
-            result = FMConfigurationsNumber.join_results(analysis_result.get(), self.fm)
-        return result
+    # def get_number_of_configurations_sat(self, n_processes: int = 1) -> dict[str, Any]:
+    #     if self.transformations_vector is None:
+    #         sat_model = FmToPysat(self.fm).transform()
+    #         return SATProductsNumber().execute(sat_model).get_result()
+    #     n_bits = self.transformations_vector.n_bits()
+    #     pick_tree = pickle.dumps(self.fm, protocol=pickle.HIGHEST_PROTOCOL)
+    #     with multiprocessing.Pool(n_processes) as pool:
+    #         items = [(pick_tree, list(format(num, f'0{n_bits}b')), SATProductsNumber, num) for num in self.transformations_ids.values()]
+    #         analysis_result = pool.starmap_async(self.execute_paralell_sat, items)
+    #         result = FMConfigurationsNumber.join_results(analysis_result.get(), self.fm)
+    #     return result
 
     def execute_paralell(self, fm: bytes, binary_vector: list[str], op: FMOperation) -> Any:
         tree, _ = self.transformations_vector.execute(fm, binary_vector)
@@ -207,11 +201,11 @@ class FMSans():
         bdd_model = FmToBDD(tree, f'{tree.root.name}{num}').transform()
         return op().execute(bdd_model).get_result()
 
-    def execute_paralell_sat(self, fm: bytes, binary_vector: list[str], op: FMOperation, num: int) -> Any:
-        tree, _ = self.transformations_vector.execute(fm, binary_vector)
-        tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
-        sat_model = FmToPysat(tree).transform()
-        return op().execute(sat_model).get_result()
+    # def execute_paralell_sat(self, fm: bytes, binary_vector: list[str], op: FMOperation, num: int) -> Any:
+    #     tree, _ = self.transformations_vector.execute(fm, binary_vector)
+    #     tree = fm_utils.remove_leaf_abstract_auxiliary_features(tree)
+    #     sat_model = FmToPysat(tree).transform()
+    #     return op().execute(sat_model).get_result()
 
     def _subtrees_execute_paralell(self, fm: bytes, binary_vector: list[str]) -> FM:
         tree, _ = self.transformations_vector.execute(fm, binary_vector)
