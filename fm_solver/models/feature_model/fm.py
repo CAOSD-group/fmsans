@@ -14,9 +14,18 @@ class FM(FeatureModel):
 
     def __init__(self, root: Feature, constraints: Optional[list[Constraint]] = None) -> None:
         super().__init__(root, constraints)
+        self._name = root.name if root is not None else 'None'
         self._features: set[Feature] = {f for f in super().get_features()}
         self._feature_by_name: dict[str, Feature] = {f.name: f for f in self.get_features()}
         #self._commitment_features: set[Feature] = set()  # only for optimization.
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        self._name = name
 
     @classmethod
     def from_feature_model(cls, feature_model: FeatureModel) -> 'FM': 

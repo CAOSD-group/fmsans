@@ -36,6 +36,7 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     print(f'Reading FM model... {fm_filepath}')
     feature_model = UVLReader(fm_filepath).transform()
     fm = FM.from_feature_model(feature_model)
+    fm.name = filename
 
     # Check if the feature model has any cross-tree constraints
     if any(constraints_utils.is_complex_constraint(ctc) for ctc in fm.get_constraints()):
