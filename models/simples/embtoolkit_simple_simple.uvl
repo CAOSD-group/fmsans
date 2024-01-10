@@ -1,5 +1,5 @@
 features
-	root 
+	embtoolkit 
 		mandatory
 			EMBTK_LINUX_VERSION_2_6_31_7_alt {abstract}
 				alternative

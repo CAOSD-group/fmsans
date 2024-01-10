@@ -69,6 +69,8 @@ if __name__ == '__main__':
     parser.add_argument('-H', '--heuristic', dest='heuristic', type=int, required=False, default=0, help='Heuristic.')
     args = parser.parse_args()
 
+    
+
     if args.n_cores <= 0 or not math.log(args.n_cores, 2).is_integer():
         if args.n_cores == multiprocessing.cpu_count():
             sys.exit(f'The number of cores of this computer is not a power of 2. Please set the -c parameter to a power of 2.')

@@ -1,5 +1,5 @@
 features
-	root 
+	uClinuxBase 
 		mandatory
 			DEFAULTS_SIMTEC_alt {abstract}
 				alternative

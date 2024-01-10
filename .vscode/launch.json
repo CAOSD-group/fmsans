@@ -33,9 +33,13 @@
             "console": "integratedTerminal",
             "args": [
                 "-fm",
-                "models/fms/JHipster.uvl",
+                "models/simples/uClinux-distribution_simple.uvl",
                 "-c",
-                "1"
+                "1",
+                "-r",
+                "0",
+                "-H",
+                "0"
             ],
             "justMyCode": true
         },

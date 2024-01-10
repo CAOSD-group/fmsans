@@ -1,5 +1,5 @@
 features
-	root 
+	linux26333 
 		mandatory
 			HZ_300_alt {abstract}
 				alternative

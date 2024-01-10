@@ -1,5 +1,5 @@
 features
-	__Root__ {abstract}
+	busybox {abstract}
 		optional
 			CONFIG_DEFAULT_SETFONT_DIR 
 		optional

@@ -46,6 +46,7 @@ class PicassoFMToFMSans(FMToFMSans):
     
 
 def picasso_fm_to_fmsans(feature_model: FeatureModel, file_division:str,max_time:int,n_task:int) -> FMSans:
+    sys.set_int_max_str_digits(0)
     fm = FM.from_feature_model(feature_model)
 
     if not fm.get_constraints():

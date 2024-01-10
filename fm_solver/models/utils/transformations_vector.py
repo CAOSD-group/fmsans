@@ -1,4 +1,5 @@
 import os
+import sys
 import pickle
 import math
 import copy
@@ -145,6 +146,9 @@ class TransformationsVector():
         For efficiency, it pre-calculated the intermediate model from 0 to the initial_bit 
         (default 0).
         """
+
+
+        sys.set_int_max_str_digits(0)
         
         outputfile_stats = os.path.join(HEURISTIC_STATS_FOLDER, f'{fm.name}_{process_id}_heuristics_{heuristic_name}.csv')
         with timer.Timer(name=TIME_HEURISTIC, logger=None):
@@ -173,7 +177,7 @@ class TransformationsVector():
 
             counter = 0
             st = process_time()
-            countMax=100
+            countMax=1
             # Calculate valid ids
             while num <= max_number:  # Be careful! max should be included or excluded?
                 binary_vector = list(format(num, f'0{n_bits}b'))
@@ -190,6 +194,7 @@ class TransformationsVector():
                     _avoids += (num - jump)
                     _invalids_analyzed += 1
 
+                counter+=1
                 if (num < max_number) and counter >countMax:
                     et = process_time()
                     counter = 0

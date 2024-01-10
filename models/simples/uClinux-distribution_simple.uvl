@@ -1,5 +1,5 @@
 features
-	root 
+	uClinux-distribution 
 		mandatory
 			USER_RAMIMAGE_RAMFS64_alt {abstract}
 				alternative
