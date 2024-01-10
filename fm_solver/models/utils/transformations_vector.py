@@ -5,6 +5,7 @@ import copy
 import multiprocessing
 from typing import Any
 from collections.abc import Callable
+from time import process_time
 
 from flamapy.metamodels.fm_metamodel.models import Constraint
 
@@ -144,6 +145,7 @@ class TransformationsVector():
         For efficiency, it pre-calculated the intermediate model from 0 to the initial_bit 
         (default 0).
         """
+        
         outputfile_stats = os.path.join(HEURISTIC_STATS_FOLDER, f'{fm.name}_{process_id}_heuristics_{heuristic_name}.csv')
         with timer.Timer(name=TIME_HEURISTIC, logger=None):
             n_bits = self.n_bits()
@@ -168,6 +170,10 @@ class TransformationsVector():
                     queue.put(valid_transformed_numbers_trees)
                 return valid_transformed_numbers_trees
             pick_tree = pickle.dumps(tree, protocol=pickle.HIGHEST_PROTOCOL)
+
+            counter = 0
+            st = process_time()
+            countMax=100
             # Calculate valid ids
             while num <= max_number:  # Be careful! max should be included or excluded?
                 binary_vector = list(format(num, f'0{n_bits}b'))
@@ -183,8 +189,16 @@ class TransformationsVector():
                     #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
                     _avoids += (num - jump)
                     _invalids_analyzed += 1
+                    
+                if (num < max_number) and counter >countMax:
+                    et = process_time()
+                    counter = 0
+                    if (et-st>max_time):
+                        break
             if queue is not None:
                 queue.put(valid_transformed_numbers_trees)
+
+            
         
         exec_time = timer.Timer.timers[TIME_HEURISTIC]
         exec_time = round(exec_time, 4)
