@@ -189,11 +189,11 @@ class TransformationsVector():
                     #print(f'ID (not valid): {num} / {max_number} ({num/max_number}%), null_bit: {null_bit}, #Valids: {len(valid_transformed_numbers_trees)}')
                     _avoids += (num - jump)
                     _invalids_analyzed += 1
-                    
+
                 if (num < max_number) and counter >countMax:
                     et = process_time()
                     counter = 0
-                    if (et-st>max_time):
+                    if (et-st>3600*24):
                         break
             if queue is not None:
                 queue.put(valid_transformed_numbers_trees)
