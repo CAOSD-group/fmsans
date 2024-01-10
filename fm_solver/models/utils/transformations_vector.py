@@ -1,5 +1,4 @@
 import os
-import sys
 import pickle
 import math
 import copy
@@ -146,9 +145,6 @@ class TransformationsVector():
         For efficiency, it pre-calculated the intermediate model from 0 to the initial_bit 
         (default 0).
         """
-
-
-        sys.set_int_max_str_digits(0)
         
         outputfile_stats = os.path.join(HEURISTIC_STATS_FOLDER, f'{fm.name}_{process_id}_heuristics_{heuristic_name}.csv')
         with timer.Timer(name=TIME_HEURISTIC, logger=None):
@@ -198,7 +194,7 @@ class TransformationsVector():
                 if (num < max_number) and counter >countMax:
                     et = process_time()
                     counter = 0
-                    if (et-st>3600*24):
+                    if (et-st>24*3600):
                         break
             if queue is not None:
                 queue.put(valid_transformed_numbers_trees)
