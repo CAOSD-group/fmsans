@@ -240,9 +240,9 @@ class Evaluate_transformation_vector:
             random.shuffle(l) """
 
         # Genetic Algorithm parameters
-        population_size = 50
+        population_size = 100
         mutation_rate = 0.1
-        generations = 10
+        generations = 50
 
         # Create the DEAP types for individuals and fitness
         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
