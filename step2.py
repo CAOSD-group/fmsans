@@ -8,6 +8,7 @@ from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 
 from fm_solver.models.feature_model import FM
 from fm_solver.transformations import FMToFMSans
+from fm_solver.transformations.fm_to_fmsans import HEURISTICS
 from fm_solver.utils import constraints_utils
 
 from fm_solver.transformations import FMSansWriter
@@ -66,7 +67,7 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--tasks', dest='n_tasks', type=int, required=False, default=1, help='Number of tasks.')
     parser.add_argument('-i', '--task', dest='current_task', type=int, required=False, default=0, help='Current task.')
     parser.add_argument('-r', '--run', dest='run', type=int, required=False, default=0, help='Run.')
-    parser.add_argument('-H', '--heuristic', dest='heuristic', type=int, required=False, default=0, help='Heuristic.')
+    parser.add_argument('-H', '--heuristic', dest='heuristic', type=int, required=False, default=0, help=f'Heuristic: {[str(v) + ": " + h(None).name() for v, h in HEURISTICS.items()]}')
     args = parser.parse_args()
 
     

@@ -9,11 +9,11 @@ class Heuristic(ABC):
 
     def __init__(self, fm: FeatureModel) -> None:
         self.fm = fm
-        self.constraints = fm.get_constraints()
+        self.constraints = fm.get_constraints() if fm is not None else None
 
     def name(self) -> str:
         pass
-    
+
     def get_transformation_vector(self) -> TransformationsVector:
         return TransformationsVector(self.get_transformations())
         
