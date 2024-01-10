@@ -12,6 +12,9 @@ class FeaturesRemovedHeuristic(Heuristic):
     over the model.
     """
 
+    def name(self) -> str:
+        return "Removed"
+    
     def get_transformations(self) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
         # Order of the constraints:
         constraints_analysis = {}

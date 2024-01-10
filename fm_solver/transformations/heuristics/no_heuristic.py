@@ -7,6 +7,9 @@ from fm_solver.utils import constraints_utils
 
 class NoHeuristic(Heuristic):
 
+    def name(self) -> str:
+        return "Normal"
+    
     def get_transformations(self) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
         vector = []
         for ctc in self.constraints:

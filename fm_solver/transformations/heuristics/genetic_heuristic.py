@@ -16,6 +16,9 @@ class GeneticHeuristic(Heuristic):
     over the model.
     """
 
+    def name(self) -> str:
+        return "Genetic"
+    
     def get_transformations(self) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
         # Order of the constraints:
 

@@ -27,7 +27,7 @@ def get_fm_filepath_models(dir: str) -> list[str]:
     return models
 
 
-def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1):
+def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1, run: int = 0, heuristic: int = 0):
     # Get feature model name
     path, filename = os.path.split(fm_filepath)
     filename = ''.join(filename.split('.')[:-1])
@@ -45,7 +45,7 @@ def main(fm_filepath: str, n_cores: int, n_tasks: int = 1, current_task: int = 1
     # Transform the feature model to FMSans
     print(f'Transforming FM model to FMSans (eliminating constraints)...')
     with timer.Timer(name=TIME_TRANSFORMATION, logger=None):
-        fmsans_model = FMToFMSans(fm, n_cores=n_cores, n_tasks=n_tasks, current_task=current_task).transform()
+        fmsans_model = FMToFMSans(fm, n_cores=n_cores, n_tasks=n_tasks, current_task=current_task, run=run, heuristic=heuristic).transform()
 
     # Serializing the FMSans model
     output_fmsans_filepath = os.path.join(path, f'{filename}_{n_cores}_{current_task}-{n_tasks}.json')
@@ -65,6 +65,8 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--cores', dest='n_cores', type=int, required=False, default=multiprocessing.cpu_count(), help='Number of cores (processes) to execute (power of 2) (default = CPU count).')
     parser.add_argument('-t', '--tasks', dest='n_tasks', type=int, required=False, default=1, help='Number of tasks.')
     parser.add_argument('-i', '--task', dest='current_task', type=int, required=False, default=0, help='Current task.')
+    parser.add_argument('-r', '--run', dest='run', type=int, required=False, default=0, help='Run.')
+    parser.add_argument('-H', '--heuristic', dest='heuristic', type=int, required=False, default=0, help='Heuristic.')
     args = parser.parse_args()
 
     if args.n_cores <= 0 or not math.log(args.n_cores, 2).is_integer():
@@ -76,7 +78,7 @@ if __name__ == '__main__':
         sys.exit(f'The number of tasks must be positive and power of 2.')
     else:
         if args.feature_model:
-            main(args.feature_model, args.n_cores, args.n_tasks, args.current_task)
+            main(args.feature_model, args.n_cores, args.n_tasks, args.current_task, args.run, args.heuristic)
             print(f'Tip: Use the 02main_analysis.py script to analyze the result FMSans.')
         elif args.dir:
             models = get_fm_filepath_models(args.dir)

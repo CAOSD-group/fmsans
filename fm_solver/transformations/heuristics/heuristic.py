@@ -11,6 +11,9 @@ class Heuristic(ABC):
         self.fm = fm
         self.constraints = fm.get_constraints()
 
+    def name(self) -> str:
+        pass
+    
     def get_transformation_vector(self) -> TransformationsVector:
         return TransformationsVector(self.get_transformations())
         

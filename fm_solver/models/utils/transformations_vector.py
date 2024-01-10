@@ -135,6 +135,8 @@ class TransformationsVector():
                                        min_id: int = None,
                                        max_id: int = None,  # included
                                        process_id: int = 0,
+                                       run: int = 0, 
+                                       heuristic_name: str = '',
                                        queue: multiprocessing.Queue = None) -> dict[str, int]:
         """Return all valid transformations ids for this transformations vector in the given model.
         
@@ -142,7 +144,7 @@ class TransformationsVector():
         For efficiency, it pre-calculated the intermediate model from 0 to the initial_bit 
         (default 0).
         """
-        outputfile_stats = os.path.join(HEURISTIC_STATS_FOLDER, f'{fm.name}_{process_id}_heuristics.csv')
+        outputfile_stats = os.path.join(HEURISTIC_STATS_FOLDER, f'{fm.name}_{process_id}_heuristics_{heuristic_name}.csv')
         with timer.Timer(name=TIME_HEURISTIC, logger=None):
             n_bits = self.n_bits()
             num = 0 if min_id is None else min_id
@@ -161,7 +163,7 @@ class TransformationsVector():
             if tree is None:
                 exec_time = timer.Timer.timers[TIME_HEURISTIC]
                 exec_time = round(exec_time, 4)
-                write_stats_to_csv(outputfile_stats, total_trees, _valids, _invalids_analyzed, _avoids, exec_time)
+                write_stats_to_csv(outputfile_stats, run, heuristic_name, total_trees, _valids, 1, total_trees-1, exec_time)
                 if queue is not None:
                     queue.put(valid_transformed_numbers_trees)
                 return valid_transformed_numbers_trees
@@ -193,11 +195,11 @@ class TransformationsVector():
         # print(f'#Avoid trees: {_avoids - _invalids_analyzed} ({(_avoids - _invalids_analyzed)/total_trees * 100} %)')
 
          # Save stats in file
-        write_stats_to_csv(outputfile_stats, total_trees, _valids, _invalids_analyzed, _avoids, exec_time)
+        write_stats_to_csv(outputfile_stats, run, heuristic_name, total_trees, _valids, _invalids_analyzed, _avoids, exec_time)
         
         return valid_transformed_numbers_trees
 
-    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1) -> dict[str, int]:
+    def get_valid_transformations_ids(self, fm: FM, n_processes: int = 1, n_tasks: int = 1, current_task: int = 1, run: int = 0, heuristic_name: str = '') -> dict[str, int]:
         """Return a dict of hashes and valid transformations ids using n_processes in parallel."""
         valid_transformed_numbers_trees = {}
         queue = multiprocessing.Queue()
@@ -206,7 +208,7 @@ class TransformationsVector():
         #n_fixed_bits = int(math.log(n_tasks, 2)) + int(math.log(n_processes, 2))
         for process_i in range(n_processes):
             min_id, max_id, left_bits = get_min_max_ids_transformations_for_parallelization(n_bits, n_processes, process_i, n_tasks, current_task)
-            p = multiprocessing.Process(target=self._get_valid_transformations_ids, args=(fm, left_bits, min_id, max_id, process_i, queue))
+            p = multiprocessing.Process(target=self._get_valid_transformations_ids, args=(fm, left_bits, min_id, max_id, process_i, run, heuristic_name, queue))
             p.start()
             processes.append(p)
         for p in processes:
@@ -240,9 +242,9 @@ def get_min_max_ids_transformations_for_parallelization(n_bits: int,
     return (min_number, max_number, left_bits)
 
 
-def write_stats_to_csv(outputfile_stats: str, total_trees: int = 0, _valids: int = 0, _invalids_analyzed: int = 0, _avoids: int = 0, exec_time: float = 0.0):
+def write_stats_to_csv(outputfile_stats: str, run: int = 0, heuristic_name: str = '', total_trees: int = 0, _valids: int = 0, _invalids_analyzed: int = 0, _avoids: int = 0, exec_time: float = 0.0):
     if not os.path.exists(outputfile_stats):
         with open(outputfile_stats, 'w', encoding='utf8') as file:
-            file.write(f'TotalTrees,ValidAnalyzed,InvalidAnalyzed,Analyzed,Avoid,Time(s){os.linesep}')
+            file.write(f'Heuristic,Run,TotalTrees,ValidAnalyzed,InvalidAnalyzed,Analyzed,Avoid,Time(s){os.linesep}')
     with open(outputfile_stats, 'a', encoding='utf8') as file:
-        file.write(f'{total_trees},{_valids},{_invalids_analyzed},{_valids + _invalids_analyzed},{_avoids - _invalids_analyzed},{exec_time}{os.linesep}')
+        file.write(f'{heuristic_name},{run},{total_trees},{_valids},{_invalids_analyzed},{_valids + _invalids_analyzed},{_avoids - _invalids_analyzed},{exec_time}{os.linesep}')

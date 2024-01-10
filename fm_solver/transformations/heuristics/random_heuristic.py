@@ -9,6 +9,9 @@ from fm_solver.utils import constraints_utils
 
 class RandomHeuristic(Heuristic):
 
+    def name(self) -> str:
+        return "Random"
+
     def get_transformations(self) -> list[tuple[SimpleCTCTransformation, SimpleCTCTransformation]]:
         vector = []
         random.shuffle(self.constraints)
