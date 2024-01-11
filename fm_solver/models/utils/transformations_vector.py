@@ -258,7 +258,10 @@ def get_min_max_ids_transformations_for_parallelization(n_bits: int,
 
 
 def write_stats_to_csv(outputfile_stats: str, run: int = 0, heuristic_name: str = '', total_trees: int = 0, _valids: int = 0, _invalids_analyzed: int = 0, _avoids: int = 0, exec_time: float = 0.0):
-    if not os.path.exists(outputfile_stats):
+    path, filename = os.path.split(outputfile_stats)
+    if not os.path.exists(path):
+        os.makedirs(path)
+    if not os.path.exists(outputfile_stats): 
         with open(outputfile_stats, 'w', encoding='utf8') as file:
             file.write(f'Heuristic,Run,TotalTrees,ValidAnalyzed,InvalidAnalyzed,Analyzed,Avoid,Time(s){os.linesep}')
     with open(outputfile_stats, 'a', encoding='utf8') as file:

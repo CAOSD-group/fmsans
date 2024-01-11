@@ -1,0 +1,182 @@
+features
+	BerkeleyDb {abstract}
+		optional
+			BerkeleyDB {abstract}
+				mandatory
+					FPersistency {abstract}
+						optional
+							Persistency {abstract}
+								mandatory
+									FIOFeature {abstract}
+										alternative
+											NIO {abstract}
+												mandatory
+													FNIOType {abstract}
+														alternative
+															featureNIO 
+															featureChunkedNIO 
+												optional
+													featureDirectNIO 
+											IO {abstract}
+												mandatory
+													featureIO 
+												optional
+													featureSynchronizedIO 
+								optional
+									FPersistencyFeatures {abstract}
+										or
+											featureChecksum 
+											featureFileHandleCache 
+											featureHandleFullDiscError 
+											featureEnvironmentLock 
+											Checkpointer {abstract}
+												optional
+													featureCustomizableCheckpointerTime 
+												optional
+													featureCustomizableCheckpointerBytes 
+												optional
+													featureCheckpointerDaemon 
+											Cleaner {abstract}
+												optional
+													featureLookAheadCache 
+												optional
+													featureCleanerDaemon 
+				mandatory
+					FBtree {abstract}
+						optional
+							BTree {abstract}
+								optional
+									featureVerifier 
+								optional
+									featureTreeVisitor 
+								optional
+									featureINCompressor 
+								optional
+									FEvictor {abstract}
+										optional
+											Evictor {abstract}
+												mandatory
+													featureEvictor 
+												optional
+													featureCriticalEviction 
+												optional
+													featureEvictorDaemon 
+				mandatory
+					BASE 
+				optional
+					FLogging {abstract}
+						optional
+							Logging {abstract}
+								mandatory
+									featureLoggingBase 
+								optional
+									featureLoggingFile 
+								optional
+									featureLoggingConsole 
+								optional
+									featureLoggingDbLog 
+								optional
+									featureLoggingFinest 
+								optional
+									featureLoggingFiner 
+								optional
+									featureLoggingFine 
+								optional
+									featureLoggingInfo 
+								optional
+									featureLoggingConfig 
+								optional
+									featureLoggingSevere 
+				optional
+					FStatistics {abstract}
+						optional
+							Statistics {abstract}
+								mandatory
+									FStatisticsFeatures {abstract}
+										or
+											EnvStats {abstract}
+												mandatory
+													featureStatisticsEnvBase 
+												optional
+													featureStatisticsEnvLog 
+												optional
+													featureStatisticsEnvINCompressor 
+												optional
+													featureStatisticsEnvFSync 
+												optional
+													featureStatisticsEnvEvictor 
+												optional
+													featureStatisticsEnvCleaner 
+												optional
+													featureStatisticsEnvCheckpointer 
+												optional
+													featureStatisticsEnvCaching 
+											featureStatisticsDatabase 
+											featureStatisticsLock 
+											featureStatisticsPreload 
+											featureStatisticsSequence 
+											featureStatisticsTransaction 
+								mandatory
+									featureStatisticsBase 
+				optional
+					featureMemoryBudget 
+				optional
+					FConcurrency {abstract}
+						or
+							featureLatch 
+							featureFSync 
+							featureTransaction 
+							dummyFeatureLocking 
+							featureCheckLeaks 
+				optional
+					FDbOperation {abstract}
+						or
+							featureDeleteDb 
+							featureTruncateDb 
+constraints
+	featureCheckLeaks => featureStatisticsLock
+	featureCriticalEviction => featureINCompressor
+	featureCustomizableCheckpointerBytes => featureCustomizableCheckpointerTime
+	featureLoggingSevere => featureEnvironmentLock
+	featureStatisticsEnvEvictor => featureEvictor
+	featureStatisticsEnvFSync => featureFSync
+	featureStatisticsEnvINCompressor => featureINCompressor
+	featureStatisticsTransaction => featureTransaction
+	featureStatisticsDatabase => featureTreeVisitor
+	featureTruncateDb => featureDeleteDb
+	!featureEvictor | featureMemoryBudget
+	!featureEvictorDaemon | featureMemoryBudget
+	!featureLookAheadCache | featureMemoryBudget
+	!featureStatisticsEnvCaching | featureMemoryBudget
+	!featureDeleteDb | dummyFeatureLocking
+	!featureDeleteDb | featureEvictor
+	!featureDeleteDb | featureINCompressor
+	!featureDeleteDb | featureMemoryBudget
+	!featureLatch | dummyFeatureLocking
+	!featureLatch | featureCheckLeaks
+	!featureLatch | featureDeleteDb
+	!featureLatch | featureEvictor
+	!featureLatch | featureFileHandleCache
+	!featureLatch | featureFSync
+	!featureLatch | featureINCompressor
+	!featureLatch | featureMemoryBudget
+	!featureLatch | featureStatisticsLock
+	!featureLatch | featureTreeVisitor
+	!featureLatch | featureTruncateDb
+	!featureLatch | featureVerifier
+	!featureLoggingFine | dummyFeatureLocking
+	!featureLoggingFine | featureEvictor
+	!featureLoggingFine | featureINCompressor
+	!featureLoggingInfo | featureChecksum
+	!featureLoggingInfo | featureMemoryBudget
+	!featureLoggingBase | featureTransaction
+	!featureLoggingFinest | featureTransaction
+	!featureMemoryBudget | featureEvictor
+	!featureMemoryBudget | featureLatch
+	!featureStatisticsLock | dummyFeatureLocking
+	!featureStatisticsTransaction | dummyFeatureLocking
+	!featureTransaction | dummyFeatureLocking
+	!featureTransaction | featureDeleteDb
+	!featureTransaction | featureTruncateDb
+	!featureVerifier | featureINCompressor
+	!featureVerifier | featureTreeVisitor

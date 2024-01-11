@@ -1,0 +1,190 @@
+features
+	JHipster {abstract, extended__}
+		mandatory
+			Generator {abstract}
+				alternative
+					Server {abstract}
+						alternative
+							MicroserviceApplication 
+							UaaServer 
+					Application {abstract}
+						alternative
+							MicroserviceGateway 
+							Monolithic 
+		mandatory
+			Authentication {abstract}
+				alternative
+					HTTPSession 
+					OAuth2 
+					Uaa 
+					JWT 
+		optional
+			SocialLogin 
+		optional
+			Database {abstract}
+				alternative
+					SQL {abstract}
+						optional
+							Hibernate2ndLvlCache {abstract}
+								alternative
+									HazelCast 
+									EhCache 
+						mandatory
+							Development {abstract}
+								alternative
+									H2 {abstract}
+										alternative
+											DiskBased 
+											InMemory 
+									PostgreSQLDev 
+									MariaDBDev 
+									MySql 
+						mandatory
+							Production {abstract}
+								alternative
+									MySQL 
+									MariaDB 
+									PostgreSQL 
+						optional
+							ElasticSearch 
+					Cassandra 
+					MongoDB 
+		optional
+			SpringWebSockets 
+		optional
+			Libsass 
+		optional
+			ClusteredSession 
+		mandatory
+			BackEnd {abstract}
+				alternative
+					Gradle 
+					Maven 
+		optional
+			InternationalizationSupport 
+		optional
+			Docker 
+		mandatory
+			TestingFrameworks {abstract}
+				optional
+					Protractor 
+				mandatory
+					Gatling 
+				mandatory
+					Cucumber 
+		mandatory
+			OR_FEATURE {abstract, aux}
+				or
+					OAuth21 {abstract, aux}
+					SocialLogin1 {abstract, aux}
+					MicroserviceApplication1 {abstract, aux}
+					SQL1 {abstract, aux}
+					MongoDB1 {abstract, aux}
+		mandatory
+			OR_FEATURE1 {abstract, aux}
+				or
+					OAuth22 {abstract, aux}
+					SocialLogin2 {abstract, aux}
+					MicroserviceApplication2 {abstract, aux}
+					SQL2 {abstract, aux}
+					MongoDB2 {abstract, aux}
+					Cassandra1 {abstract, aux}
+		mandatory
+			OR_FEATURE2 {abstract, aux}
+				or
+					Server1 {abstract, aux}
+					Protractor1 {abstract, aux}
+		mandatory
+			OR_FEATURE3 {abstract, aux}
+				or
+					MySQL1 {abstract, aux}
+					H21 {abstract, aux}
+					MySql1 {abstract, aux}
+		mandatory
+			OR_FEATURE4 {abstract, aux}
+				or
+					Monolithic1 {abstract, aux}
+					JWT1 {abstract, aux}
+					HTTPSession1 {abstract, aux}
+					OAuth23 {abstract, aux}
+		mandatory
+			OR_FEATURE5 {abstract, aux}
+				or
+					MariaDB1 {abstract, aux}
+					H22 {abstract, aux}
+					MariaDBDev1 {abstract, aux}
+		mandatory
+			OR_FEATURE6 {abstract, aux}
+				or
+					PostgreSQL1 {abstract, aux}
+					H23 {abstract, aux}
+					PostgreSQLDev1 {abstract, aux}
+		mandatory
+			OR_FEATURE7 {abstract, aux}
+				or
+					SocialLogin3 {abstract, aux}
+					HTTPSession2 {abstract, aux}
+					JWT2 {abstract, aux}
+		mandatory
+			OR_FEATURE8 {abstract, aux}
+				or
+					SocialLogin4 {abstract, aux}
+					SQL3 {abstract, aux}
+					MongoDB3 {abstract, aux}
+		mandatory
+			OR_FEATURE9 {abstract, aux}
+				or
+					MicroserviceApplication3 {abstract, aux}
+					JWT3 {abstract, aux}
+					Uaa1 {abstract, aux}
+		mandatory
+			OR_FEATURE10 {abstract, aux}
+				or
+					MicroserviceGateway1 {abstract, aux}
+					JWT4 {abstract, aux}
+					Uaa2 {abstract, aux}
+constraints
+	UaaServer => Uaa
+	Server => !Protractor
+	Libsass => Application
+	!SocialLogin | Monolithic
+	!SpringWebSockets | Application
+	!ClusteredSession | Application
+	OAuth21 => ! OAuth2
+	SocialLogin1 => SocialLogin
+	MicroserviceApplication1 => MicroserviceApplication
+	SQL1 => SQL
+	MongoDB1 => MongoDB
+	OAuth22 => OAuth2
+	SocialLogin2 => SocialLogin
+	MicroserviceApplication2 => MicroserviceApplication
+	SQL2 => SQL
+	MongoDB2 => MongoDB
+	Cassandra1 => Cassandra
+	Server1 => Server
+	Protractor1 => Protractor
+	MySQL1 => ! MySQL
+	H21 => H2
+	MySql1 => MySql
+	Monolithic1 => ! Monolithic
+	JWT1 => JWT
+	HTTPSession1 => HTTPSession
+	OAuth23 => OAuth2
+	MariaDB1 => ! MariaDB
+	H22 => H2
+	MariaDBDev1 => MariaDBDev
+	PostgreSQL1 => ! PostgreSQL
+	H23 => H2
+	PostgreSQLDev1 => PostgreSQLDev
+	SocialLogin3 => ! SocialLogin
+	HTTPSession2 => HTTPSession
+	JWT2 => JWT
+	SocialLogin4 => ! SocialLogin
+	SQL3 => SQL
+	MongoDB3 => MongoDB
+	MicroserviceApplication3 => ! MicroserviceApplication
+	JWT3 => JWT
+	Uaa1 => Uaa
+	MicroserviceGateway1 => ! MicroserviceGateway
+	JWT4 => JWT
+	Uaa2 => Uaa
