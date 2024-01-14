@@ -6,6 +6,7 @@ from copy import deepcopy
 from deap import base, creator, tools, algorithms
 import random
 import numpy as np
+import math
 
 
 
@@ -440,6 +441,12 @@ class Evaluate_transformation_vector:
                 metric+=c4
             else:
                 i+=1
+
+        #Just to avoid very big int number
+        if (metric > 10):
+            metric=10+math.log10(metric)
+
+
         return metric,
     
 

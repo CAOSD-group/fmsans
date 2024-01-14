@@ -35,10 +35,11 @@ class GeneticHeuristic(Heuristic):
 
             new_trans_vector_p = Evaluate_transformation_vector.best_order(self.constraints)
 
-            new_trans_vector_o=Evaluate_transformation_vector.reorder(self.constraints,new_trans_vector_p,constraints_ordered)
+            #new_trans_vector_o=Evaluate_transformation_vector.reorder(self.constraints,new_trans_vector_p,constraints_ordered)
             
             data = self.constraints
-            data = [data[i] for i in new_trans_vector_o]
+            #data = [data[i] for i in new_trans_vector_o]
+            data = [data[i] for i in new_trans_vector_p]
             with open(file_name, 'wb') as inp:
                 pickle.dump(data,inp, pickle.HIGHEST_PROTOCOL)
 
