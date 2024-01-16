@@ -1,6 +1,7 @@
 import os
 import argparse
 import csv
+import statistics
 
 from fm_solver.transformations import FMSansReader, FMSansWriter
 from fm_solver.transformations.fm_to_fmsans import HEURISTICS
@@ -54,6 +55,17 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
         for r in all_stats:
             print(all_stats[r])
             writer.writerow(all_stats[r])
+
+    analyzed = [all_stats[r]['Analyzed'] for r in all_stats.keys()]
+    times = [all_stats[r]['Time(s)'] for r in all_stats.keys()]
+
+    print(f'''{prefix} ({len(all_stats)} runs): {os.linesep}
+          Median analyzed: {statistics.median(analyzed)}, {os.linesep}
+          Mean analyzed: {statistics.mean(analyzed)}, {os.linesep}
+          Stdev analyzed: {statistics.stdev(analyzed)}, {os.linesep}
+          Median times: {statistics.median(times)}, {os.linesep}
+          Mean times: {statistics.mean(times)}, {os.linesep}
+          Stdev times: {statistics.stdev(times)}''')
    
     print(f'Heuristics stats saved in {output_fmsans_filepath}')
 
