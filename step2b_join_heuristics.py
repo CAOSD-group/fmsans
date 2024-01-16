@@ -1,7 +1,10 @@
 import os
 import argparse
 import csv
+import sys
 import statistics
+from decimal import *
+import decimal
 
 from fm_solver.transformations import FMSansReader, FMSansWriter
 from fm_solver.transformations.fm_to_fmsans import HEURISTICS
@@ -42,7 +45,7 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
         
     print()
     #print(f'{join_stats}')
-    print(f'{all_stats}')
+    #print(f'{all_stats}')
 
     run = next(iter(all_stats))
     # Serializing the join stats
@@ -53,19 +56,27 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
         writer = csv.DictWriter(file, all_stats[run].keys())
         writer.writeheader()
         for r in all_stats:
-            print(all_stats[r])
+            
+            print(f"Complete {all_stats[r]['Heuristic']} {(decimal.Decimal(all_stats[r]['Avoid'])+decimal.Decimal(all_stats[r]['Analyzed']))/decimal.Decimal(all_stats[r]['TotalTrees'])}")
+            print(f"Analyzed Valid {all_stats[r]['ValidAnalyzed']}")
+           
             writer.writerow(all_stats[r])
 
     analyzed = [all_stats[r]['Analyzed'] for r in all_stats.keys()]
     times = [all_stats[r]['Time(s)'] for r in all_stats.keys()]
 
+    #print(f'''{prefix} ({len(all_stats)} runs): {os.linesep}
+    #      Median analyzed: {statistics.median(analyzed)}, {os.linesep}
+    #      Mean analyzed: {statistics.mean(analyzed)}, {os.linesep}
+    #      Stdev analyzed: {statistics.stdev(analyzed)}, {os.linesep}
+    #      Median times: {statistics.median(times)}, {os.linesep}
+    #      Mean times: {statistics.mean(times)}, {os.linesep}
+    #      Stdev times: {statistics.stdev(times)}''')
     print(f'''{prefix} ({len(all_stats)} runs): {os.linesep}
           Median analyzed: {statistics.median(analyzed)}, {os.linesep}
           Mean analyzed: {statistics.mean(analyzed)}, {os.linesep}
-          Stdev analyzed: {statistics.stdev(analyzed)}, {os.linesep}
           Median times: {statistics.median(times)}, {os.linesep}
-          Mean times: {statistics.mean(times)}, {os.linesep}
-          Stdev times: {statistics.stdev(times)}''')
+          Mean times: {statistics.mean(times)}, {os.linesep}''')
    
     print(f'Heuristics stats saved in {output_fmsans_filepath}')
 
@@ -79,7 +90,7 @@ def main(dirpath: str) -> None:
         return None
     
     # Filter models by model's name
-    prefixs = {get_prefix(p) for p in filespaths if get_process(p).isdigit()}
+    prefixs = {get_prefix(p) for p in filespaths if not "/." in p and get_process(p).isdigit()}
     prefixs_heuristics_dict = dict()
     for prefix in prefixs:
         prefixs_heuristics_dict[prefix] = {get_heuristic(fp) for fp in filespaths if get_prefix(fp) == prefix and get_process(fp).isdigit()}
@@ -92,6 +103,8 @@ def main(dirpath: str) -> None:
 
 
 if __name__ == '__main__':
+    sys.set_int_max_str_digits(5000)
+    getcontext().prec = 100
     parser = argparse.ArgumentParser(description='Join all files from heuristics stats (.csv) in a folder.')
     parser.add_argument(dest='dir', type=str, help='Folder with the models.')
     args = parser.parse_args()
