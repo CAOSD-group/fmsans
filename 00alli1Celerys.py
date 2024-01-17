@@ -8,7 +8,7 @@ import time
 
 
 #Maximun and minium max_time adaptative.
-min_time_to_task=15
+#min_time_to_task=15
 
 #improve to check for more than only one
 #maxConfiguration=77371252455336267181195263
@@ -69,7 +69,7 @@ def new_divisions(n_divisions,divisions):
         if (len(divisions)>0):
                 while (len(divisions)<n_divisions):
                         first=divisions.pop(0)
-                        currentNun=first[0]
+                        currentNun=first[1]
                         firstIntervalLower, firstIntervalUpper, secondIntervalLower, secondIntervalUpper = get_intervals(first[0],first[2])
                         
                         while(currentNun>firstIntervalUpper):
@@ -132,12 +132,12 @@ def wait_slot(arrayResult,st,max_time,dicJson: dict[str, int],arrayCSV):
                                 salir = True
                                 break
                                
-                if (max_time-(time.time()-st)) < min_time_to_task:
+                if (max_time*0.8-(time.time()-st)) < 0:
                                 print("NO duration left, break and new divisions, inside waitslot")
                                 salir=True
                                 pos = -1
                                 break
-                #time.sleep(2)
+                time.sleep(0.1)
         return pos
 
 def wait_forAll(arrayResult,dicJson: dict[str, int],arrayCSV):
@@ -155,7 +155,7 @@ def wait_forAll(arrayResult,dicJson: dict[str, int],arrayCSV):
                                 print(arrayResult[i])
                                 del arrayResult[i]
                                 break
-                time.sleep(1)
+                time.sleep(0.01)
                 
                
 if __name__ == '__main__':
@@ -197,11 +197,13 @@ if __name__ == '__main__':
 
         divisions = init_process(numberDivisions,maxConfiguration)
         initTime = time.time()
+        adaptationIntegral=0
         while ((not finish) and (time.time()-initTime<args.max_time_total)):
+                print("--------------------")
                 contJob = 0     
                 st = time.time()
                 #Launch to complete all the job
-                print("Start to launch")
+                #We launch all the possible division (numberJobs) and store it future returns in arrayResults
                 for line_division in divisions:
                         
                         #model,n_min,n_current,n_max,divisions_id,numberDivisions,max_time
@@ -210,21 +212,37 @@ if __name__ == '__main__':
                         contJob+=1
                         if contJob>=numberJobs:
                                 break
+
+                
                 
                 for l in range(contJob-1,-1,-1):
                         del divisions[l]
+                print("remaining divivisions " + str(len(divisions)))
                 contJob=0
 
                 dictJSON = {}
                 arrayCSV = []
+                #We wait for free slots while the time does not expire.
+                newDivisionNeeded=False
+                
                 for line_division in divisions:
                 
-                        if (max_time-(time.time()-st)) < min_time_to_task:
-                                print("NO duration left, break and new divisions pre wait")
+                        #if (max_time-(time.time()-st)) < min_time_to_task:
+                        #if you have less jobs than CPU or 80% of iteration time pass (to avoid infinite recursive divisions) or the total time ends, you should finish
+                        if (contJob>=len(divisions)) or time.time()-st>=max_time*0.8 or (time.time()-initTime>=args.max_time_total):
+                                if (contJob>=len(divisions)):
+                                        newDivisionNeeded=True
+                                        print("Less divisions than Jobs, break and new divisions pre wait")
+                                elif (time.time()-initTime>=args.max_time_total):
+                                        print("Final Time finish, break and new divisions pre wait")
+                                else:
+                                        print("Local Time finish, break and new divisions pre wait")
+                                        
                                 break
                         pos = wait_slot(arrayResult,st,max_time,dictJSON,arrayCSV)
                         if (pos < 0):
                                 break
+                        #print("New division included " + str(contJob) + " " +str(max_time-(time.time()-st)))
                         arrayResult[pos] = picasso.delay(model_name,line_division[0] ,line_division[1],line_division[2],contJob,numberDivisions,max_time-(time.time()-st))
                         #print(arrayResult[pos])
                         #print(max_time-(time.time()-st))
@@ -232,28 +250,61 @@ if __name__ == '__main__':
                 
                 for l in range(contJob-1,-1,-1):
                         del divisions[l]
+                print("*remaining divivisions " + str(len(divisions)))
                 
                 #wait for the last one
-                print("Wait for all")
+                #print("Wait for all")
                 wait_forAll(arrayResult,dictJSON,arrayCSV)
-                print("Merge and relaunch")
+                #print("Merge and relaunch")
+                
                 for line_division in divisions:
                         arrayCSV.append([line_division[0] ,line_division[1],line_division[2],line_division[2]-line_division[1]])
+
+                totalUnexpored = 0
+                for aCV in arrayCSV:
+                        totalUnexpored+=aCV[3]
+
+
+                fProgress.write("Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(len(divisions)) + " Jobs " + str(numberJobs) + " Total " +str(totalUnexpored)+ "\n")
+                print("Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(len(divisions)) + " Jobs " + str(numberJobs) + " Total " +str(totalUnexpored)+ "\n")
+               
+                if (len(arrayCSV)<numberJobs or newDivisionNeeded):
+                        #Combinamos todo en el fichero 
+                        #percent = 100*len(arrayCSV)/numberJobs
+                        #Debemos dividir siempre?
+                        divisions = new_divisions(numberDivisions,arrayCSV)
+                        totalUnexpored=0
+                        for aCV in divisions:
+                                totalUnexpored+=aCV[3]
+                        print("Total " +str(totalUnexpored)+ "\n")
+
                         
-                #Combinamos todo en el fichero 
-                percent = 100*len(arrayCSV)/numberJobs
-                divisions = new_divisions(numberDivisions,arrayCSV)
-                finish = (len(divisions)==0)  
+               
+                        finish = (len(divisions)==0)  
+                        adaptationIntegral-=1
+                        if (adaptationIntegral<-5):
+                                adaptationIntegral=-5
+                                
+                        max_time=max_time*(100-adaptationIntegral*10)/100
+                        print("Next Iteration new divisions" + str(max_time) + " s divisions " + str(numberDivisions))
+                else:
+                        divisions = arrayCSV
+                        adaptationIntegral+=1
+                        if (adaptationIntegral>5):
+                                adaptationIntegral=5
+                        max_time=max_time*(100+adaptationIntegral*10)/100
+                        print("Next Iteration " + str(max_time) + " s divisions " + str(len(arrayCSV)))
+
+
+
                 
 
-                fProgress.write("Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(percent))
-                print("Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(percent))
-                #Self adapt
-                if (percent < 100):
-                        numberDivisions= round(numberDivisions*2)
+               #Self adapt
+                #if (percent < 100):
+                #        numberDivisions= round(numberDivisions*2)
                 
 
-                print("Next Iteration " + str(max_time) + " s divisions " + str(numberDivisions) + " uncomplete " + str(percent*numberJobs/100))
+                #Write the transformation in the json 
                 jsonNewtransforms = open(json_file, "a")
                 if (not finish and (time.time()-initTime<args.max_time_total)):
                         for key, value in dictJSON.items():
@@ -267,6 +318,7 @@ if __name__ == '__main__':
                                         jsonNewtransforms.write(f'"{key}": {value},\n')
                         
                 jsonNewtransforms.close()
+                print("Total time: " + str(time.time()-initTime) + "s")
         jsonNewtransforms = open(json_file, "a")
         jsonNewtransforms.write("\t\t}\n}")
         jsonNewtransforms.close()
@@ -275,6 +327,8 @@ if __name__ == '__main__':
                 
 
         fProgress.close()
+        final=time.time()-initTime
+        print(str(final) + "s")
 
                 
 
