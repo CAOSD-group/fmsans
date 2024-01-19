@@ -1,0 +1,4 @@
+version: 1
+timer_enabled: yes
+sizer_enabled: yes
+memoryprofiler_enabled: yes

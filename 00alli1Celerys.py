@@ -5,7 +5,7 @@ import random
 from task import picasso
 import time
 
-
+import sys
 
 #Maximun and minium max_time adaptative.
 #min_time_to_task=15
@@ -22,7 +22,7 @@ import time
 #model="fm_models/originals/Operating_Systems/KConfig/uClinux-distribution.uvl"
 
 #maxConfiguration = 2305843009213693952
-
+#maxConfiguration=4632438043593408345637713970404518697455360929338020700251286164638922833290296261210275471908054082927678172415549545870695145203516810583601635587166351514610107165538745558411647927575883095993165049893845351105218868056451782753236019830913888921058489082707775794350658636371250726835106723373468799969254040720524751617654737817807391884481170174096831879768502222588615092235795245153808394336122063839036464089165027809754697270743823850939537930991563051159465774622775521029734224636204137038372488418330804851673423939219188714502504168696241334506597405937650710750538580209441230455411842593365629840001275402927172252775995877549778214861959632555767771491316538487814557811957312301189020983270233115459584
 #maxConfiguration=2199023255551
 
 
@@ -137,7 +137,7 @@ def wait_slot(arrayResult,st,max_time,dicJson: dict[str, int],arrayCSV):
                                 salir=True
                                 pos = -1
                                 break
-                time.sleep(0.1)
+                time.sleep(0.01)
         return pos
 
 def wait_forAll(arrayResult,dicJson: dict[str, int],arrayCSV):
@@ -159,6 +159,7 @@ def wait_forAll(arrayResult,dicJson: dict[str, int],arrayCSV):
                 
                
 if __name__ == '__main__':
+        sys.set_int_max_str_digits(5000)
         parser = argparse.ArgumentParser(description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
         parser.add_argument('numberDivisions', type=int, help='Initial Number of Divisions to split the input space.')
         parser.add_argument('numberJobs', type=int, default=1, help='Number of cores (processes) to execute (power of 2) (default = CPU count).')
@@ -283,16 +284,20 @@ if __name__ == '__main__':
                         finish = (len(divisions)==0)  
                         adaptationIntegral-=1
                         if (adaptationIntegral<-5):
-                                adaptationIntegral=-5
-                                
+                                adaptationIntegral=-5                                
                         max_time=max_time*(100-adaptationIntegral*10)/100
+                        if (max_time<20):
+                                max_time=20
                         print("Next Iteration new divisions" + str(max_time) + " s divisions " + str(numberDivisions))
                 else:
-                        divisions = arrayCSV
+                        divisions = arrayCSV.sort(reverse=True)
+                        divisions=arrayCSV
                         adaptationIntegral+=1
+                        max_time=max_time*(100+adaptationIntegral*10)/100
                         if (adaptationIntegral>5):
                                 adaptationIntegral=5
-                        max_time=max_time*(100+adaptationIntegral*10)/100
+                        if (max_time>300):
+                                max_time=300
                         print("Next Iteration " + str(max_time) + " s divisions " + str(len(arrayCSV)))
 
 

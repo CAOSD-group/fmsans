@@ -1,0 +1,149 @@
+namespace Gpl
+
+features
+	Gpl {abstract}	
+		mandatory
+			MainGpl {abstract}	
+				mandatory
+					Test {abstract}	
+						mandatory
+							StartHere {abstract}	
+								mandatory
+									Base
+
+								optional
+									Benchmark
+									Prog
+
+				optional
+					Implementation {abstract}	
+						alternative
+							NoEdges {abstract}
+							OnlyNeighbors {abstract}
+							Edges {abstract}
+					GraphType {abstract}	
+						alternative
+							Directed {abstract}
+							Undirected {abstract}
+					GraphTypeReal {abstract}	
+						alternative
+							DirType {abstract}	
+								mandatory
+									DirectedCommon
+									Dir {abstract}	
+										alternative
+											DirectedGR
+											DirectedGnR
+											DirectedGenR
+							UndirType {abstract}	
+								mandatory
+									UndirectedCommon
+									Undir {abstract}	
+										alternative
+											UndirectedGR
+											UndirectedGnR
+											UndirectedGenR
+					Weight {abstract}	
+						alternative
+							Wgt {abstract}	
+								mandatory
+									Weighted {abstract}
+
+								optional
+									WeightedCommon
+									dProgdWeightedCommon
+							UnWeighted {abstract}
+					WeightReal {abstract}	
+						alternative
+							WeightedGR
+							WeightedGnR
+							WeightedGenR
+					SearchCommon
+					Search {abstract}	
+						alternative
+							DFS
+							BFS
+					Alg {abstract}	
+						or
+							Num {abstract}	
+								mandatory
+									Number
+
+								optional
+									dProgdNumber
+							Conn {abstract}	
+								mandatory
+									Connected
+
+								optional
+									dProgdConnected
+							StrongC {abstract}	
+								optional
+									Transpose
+
+								mandatory
+									StronglyConnected
+
+								optional
+									dProgdStronglyConnected
+							Cyc {abstract}	
+								mandatory
+									Cycle
+
+								optional
+									dProgdCycle
+							MPrim {abstract}	
+								optional
+									MSTPrimPrepGnR
+									MSTPrimPrepGR
+
+								mandatory
+									MSTPrim
+
+								optional
+									dProgdMSTPrim
+							MKrus {abstract}	
+								optional
+									MSTKruskalPrepGnR
+									MSTKruskalPrepGR
+
+								mandatory
+									MSTKruskal
+
+								optional
+									dProgdMSTKruskal
+							Shortest {abstract}
+
+constraints
+	Number => GraphType & Search
+	Connected => Undirected & Search
+	StronglyConnected => Directed & DFS & Transpose
+	Cycle => GraphType & DFS
+	MSTKruskal | MSTPrim => Undirected & Weighted
+	Shortest => Directed & Weighted
+	MSTKruskal | MSTPrim => !(MSTKruskal & MSTPrim)
+	Directed & NoEdges => DirectedGR
+	Directed & OnlyNeighbors => DirectedGnR
+	Directed & Edges => DirectedGenR
+	Undirected & NoEdges => UndirectedGR
+	Undirected & OnlyNeighbors => UndirectedGnR
+	Undirected & Edges => UndirectedGenR
+	Weighted => WeightedCommon
+	Weighted & NoEdges => WeightedGR
+	Weighted & OnlyNeighbors => WeightedGnR
+	Weighted & Edges => WeightedGenR
+	Prog => Benchmark
+	Prog & Weighted => dProgdWeightedCommon
+	Prog & Number => dProgdNumber
+	Prog & Connected => dProgdConnected
+	Prog & StronglyConnected => dProgdStronglyConnected
+	Prog & Cycle => dProgdCycle
+	Prog & MSTPrim => dProgdMSTPrim
+	MSTPrim & NoEdges => MSTPrimPrepGR
+	MSTPrim & OnlyNeighbors => MSTPrimPrepGnR
+	Prog & MSTPrim => dProgdMSTPrim
+	Prog & MSTKruskal => dProgdMSTKruskal
+	MSTKruskal & NoEdges => MSTKruskalPrepGR
+	MSTKruskal & OnlyNeighbors => MSTKruskalPrepGnR
+	Search => SearchCommon
+	Prog => Benchmark

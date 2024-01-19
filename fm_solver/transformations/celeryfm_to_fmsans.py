@@ -3,6 +3,7 @@ from flamapy.core.transformations import ModelToModel
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 from fm_solver.models import feature_model
 
+import sys
 from fm_solver.models.feature_model import FM
 from fm_solver.models import FMSans, fm_sans
 from fm_solver.models.utils import TransformationsVector
@@ -11,6 +12,13 @@ from fm_solver.utils import utils, fm_utils
 from fm_solver.transformations.refactorings import (
     RefactoringPseudoComplexConstraint,
     RefactoringStrictComplexConstraint
+)
+
+from fm_solver.transformations.heuristics import (
+    NoHeuristic, 
+    RandomHeuristic,
+    FeaturesRemovedHeuristic,
+    GeneticHeuristic
 )
 
 import csv
@@ -35,6 +43,7 @@ class CeleryFMToFMSans(FMToFMSans):
     def __init__(self, source_model: feature_model, n_min: int, n_current: int, n_max: int, division_id: int,divisions_max: int,t_max: int) -> None:
          super().__init__(source_model, 1, divisions_max, division_id,n_min,n_max,1,t_max)
          self.n_current=n_current
+         
 
 
     def transform(self) -> Tuple[Dict[str, int], int, int, int]:
@@ -54,7 +63,8 @@ def celery_fm_to_fmsans(feature_model: FeatureModel, n_min: int, n_current: int,
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
 
     # Get transformations vector
-    trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
+    #trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
+    trans_vector = FeaturesRemovedHeuristic(fm).get_transformation_vector()
     #print("cekerttonssasnTask " + str(divisions_max) + " current_task " + str(division_id) + " min_id " + str(n_min) + " current_id " + str(n_current) + " max_id " + str(n_max) + " max_time " + str(t_max) )
     
     valid_transformed_numbers_trees,n_current = trans_vector.get_valid_transformations_ids_celery(fm, divisions_max,division_id,n_min,n_max,n_current,t_max)

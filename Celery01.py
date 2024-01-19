@@ -1,6 +1,6 @@
 
 import argparse
-import os
+import sys
 from typing import Dict, Tuple
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
@@ -43,6 +43,7 @@ def main(fm_filepath: str, n_min: int, n_current: int, n_max: int, division_id: 
 
 
 if __name__ == '__main__':
+    sys.set_int_max_str_digits(5000)
     parser = argparse.ArgumentParser(
         description='Convert an FM in (.uvl) with only simple constraints (requires and excludes) to an FMSans (.json).')
     parser.add_argument('feature_model', type=bytes,

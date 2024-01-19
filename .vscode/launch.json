@@ -11,7 +11,26 @@
             "cwd": "${workspaceFolder}/GPL/",
             "program": "${workspaceFolder}/00alli1Celerys.py",
             "console": "integratedTerminal",
-            "args": ["512","8","60","120","77371252455336267181195263","./fm_models/simples/GPL_simple.uvl","./GPL_simple.json"],
+            "args": ["1024","8","60","3600","77371252455336267181195264","./models/simples/GPL_simple.uvl","./GPL_simple.json"],
+            "justMyCode": true
+        },
+        {
+            "name": "step2reduced",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/step2.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-fm",
+                "./models/evaluation_corpus/heuristics/big/automotive2_4_simple.uvl",
+                "-c",
+                "1",
+                "-r",
+                "1",
+                "-H",
+                "2"
+            ],
             "justMyCode": true
         },
         {

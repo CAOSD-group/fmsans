@@ -1,0 +1,16 @@
+Model, Cores, Constraints, Features, Subtrees, Time(s)
+Akesson2019b_simple, 16, 19, 72, 7, 0.0514
+GPL_excerpt_simple, 16, 5, 16, 14, 0.0091
+Truck_simple, 16, 10, 33, 42, 0.045
+Pizzas_complex_simple, 16, 5, 16, 16, 0.0077
+TankWar_simple, 16, 0, 37, 0, 0.0001
+WeaFQAs_simple, 16, 7, 179, 128, 0.1162
+MobileMedia_simple, 16, 3, 43, 8, 0.0049
+GPL_simple, 16, 86, 156, 94770, 2364.6177
+Oh2019_simple, 16, 61, 107, 30, 2.697
+JHipster_simple, 16, 44, 94, 79, 0.9367
+Ghamizi2019_simple, 16, 110, 1761, 9330, 3946.4875
+BerkeleyDB_simple, 16, 46, 76, 656, 14.1289
+axTLS_simple, 16, 169, 316, 432, 142.1014
+Horcas2022b_simple, 16, 61, 162, 310, 3.4474
+MTGCard2020_simple, 16, 41, 802, 163728, 1169.1273

@@ -1,0 +1,219 @@
+features
+	XOR_Root {abstract, aux}
+		alternative
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Directed 
+				mandatory
+					Weight {abstract}
+						mandatory
+							Weighted 
+				mandatory
+					DFSearch 
+				optional
+					Alg {abstract}
+						or
+							MSTKruskal 
+							Shortest 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Directed 
+				mandatory
+					Weight {abstract}
+						mandatory
+							Weighted 
+				optional
+					Alg {abstract}
+						or
+							MSTKruskal 
+							Shortest 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Directed 
+				mandatory
+					Weight {abstract}
+						mandatory
+							Weighted 
+				mandatory
+					DFSearch 
+				mandatory
+					Alg {abstract}
+						mandatory
+							Connected 
+						optional
+							MSTKruskal 
+						optional
+							Shortest 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Directed 
+				mandatory
+					Weight {abstract}
+						mandatory
+							Weighted 
+				mandatory
+					Alg {abstract}
+						mandatory
+							Connected 
+						optional
+							MSTKruskal 
+						optional
+							Shortest 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Directed 
+				mandatory
+					Weight {abstract}
+						mandatory
+							UnWeighted 
+				mandatory
+					DFSearch 
+				optional
+					Alg {abstract}
+						mandatory
+							MSTKruskal 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Directed 
+				mandatory
+					Weight {abstract}
+						mandatory
+							UnWeighted 
+				optional
+					Alg {abstract}
+						mandatory
+							MSTKruskal 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Directed 
+				mandatory
+					Weight {abstract}
+						mandatory
+							UnWeighted 
+				mandatory
+					DFSearch 
+				mandatory
+					Alg {abstract}
+						mandatory
+							Connected 
+						optional
+							MSTKruskal 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Directed 
+				mandatory
+					Weight {abstract}
+						mandatory
+							UnWeighted 
+				mandatory
+					Alg {abstract}
+						mandatory
+							Connected 
+						optional
+							MSTKruskal 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Undirected 
+				mandatory
+					Weight {abstract}
+						mandatory
+							Weighted 
+				mandatory
+					DFSearch 
+				optional
+					Alg {abstract}
+						mandatory
+							MSTKruskal 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Undirected 
+				mandatory
+					Weight {abstract}
+						mandatory
+							Weighted 
+				optional
+					Alg {abstract}
+						mandatory
+							MSTKruskal 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Undirected 
+				mandatory
+					Weight {abstract}
+						mandatory
+							Weighted 
+				mandatory
+					DFSearch 
+				mandatory
+					Alg {abstract}
+						mandatory
+							Connected 
+						optional
+							MSTKruskal 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Undirected 
+				mandatory
+					Weight {abstract}
+						mandatory
+							UnWeighted 
+				mandatory
+					DFSearch 
+				optional
+					Alg {abstract}
+						mandatory
+							MSTKruskal 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Undirected 
+				mandatory
+					Weight {abstract}
+						mandatory
+							UnWeighted 
+				optional
+					Alg {abstract}
+						mandatory
+							MSTKruskal 
+			Gpl {abstract}
+				mandatory
+					GraphType {abstract}
+						mandatory
+							Undirected 
+				mandatory
+					Weight {abstract}
+						mandatory
+							UnWeighted 
+				mandatory
+					DFSearch 
+				mandatory
+					Alg {abstract}
+						mandatory
+							Connected 
+						optional
+							MSTKruskal 

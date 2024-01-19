@@ -10,6 +10,19 @@ from fm_solver.transformations.refactorings import (
     RefactoringStrictComplexConstraint
 )
 
+from fm_solver.transformations.heuristics import (
+    NoHeuristic, 
+    RandomHeuristic,
+    FeaturesRemovedHeuristic,
+    GeneticHeuristic
+)
+
+
+HEURISTICS = {0: NoHeuristic,
+              1: RandomHeuristic,
+              2: FeaturesRemovedHeuristic,
+              3: GeneticHeuristic}
+
 
 class FMToFMSans(ModelToModel):
     """Transform a feature model with cross-tree constraints to an equivalent
@@ -54,15 +67,18 @@ def fm_to_fmsans(feature_model: FeatureModel, n_cores: int = 1, n_tasks: int = 1
     fm = utils.apply_refactoring(fm, RefactoringStrictComplexConstraint)
 
     # Get transformations vector
-    trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
-    
+    #trans_vector = TransformationsVector.from_constraints(fm.get_constraints())
+    heuristic = HEURISTICS[2](fm)
+    trans_vector = heuristic.get_transformation_vector()
+
     # Get valid transformations ids.
     n_bits = trans_vector.n_bits()
     n_processes  = n_cores if n_bits > n_cores else 1
-    valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids(fm, n_processes, n_tasks, current_task, n_min_job,n_max_job, min_time,max_time)
+    #valid_transformed_numbers_trees = trans_vector.get_valid_transformations_ids(fm, n_processes, n_tasks, current_task, n_min_job,n_max_job, min_time,max_time)
     
     # Get FMSans instance
-    return FMSans(FM(fm.root), trans_vector, valid_transformed_numbers_trees)
+    #return FMSans(FM(fm.root), trans_vector, valid_transformed_numbers_trees)
+    return FMSans(FM(fm.root), trans_vector, None)
 
 
 ### The following is an optimization.

@@ -1,0 +1,242 @@
+features
+	Root {abstract}
+		optional
+			DIAGNOSTIC 
+		optional
+			PS32K 
+		mandatory
+			CACHESIZE 
+		optional
+			HAVE_STATISTICS 
+		optional
+			PS16K 
+		optional
+			HAVE_REPLICATION 
+		optional
+			PS8K 
+		optional
+			HAVE_CRYPTO 
+		optional
+			HAVE_SEQUENCE 
+		optional
+			CS16MB 
+		optional
+			PS1K 
+		optional
+			HAVE_VERIFY 
+		optional
+			CS32MB 
+		optional
+			HAVE_HASH 
+		optional
+			CS64MB 
+		mandatory
+			PAGESIZE 
+		optional
+			CS512MB 
+		optional
+			PS4K 
+		mandatory
+			OR_FEATURE {abstract, aux}
+				or
+					CACHESIZE1 {abstract, aux}
+					CS16MB1 {abstract, aux}
+		mandatory
+			OR_FEATURE1 {abstract, aux}
+				or
+					CACHESIZE2 {abstract, aux}
+					CS32MB1 {abstract, aux}
+		mandatory
+			OR_FEATURE2 {abstract, aux}
+				or
+					CACHESIZE3 {abstract, aux}
+					CS64MB1 {abstract, aux}
+		mandatory
+			OR_FEATURE3 {abstract, aux}
+				or
+					CACHESIZE4 {abstract, aux}
+					CS512MB1 {abstract, aux}
+		mandatory
+			OR_FEATURE4 {abstract, aux}
+				or
+					CS16MB2 {abstract, aux}
+					CS32MB2 {abstract, aux}
+					CS64MB2 {abstract, aux}
+					CS512MB2 {abstract, aux}
+					CACHESIZE5 {abstract, aux}
+		mandatory
+			OR_FEATURE5 {abstract, aux}
+				or
+					CS16MB3 {abstract, aux}
+					CS32MB3 {abstract, aux}
+		mandatory
+			OR_FEATURE6 {abstract, aux}
+				or
+					CS16MB4 {abstract, aux}
+					CS64MB3 {abstract, aux}
+		mandatory
+			OR_FEATURE7 {abstract, aux}
+				or
+					CS16MB5 {abstract, aux}
+					CS512MB3 {abstract, aux}
+		mandatory
+			OR_FEATURE8 {abstract, aux}
+				or
+					CS32MB4 {abstract, aux}
+					CS64MB4 {abstract, aux}
+		mandatory
+			OR_FEATURE9 {abstract, aux}
+				or
+					CS32MB5 {abstract, aux}
+					CS512MB4 {abstract, aux}
+		mandatory
+			OR_FEATURE10 {abstract, aux}
+				or
+					CS64MB5 {abstract, aux}
+					CS512MB5 {abstract, aux}
+		mandatory
+			OR_FEATURE11 {abstract, aux}
+				or
+					PAGESIZE1 {abstract, aux}
+					PS1K1 {abstract, aux}
+		mandatory
+			OR_FEATURE12 {abstract, aux}
+				or
+					PAGESIZE2 {abstract, aux}
+					PS4K1 {abstract, aux}
+		mandatory
+			OR_FEATURE13 {abstract, aux}
+				or
+					PAGESIZE3 {abstract, aux}
+					PS8K1 {abstract, aux}
+		mandatory
+			OR_FEATURE14 {abstract, aux}
+				or
+					PAGESIZE4 {abstract, aux}
+					PS16K1 {abstract, aux}
+		mandatory
+			OR_FEATURE15 {abstract, aux}
+				or
+					PAGESIZE5 {abstract, aux}
+					PS32K1 {abstract, aux}
+		mandatory
+			OR_FEATURE16 {abstract, aux}
+				or
+					PS1K2 {abstract, aux}
+					PS4K2 {abstract, aux}
+					PS8K2 {abstract, aux}
+					PS16K2 {abstract, aux}
+					PS32K2 {abstract, aux}
+					PAGESIZE6 {abstract, aux}
+		mandatory
+			OR_FEATURE17 {abstract, aux}
+				or
+					PS1K3 {abstract, aux}
+					PS4K3 {abstract, aux}
+		mandatory
+			OR_FEATURE18 {abstract, aux}
+				or
+					PS1K4 {abstract, aux}
+					PS8K3 {abstract, aux}
+		mandatory
+			OR_FEATURE19 {abstract, aux}
+				or
+					PS1K5 {abstract, aux}
+					PS16K3 {abstract, aux}
+		mandatory
+			OR_FEATURE20 {abstract, aux}
+				or
+					PS1K6 {abstract, aux}
+					PS32K3 {abstract, aux}
+		mandatory
+			OR_FEATURE21 {abstract, aux}
+				or
+					PS4K4 {abstract, aux}
+					PS8K4 {abstract, aux}
+		mandatory
+			OR_FEATURE22 {abstract, aux}
+				or
+					PS4K5 {abstract, aux}
+					PS16K4 {abstract, aux}
+		mandatory
+			OR_FEATURE23 {abstract, aux}
+				or
+					PS4K6 {abstract, aux}
+					PS32K4 {abstract, aux}
+		mandatory
+			OR_FEATURE24 {abstract, aux}
+				or
+					PS8K5 {abstract, aux}
+					PS16K5 {abstract, aux}
+		mandatory
+			OR_FEATURE25 {abstract, aux}
+				or
+					PS8K6 {abstract, aux}
+					PS32K5 {abstract, aux}
+		mandatory
+			OR_FEATURE26 {abstract, aux}
+				or
+					PS16K6 {abstract, aux}
+					PS32K6 {abstract, aux}
+constraints
+	CACHESIZE1 => CACHESIZE
+	CS16MB1 => CS16MB
+	CACHESIZE2 => CACHESIZE
+	CS32MB1 => CS32MB
+	CACHESIZE3 => CACHESIZE
+	CS64MB1 => CS64MB
+	CACHESIZE4 => CACHESIZE
+	CS512MB1 => CS512MB
+	CS16MB2 => CS16MB
+	CS32MB2 => CS32MB
+	CS64MB2 => CS64MB
+	CS512MB2 => CS512MB
+	CACHESIZE5 => CACHESIZE
+	CS16MB3 => CS16MB
+	CS32MB3 => CS32MB
+	CS16MB4 => CS16MB
+	CS64MB3 => CS64MB
+	CS16MB5 => CS16MB
+	CS512MB3 => CS512MB
+	CS32MB4 => CS32MB
+	CS64MB4 => CS64MB
+	CS32MB5 => CS32MB
+	CS512MB4 => CS512MB
+	CS64MB5 => CS64MB
+	CS512MB5 => CS512MB
+	PAGESIZE1 => PAGESIZE
+	PS1K1 => PS1K
+	PAGESIZE2 => PAGESIZE
+	PS4K1 => PS4K
+	PAGESIZE3 => PAGESIZE
+	PS8K1 => PS8K
+	PAGESIZE4 => PAGESIZE
+	PS16K1 => PS16K
+	PAGESIZE5 => PAGESIZE
+	PS32K1 => PS32K
+	PS1K2 => PS1K
+	PS4K2 => PS4K
+	PS8K2 => PS8K
+	PS16K2 => PS16K
+	PS32K2 => PS32K
+	PAGESIZE6 => PAGESIZE
+	PS1K3 => PS1K
+	PS4K3 => PS4K
+	PS1K4 => PS1K
+	PS8K3 => PS8K
+	PS1K5 => PS1K
+	PS16K3 => PS16K
+	PS1K6 => PS1K
+	PS32K3 => PS32K
+	PS4K4 => PS4K
+	PS8K4 => PS8K
+	PS4K5 => PS4K
+	PS16K4 => PS16K
+	PS4K6 => PS4K
+	PS32K4 => PS32K
+	PS8K5 => PS8K
+	PS16K5 => PS16K
+	PS8K6 => PS8K
+	PS32K5 => PS32K
+	PS16K6 => PS16K
+	PS32K6 => PS32K
