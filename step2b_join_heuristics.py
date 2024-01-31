@@ -63,20 +63,40 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
             writer.writerow(all_stats[r])
 
     analyzed = [all_stats[r]['Analyzed'] for r in all_stats.keys()]
+    avoids = [all_stats[r]['Avoid'] for r in all_stats.keys()]
     times = [all_stats[r]['Time(s)'] for r in all_stats.keys()]
+    totals = [all_stats[r]['TotalTrees'] for r in all_stats.keys()]
+    if  statistics.median(avoids) < statistics.median(analyzed):
+        ratio = statistics.median(avoids)/statistics.median(analyzed)
+    else:
+        ratio = utils.int_to_scientific_notation(statistics.median(avoids)//statistics.median(analyzed))
 
-    #print(f'''{prefix} ({len(all_stats)} runs): {os.linesep}
-    #      Median analyzed: {statistics.median(analyzed)}, {os.linesep}
-    #      Mean analyzed: {statistics.mean(analyzed)}, {os.linesep}
-    #      Stdev analyzed: {statistics.stdev(analyzed)}, {os.linesep}
-    #      Median times: {statistics.median(times)}, {os.linesep}
-    #      Mean times: {statistics.mean(times)}, {os.linesep}
-    #      Stdev times: {statistics.stdev(times)}''')
     print(f'''{prefix} ({len(all_stats)} runs): {os.linesep}
-          Median analyzed: {statistics.median(analyzed)}, {os.linesep}
-          Mean analyzed: {statistics.mean(analyzed)}, {os.linesep}
-          Median times: {statistics.median(times)}, {os.linesep}
-          Mean times: {statistics.mean(times)}, {os.linesep}''')
+         Median analyzed: {statistics.median(analyzed)} ({utils.int_to_scientific_notation(statistics.median(analyzed))}), {os.linesep}
+         Mean analyzed: {statistics.mean(analyzed)}, {os.linesep}
+         
+         Min analyzed: {min(analyzed)}, {os.linesep}
+         Max analyzed: {max(analyzed)} ({utils.int_to_scientific_notation(max(analyzed))}), {os.linesep}
+         Median times: {statistics.median(times)}, {os.linesep}
+         Mean times: {statistics.mean(times)}, {os.linesep}
+         
+         Min times: {min(times)}, {os.linesep}
+         Max times: {max(times)}, {os.linesep}
+         
+         Totals: {statistics.median(totals)}, {os.linesep}
+         Ratio1: Analyzed/Avoid {statistics.median(analyzed)/statistics.median(avoids) if statistics.median(avoids) != 0 else 0}, {os.linesep}
+         Ratio2: Avoid/Analyzed {ratio}, {os.linesep}
+         Percentage finished: {((statistics.median(avoids) + statistics.median(analyzed)) / statistics.median(totals)) * 100} %, {os.linesep}
+         Percentage to be explored: {(1 - ((statistics.median(avoids) + statistics.median(analyzed)) / statistics.median(totals))) * 100} %, {os.linesep}
+         ''')
+    
+
+    
+    # print(f'''{prefix} ({len(all_stats)} runs): {os.linesep}
+    #       Median analyzed: {statistics.median(analyzed)}, {os.linesep}
+    #       Mean analyzed: {statistics.mean(analyzed)}, {os.linesep}
+    #       Median times: {statistics.median(times)}, {os.linesep}
+    #       Mean times: {statistics.mean(times)}, {os.linesep}''')
    
     print(f'Heuristics stats saved in {output_fmsans_filepath}')
 
