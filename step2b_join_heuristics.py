@@ -31,8 +31,7 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
         
         with open(filepath, newline=os.linesep, encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile, delimiter=',', quotechar='"', skipinitialspace=True)
-            for row in reader:
-                run = int(row['Run'])
+            for run, row in enumerate(reader):
                 if all_stats.get(run, None) is None:    
                     all_stats[run] = dict()
                 for header in reader.fieldnames:
@@ -40,8 +39,8 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
                         all_stats[run][header] = max(all_stats[run].get(header, 0.0), float(row[header]))
                     elif header not in ['Run', 'Heuristic']:
                         all_stats[run][header] = all_stats[run].get(header, 0) + int(row[header])
-                    else:
-                        all_stats[run][header] = row[header]
+                    elif header in ['Run']:
+                        all_stats[run][header] = run
         
     print()
     #print(f'{join_stats}')
@@ -57,7 +56,7 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
         writer.writeheader()
         for r in all_stats:
             
-            print(f"Complete {all_stats[r]['Heuristic']} {(decimal.Decimal(all_stats[r]['Avoid'])+decimal.Decimal(all_stats[r]['Analyzed']))/decimal.Decimal(all_stats[r]['TotalTrees'])}")
+            #print(f"Complete {all_stats[r]['Heuristic']} {(decimal.Decimal(all_stats[r]['Avoid'])+decimal.Decimal(all_stats[r]['Analyzed']))/decimal.Decimal(all_stats[r]['TotalTrees'])}")
             print(f"Analyzed Valid {all_stats[r]['ValidAnalyzed']}")
            
             writer.writerow(all_stats[r])
@@ -66,9 +65,16 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
     avoids = [all_stats[r]['Avoid'] for r in all_stats.keys()]
     times = [all_stats[r]['Time(s)'] for r in all_stats.keys()]
     totals = [all_stats[r]['TotalTrees'] for r in all_stats.keys()]
-    if  statistics.median(avoids) < statistics.median(analyzed):
-        ratio = statistics.median(avoids)/statistics.median(analyzed)
-    else:
+    try:
+        if  statistics.median(avoids) < statistics.median(analyzed):
+            ratio = statistics.median(avoids)/statistics.median(analyzed)
+        else:
+            ratio = utils.int_to_scientific_notation(statistics.median(avoids)//statistics.median(analyzed))
+    except:
+        analyzed = [analyzed[0]]
+        avoids = [avoids[0]]
+        times = [times[0]]
+        totals = [totals[0]]
         ratio = utils.int_to_scientific_notation(statistics.median(avoids)//statistics.median(analyzed))
 
     print(f'''{prefix} ({len(all_stats)} runs): {os.linesep}
@@ -123,8 +129,8 @@ def main(dirpath: str) -> None:
 
 
 if __name__ == '__main__':
-    sys.set_int_max_str_digits(5000)
-    getcontext().prec = 100
+    #sys.set_int_max_str_digits(5000)
+    #getcontext().prec = 100
     parser = argparse.ArgumentParser(description='Join all files from heuristics stats (.csv) in a folder.')
     parser.add_argument(dest='dir', type=str, help='Folder with the models.')
     args = parser.parse_args()
