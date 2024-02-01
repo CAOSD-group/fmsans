@@ -1,3 +1,4 @@
+import math
 import os
 import argparse
 import csv
@@ -41,6 +42,8 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
                         all_stats[run][header] = all_stats[run].get(header, 0) + int(row[header])
                     elif header in ['Run']:
                         all_stats[run][header] = run
+                    else:
+                        all_stats[run][header] = row[header]
         
     print()
     #print(f'{join_stats}')
@@ -77,6 +80,7 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
         totals = [totals[0]]
         ratio = utils.int_to_scientific_notation(statistics.median(avoids)//statistics.median(analyzed))
 
+    print(f'Heuristic: {all_stats[0]["Heuristic"]}')
     print(f'''{prefix} ({len(all_stats)} runs): {os.linesep}
          Median analyzed: {statistics.median(analyzed)} ({utils.int_to_scientific_notation(statistics.median(analyzed))}), {os.linesep}
          Mean analyzed: {statistics.mean(analyzed)}, {os.linesep}
@@ -96,7 +100,33 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
          Percentage to be explored: {(1 - ((statistics.median(avoids) + statistics.median(analyzed)) / statistics.median(totals))) * 100} %, {os.linesep}
          ''')
     
-
+    VALUES = {'Model': prefix,
+              'Heuristic': all_stats[0]["Heuristic"],
+              'Runs': len(all_stats),
+              'CTC': math.log(statistics.median(totals), 2),
+              'TotalTrees':  statistics.median(totals), 
+              'MedianAnalyzed': statistics.median(analyzed), 
+              'MeanAnalyzed': statistics.mean(analyzed),
+              'MinAnalyzed': min(analyzed),
+              'MaxAnalyzed': max(analyzed), 
+              'MedianTime': statistics.median(times), 
+              'MeanTime': statistics.mean(times), 
+              'MinTime': min(times),
+              'MaxTime': max(times), 
+              'RatioAnalyzedAvoid': statistics.median(analyzed)/statistics.median(avoids) if statistics.median(avoids) != 0 else 0,
+              'RatioAvoidAnalyzed': ratio,
+              'PercentageFinished': ((statistics.median(avoids) + statistics.median(analyzed)) / statistics.median(totals)) * 100}
+    
+    plt_filepath = f'plt_heuristic_{all_stats[0]["Heuristic"]}.csv'
+    if os.path.exists(plt_filepath):    
+        with open(plt_filepath, 'a', newline=os.linesep, encoding='utf-8') as file:
+            writer = csv.DictWriter(file, VALUES.keys())
+            writer.writerow(VALUES)
+    else:
+        with open(plt_filepath, 'w', newline=os.linesep, encoding='utf-8') as file:
+            writer = csv.DictWriter(file, VALUES.keys())
+            writer.writeheader()
+            writer.writerow(VALUES)
     
     # print(f'''{prefix} ({len(all_stats)} runs): {os.linesep}
     #       Median analyzed: {statistics.median(analyzed)}, {os.linesep}
@@ -105,7 +135,6 @@ def join_models(dirpath: str, filespaths: list[str], prefix: str, heuristic: str
     #       Mean times: {statistics.mean(times)}, {os.linesep}''')
    
     print(f'Heuristics stats saved in {output_fmsans_filepath}')
-
 
 def main(dirpath: str) -> None:
     # Get all models
