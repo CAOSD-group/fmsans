@@ -31,7 +31,6 @@ def main(dirpath: str) -> None:
                     join_model = fmsans_model
                     filename = utils.get_filename_from_filepath(filepath)
                 join_model.transformations_ids.update(fmsans_model.transformations_ids)
-    print()
     print(f'#Subtrees: {len(join_model.transformations_ids)}')
 
     # Serializing the FMSans model

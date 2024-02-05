@@ -113,8 +113,7 @@ class TransformationsVector():
         if final_bit is None:
             final_bit = self.n_bits()
         i = initial_bit
-        #tree = pickle.loads(fm)
-        tree=fm
+        tree = pickle.loads(fm)
         while i < final_bit and tree is not None:
             function_to_execute = int(binary_vector[i])  # T0 or T1
             transformation = self.transformations[i][function_to_execute]
@@ -240,8 +239,8 @@ class TransformationsVector():
         max_number = 2**n_bits - 1 if max_id is None else max_id
         valid_transformed_numbers_trees = {}
         binary_vector = list(format(num, f'0{n_bits}b'))
-        #pick_tree = pickle.dumps(fm, protocol=pickle.HIGHEST_PROTOCOL)
-        pick_tree=copy.deepcopy(fm)
+        pick_tree = pickle.dumps(fm, protocol=pickle.HIGHEST_PROTOCOL)
+
         initial_bit=TransformationsVector.get_initial_bit(min_id,max_id)
         print("transofrmation vector nTask " + str(n_tasks) + " current_task " + str(current_task) + " min_id " + str(min_id) + " current_id " + str(current_id) + " max_id " + str(max_id) + " max_time " + str(max_time) )
         
@@ -249,8 +248,7 @@ class TransformationsVector():
         tree, _ = self.execute(pick_tree, binary_vector, initial_bit=0, final_bit=initial_bit)
         if tree is None:
             return valid_transformed_numbers_trees,max_id+1
-        pick_tree=copy.deepcopy(tree)
-        #pick_tree = pickle.dumps(tree, protocol=pickle.HIGHEST_PROTOCOL)
+        pick_tree = pickle.dumps(tree, protocol=pickle.HIGHEST_PROTOCOL)
 
         counter = 0
         st = process_time()
@@ -260,8 +258,7 @@ class TransformationsVector():
         while num < max_number:  # Be careful! max should be included or excluded?
             binary_vector = list(format(num, f'0{n_bits}b'))
 
-            #tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=0)
-            tree, null_bit = self.execute(copy.deepcopy(pick_tree), binary_vector, initial_bit=0)
+            tree, null_bit = self.execute(pick_tree, binary_vector, initial_bit=0)
             
             counter +=1
             if tree is not None:

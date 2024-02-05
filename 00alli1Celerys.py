@@ -296,8 +296,8 @@ if __name__ == '__main__':
                         max_time=max_time*(100+adaptationIntegral*10)/100
                         if (adaptationIntegral>5):
                                 adaptationIntegral=5
-                        if (max_time>300):
-                                max_time=300
+                        if (max_time>600):
+                                max_time=600
                         print("Next Iteration " + str(max_time) + " s divisions " + str(len(arrayCSV)))
 
 

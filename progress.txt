@@ -1,0 +1,5 @@
+Iteration 60 s divisions 1024 uncomplete 373 Jobs 8 Total 28116084488370797590565239
+Iteration 66.0 s divisions 1024 uncomplete 93 Jobs 8 Total 7039572427195476007656242
+Iteration 79.2 s divisions 1024 uncomplete 0 Jobs 8 Total 10911467263269752670151
+Iteration 71.28 s divisions 1024 uncomplete 0 Jobs 8 Total 14124414543114480600
+Iteration 71.28 s divisions 1024 uncomplete 0 Jobs 8 Total 0

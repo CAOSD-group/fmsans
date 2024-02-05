@@ -8,10 +8,10 @@
             "name": "Celery",
             "type": "python",
             "request": "launch",
-            "cwd": "${workspaceFolder}/GPL/",
+            "cwd": "${workspaceFolder}/uClinux-distribution/",
             "program": "${workspaceFolder}/00alli1Celerys.py",
             "console": "integratedTerminal",
-            "args": ["1024","8","60","3600","77371252455336267181195264","./models/simples/GPL_simple.uvl","./GPL_simple.json"],
+            "args": ["2048","8","180","259200","188501787658138776526316391973679239907820382867140805681144220780050698265428977917842924316820804490882044531700026161400423140624345724347059987430217219443542346615871751089083876220596224387399635909565487009065232689887930358404389913798458461035797425091600762263250923357187307004059038598692050448905404416","./models/simples/uClinux-distribution_simple.uvl","./uClinux-distribution_simple.json"],
             "justMyCode": true
         },
         {
@@ -23,7 +23,7 @@
             "console": "integratedTerminal",
             "args": [
                 "-fm",
-                "./models/evaluation_corpus/heuristics/big/automotive2_4_simple.uvl",
+                "./models/evaluation_corpus/heuristics/medium/Krieter2020o_simple.uvl",
                 "-c",
                 "1",
                 "-r",
@@ -34,19 +34,14 @@
             "justMyCode": true
         },
         {
-            "name": "main0",
+            "name": "Join",
             "type": "python",
             "request": "launch",
-            "cwd": "${workspaceFolder}/Krieter/",
-            "program": "${workspaceFolder}/picassofiles01main.py",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/03main_join.py",
             "console": "integratedTerminal",
             "args": [
-                "../fm_models/simples/Krieter2020o_simple.uvl",
-                "8",
-                "7",
-                "./",
-                "60",
-                "120"
+                "./GPL/"
             ],
             "justMyCode": true
         },
