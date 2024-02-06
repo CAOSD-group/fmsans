@@ -6,7 +6,7 @@ import csv
 
 #Montamos el df con los csvs
 models=['FQAs','ApoGames','BerkeleyDb', 'JHipster']
-csv_files = ['Normal.csv','Genetic.csv', 'Removed.csv', 'Random.csv']
+csv_files = ['Normal.csv', 'Removed.csv', 'Random.csv','Genetic.csv']
 
 
 # Read each CSV file into a DataFrame and append to the list
