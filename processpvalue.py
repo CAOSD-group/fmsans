@@ -27,18 +27,26 @@ for model in models:
     variable = {0:'Removed',1:'Random',2:'Genetic'}
 
     
-
+    currentLen = len(result)
+    result.append(" ")
+    result.append(" ")
+    result.append(" ")
     for i in range(0,2):
+        normal="Normal"+to_compare[i]
         for j in range(0,3):
-            normal="Normal"+to_compare[i]
             other=variable[j]+to_compare[i]
             division=((df[normal]-df[other])/df[normal])
             average = division.mean()*100
             U1, p = mannwhitneyu(df[other], df[normal], method="auto",alternative="less")
-            result.append([model+"-"+other+"<"+normal,average,p])
+            result[currentLen+j]= result[currentLen+j] + " & " + str(round(average,2)) + " & " + str(round(p,2)) 
+            
+    
+    result[currentLen]=result[currentLen]+"% Removed" + model + "\n"
+    result[currentLen+1]=result[currentLen+1]+"% Random" + model+ "\n"
+    result[currentLen+2]=result[currentLen+2]+"\\\\ % Genetic" + model + "\n"
+            
 
 
 with open("evaluation/heuristics/TotalPValues.csv", "w", newline="") as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerow(["model p comparison", "p-value"])  
-    writer.writerows(result)  
+    for r in result:
+        csvfile.write(r)
