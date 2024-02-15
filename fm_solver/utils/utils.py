@@ -23,7 +23,11 @@ def int_to_scientific_notation(n: int, precision: int = 2) -> str:
     It is required for large numbers that Python cannot convert to float,
     solving the error `OverflowError: int too large to convert to float`.
     """
-    str_n = str(n)
+    if not isinstance(n, int):
+        value = int(n)
+    else:
+        value = n
+    str_n = str(value)
     decimal = str_n[1:precision+1]
     exponent = str(len(str_n) - 1)
     return str_n[0] + '.' + decimal + 'e' + exponent
